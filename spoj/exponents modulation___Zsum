@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define mod 10000007
+#define T int t;for(scanf("%d",&t);t--;)
+ll exp(ll x,ll n)
+{
+    ll res=1;
+    while(n)
+    {
+        if(n&1)
+            res=((res%mod)*(x%mod))%mod;
+        x=((x%mod)*(x%mod))%mod;
+        n/=2;
+    }
+    return res%mod;
+}
+int main()
+{
+    ll n,k,res,res1;
+    bool flag=true;
+    while(flag){
+    res=0;
+    scanf("%lld%lld",&n,&k);
+    if(!n and !k) break;
+    res1=exp(n,k);
+    res=((res%mod)+(res1%mod))%mod;
+    res1=(2*exp(n-1,k))%mod;
+     res=((res%mod)+(res1%mod))%mod;
+     res1=(2*exp(n-1,n-1))%mod;
+      res=((res%mod)+(res1%mod))%mod;
+      res1=exp(n,n);
+       res=((res%mod)+(res1%mod))%mod;
+       printf("%lld\n",res);
+ }    return 0;}
