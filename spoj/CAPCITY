@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 100005
+vector<int>trans[siz],V[siz];
+int vis[siz]={0};
+stack<int>st;
+set<int>::iterator it;
+set<int>S;
+void dfs2(int src)
+{
+    int i;
+    vis[src]=1;
+    for(i=0;i<V[src].size();++i)
+    {
+        if(!vis[V[src][i]])
+            dfs2(V[src][i]);
+    }
+
+    S.insert(src);
+
+
+}
+
+void dfs1(int src)
+{
+    int i;
+    vis[src]=1;
+    for(i=0;i<trans[src].size();++i)
+    {
+        if(!vis[trans[src][i]])
+            dfs1(trans[src][i]);
+    }
+    st.push(src);
+}
+int main()
+{
+    int n,m,i,k,x,y;
+    scanf("%d%d",&n,&m);
+    for(i=0;i<m;++i)
+    {
+        scanf("%d%d",&x,&y);
+        V[x].push_back(y);
+        trans[y].push_back(x);
+    }
+    for(i=1;i<=n;++i)
+    {
+        if(!vis[i])
+        {
+            dfs1(i);
+        }
+    }
+    memset(vis,0,sizeof(vis));
+    int q=st.top();
+
+    dfs2(q);
+    cout<<S.size()<<endl;
+    for(it=S.begin();it!=S.end();++it)
+        cout<<*it<<" ";
+    return 0;
+}
