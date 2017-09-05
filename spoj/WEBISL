@@ -1,0 +1,90 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 100005
+vector<int>V[siz],VT[siz],Q;
+int vis[siz]={0},mini=INT_MAX;
+stack<int>st;
+void dfs2(int src)
+{
+    vis[src]=1;
+    int i;
+    for(i=0;i<VT[src].size();++i)
+    {
+        if(!vis[VT[src][i]])
+            dfs2(VT[src][i]);
+    }
+    Q.push_back(src);
+   mini=min(src,mini);
+    //cout<<src<<" "<< m<<" ";
+}
+void dfs1(int src)
+{
+    int i;
+    vis[src]=1;
+    for(i=0;i<V[src].size();++i)
+    {
+
+        if(!vis[V[src][i]])
+            dfs1(V[src][i]);
+    }
+    st.push(src);
+}
+int main()
+{
+    int n,m,i,x,y,q;
+    scanf("%d%d",&n,&m);
+
+    for(i=0;i<m;++i)
+    {
+        scanf("%d%d",&x,&y);
+        V[x].push_back(y);
+        VT[y].push_back(x);
+    }
+    for(i=0;i<n;++i)
+    {
+        if(!vis[i])
+            dfs1(i);
+    }
+    memset(vis,0,sizeof(vis));
+    int l=st.size();
+    int fin[n+5],j,r,f;
+    for(i=0;i<n+5;++i) fin[i]=i;
+    for(i=0;i<l;++i)
+    {
+        q=st.top();
+        st.pop();
+        if(!vis[q])
+        {
+
+            dfs2(q);
+
+            for(j=0;j<Q.size();++j)
+            {
+
+                fin[Q[j]]=mini;
+
+            }
+
+            mini=INT_MAX;
+            Q.clear();
+        }
+    }
+for(i=0;i<n;++i) cout<<fin[i]<<endl;
+
+    return 0;
+}
+/*11
+13
+2 0
+0 1
+1 2
+1 3
+3 4
+4 5
+5 3
+6 5
+6 7
+7 8
+8 9
+9 6
+9 10*/
