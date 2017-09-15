@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int i,n,fin;
+    long long int fuel;
+    bool flag1=true;
+    while(1)
+    {
+
+        scanf("%d",&n);
+        if(!n) break;
+
+        int A[n+3],m=INT_MAX;;
+        for(i=0;i<n;++i) {scanf("%d",&A[i]);m=min(A[i],m);}
+        if(m!=0) cout<<"IMPOSSIBLE\n";
+        else{
+        sort(A,A+n);
+        fin=1422;
+        fuel=200;
+        bool flag =true;
+        for(i=1;i<n;++i){
+        if(A[i]-A[i-1]>fuel) {flag=false;break;}
+        }
+        if(!flag) cout<<"IMPOSSIBLE\n";
+        else
+        {
+            if(fin-A[n-1]>fuel) cout<<"IMPOSSIBLE\n";
+            else {fuel=200-(fin-A[n-1]);
+            fin=1422;flag=true;
+            for(i=n-1;i>0;--i){
+                if(i==n-1){
+                    if(fin-A[i]>fuel) {flag=false;break;}
+                    else fuel=200;}
+                else if(A[i+1]-A[i]>fuel) {flag=false;break;}}
+            if(A[1]>fuel) flag=false;
+            if(!flag) cout<<"IMPOSSIBLE\n";
+            else cout<<"POSSIBLE\n";
+            }
+        }
+        }
+
+    }
+
+    return 0;
+}
