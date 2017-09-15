@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main()
+{
+    ll sum,i,t,f,d,m,n;
+    scanf("%d",&t);
+    for(f=1;f<=t;++f)
+    {sum=0;m=LONG_LONG_MAX;scanf("%lld",&n);
+    for(i=0;i<n;++i){scanf("%lld",&d);sum+=d;m=min(sum,m);}
+    if(m<=0) cout<<"Scenario #"<<f<<": "<<abs(m)+1<<endl;
+    else cout<<"Scenario #"<<f<<": "<<m<<endl;}
+    return 0;}
