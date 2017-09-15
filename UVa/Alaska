@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,i;
+    while(1){
+        scanf("%d",&n);
+        if(!n) break;
+        int A[n];
+        for(i=0;i<n;++i) scanf("%d",&A[i]);
+        sort(A,A+n);
+        for(i=1;i<n;++i) if(A[i]-A[i-1]>200) break;
+        if(i==n and 1422-A[n-1]<=100) cout<<"POSSIBLE\n";
+        else cout<<"IMPOSSIBLE\n";}
+    return 0;}
