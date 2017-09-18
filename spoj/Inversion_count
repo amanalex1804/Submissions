@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define T int t;for(scanf("%d",&t);t--;)
+ll cnt=0;
+void merging(int A[],int beg,int mid,int beg1,int end)
+{
+    int p1=beg,q1=mid,p2=beg1,q2=end,pt=beg,i;
+    int m[1000005];          //size is>10^5 else RTE
+    while(p1<=q1 and p2<=q2)
+    {
+        if(A[p2]<A[p1])
+        {
+            cnt+=q1-p1+1;
+            m[pt++]=A[p2++];
+        }
+        else m[pt++]=A[p1++];
+    }
+    if(p1>q1)        //left one is exhaust
+    while(p2<=q2) m[pt++]=A[p2++];
+    else  while(p1<=q1) m[pt++]=A[p1++];
+    for(i=beg;i<=end;++i) A[i]=m[i];}      //updating
+void mergesort(int A[],int beg,int end)
+{
+    if(beg<end){
+    int mid=(beg+end)/2;
+    mergesort(A,beg,mid);
+    mergesort(A,mid+1,end);
+    merging(A,beg,mid,mid+1,end);}
+}
+int main()
+{
+    int i,n;
+    T  {cnt=0;
+    cout<<endl;
+    scanf("%d",&n);
+    int A[2*n];
+    for(i=0;i<n;++i) scanf("%d",&A[i]);
+   mergesort(A,0,n-1);
+   cout<<cnt<<endl;
+    }
+cout<<endl;
+ 
+    return 0;
+}
+ 
