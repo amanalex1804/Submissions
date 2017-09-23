@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define ll long long int
+int main(){
+    ll row,col;T{scanf("%lld%lld",&row,&col);
+    if(row==col){
+        if(row&1) printf("R\n");
+        else printf("L\n");}
+        else if(row>col){
+            if(col&1) printf("D\n");
+            else printf("U\n");  }
+        else{
+            if(row&1) printf("R\n");
+            else printf("L\n");    } }
+return 0;}
