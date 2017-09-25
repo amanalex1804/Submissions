@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+    ll p,robb,k,i,val,index,b,l,terms,sum;
+    T{
+    scanf("%lld%lld",&p,&robb);
+    k=(sqrt(1+(8*p))-1)/2;
+    b=p-((k*(k+1))/2);
+    val=k%robb;
+    index=val+1;
+    if(!val) {
+        for(i=1;i<=robb;++i)     {
+            l=k-robb+i;
+            terms=((l-i)/robb)+1;
+            sum=(terms*(i+l))/2;
+            if(i==index) sum+=b;
+            cout<<sum<<" ";}
+         cout<<endl; }
+else{
+    for(i=1;i<=robb;++i)  {
+        l=k-val+i;
+        if(i>val) l=l-robb;
+         terms=((l-i)/robb)+1;
+            sum=(terms*(i+l))/2;
+            if(i==index) sum+=b;
+            cout<<sum<<" ";}
+    cout<<endl;}  }
+    return 0;}
