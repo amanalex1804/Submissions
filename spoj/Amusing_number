@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define ll long long int
+int main()
+{
+    ll k;int i;
+    T{vector<int>V;
+    scanf("%lld",&k);
+    ++k;
+    while(k)
+    {
+        if(k==1) break;
+        if(k==2) {V.push_back(5);break;}
+        if(k==3) {V.push_back(6);break;}
+        if(k&1) V.push_back(6);
+        if(!(k&1)) V.push_back(5);
+        k/=2;
+    }
+    for(i=V.size()-1;i>=0;--i) cout<<V[i];
+    cout<<endl;}
+    return 0;
+}
