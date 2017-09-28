@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+    int h,m,D,i,d;T{
+    scanf("%d%d%d",&h,&m,&D);
+    for(i=0;i<h;++i) {
+        scanf("%d",&d);
+        if(m)    {
+            if(d>D)       {
+                while(d>D and m>0)          {
+                    --m;
+                    d-=D;
+                }
+            }
+        }    }
+    if(m>0) printf("NO\n\n");
+    else printf("YES\n\n");
+    }
+ return 0;
+}
