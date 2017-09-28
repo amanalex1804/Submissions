@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main()
+{
+    int n,i,pos;ll m,mx=-1;
+    scanf("%d%lld",&n,&m);
+    int A[n+5];
+    for(i=1;i<=n;++i) scanf("%d",&A[i]);
+    ll sum=0;i=1;pos=i;
+    while(sum+A[i]<m)  {
+        sum+=A[i];
+        ++i;
+    }
+    mx=sum;
+    for(;i<=n;++i)
+    {
+
+        while(A[i]+sum>m)
+        {
+            if(pos==i)
+            {
+                mx=max(mx,sum);
+                sum=0;
+                break;
+            }
+            sum-=A[pos];
+            ++pos;
+        }
+bool flag=false;
+    while(sum+A[i]<=m and i<=n)
+    {
+        sum+=A[i];
+        ++i;
+        flag=true;
+        mx=max(mx,sum);
+    }
+    if(flag) --i;   }
+
+cout<<mx;
+    return 0;
+}
