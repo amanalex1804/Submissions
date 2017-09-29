@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll unsigned int
+int main()
+{
+    ll n,k,i;
+    scanf("%d%d",&n,&k);
+    ll A[n+5];
+    for(i=0;i<n;++i) scanf("%d",&A[i]);
+    sort(A,A+n,greater<int>());
+    A[n]=0;                  //edge case of 2 9     5 4
+    long long int sum=k;
+    for(i=1;i<=n;++i){
+        sum-=(A[i-1]-A[i])*(i);             // considering the A[i] as cutter size  then if 46 42 40  then after 1st itera 42 42 40 so multiplied
+        if(sum<=0)
+        {
+            printf("%d",A[i]+(-sum/i));
+            break;
+        }
+    }
+    return 0;
+}
