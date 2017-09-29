@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define siz 100005
+ll sum[siz],sq[siz];
+ll D(int u,int v) {return sq[v]-sq[u-1];}
+ll P(int u,int v) {return sum[u]*sum[v];}
+ll F(int u,int v){ return ((P(v,v)-2*P(u-1,v)+P(u-1,u-1)+D(u,v))/2);}
+int main()
+{
+    int n,d,i,q,u,v;
+    scanf("%d",&n);
+    for(i=0;i<n;++i)
+    {
+        scanf("%d",&d);
+        if(!i) {sum[i]=d;sq[i]=d*d;}
+        else {sum[i]=d+sum[i-1];sq[i]=(d*d)+sq[i-1];}
+    }
+    scanf("%d",&q);
+    while(q--){
+        scanf("%d%d",&u,&v);
+        printf("%lld\n",F(u,v));
+
+    }
+
+    return 0;
+}
