@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll unsigned long long int
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+    int n,r,j;ll ans;
+    T{scanf("%d%d",&n,&r);
+    if(r>n) printf("0\n");
+    else
+    {ans=1;j=1;
+    --n;--r;
+       r=min(r,n-r);
+       for(;j<=r;++j,n--)
+       {
+           if(n%j==0) ans*=n/j;
+           else if(ans%j==0) ans=(ans/j)*n;
+           else ans=(n*ans)/j;
+       }
+       cout<<ans<<endl;   }   }
+    return 0;
+}
