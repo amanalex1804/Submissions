@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int k=2;
+int josephus(int n)
+{
+    int p=1;
+    while(p<=n)
+        p*=2;
+    return 2*n-p+1;
+
+}
+int change(string S){
+stringstream geek(S);                               //converting string to integer
+int x=0;
+geek>>x;
+return x;}
+int main()
+{
+    string S,A,B;int r,s,num;
+while(1){
+    cin>>S;
+    if(S[0]=='0' and S[1]=='0' and S[3]=='0') break;
+    B="";A="";A+=S[0];A+=S[1];
+    B+=S[3];
+    r=change(A);
+    s=change(B);
+    s=pow(10,s);
+    num=r*s;
+    printf("%d\n",josephus(num));
+
+}
+return 0;
+}
