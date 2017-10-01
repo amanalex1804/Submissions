@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define ll unsigned long long int
+void ini(string *val,int *parent,int n)
+{
+    int i;
+    for(i=0;i<n;++i){val[i]='0';parent[i]=i;}
+
+
+}
+void bfs(int n)
+{
+    int p,a,b,q;
+    string val[n+5];int parent[n+5];
+    ini(val,parent,n+5);
+    queue<int>Q;
+    Q.push(1);
+    val[1]='1';
+    while(1)
+    {
+        p=Q.front();Q.pop();
+        if(!p)
+        {
+
+            string S=val[0];
+            while(parent[p]!=1)
+            {
+                q=parent[p];
+                S+=val[q];
+                parent[p]=parent[q];
+            }
+            S+='1';
+            int l,i;
+            l=S.size();
+            for(i=l-1;i>=0;--i) cout<<S[i];
+            cout<<endl;
+            break;
+        }
+        else{
+            a=(p*10)%n;b=(a+1)%n;
+            if(parent[a]==a) {Q.push(a);parent[a]=p;}
+            if(parent[b]==b) {Q.push(b);val[b]='1';parent[b]=p;}
+        }
+    }
+}
+int main()
+{
+    int n;
+    T{
+    scanf("%d",&n);
+    bfs(n);
+    }
+    return 0;
+}
