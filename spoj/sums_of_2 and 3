@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define ll long long int
+#define T int t;for(scanf("%d",&t);t--;)
+ll A[1000005],i;
+void ini()
+{A[1]=0;A[2]=A[3]=1;A[4]=1;
+    for(i=5;i<1000003;++i)
+        A[i]=((A[i-2]%mod)+(A[i-3]%mod))%mod;}
+int main()
+{
+    ll n;ini();T{
+    scanf("%lld",&n);
+    cout<<A[n]<<endl;
+    }    return 0;
+}
