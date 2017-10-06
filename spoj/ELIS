@@ -1,0 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n,i,j,mx=1;
+    scanf("%d",&n);int A[n+1],DP[n];
+    for(i=0;i<n;++i){
+        scanf("%d",&A[i]);DP[i]=1;
+        for(j=0;j<i;++j) if(A[i]>A[j]) DP[i]=max(DP[j]+1,DP[i]);
+        mx=max(DP[i],mx);}
+   printf("%d\n",mx);
+    return 0;}
