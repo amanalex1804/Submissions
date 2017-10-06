@@ -19,7 +19,7 @@ int main()
         }
     }
     
-    sort(P,P+f);
+   // sort(P,P+f);        no need of sorting tabulation will manage
    
     int DP[f+1][k+1];
     for(i=0;i<f+1;++i)       //use i-1 to access Pair
