@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>            //convert one string to another
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+    string A,B;int i,j,l1,l2;T{
+    cin>>A>>B;
+    l1=A.size();l2=B.size();
+    int DP[l2+1][l1+1];
+    for(i=0;i<=l2;++i)            //use i-1
+    {
+        for(j=0;j<=l1;++j)
+        {
+            if(!i) DP[i][j]=j;
+            else if(!j) DP[i][j]=i;
+            else if(A[j-1]==B[i-1]) DP[i][j]=DP[i-1][j-1];
+            else DP[i][j]=min(DP[i-1][j],min(DP[i][j-1],DP[i-1][j-1]))+1;
+        }
+    }
+    printf("%d\n",DP[l2][l1]); }
+   return 0;
+}
