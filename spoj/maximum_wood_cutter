@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+   int i,j,r,c,mx;T{mx=0;
+   scanf("%d%d",&r,&c);char A[r+3][c+3];
+   for(i=1;i<=r;++i)
+    for(j=1;j<=c;++j)
+    cin>>A[i][j];
+    int DP[r+3][c+3],start=1;
+    memset(DP,0,sizeof(DP));
+    for(i=1;i<=r;++i)
+    {
+        if(i&1){
+            for(j=1;j<=c;++j)
+            {
+                if(A[i][j]=='#') continue;
+                if(i==start and j==start) {DP[i][j]=1;continue;}
+                DP[i][j]=max(DP[i-1][j],max(DP[i][j-1],DP[i][j+1]));
+                if(A[i][j]=='T'){
+                            if(i==start and j==start) {DP[i][j]=1;continue;}
+                            else if(DP[i][j]==0) continue;
+                              else DP[i][j]=DP[i][j]+1;
+                 }
+
+            }
+
+        }
+        else{
+
+              for(j=c;j>0;--j)
+            {
+                if(A[i][j]=='#') continue;
+                if(i==start and j==start) {DP[i][j]=1;continue;}
+                DP[i][j]=max(DP[i-1][j],max(DP[i][j-1],DP[i][j+1]));
+                if(A[i][j]=='T'){
+
+
+                            if(DP[i][j]==0) continue;
+                              else DP[i][j]=DP[i][j]+1;
+
+            }
+            }
+    }
+        }
+    for(i=0;i<=r;++i)
+       for(j=0;j<=c;++j)
+       mx=max(DP[i][j],mx);
+       if(A[1][1]=='T' or mx==0) cout<<mx<<endl;
+       else
+           cout<<mx-1<<endl;
+ }
+    return 0;
+}
