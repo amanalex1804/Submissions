@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+long long int diff[100],bit[100],i;
+void ini(){
+diff[1]=1;bit[1]=1;
+for(i=2;i<100;++i){
+    diff[i]=diff[i-1]*2;
+    bit[i]=(diff[i]+(2*bit[i-1]))-diff[i-1];}}
+int main(){
+    int n;ini();T{
+    scanf("%d",&n);
+    cout<<diff[n]<<" "<<bit[n]<<endl;    }
+    return 0;}
