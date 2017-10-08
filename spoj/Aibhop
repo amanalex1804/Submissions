@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define mm(XX) memset(XX,0,sizeof(XX))
+string S,R;int l,p=1;
+void lcs(int *A,int *B,int p)               //i-1 to S
+{int i;
+     if(p==l+1) cout<<l-A[l]<<endl;                   //lengthofstring-LCS
+     else{
+    for(i=1;i<=l and p<=l;++i)  {
+       if(S[i-1]==R[p-1]) B[i]=A[i-1]+1;
+       else B[i]=max(B[i-1],A[i]);  }
+    int *t;
+    t=A;
+    A=B;
+    B=t;
+    lcs(A,B,p+1);   }}
+int main(){
+    int i,j;
+    T{cin>>S;
+    R=S;
+    reverse(R.begin(),R.end());
+    l=S.size();
+    int A[l+3],B[l+3];
+    mm(A);mm(B);
+    lcs(A,B,p);    }
+    return 0;}
