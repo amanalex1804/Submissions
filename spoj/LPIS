@@ -1,0 +1,12 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include<unordered_map>
+int main(){
+int i,j,n,d,mx=0;
+scanf("%d",&n);unordered_map<int,int>M;
+for(i=0;i<n;++i){
+ scanf("%d",&d);
+M[d]=M[d-1]+1;        
+mx=max(mx,M[d]);}
+cout<<mx<<endl;
+return 0;}
