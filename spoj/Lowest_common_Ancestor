@@ -1,0 +1,50 @@
+#brute force
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int parent[1005],vis[1005];
+void ini(){
+int i;
+for(i=0;i<1005;++i){parent[i]=i;vis[i]=0;}
+
+
+}
+void lca(int x,int y)
+{
+
+     memset(vis,0,sizeof(vis));
+
+    while(parent[x]!=x)
+    {
+        vis[x]=1;
+        x=parent[x];
+
+    }
+    vis[x]=1;
+    while(vis[y]!=1) y=parent[y];
+    cout<<y<<endl;
+}
+int main()
+{
+    int n,i,u,v,q,n1,d,j,f=0;T{++f;
+    cout<<"Case "<<f<<":\n";
+    scanf("%d",&n);
+    for(i=1;i<=n;++i)
+    {
+        scanf("%d",&n1);
+        for(j=0;j<n1;++j)
+        {
+            scanf("%d",&d);
+            parent[d]=i;
+        }
+    }
+    scanf("%d",&q);
+
+    while(q--)
+    {
+
+        scanf("%d%d",&u,&v);
+        lca(u,v);
+    }    }
+    return 0;
+}
