@@ -1,0 +1,10 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int a,b,c,d;
+    scanf("%d%d%d%d",&a,&b,&c,&d);
+    if(d<=max(a+b,max(b+c,c+a))) cout<<"YES\n";
+    else cout<<"NO\n";
+    return 0;
+}
