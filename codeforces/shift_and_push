@@ -1,0 +1,23 @@
+include<bits/stdc++.h>
+using namespace std;
+#define siz 1000002
+int main()
+{
+    int n,i,mx=-1,d,j,minm=INT_MAX;
+    scanf("%d",&n);vector<int> V[siz];
+    for(i=0;i<n;++i)
+    {
+        scanf("%d",&d);
+        V[d].push_back(i);
+    }
+    for(i=1;i<siz;++i)
+    {mx=-1;
+        for(j=1;j<V[i].size();++j) mx=max(mx,V[i][j]-V[i][j-1]-1);
+        if(V[i].size()>0){
+            mx=max(mx,n-V[i][V[i].size()-1]-1+V[i][0]);
+            minm=min(minm,mx);
+        }
+    }
+    cout<<n+minm;
+    return 0;
+}
