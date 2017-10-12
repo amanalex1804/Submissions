@@ -1,0 +1,43 @@
+// will this be benign or typhoon ,lets see!
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    string S;int i,j,l;
+    while(1)
+    {
+        cin>>S;
+        if(S=="0") break;
+        l=S.size();
+        int dp[l+7],A[l+7],d;memset(dp,0,sizeof(dp));
+        for(i=0;i<l;++i)   // update i
+              A[i] =(int)(S[i]-'0');
+              bool flag=true;
+              if(A[l-1]==0)
+              {
+                  if(0<A[l-2] and A[l-2]<3) {dp[l-1]=0;dp[l-2]=1;}
+                  else {printf("0\n");flag=false;}
+              }
+              else dp[l-1]=1;
+
+           if(flag){
+
+         for(i=l-2;i>=0;--i)
+         {
+             if(A[i]==0)
+             {
+                 if(0<A[i-1] and A[i-1]<3 and i>=1) {dp[i-1]=dp[i+1];--i;continue;}
+                 else {printf("0\n");}
+             }
+             else
+             {
+                 if(0<A[i] and A[i]<2) {
+                        dp[i]=dp[i+1]+dp[i+2];
+                          if(i==l-2) ++dp[i];
+                 }
+                 else if(A[i]==2 and A[i+1]<=6) {dp[i]=dp[i+1]+dp[i+2];if(i==l-2) ++dp[i];}
+                 else {dp[i]=dp[i+1];}          }    }
+         printf("%d\n",dp[0]);         }  }
+    return 0;
+}
