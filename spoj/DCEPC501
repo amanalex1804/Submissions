@@ -1,0 +1,14 @@
+/* this may help to be happy ,but inner inside you curse the "thing" */
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define T int t;for(scanf("%d",&t);t--;)
+#define mm(XX) memset(XX,0,sizeof(XX))
+int main(){
+    int n,i,j;T{
+    scanf("%d",&n);ll A[n+10],dp[n+10];mm(A);mm(dp);
+    for(i=0;i<n;++i) scanf("%lld",&A[i]);
+    for(i=n-1;i>=0;--i)
+     dp[i]=max(A[i]+dp[i+2],max(A[i]+A[i+1]+dp[i+4],A[i]+A[i+1]+A[i+2]+dp[i+6]));
+    printf("%lld\n",dp[0]);    }
+    return 0;}
