@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[3000][3000];int n,A[5000];
+int trt(int left,int right,int age)
+{
+    if(dp[left][right]!=0 or left>right) return dp[left][right];
+    return dp[left][right]=max(age*A[left]+trt(left+1,right,age+1),age*A[right]+trt(left,right-1,age+1));
+}
+int main()
+{
+    int i,j,val;
+    scanf("%d",&n);
+    for(i=1;i<=n;++i)
+        scanf("%d",&A[i]);
+    val=trt(1,n,1);cout<<val<<endl;
+    return 0;
+}
