@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+vector<int>V[3000];
+void ini()
+{int i;
+    for(i=0;i<3000;++i) V[i].clear();
+}
+int lcs(vector<int>V,vector<int>v)    //index starts with 0
+{
+    int l1,l2,i,j;
+    l1=V.size(); l2=v.size();
+    int dp[l2+10][l1+10];
+    memset(dp,0,sizeof(dp));
+    for(i=1;i<=l2;++i)
+    {
+        for(j=1;j<=l1;++j)
+        {
+            dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            if(v[i-1]==V[j-1]) dp[i][j]=1+dp[i-1][j-1];
+        }
+    }
+    return dp[l2][l1];
+}
+int main()
+{
+    int d,i,siz,j,mxm;T{mxm=0;
+    ini();  //clear all
+    for(i=0;;++i)
+    {
+        scanf("%d",&d);
+        if(!d) break;
+        V[0].push_back(d);
+    }
+    for(i=1;;++i)
+    {
+        for(j=0;;++j)
+        {
+            scanf("%d",&d);
+            if(!d) break;
+            V[i].push_back(d);
+        }
+        if(V[i].size()==0) break;
+        d=lcs(V[0],V[i]);
+        mxm=max(mxm,d);  }
+cout<<mxm<<endl;    }
+   return 0;
+}
