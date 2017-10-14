@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define siz 100005
+#define f(XX) XX.first
+#define sf(XX) XX.second.first
+#define ss(XX) XX.second.second
+vector<pair<int,pair<int,int> > >V[siz];
+int dp[siz],n,outdeg[siz];                   //dp stores cost
+void dfs(int src,int last)
+{int i;//cout<<"src "<<src<<endl;
+    --outdeg[src];
+    for(i=0;i<V[src].size();++i)
+    {//cout<<"the val is "<<V[src][i].first<<" the current is"<<V[src][i].second.first<<" and the last is "<<last<<endl;
+        if(outdeg[f(V[src][i])]>=0 and sf(V[src][i])!=last)
+        {  dp[f(V[src][i])]=dp[src]+ss(V[src][i]);
+            dfs(f(V[src][i]),sf(V[src][i]));}
+    }
+}
+int main()
+{
+    int k,m,u,v,i,src,q,c,d;
+    T{memset(outdeg,0,sizeof(outdeg));
+    cin>>n>>m>>k; //clear the vector upto n+5
+    for(i=0;i<n+5;++i) V[i].clear();
+    for(i=0;i<m;++i)
+    {
+        cin>>u>>v>>c>>d;      // c is toll cost and d is mode of transportation
+        V[u].push_back({v,{c,d}});
+        ++outdeg[u];
+    }
+    cin>>src>>q;
+    fill_n(dp,siz,-1);
+    dp[src]=0;
+    dfs(src,-1);
+   //for(i=1;i<=n;++i) cout<<dp[i]<<" ";
+   while(q--)
+   {
+       cin>>d;
+       cout<<dp[d]<<endl;
+   }
+    }
+ return 0;
+}
