@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 10000
+typedef pair<int,int>P;
+vector<P>V[siz];
+int vis[siz],dis[siz];
+multiset<P>S;
+void trvcost(int src)
+{
+    int ver2,i,ver,wt;
+    dis[src]=0;
+    P p;
+    S.insert({0,src}); //wt first cz of sorting in set
+    while(!S.empty())
+    {
+        p=*S.begin();
+        S.erase(S.begin());
+        ver=p.second;
+       // cout<<"soure"<<ver<<endl;
+        if(vis[ver]) continue;
+        vis[ver]=1;
+        for(i=0;i<V[ver].size();++i)
+        {
+            ver2=V[ver][i].first; //vector implication
+            wt=V[ver][i].second;
+          //  cout<<"ver 2 "<< ver2 <<" "<<wt<<endl;
+            if(dis[ver]+wt<dis[ver2])
+            {
+                dis[ver2]=dis[ver]+wt;
+                S.insert({dis[ver2],ver2});
+            }
+
+        }
+    }
+
+}
+
+int main()
+{
+    int n,u,v,wt,q,src,i;
+    scanf("%d",&n);
+    fill_n(dis,siz,99999);
+    for(i=0;i<n;++i)
+    {
+        scanf("%d%d%d",&u,&v,&wt);
+        V[u].push_back({v,wt});
+        V[v].push_back({u,wt});
+    }
+    scanf("%d",&src);
+    trvcost(src);
+    scanf("%d",&q);
+    //for(i=0;i<n;++i) cout<<dis[i]<<" ";
+    while(q--)
+    {
+        scanf("%d",&v);
+        if(dis[v]==99999) cout<<"NO PATH\n";
+        else cout<<dis[v]<<endl;
+    }
+
+
+    return 0;
+}
