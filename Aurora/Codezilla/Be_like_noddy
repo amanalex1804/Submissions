@@ -5,6 +5,7 @@ using namespace std;
 #define f(XX) XX.first
 #define sf(XX) XX.second.first
 #define ss(XX) XX.second.second
+
 vector<pair<int,pair<int,int> > >V[siz];
 int dp[siz],n,outdeg[siz];                   //dp stores cost
 void dfs(int src,int last)
@@ -13,10 +14,11 @@ void dfs(int src,int last)
     for(i=0;i<V[src].size();++i)
     {//cout<<"the val is "<<V[src][i].first<<" the current is"<<V[src][i].second.first<<" and the last is "<<last<<endl;
         if(outdeg[f(V[src][i])]>=0 and sf(V[src][i])!=last)
-        {  dp[f(V[src][i])]=dp[src]+ss(V[src][i]);
+        {  dp[f(V[src][i])]=min(dp[src]+ss(V[src][i]),dp[f(V[src][i])]);
             dfs(f(V[src][i]),sf(V[src][i]));}
     }
 }
+
 int main()
 {
     int k,m,u,v,i,src,q,c,d;
@@ -25,20 +27,24 @@ int main()
     for(i=0;i<n+5;++i) V[i].clear();
     for(i=0;i<m;++i)
     {
-        cin>>u>>v>>c>>d;      // c is toll cost and d is mode of transportation
+        cin>>u>>v>>c>>d;      // c is mode of transportation here and d cost
         V[u].push_back({v,{c,d}});
         ++outdeg[u];
     }
     cin>>src>>q;
-    fill_n(dp,siz,-1);
+    fill_n(dp,siz,999);
     dp[src]=0;
     dfs(src,-1);
    //for(i=1;i<=n;++i) cout<<dp[i]<<" ";
    while(q--)
    {
        cin>>d;
+       if(dp[d]==999) cout<<"-1\n";
+       else
        cout<<dp[d]<<endl;
    }
     }
- return 0;
+
+
+    return 0;
 }
