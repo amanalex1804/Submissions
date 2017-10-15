@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 510
+#define inf 9999999
+int dij[siz+1][siz+1];
+void ini(int n)
+{
+    int i,j;
+    for(i=0;i<siz;++i)
+    {
+        for(j=0;j<siz;++j)
+        {
+            if(i==j) dij[i][j]=0;
+            else dij[i][j]=inf;
+        }
+    }
+
+}
+int main()
+{
+    int n,i,j,wt,u,v,src,q,mx=1,k;scanf("%d",&n);
+    ini(n);
+    for(i=0;i<n;++i)
+    {
+        cin>>u>>v>>wt;
+        mx=max(mx,max(u,v));
+        dij[u][v]=min(dij[u][v],wt);
+        dij[v][u]=min(dij[v][u],wt);
+    }
+    for(k=0;k<=mx;++k)
+        for(i=0;i<=mx;++i)
+            for(j=0;j<=mx;++j)
+                dij[i][j]=min(dij[i][j],dij[i][k]+dij[k][j]);
+      scanf("%d%d",&src,&q);
+      while(q--)
+      {
+          cin>>v;
+          u=min(dij[v][src],dij[src][v]);
+          if(u==inf) cout<<"NO PATH\n";
+          else cout<<u<<endl;
+      }
+
+
+
+    return 0;
+}
