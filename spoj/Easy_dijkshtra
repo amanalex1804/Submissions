@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+typedef pair<int,int>P;
+int main()
+{
+    int v,k,a,b,c,u,ver,i,ver2,wt;
+
+    T{
+    scanf("%d%d",&v,&k);
+    vector<P>V[v+10];
+    int dis[v+10],vis[v+10];
+    multiset<P>Q;
+    fill_n(dis,v+10,99999);
+    memset(vis,0,sizeof(vis));
+    for(i=0;i<k;++i)
+    {
+        scanf("%d%d%d",&a,&b,&c);
+        V[a].push_back({b,c});
+        //V[b].push_back({a,c});
+    }
+    scanf("%d%d",&u,&v);
+    dis[u]=0;P p;
+    Q.insert({0,u});
+    while(!Q.empty())
+    {
+        p=*Q.begin();
+        Q.erase(Q.begin());
+        ver=p.second;
+        if(vis[ver]) continue;
+        vis[ver]=1;
+        for(i=0;i<V[ver].size();++i)
+        {
+            ver2=V[ver][i].first;
+            wt=V[ver][i].second;
+            if(dis[ver]+wt<dis[ver2])
+            {
+               dis[ver2]=dis[ver]+wt;
+               Q.insert({dis[ver2],ver2});
+            }
+        }
+    }
+    if(dis[v]==99999) cout<<"NO\n";
+    else cout<<dis[v]<<endl;    }
+    return 0;
+}
