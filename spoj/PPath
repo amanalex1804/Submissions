@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int A[5],B[5],C[5],a,b,p,q,prim[10005],vis[10005],parent[10005];
+void sieve()
+{
+    int i,p;
+    for(i=2;i*i<=10000;++i)
+    {
+        if(prim[i])
+        for(p=2*i;p<=10000;p+=i)
+            prim[p]=0;
+    }
+}
+void bfs()
+{
+    queue<int>Q;int val,i,c,dig,numb,j;
+    Q.push(a);vis[b]=99999;
+    while(!Q.empty())
+    {
+        c=Q.front();
+        Q.pop();
+      val=c;
+                   // vis[c]=vis[parent[c]]+1;    //checkout hthis
+                    for(i=3;i>=0;--i)
+                    {
+                        A[i]=c%10;
+                        c/=10;
+                    }
+                    for(i=0;i<=3;++i)
+                    {
+                        for(j=0;j<10;++j)
+                        {
+                            if(i==0 and j==0) continue;
+                            dig=A[i];
+                            if(j!=dig )
+                            {
+                                //A[i]=j;
+                                if(i==0) numb=A[3]+(A[2]*10)+(A[1]*100)+(j*1000);
+                                else if(i==1) numb=A[3]+(A[2]*10)+(j*100)+(A[0]*1000);
+                                else if(i==2) numb=A[3]+(j*10)+(A[1]*100)+(A[0]*1000);
+                                else if(i==3) numb=j+(A[2]*10)+(A[1]*100)+(A[0]*1000);
+                                if(prim[numb]==1)
+                                {
+
+                                    if(vis[numb]==0 ){
+                                            parent[numb]=val;
+                                            vis[numb]=vis[val]+1;
+
+                                    Q.push(numb);
+                                    //if(parent[numb]==1033) cout<<val<<" "<<numb<<endl;
+
+                                    }
+                                    else
+                                    {
+                                        if(numb==b) parent[numb]=val;
+                                        vis[numb]=min(vis[numb],vis[val]+1);
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+    }
+    cout<<vis[b]<<endl;
+}
+int main()
+{
+    int u,v,i;
+    fill_n(prim,10005,1);
+    sieve();
+    T{memset(vis,0,sizeof(vis));
+    scanf("%d%d",&u,&v);
+    for(i=999;i<=10000;++i) parent[i]=i;
+    a=u;b=v;
+    for(i=3;i>=0;--i)
+    {
+        A[i]=u%10;
+        B[i]=v%10;
+        u/=10;v/=10;
+    }
+if(a==b) cout<<"0\n";
+else
+bfs();
+    }
+    return 0;
+}
