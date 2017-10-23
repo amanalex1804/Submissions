@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 100005
+vector<int>V[siz];
+
+int vis[siz],tot=0;
+int dfs(int src)
+{
+    vis[src]=1;int i;
+    //cout<<"ddsd"<<src<<endl;
+    int mx=-1,scmx=-1,m;     //check this out
+    for(i=0;i<V[src].size();++i)
+    {//cout<<"val is" <<V[src][i]<<endl;
+        if(!vis[V[src][i]])
+        {
+           // vis[V[src][i]]=1;
+
+            m=dfs(V[src][i]);
+            if(m>=mx)
+            {
+                scmx=mx;
+                mx=m;
+            }
+            else if(m>scmx) scmx=m;
+
+        }
+    }
+
+    tot=max(tot,mx+scmx+2);           // 2 is the edges joining the longest and second longesr subtre under a node
+
+    return mx+1;
+
+
+}
+int main()
+{
+    int n,val,u,v,i;
+    scanf("%d",&n);
+    for(i=0;i<n-1;++i)
+    {
+        scanf("%d%d",&u,&v);
+        V[u].push_back(v);
+        V[v].push_back(u);
+    }
+
+    dfs(u);
+    cout<<tot<<endl;
+
+    return 0;
+}
