@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 100005
+vector<int>V[siz];int mx=0,level[siz],pos=-1,i,p;
+void bfs(int src)
+{
+    level[src]=1;mx=0;
+    queue<int>Q;
+    Q.push(src);
+    while(!Q.empty())
+    {
+        p=Q.front();
+        Q.pop();
+        if(level[p]>mx) {mx=level[p];pos=p;}
+        for(i=0;i<V[p].size();++i)
+        {
+            if(!level[V[p][i]])
+            {
+                level[V[p][i]]=level[p]+1;
+                Q.push(V[p][i]);
+            }
+        }
+    }
+}
+int main()
+{
+    int n,u,v;
+    scanf("%d",&n);
+    for(i=0;i<n-1;++i)
+    {
+        scanf("%d%d",&u,&v);
+        V[u].push_back(v);
+        V[v].push_back(u);
+    }
+   bfs(u);                                          //find leaf node from any random node
+   memset(level,0,sizeof(level));
+   bfs(pos);                                       //then from the leaf node find another leaf node that is maximum distance
+   cout<<mx-1<<endl;
+    return 0;
+}
