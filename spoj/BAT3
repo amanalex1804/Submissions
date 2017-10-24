@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int main()
+{
+
+    int n,r,i,j,rob;
+    T{
+    scanf("%d%d",&n,&r);
+    int A[n+5],dp[n+5];
+    for(i=0;i<n;++i)
+    {
+        scanf("%d",&A[i]);
+
+         if(i==r) rob=A[i];
+       if(i>r and A[i]>rob) dp[i]=2;
+       else dp[i]=1;
+    }
+    for(i=1;i<n;++i)
+    {
+        for(j=i-1;j>=0;--j)
+        {
+
+            if(A[i]<A[j]) dp[i]=max(dp[i],dp[j]+1);
+            if(j>=r and A[i]>rob) {dp[i]=max(dp[i],dp[r]+1);}
+        }
+     
+    }
+    cout<<*max_element(dp,dp+n)<<endl;
+
+    }
+    return 0;
+}
