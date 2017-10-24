@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(xx,uu) for(xx=0;xx<uu;++xx)
+int main()
+{
+    int n,i,j;
+    scanf("%d",&n);int A[n+5],dp[n+5];
+    rep(i,n) scanf("%d",&A[i]);
+    for(i=0;i<n;++i)
+    {dp[i]=1;
+        for(j=i-1;j>=0;--j)
+        {
+            if(A[i]>0 and A[j]<0 and abs(A[j])<abs(A[i])) dp[i]=max(dp[i],dp[j]+1);
+            if(A[i]<0 and A[j]>0 and abs(A[j])<abs(A[i])) dp[i]=max(dp[i],dp[j]+1);
+        }
+    }
+    cout<<*max_element(dp,dp+n)<<endl;
+    return 0;
+}
