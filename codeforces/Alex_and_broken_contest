@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cnt(const std::string& str, const std::string& sub)
+{
+    if (sub.length() == 0) return 0;
+    int count = 0;
+    for (size_t offset = str.find(sub); offset != std::string::npos;
+	 offset = str.find(sub, offset + sub.length()))
+    {
+        ++count;
+    }
+    return count;
+}
+int main()
+{
+    string S;
+    cin>>S;
+    int A[10],i;
+   A[1]=cnt(S,"Danil");
+   A[2]=cnt(S,"Olya");
+   A[3]=cnt(S,"Slava");
+   A[4]=cnt(S,"Ann");
+   A[5]=cnt(S,"Nikita");
+   bool flag=false;
+   for(i=1;i<=5;++i)
+   {
+       if(A[i]>1) {flag=false;break;}
+       if(A[i]==1 and flag) {flag=false;break;}
+
+       if(A[i]==1 and !flag) flag=true;
+   }
+   if(flag) cout<<"YES\n";
+   else cout<<"NO\n";
+    return 0;
+}
