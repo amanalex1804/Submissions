@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ull unsigned long long int
+int main()
+{
+    ull a,b,i,val=1;bool flag=false;
+    cin>>a>>b;
+    for(i=b;i>a;--i) {
+        val=((val%10)*(i%10))%10;
+        if(!(val&1)) flag=true;
+        if(val%5==0 and flag) {val=0;break;} }
+     cout<<val<<endl;
+    return 0;}
