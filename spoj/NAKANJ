@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define mm(XX) memset(XX,0,sizeof(XX))
+#define ff first
+#define sf second.first
+#define ss second.second
+int dx[]={2,1,-1,-2,-2,-1,1,2};
+int dy[]={1,2,2,1,-1,-2,-2,-1};
+int dp[10][10],vis[10][10],x,y,X,Y,fin;
+typedef pair<int,pair<int,int> >P;
+bool inside(int xx,int yy)
+{
+    if(xx<=8 and xx>0 and yy<=8 and yy>0) return true;
+     return false;
+}
+void bfs()
+{
+    P p;int i,x1,y1;
+    queue<P>Q;
+    Q.push({x,{y,0}});
+    vis[x][y]=1;
+    while(!Q.empty())    {
+        p=Q.front();Q.pop();
+        if(p.ff==X and p.sf==Y) fin=min(fin,p.ss);
+            for(i=0;i<8;++i)
+            {
+                x1=p.ff+dx[i];
+                y1=p.sf+dy[i];
+                if(inside(x1,y1) and vis[x1][y1]==0) {Q.push({x1,{y1,p.ss+1}});vis[x1][y1]=1;}
+            }    }}
+int main()
+{
+    int n,i,d,j;string A,B;T{mm(vis);fin=INT_MAX;
+    cin>>A>>B;
+    x=(int)(A[0]-'a')+1;
+    y=(int)(A[1]-'0');
+     X=(int)(B[0]-'a')+1;
+    Y=(int)(B[1]-'0');
+    bfs();
+    cout<<fin<<endl;   }
+   return 0;
+}
