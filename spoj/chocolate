@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define T int t;for(scanf("%d",&t);t--;)
+#define mm(xx) memset(xx,0,sizeof(xx))
+int main()
+{
+    int m,n,i;
+    T{printf("\n");
+    scanf("%d%d",&m,&n);
+    int A[m+n+10];
+   // mm(visr);mm(visc);
+    map<int, int>visr,visc;
+    rep(i,0,m+n-2)
+    {
+        scanf("%d",&A[i]);
+        if(i<m-1) ++visr[A[i]];
+        else ++visc[A[i]];
+    }
+    sort(A,A+m+n-2,greater<int>());
+    int spr=1,spc=1,val=0;
+    rep(i,0,m+n-2)
+    {
+
+        if(visr[A[i]]>0) {val+=spc*A[i];--visr[A[i]];++spr;}
+        else {val+=spr*A[i];--visc[A[i]];++spc;}
+       // cout<<val<<endl;
+    }
+    cout<<val<<endl;
+
+    }
+
+
+
+    return 0;
+}
