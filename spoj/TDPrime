@@ -1,0 +1,28 @@
+// magic of 32 in bitset
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ull unsigned long long int
+#define maxi 100000000
+#define limit 10000
+#define comp(n) (flag[n>>6]&(1<<((n>>1)&31)))       // modulo by 32 and checking n composite
+#define pcomp(n) (flag[n>>6]|=(1<<((n>>1)&31)))       //marking n composite
+ull flag[maxi>>6]={0};              /* >> means dividing by 2   << multiplying by 2*/
+int main()
+{
+    ull i,j,k,cnt=1;
+    for(i=3;i<limit;i+=2)         //only odd are prime and i*i (of sieve) is here limit
+        if(!comp(i))               //checking if it is composite or not
+        for(j=i*i,k=i<<1;j<maxi;j+=k)       // k is multiplied by 2 (same of sieve)
+        pcomp(j);                           //marking all them composite
+        printf("2\n");
+    for(i=3,j=2;i<maxi ;i+=2)                // j here counts numbers of prime and j is 2 because 2 is already printed
+    {if(!comp(i))
+    {
+       //cout<<i<<endl;
+        if(j%100==1) cout<<i<<endl;
+        ++j;
+    }}
+
+    return 0;
+}
