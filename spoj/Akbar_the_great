@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define f first
+#define s second
+typedef pair<int,int>P;
+int main()
+{
+    int n,r,m,u,v,strength,city,city1,i,j;
+    T{
+    scanf("%d%d%d",&n,&r,&m);
+    vector<int>V[n+10];int vis[n+5];mm(vis);
+    vector<P>soldier;
+    rep(i,0,r)
+    {
+        scanf("%d%d",&u,&v);
+        V[u].pb(v);V[v].pb(u);
+    }
+    rep(i,0,m)
+    {
+        scanf("%d%d",&u,&v);
+        vis[u]=1;
+        if(v>0) soldier.pb({u,v});           // u stores city and v stores strength
+    }
+   /* cout<<"Graph is\n";
+    for(i=1;i<=n;++i)
+    {
+        cout<<i<<"-- ";
+        for(j=0;j<V[i].size();++j)
+            cout<<V[i][j]<<" ";
+        cout<<endl;
+    }
+    cout<<" soldiers are \n";
+    rep(i,0,soldier.size()) cout<<soldier[i].f<<" "<<soldier[i].s<<endl;
+    cout<<endl;*/
+    //applying bfs here
+    P p;
+    //cout<<endl;
+    for(i=0;i<soldier.size();++i)
+    {
+        queue<P>Q;
+        Q.push(soldier[i]);
+        while(!Q.empty())
+        {
+            p=Q.front();Q.pop();
+            city=p.f;strength=p.s;
+            //cout<<city<<" "<<strength<<endl;
+            if(!strength) continue;
+            for(j=0;j<V[city].size();++j)
+            {
+                city1=V[city][j];
+                if(!vis[city1])
+                {
+                    Q.push({city1,strength-1});
+                    vis[city1]=1;
+                }
+            }
+
+        }
+    }
+    bool flag=true;
+
+    rep(i,1,n+1){
+    if(!vis[i])
+    {
+       // cout<<i<<endl;
+        flag=false;
+        break;
+    }}
+    if(flag) printf("Yes\n");
+    else printf("No\n");
+
+    }
+
+
+
+    return 0;
+}
