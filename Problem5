@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+int main()
+{
+    int n,k,nsub,j,i,val,cnt;
+    T{
+    scanf("%d%d",&n,&k);
+    int A[n+5];bool flag=false;int ans=999999;
+    rep(i,0,n) scanf("%d",&A[i]);
+    nsub=1<<n;
+    for(i=0;i<nsub;++i)
+    {val=0;cnt=0;
+        for(j=0;j<n;++j)   {
+            if((1<<j)&i){++cnt;val+=A[j];}        }
+        if(val==k) ans=min(cnt,ans);
+    }
+
+if(ans==999999) cout<<"impossible\n";
+else cout<<ans<<endl;  }
+   return 0;
+}
