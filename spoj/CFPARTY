@@ -1,0 +1,7 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+int main(){
+int n;T{scanf("%d",&n);
+printf("%d\n",max(0,n-2));}
+return 0;}
