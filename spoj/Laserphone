@@ -1,0 +1,119 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,pair<int,int> >P;
+#define f first
+#define sf second.first
+#define ss second.second
+#define mxm 999999
+int dp[200][200];int row,col,x,y,X,Y;char A[200][200];
+void bfs()
+{
+    queue<P>Q;
+    Q.push({x,{y,0}});int i,val;
+    P p;dp[x][y]=0;
+    while(!Q.empty())
+    {
+       p=Q.front();Q.pop();
+       x=p.f;y=p.sf;val=p.ss;
+       if(x==X and y==Y) dp[x][y]=min(dp[x][y],val);
+       for(i=x;i>=0;--i)
+       {
+           if(A[i][y]=='*') break;
+           if(dp[i][y]!=mxm)
+           {
+               if(dp[i][y]>val)
+               {
+                   dp[i][y]=val;
+                   Q.push({i,{y,val+1}});
+               }
+           }
+           if(dp[i][y]==mxm)
+           {
+               dp[i][y]=min(dp[i][y],val);
+               Q.push({i,{y,val+1}});
+           }
+
+       }
+       for(i=x;i<row;++i)
+       {
+            if(A[i][y]=='*') break;
+           if(dp[i][y]!=mxm)
+           {
+               if(dp[i][y]>val)
+               {
+                   dp[i][y]=val;
+                   Q.push({i,{y,val+1}});
+               }
+           }
+           if(dp[i][y]==mxm)
+           {
+               dp[i][y]=min(dp[i][y],val);
+               Q.push({i,{y,val+1}});
+           }
+       }
+       for(i=y;i>=0;--i)
+       {
+            if(A[x][i]=='*') break;
+           if(dp[x][i]!=mxm)
+           {
+               if(dp[x][i]>val)
+               {
+                   dp[x][i]=val;
+                   Q.push({x,{i,val+1}});
+               }
+           }
+           if(dp[x][i]==mxm)
+           {
+               dp[x][i]=min(dp[x][i],val);
+               Q.push({x,{i,val+1}});
+           }
+       }
+        for(i=y;i<col;++i)
+       {
+            if(A[x][i]=='*') break;
+           if(dp[x][i]!=mxm)
+           {
+               if(dp[x][i]>val)
+               {
+                   dp[x][i]=val;
+                   Q.push({x,{i,val+1}});
+               }
+           }
+           if(dp[x][i]==mxm)
+           {
+               dp[x][i]=min(dp[x][i],val);
+               Q.push({x,{i,val+1}});
+           }
+       }
+
+    }
+}
+int main()
+{
+    int i,j;x=-1,y=-1;
+    scanf("%d%d",&col,&row);
+   // char A[row+5][col+5];
+    for(i=0;i<row;++i)
+    {
+        for(j=0;j<col;++j)
+        {
+            cin>>A[i][j];
+            dp[i][j]=mxm;
+            if(A[i][j]=='C')
+            {
+                if(x==-1) {x=i;y=j;}
+                else {X=i;Y=j;}
+            }
+        }
+    }
+   // cout<<"Start "<<x<<" "<<y<<endl;
+   // cout<<"End "<<X<<" "<<Y<<endl<<endl;
+    bfs();
+    /* for(i=0;i<row;++i)
+     {
+         for(j=0;j<col;++j) cout<<dp[i][j]<<" ";
+         cout<<endl;
+     }*/
+     cout<<dp[X][Y]<<endl;
+    return 0;
+}
