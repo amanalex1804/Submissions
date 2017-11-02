@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define siz 1000000
+int self[siz];
+int main(){  int d,i,val,sum;
+    fill_n(self,siz,1);
+    rep(i,1,siz){
+        if(self[i]){            val=i;
+            while(1){
+                d=val;
+                sum=val;
+                while(d){
+                    sum+=(d%10);d/=10;}
+                if(!self[sum]) break;
+                self[sum]=0;
+                val=sum;}}}
+    rep(i,1,siz) if(self[i]) printf("%d\n",i);
+    return 0;}
