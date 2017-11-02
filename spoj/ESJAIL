@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+#define siz 1000005
+int vis[siz],yahapahuch[siz],lck[siz],keyhold[siz];
+vector<int>V[siz];int n,k,m;
+void bfs()
+{
+    queue<int>Q;bool flag=false;mm(yahapahuch);
+    Q.push(1);vis[1]=1;int i,p,ver;
+    while(!Q.empty())
+    {
+        p=Q.front();Q.pop();
+        //cout<<p<<endl;
+        if(p==n) {flag=true;break;}
+        for(i=0;i<V[p].size();++i)
+        {
+            ver=V[p][i];
+            if(!vis[ver]){
+            if(!lck[ver])
+            {
+                Q.push(ver);vis[ver]=1;
+                if(keyhold[ver]) {
+                lck[keyhold[ver]]=0;
+                if(yahapahuch[keyhold[ver]])
+                {
+                Q.push(keyhold[ver]);
+                yahapahuch[keyhold[ver]]=0;
+                vis[keyhold[ver]]=1;
+                }}
+
+
+            }
+            else if(lck[ver])
+            {
+                yahapahuch[ver]=1;
+            }
+            }
+
+        }
+    }
+    if(flag) cout<<"Y\n";
+    else cout<<"N\n";
+}
+int main()
+{       int i,a,b;
+ while(1)
+ {                                          //clear the vector
+     scanf("%d%d%d",&n,&k,&m);
+     if(n==-1 and k==-1 and m==-1) break;
+     mm(lck);mm(keyhold);mm(vis);          // lock[i]=1 means locked door
+     rep(i,0,n+5) V[i].clear();
+     rep(i,0,k)
+     {
+         scanf("%d%d",&a,&b);
+         lck[b]=1;
+         keyhold[a]=b;
+     }
+     rep(i,0,m)
+     {
+         scanf("%d%d",&a,&b);
+         V[a].pb(b);V[b].pb(a);
+     }
+     bfs();
+
+
+ }
+
+
+    return 0;
+}
