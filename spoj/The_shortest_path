@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define f first
+#define s second
+#define pb push_back
+#define sf second.first
+#define ss second.second
+#define mm(xx) memset(xx,0,sizeof(xx));
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define inf INT_MAX
+typedef pair<int,pair<int ,int> >P;
+typedef pair<int,int>P1;
+int main()
+{int i,n,a,b,wt,d,wt1,ver,vertex,ver2,ver1;string S,D;
+    T{
+        scanf("%d",&n);
+        vector<P1>V[n+5];
+        int vis[n+5],dis[n+5];
+       // mm(dp);
+       //fill_n(dis,n+5,inf);mm(vis);
+        unordered_map<string,int>M;
+        rep(i,1,n+1)
+        {
+            cin>>S;
+            M[S]=i;
+            scanf("%d",&d);
+            while(d--)
+            {
+                scanf("%d%d",&a,&b);
+                V[i].pb({a,b});   // a is vertex and b is weight
+            }
+        }
+        scanf("%d",&d);
+        while(d--)
+        {
+            cin>>S>>D;
+            ver1=M[S];ver2=M[D];
+            mm(vis);fill_n(dis,n+5,inf);
+            //if(dis[ver1][ver2]!=inf) cout<<dis[ver1][ver2]<<endl;     use this optimisation
+            dis[ver1]=0;P1 p1, p;
+            multiset<P1>Q;
+            Q.insert({0,ver1});        //sort according to weight
+            while(!Q.empty())
+            {
+                p1=*Q.begin();
+                Q.erase(Q.begin());
+                ver=p1.s;
+                if(vis[ver]) continue;
+                vis[ver]=1;
+                for(i=0;i<V[ver].size();++i)
+                {
+                    p=V[ver][i];
+                    vertex=p.f;
+                    wt1=p.s;
+                    if(dis[ver]+wt1<dis[vertex])
+                    {
+                        dis[vertex]=dis[ver]+wt1;
+                        Q.insert({dis[vertex],vertex});
+                    }
+                }
+
+            }
+            printf("%d\n",dis[ver2]);
+        }
+
+    }
+    return 0;
+}
