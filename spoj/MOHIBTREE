@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define ll long long int
+int main()
+{ll n,i,ans;int p=0;
+    T{++p;
+    scanf("%lld",&n);
+    if(!(n&1)) ans=(n/2)-1;
+    else
+    {bool flag=false;ll val;
+        for(i=3;i*i<=n;i+=2)
+        {
+         if(n%i==0)
+         {
+             flag=true;
+             val=i;
+             break;
+         }
+        }
+        if(!flag) ans=0;
+        else ans=(n-val)/2;
+
+    }
+printf("Case #%d: %lld\n",p,ans);
+
+
+    }
+
+
+    return 0;
+}
