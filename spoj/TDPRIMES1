@@ -14,7 +14,7 @@ int main()
     {
         if(V[i]==1)
         {
-            for(j=i*i;j<maxi;j+=2*i)
+            for(j=i*i;j<maxi;j+=2*i)         //2*i because every second multiple is even
                 V[j]=0;
         }
     }
