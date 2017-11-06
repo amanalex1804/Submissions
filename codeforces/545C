@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define f first
+#define s second
+#define pb push_back
+#define sf second.first
+#define ss second.second
+#define mm(xx) memset(xx,0,sizeof(xx));
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define inf INT_MAX
+int dx[]={1,0};
+int dy[]={0,1};
+typedef pair<int,pair<int,int> >P;
+typedef pair<int,int>P1;
+#define siz 10000005
+#define siz1 5051
+#define V1 vector<int>
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+int main()
+{
+    int n,i;
+    scd(n);
+    int cr[n+5],dp[n+5],x[n+5],ht[n+5];
+    rep(i,1,n+1)
+    {
+        scd(cr[i]);scd(ht[i]);
+        x[i]=0;dp[i]=0;
+    }
+    dp[1]=1;
+    x[1]=1;
+    rep(i,2,n+1)
+    {
+        if(i==n) { dp[i]=dp[i-1]+1; continue;}
+        if(cr[i]-ht[i]>x[i-1])
+        {
+            dp[i]=dp[i-1]+1;
+            x[i]=cr[i];
+        }
+        else if(cr[i]+ht[i]<cr[i+1])
+        {
+            dp[i]=dp[i-1]+1;
+            x[i]=cr[i]+ht[i];
+
+        }
+        else
+        {
+            dp[i]=dp[i-1];
+            x[i]=cr[i];
+        }
+
+    }
+   /* cout<<" the dp is \n";
+    rep(i,1,n+1) cout<<dp[i]<<" ";
+    cout<<endl;
+    cout<<" the x cor \n";
+    rep(i,1,n+1) cout<<x[i]<<" ";*/
+    pra(dp[n]);
+
+
+
+
+
+    return 0;
+}
