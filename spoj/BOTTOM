@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define T int t;for(scanf("%d",&t);t--;)
+#define f first
+#define s second
+#define pb push_back
+#define sf second.first
+#define ss second.second
+#define mm(xx) memset(xx,0,sizeof(xx));
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define inf INT_MAX
+int dx[]={1,0};
+int dy[]={0,1};
+typedef pair<int,pair<int,int> >P;
+typedef pair<int,int>P1;
+#define siz 10000005
+#define siz1 5051
+#define V1 vector<int>
+#define st stack<int>
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+V1 V[siz1];V1 VT[siz1];V1 SCC[siz1];
+int vis[siz1],scc[siz1],ind,ans[siz1];
+st s;
+void dfs2(int src)
+{
+    int i;
+    vis[src]=1;
+    scc[src]=ind;
+    rep(i,0,VT[src].size())
+    {
+        if(!vis[VT[src][i]])
+            dfs2(VT[src][i]);
+        else scc[VT[src][i]]=ind;
+    }
+    SCC[ind].pb(src);
+}
+void dfs1(int src)
+{
+    int i;
+    vis[src]=1;
+    rep(i,0,V[src].size())
+    if(!vis[V[src][i]])
+        dfs1(V[src][i]);
+    s.push(src);
+}
+int main()
+{
+    int i,n,e,u,val,v,j;
+ while(1)
+ {
+     scd(n);
+     if(!n) break;
+     scd(e);
+     rep(i,0,n+5) {V[i].clear();VT[i].clear();vis[i]=0;scc[i]=0;ans[i]=0;SCC[i].clear();}
+     rep(i,0,e)
+     {
+         scd(u);scd(v);
+         V[u].pb(v);
+         VT[v].pb(u);
+     }
+     rep(i,1,n+1)
+     if(!vis[i])
+        dfs1(i);
+        mm(vis);
+        ind=1;
+     while(!s.empty())
+     {
+         val=s.top();s.pop();
+         if(!vis[val])
+         {
+             dfs2(val);
+             ++ind;
+         }
+     }
+     //cout<<"scc is\n";
+     //rep(i,1,n+1) cout<<scc[i]<<" ";
+     //cout<<endl;
+    //rep(i,1,ind){
+    //rep(j,0,SCC[i].size()){
+    //cout<<SCC[i][j]<<" ";}
+    //cout<<endl;}
+     bool flag;
+  //   cout<< "ind is "<<ind<<endl;
+
+//     cout<<endl;
+     rep(i,1,ind)
+     {
+         flag=true;
+         rep(j,0,SCC[i].size())
+         {
+             //cout<<i<<" "<<scc[i]<<" "<<scc[SCC[i][j]]<<endl;
+
+             if(i!=scc[SCC[i][j]])
+             {
+                 //cout<<scc[i]<<" "<<SCC[i][j]<<endl;
+                 flag=false;
+                 break;
+             }
+
+
+         }
+         if(flag)
+            rep(j,0,SCC[i].size())
+            ans[SCC[i][j]]=1;
+     }
+     rep(i,0,n+1)
+     if(ans[i]==1)
+        cout<<i<<" ";
+     cout<<endl;
+ }
+
+
+
+
+    return 0;
+}
