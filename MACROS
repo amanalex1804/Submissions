@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+
+#define scd(xx) scanf("%d",&xx)
+#define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
+#define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+
+
+#define SIZ 110000
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+
+int main()
+{
+
+
+    // rip it off!
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+may be i'm a step back
+but i'm not gonna loose it :)
+
+*/
