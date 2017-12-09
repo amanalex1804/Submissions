@@ -1,0 +1,132 @@
+
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+
+#define scd(xx) scanf("%d",&xx)
+#define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
+#define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+
+
+#define SIZ 110000
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+int A[SIZ],seg[SIZ];int ind,val,l,r;
+void update(int node,int st,int en)
+{
+if(st==en)
+{
+    A[ind]=val;
+    if(A[ind]&1) seg[node]=1;
+    else seg[node]=0;
+}
+
+else
+{
+int mid=(st+en)/2;
+if(st<=ind and ind<=mid) update(2*node+1,st,mid);
+else update(2*node+2,mid+1,en);
+seg[node]=seg[2*node+1]+seg[2*node+2];
+}
+
+
+}
+int query(int node,int st,int en)
+{
+if(r<st or en<l) return 0;
+if(l<=st and en<=r) return seg[node];
+int mid=(st+en)/2;
+int q1=query(2*node+1,st,mid);
+int q2=query(2*node+2,mid+1,en);
+return (q1+q2);
+
+
+
+}
+void build(int node,int st,int en)        //store odd
+{
+if(st==en) {if(A[st]%2==1) seg[node]=1;}
+else{
+int mid=(st+en)/2;
+build(2*node+1,st,mid);
+build(2*node+2,mid+1,en);
+seg[node]=seg[2*node+1]+seg[2*node+2];
+}
+
+
+}
+int main()
+{
+int n,i,q,x;
+scd(n);
+for(i=0;i<n;++i) scd(A[i]);
+build(0,0,n-1);
+/*cout<<"\n the tteei s\n";
+for(i=0;i<2*n;++i) cout<<seg[i]<<" ";
+cout<<endl;*/
+scd(q);
+while(q--)
+{
+scd(x);
+if(!x)
+{
+scd(ind);scd(val);
+--ind;
+update(0,0,n-1);
+
+}
+else if(x==2)
+ {
+scd(l);scd(r);
+--l;--r;
+cout<<query(0,0,n-1)<<endl;
+
+
+}
+else
+{
+scd(l);scd(r);
+--l;--r;
+cout<<(r-l+1)-query(0,0,n-1)<<endl;
+
+}
+
+
+
+}
+
+
+
+    return 0;
+}
+
+
+
+/*
+
+
+these are stars
+i will fathom them into a constellation
+
+*/
