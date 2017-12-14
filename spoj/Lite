@@ -1,0 +1,141 @@
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
+#define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define rept(xx) for(int uu=0;uu<xx;++uu)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+int seg[SIZ],lazy[SIZ],l,r;
+void update(int node,int st,int en)
+{
+if(lazy[node])
+{
+seg[node]=(en-st+1)-seg[node];      //checkpoint
+if(st!=en)
+{
+lazy[2*node]=lazy[2*node]^lazy[node];
+lazy[2*node+1]=lazy[2*node+1]^lazy[node];   //chkpnt
+
+}
+lazy[node]=0;
+}
+if(r<st or en<l) return;
+if(l<=st and en<=r)
+{
+seg[node]=(en-st+1)-seg[node];    //chkpnt
+if(st!=en)
+{
+lazy[2*node]=lazy[2*node]^1;
+lazy[2*node+1]= lazy[2*node+1]^1;
+
+}
+return;
+
+}
+int mid=(st+en)>>1;
+update(2*node,st,mid);
+update(2*node+1,mid+1,en);
+seg[node]=seg[2*node]+seg[2*node+1];  //chkpnt
+
+}
+int query(int node,int st,int en)
+{
+if(st>en or r<st or en<l) return 0;
+if(lazy[node])
+{
+
+seg[node]=(en-st+1)-seg[node];      //checkpoint
+if(st!=en)
+{
+lazy[2*node]=lazy[2*node]^lazy[node];
+lazy[2*node+1]=lazy[2*node+1]^lazy[node];   //chkpnt
+
+}
+lazy[node]=0;
+
+
+
+}
+if(l<=st and en<=r) return seg[node];
+int mid=(st+en)/2;
+int q1=query(2*node,st,mid);
+int q2=query(2*node+1,mid+1,en);
+return (q1+q2);
+
+
+
+
+}
+int main()
+{
+int n,c,i,op;
+scd2(n,c);
+while(c--)
+{
+scd(op);scd2(l,r);
+if(!op) update(1,1,n);
+else cout<<query(1,1,n)<<endl;
+/*rep(i,1,2*n) cout<<seg[i]<<" ";
+cout<<endl;
+rep(i,1,2*n) cout<<lazy[i]<<" ";
+cout<<endl;*/
+}
+
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+these are stars
+i will fathom them into a constellation
+
+*/
