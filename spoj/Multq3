@@ -1,0 +1,180 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+
+#define scd(xx) scanf("%d",&xx)
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
+#define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define rept(xx) for(int uu=0;uu<xx;++uu)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+P1 seg[SIZ];int lazy[SIZ];int l,r,temp_0,temp_1,temp_2;
+void update(int node,int st,int en)
+{
+if(lazy[node])
+{
+lazy[node]%=3;
+temp_0=seg[node].F;
+temp_1=seg[node].SF;
+temp_2=seg[node].SS;
+if(lazy[node]==1)
+{
+seg[node].F=temp_2;
+seg[node].SF=temp_0;
+seg[node].SS=temp_1;
+
+}
+if(lazy[node]==2)
+{
+seg[node].F=temp_1;
+seg[node].SF=temp_2;    //checkpoint
+seg[node].SS=temp_0;
+
+}
+if(st!=en)
+{
+lazy[2*node+1]+=lazy[node];
+lazy[2*node+2]+=lazy[node];
+}
+lazy[node]=0;
+
+}
+if(st>en or r<st or en<l) return;
+if(l<=st and en<=r)
+{
+temp_0=seg[node].F;
+temp_1=seg[node].SF;
+temp_2=seg[node].SS;
+
+seg[node].F=temp_2;
+seg[node].SF=temp_0;
+seg[node].SS=temp_1;
+
+if(st!=en)
+{
+
+lazy[2*node+1]+=1;
+lazy[2*node+2]+=1;
+}
+
+return;
+}
+int mid=(st+en)/2;
+update(2*node+1,st,mid);
+update(2*node+2,mid+1,en);
+seg[node].F=seg[2*node+1].F+seg[2*node+2].F;
+seg[node].SF=seg[2*node+1].SF+seg[2*node+2].SF;
+seg[node].SS=seg[2*node+1].SS+seg[2*node+2].SS;
+}
+int query(int node,int st,int en)
+{
+if(st>en or r<st or en<l) return 0;
+if(lazy[node])
+{
+lazy[node]%=3;
+temp_0=seg[node].F;
+temp_1=seg[node].SF;
+temp_2=seg[node].SS;
+if(lazy[node]==1)
+{
+seg[node].F=temp_2;
+seg[node].SF=temp_0;
+seg[node].SS=temp_1;
+
+}
+if(lazy[node]==2)
+{
+seg[node].F=temp_1;
+seg[node].SF=temp_2;    //checkpoint
+seg[node].SS=temp_0;
+
+}
+if(st!=en)
+{
+lazy[2*node+1]+=lazy[node];
+lazy[2*node+2]+=lazy[node];
+}
+lazy[node]=0;
+
+}
+if(l<=st and en<=r) return seg[node].F;
+int mid=(st+en)/2;
+int q1=query(2*node+1,st,mid);
+int q2=query(2*node+2,mid+1,en);
+return (q1+q2);
+
+
+
+}
+void build(int node,int st,int en)
+{
+if(st==en) seg[node].F=1;
+else{
+int mid=(st+en)/2;
+build(2*node+1,st,mid);
+build(2*node+2,mid+1,en);
+seg[node].F=seg[2*node+1].F+seg[2*node+2].F;
+
+}
+
+}
+int main()
+{
+int n,c,op;
+scd2(n,c);
+build(0,0,n-1);
+while(c--)
+{
+scd(op); scd2(l,r);
+if(!op) update(0,0,n-1);
+else printf("%d\n",query(0,0,n-1));
+}
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+these are stars
+i will fathom them into a constellation
+
+*/
+
