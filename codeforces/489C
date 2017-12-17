@@ -1,0 +1,133 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+
+#define scd(xx) scanf("%d",&xx)
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
+#define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define rept(xx) for(int uu=0;uu<xx;++uu)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+int l,sum;
+vector<string>minm[SIZ],maxm[SIZ];
+string ch[]={"0","1","2","3","4","5","6","7","8","9"};
+void minmum()
+{
+int i,j,chk1,chk2,chk3;string s;
+rep(i,1,l+1)
+{
+
+
+if(i==1) {minm[i].pb("0"); rep(j,1,10) minm[i].pb(ch[j]);}
+else if(i==2)
+{
+minm[i].pb(minm[i-1][0]+"0");
+minm[i].pb("10");
+rep(j,2,11) minm[i].pb("1"+minm[i-1][j-1]);
+rep(j,11,19) minm[i].pb(ch[j-9]+"9");
+}
+else
+{
+minm[i].pb(minm[i-1][0]+"0");
+minm[i].pb(minm[i-1][1]+"0");
+chk1=9*(i-2)+2;
+rep(j,2,chk1) minm[i].pb(minm[i-1][j].substr(0,1)+"0"+minm[i-1][j].substr(1,minm[i-1][j].size()));
+chk2=9*(i-1)+2;
+rep(j,chk1,chk2) minm[i].pb("1"+minm[i-1][j-1]);
+
+chk3=9*i+1;s=minm[i-1][chk2-2];
+rep(j,chk2,chk3) minm[i].pb(ch[j-chk2+2]+s);
+
+}
+
+
+
+}}
+void maxmum()
+{string s;int i,j,chk1,chk2;
+rep(i,1,l+1)
+{
+if(i==1) {maxm[i].pb("0"); rep(j,1,10) maxm[i].pb(ch[j]);}
+else
+{
+chk1=9*(i-1)+1;
+maxm[i].pb(maxm[i-1][0]+"0");
+rep(j,1,chk1) maxm[i].pb(maxm[i-1][j]+"0");
+s=maxm[i-1][chk1-1];chk2=9*i+1;
+rep(j,chk1,chk2) maxm[i].pb(s+ch[j-chk1+1]);
+
+}
+
+
+}
+
+}
+
+
+
+
+int main()
+{
+int i,j;
+scd2(l,sum);
+if(sum>9*l ) cout<<"-1 -1";
+else if((l==0 or l==1) and sum==0) cout<<"0 0";
+else if(l!=0 and sum==0) cout<<"-1 -1";
+else {minmum();maxmum();cout<<minm[l][sum]<<" "<<maxm[l][sum];}
+
+
+
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+these are stars
+i will fathom them into a constellation
+
+*/
