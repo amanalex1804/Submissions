@@ -25,6 +25,10 @@ typedef pair<pair<int,int>,pair<int,int> >P11;
 #define rept(xx) for(int uu=0;uu<xx;++uu)
 #define repb(xx,uu,ee) for(xx=uu;xx>=ee;--xx)
 
+inline void fastRead(int *a){register char c=0;while(c<33)c=gc();*a=0;while(c>33){*a=*a*10+c-'0';c=gc();}}
+ 
+inline void fastWrite(int a){char snum[20];int i=0;do{snum[i++]=a%10+48;a=a/10;}while(a!=0);i=i-1;while(i>=0)pc(snum[i--]);pc('\n');}
+
 //  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
 //  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
 //  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
@@ -41,6 +45,11 @@ typedef pair<pair<int,int>,pair<int,int> >P11;
 #define pra(xx) printf("%d ",xx)
 #define prs(xx) printf("xx\n")
 #define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+
+//for input:   fastread(&x)  output:   fastwrite(x)
+
+
+
 int main()
 {
 
