@@ -1,5 +1,3 @@
-
-
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
@@ -17,14 +15,15 @@ typedef pair<pair<int,int>,pair<int,int> >P11;
 #define FF first.first
 #define FS first.second
 #define pb push_back
-#define mm(XX) memset(XX,0,sizeof(XX))
 
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 #define scd(xx) scanf("%d",&xx)
 #define scd2(xx,uu) scanf("%d%d",&xx,&uu)
 #define debug2d(xx,rr,cc) for(int i=0;i<rr;++i) {for(int j=0;j<cc;++j) cout<<xx[i][j]<<" "; cout<<endl;}
 #define debug1d(xx,rr) for(int i=0;i<rr;++i) cout<<xx[i]<<" ";
 #define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
 #define rept(xx) for(int uu=0;uu<xx;++uu)
+#define repb(xx,uu,ee) for(xx=uu;xx>=ee;--xx)
 
 //  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
 //  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
@@ -32,7 +31,10 @@ typedef pair<pair<int,int>,pair<int,int> >P11;
 //  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
 // pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
 
-#define SIZ 110000
+#define SIZ 4000001
+#define SIZ1 1000000
+#define INF 999999
+
 #define T int t;for(scanf("%d",&t);t--;)
 #define mod 1000000007
 #define scl(xx) scanf("%lld",&xx)
@@ -43,7 +45,7 @@ int main()
 {
 
 
-    // rip it off!
+
 
 
 
@@ -63,9 +65,7 @@ int main()
 
 
 /*
-
-
-these are stars
-i will fathom them into a constellation
+A million dollar is'nt cool!
+A billion dollar is.
 
 */
