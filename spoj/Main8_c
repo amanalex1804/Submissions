@@ -1,0 +1,106 @@
+/* 
+the code spills the writings !
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define SIZ1 1000000
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+
+
+int main()
+{
+ll i,n,k,low,mid,high,sum,cnt;
+T{
+scl2(n,k);
+ll A[n+5];sum=0;cnt=0;
+rep(i,0,n) {scl(A[i]);sum+=A[i];}
+if(k>sum) printf("0\n");
+else
+{
+	low=0;high=sum/k;
+	while(low<high)
+	{
+		if(high-low==1) mid=low+(high-low+1)/2;
+		else mid=low+(high-low)/2;
+		cnt=0;
+		rep(i,0,n) if(A[i]>=mid) cnt+=A[i]/mid;
+		if(cnt>=k) low=mid;
+		else high=mid-1;
+		
+	}
+	printf("%lld\n",low);
+	
+	
+	
+	
+}
+
+
+}
+
+
+
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+these strings are tangled 
+yet they are attached ...
+kite.. i mean!
+
+*/
