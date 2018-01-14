@@ -1,0 +1,97 @@
+/* 
+
+writings_in_which 
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define SIZ1 87000008
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+
+
+#define icp(n)  (flag[n>>6]&(1<<((n>>1)&31)))
+#define comp(n) (flag[n>>6]|=(1<<((n>>1)&31)))
+ull flag[SIZ1>>6];
+vector<ll>prime;
+void bitsieve()
+{
+	ull i,j,k;
+	prime.pb(2);
+	for(i=3;i<SIZ1;i+=2)
+	{
+		if(!icp(i))
+		{
+		prime.pb(i);
+		for(j=i*i,k=i<<1;j<SIZ1;j+=k) comp(j);	
+		}
+		
+	}
+}
+
+int main()
+{
+	SYNC;
+	bitsieve();
+	ll i,n;
+	//for(i=0;i<10;++i) cout<<prime[i]<<" ";
+	//cout<<endl;
+	T{
+	scl(n);
+cout<<prime[n-1]<<endl;
+	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/*
+if you're going to go broke..
+go big !
+
+*/
