@@ -1,0 +1,119 @@
+/* 
+
+writings_in_which 
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define SIZ1 1000005
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+int sieve[SIZ1];
+vector<int>cube,ans;
+void cubes()
+{
+	int i;
+	rep(i,2,101)
+	cube.pb(i*i*i);     
+}
+void cubsieve()
+{
+	int i,j;
+//	rep(i,0,10) cout<<cube[i]<<" ";
+	
+	rep(i,0,cube.size())
+	{
+		for(j=cube[i];j<SIZ1;j+=cube[i]) sieve[j]=1;
+	}
+	ans.pb(1);
+	rep(i,2,SIZ1)
+	if(!sieve[i])
+	ans.pb(i);
+	
+	//	rep(i,0,10) cout<<ans[i]<<" ";
+
+}
+
+int main()
+{
+cubes();
+cubsieve();
+int n,t,ff,ind;
+cin>>t;
+rep(ff,1,t+1){
+scd(n);
+if(!sieve[n]) 
+{
+	ind=lower_bound(ans.begin(),ans.end(),n)-ans.begin();
+	cout<<"Case "<<ff<<": "<<ind+1<<endl;
+	
+	
+}
+
+else cout<<"Case "<<ff<<": "<<"Not Cube Free\n";
+
+
+}
+
+
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+if you're going to go broke..
+go big !
+
+*/
