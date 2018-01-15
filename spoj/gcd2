@@ -1,0 +1,13 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+long long int a,t,l,i,mod;string s;cin>>t;while(t--){
+cin>>a>>s;
+l=s.size();
+mod=0;
+if(a==0) cout<<s<<endl;
+else{
+for(i=0;i<l;++i)
+	mod=((10*mod)+(s[i]-'0'))%a;	
+cout<<__gcd(mod,a)<<endl;}}  return 0;}
