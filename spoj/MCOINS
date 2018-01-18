@@ -1,0 +1,108 @@
+/* 
+
+writings_in_which 
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+typedef pair<int,pair<int,int> >P1;
+typedef pair<pair<int,int>,pair<int,int> >P11;
+
+
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define SF second.first
+#define SS second.second
+#define FF first.first
+#define FS first.second
+#define pb push_back
+
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+// pos=lower_bound(v.begin(), v.end(), data) - v.begin();                  // binary search position(index =0)
+
+#define SIZ 4000001
+#define SIZ1 1000005
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+#define pra(xx) printf("%d ",xx)
+#define prs(xx) printf("xx\n")
+#define bs(XX,xx) binary_search(XX.begin(), XX.end(),xx)
+
+int dp[SIZ1],k,l;
+void rek()
+{
+	int i,ind1;
+	dp[0]=2;
+	dp[1]=1;
+	for(i=2;i<SIZ1;++i)
+	{
+		ind1=i-1;
+		if(ind1<0) ind1=0;
+		if(dp[ind1]==2) {dp[i]=1;continue;}
+		
+		if(i>=k and dp[i-k]==2) {dp[i]=1;continue;}
+	
+		if(i>=l and dp[i-l]==2) {dp[i]=1;continue;}
+		dp[i]=2;
+		
+	}
+	//for(i=1;i<=12;++i) cout<<dp[i]<<" ";
+  // cout<<endl;
+}
+
+int main()
+{
+int m,i;
+scd2(k,l);
+rek();
+scd(m);
+int A[m+5];
+rep(i,1,m+1) scd(A[i]);
+
+rep(i,1,m+1)
+{
+	if(dp[A[i]]==1) printf("A");
+	else printf("B");
+}
+
+
+
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+if you're going to go broke..
+go big !
+
+*/
