@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+
+int dp[30][81][1000];
+int oxy[1005],nitro[1005],wt[1005];
+inline int rek(int ox,int ni,int i)
+{
+	   
+	    if(ox<=0 and ni<=0 and i>=0) return 0;
+
+	    if(i<=0 and ((ox>0 and ni>0) or (ox>0 and ni<=0) or (ox<=0 and ni>0))) return INF;
+	    if(ox<0) ox=0;
+	   if(ni<0) ni=0;
+		 if(dp[ox][ni][i]!=-1) return dp[ox][ni][i];
+
+	return dp[ox][ni][i]=min(rek(ox-oxy[i],ni-nitro[i],i-1)+wt[i],rek(ox,ni,i-1));
+}
+int main()
+{
+	int o,a,n,i,k,j;
+T{
+scd2(o,a);
+
+scd(n);
+for(i=0;i<=o;++i)
+for(j=0;j<=a;++j)
+for(k=0;k<=n;++k)
+dp[i][j][k]=-1;
+rep(i,1,n+1)
+{
+	scd2(oxy[i],nitro[i]);
+	scd(wt[i]);
+}
+
+printf("%d\n",rek(o,a,n));
+
+
+
+
+}
+    return 0;
+}
