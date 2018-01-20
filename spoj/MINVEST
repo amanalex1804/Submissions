@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+
+int val[105],wt[105];int dp[100005][103];
+inline int rek(int i,int w)
+{
+	
+	if(w<0) return -INF;
+	if(dp[w][i]!=-1) return dp[w][i];
+	if(i<=0 or w==0) return 0;
+	return dp[w][i]=max(rek(i,w-wt[i])+val[i],rek(i-1,w));
+}
+int main()
+{
+int cap,year,i,q,ff,ans;
+T{
+scd2(cap,year);
+scd(q);
+
+rep(i,1,q+1)
+{
+	scd2(ff,val[i]);
+	wt[i]=ff/1000;
+}
+
+memset(dp,-1,sizeof(dp));
+for(i=1;i<=year;++i)
+{
+	ans=rek(q,cap/1000);
+	cap+=ans;
+}
+cout<<cap<<endl;
+
+
+}
+
+
+
+
+
+
+    return 0;
+}
