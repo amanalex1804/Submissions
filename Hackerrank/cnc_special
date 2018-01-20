@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define F first
+#define S second
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+
+
+int main()
+{
+ll n,m,i,val,j;ull ans;
+scl2(n,m);
+ans=0;
+for(i=0;i<n;++i)
+for(j=0;j<m;++j)
+scl(val);
+scl(val);
+for(i=0;;++i)
+{
+	//cout<<n<<" "<<m<<endl;
+	if((n-i)==0 or (m-i)==0) break;
+	val=(n-i)*(m-i);
+	
+	
+	ans+=val;
+}
+//cout<<ans<<endl;
+cout<<ans*ans;
+
+
+
+
+
+
+
+    return 0;
+}
