@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 100005
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+int dp[100005][6];
+int A[SIZ],n;
+inline int rek(int w,int i)
+{
+//	cout<<w<<" "<<i<<endl;
+	if(i>n and w>0) return 0;
+	if(w<0) return 0; 	
+	if(i>n) return 0;
+	if(w==0 and i<=n) return 1;
+	
+	if(dp[w][i]!=-1) return dp[w][i];
+	
+	return dp[w][i]=max(rek(w-A[i],i+1),max(rek(w,i+1),rek(w-A[i],i)));
+}
+int main()
+{
+	int k,val,i,j;
+	scd(k);
+	scd(n);
+	rep(i,1,n+1) scd(A[i]);
+	rep(i,2,n+1) A[i]+=A[i-1];
+
+	
+	rep(i,0,k+3) 
+	rep(j,0,n+5)
+	dp[i][j]=-1;
+	
+	val=rek(k,1);
+//	cout<<val;
+	if(val) printf("YES\n");
+	else printf("NO\n");
+	
+	
+	
+	return 0;
+}
