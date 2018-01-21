@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+int A[1010];
+int dp[1001][1001];
+inline int rek(int i,int w)
+{
+	if(w<0) return -INF;
+	if(i<=0 or w==0) return 0;
+	if(dp[i][w]!=-1) return dp[i][w];
+	return dp[i][w]=max(rek(i-2,w-A[i])+A[i],rek(i-1,w));
+}
+int main()
+{int n,k,i,j,gg,ff;scd(ff);
+rep(gg,1,ff+1){
+scd2(n,k);
+rep(i,1,n+1) scd(A[i]);
+
+rep(i,0,n+3)
+rep(j,0,k+3)
+dp[i][j]=-1;
+cout<<"Scenario #"<<gg<<": "<<rek(n,k)<<endl;
+}	
+	
+	return 0;
+}
