@@ -1,0 +1,118 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 10001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+
+// https://www.topcoder.com/community/data-science/data-science-tutorials/range-minimum-query-and-lowest-common-ancestor/
+
+vector<int>gr[SIZ];
+int parent[SIZ],sec[SIZ],level[SIZ],vis[SIZ],ht,nr;
+
+void dfs(int src)     //this dfs is for calculating parent ,level,height
+{
+	int i;
+	vis[src]=1;
+	for(i=0;i<gr[src].size();++i)
+	{
+	  if(!vis[gr[src][i]])
+	  {
+	  	parent[gr[src][i]]=src;
+	  	level[gr[src][i]]=level[src]+1;
+	  	ht=max(ht,level[gr[src][i]]);
+	  	dfs(gr[src][i]);
+	  }	
+	}
+}
+void dfs1(int src)        //calculating sections divide int sqrt(height)
+{
+	vis[src]=0;
+	int i,val;
+	for(i=0;i<gr[src].size();++i)
+	{
+		val=gr[src][i];
+		if(vis[val]==1)
+		{
+			if(level[val]<nr) sec[val]=0;              //see topcoder tutorial
+			else 
+			{
+				if(level[val]%nr==0) sec[val]=src;         // for first level of section
+				else sec[val]=parent[src];
+			}
+			dfs1(val);
+		}
+		
+	}
+}
+int lca(int x,int y)
+{
+	 
+	while(sec[x]!=sec[y])           // bringing both to same section
+	{
+		if(level[x]>level[y]) x=parent[x];         // decreasing level as parent have lower level than child
+		else y=parent[y];
+	}
+	
+	while(x!=y)                         // calculating same parents
+	{
+		if(level[x]>level[y]) x=parent[x];
+		else y=parent[y];
+	}
+	return x;
+}
+int main()
+{
+	int n,i,j,d,q,ff,gg,x,y;scd(ff);
+rep(gg,1,ff+1){
+scd(n);
+rep(i,1,n+1)
+{
+	gr[i].clear();
+	parent[i]=0;
+	level[i]=0;
+	sec[i]=0;
+	vis[i]=0;
+	scd(q);
+	rep(j,0,q)
+	{
+		scd(d);
+		gr[i].pb(d);
+	}
+}
+ht=-1;
+parent[1]=1;   //check this
+dfs(1);
+nr=sqrt(ht);
+
+//for(i=1;i<=n;++i) cout<<level[i]<<" ";
+dfs1(1);
+scd(q);
+printf("Case %d:\n",gg);
+while(q--)
+{
+	scd2(x,y);
+	cout<<lca(x,y)<<endl;
+}
+
+}	
+	
+	return 0;
+}
