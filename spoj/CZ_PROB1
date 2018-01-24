@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 100000
+#define SIZ1 sqrt(SIZ)
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+bool sqvis[SIZ],prim[SIZ];
+vector<ll>sq,ans;
+void square()
+{
+	ll i;
+	for(i=1;i<SIZ1;++i) 
+	{
+		sqvis[i*i]=true;
+		sq.pb(i*i);
+	}
+}
+bool check(ll n)
+{
+	ll val,i;
+	val=n/2;
+	for(i=0;i<sq.size() and sq[i]<=val;++i)
+	{
+		if(sqvis[n-sq[i]]==true) 
+		return true;
+	}
+	return false;
+}
+void sieve()
+{
+	ll i,j;
+	bool flag;
+	ans.pb(2);
+	for(i=3;i<SIZ;i+=2)
+	{
+		if(prim[i]==false)
+		{
+			flag=false;
+			flag=check(i);
+			if(flag) ans.pb(i);
+			for(j=i*i;j<SIZ;j+=2*i) 
+			prim[j]=true;
+		}
+	}
+}
+int main()
+{
+	square();
+
+	sieve();
+	ll val,n,k,j,i;
+T{
+scl2(n,k);
+val=ans[n-1];
+
+//coin change
+int S[k+5];
+for(i=1;i<=k;++i) S[i]=i;
+
+int dp[val+4];
+mm(dp);
+dp[0]=1;
+for(i=1;i<=k;++i)
+for(j=S[i];j<=val;++j)
+dp[j]+=dp[j-S[i]];
+
+cout<<dp[val]<<endl;
+
+
+}	
+	
+	return 0;
+}
