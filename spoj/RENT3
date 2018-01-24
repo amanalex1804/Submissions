@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+struct R
+{
+	int st,en,pr;
+};
+bool comp(R r1,R r2)
+{
+	return (r1.en<r2.en);
+}
+
+int main()
+{
+	int n,i,u,v,pro,ind;
+	T{
+	scd(n);
+	R A[n+5];
+	rep(i,1,n+1)
+	{
+		scd2(u,v);scd(pro);
+		A[i].st=u;
+		A[i].en=u+v;
+		A[i].pr=pro;
+	}
+	sort(A+1,A+n+1,comp);
+	int finish[n+5],dp[n+5],temp;
+	rep(i,1,n+1) finish[i]=A[i].en;
+    dp[1]=A[1].pr;
+    rep(i,2,n+1)
+    {
+    	temp=A[i].pr;
+    	ind=upper_bound(finish+1,finish+i+1,A[i].st)-(finish+1);
+    	if(ind) temp+=dp[ind];
+    	dp[i]=max(dp[i-1],temp);
+    	
+    	
+	}
+	
+	printf("%d\n",dp[n]);
+	
+	
+	}
+	
+	return 0;
+}
