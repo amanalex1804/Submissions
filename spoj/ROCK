@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+ 
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+ 
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+ 
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+ 
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+int dp[300][300],A[300],n;
+ 
+inline int rek(int i,int j,int sweet)
+{
+	if(i>j) return 0;
+	
+	if(i>=n or j>=n) return 0;
+	if(dp[i][j]!=-1) return dp[i][j];
+	if(((j-i+1)/2)<sweet)
+	{
+		dp[i][j]=rek(j+1,j+1,A[j+1])+(j-i+1);
+	}
+	dp[i][j]=max(max(dp[i][j],rek(i,j+1,sweet+A[j+1])),rek(i+1,j+1,sweet+A[j+1]-A[i]));
+	return dp[i][j];
+}
+ 
+int main()
+{
+	
+	int i,j;
+	T{
+	scd(n);
+	string s;
+	cin>>s;
+	rep(i,0,n) 
+	{
+		if(s[i]=='1') A[i]=1;
+		else A[i]=0;
+	}
+	
+	rep(i,0,n+3)
+	rep(j,0,n+3)
+	dp[i][j]=-1;
+	
+	cout<<rek(0,0,A[0])<<endl;
+	}
+	
+	
+	
+	return 0;
+}
+ 
