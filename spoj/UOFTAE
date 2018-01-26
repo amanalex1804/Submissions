@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+ll n,m;
+ll dp[300][300],minm[300],maxm[300];
+inline ll rek(ll n,ll m)
+{
+	if(n<=0 or m<0) return 0;
+	if(m<minm[n]) return 0;
+	
+	if(n==1) 
+	{
+		if(minm[1]<=m and m<=maxm[1]) return 1;
+		else return 0;
+	}
+	if(dp[n][m]!=0) return dp[n][m];
+	
+	
+	for(int i=minm[n];i<=maxm[n];++i)
+	{
+		dp[n][m]=(dp[n][m]%mod+rek(n-1,m-i)%mod+mod)%mod;
+	}
+	return dp[n][m]%mod;
+}
+int main()
+{int i,j;
+T{
+scl2(n,m);
+rep(i,1,n+1) scl2(minm[i],maxm[i]);
+
+rep(i,0,n+5)
+rep(j,0,m+5)
+dp[i][j]=0;
+
+cout<<rek(n,m)<<endl;
+
+}	
+	
+	return 0;
+}
