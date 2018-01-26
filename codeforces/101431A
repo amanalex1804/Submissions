@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+int main()
+{
+	string A[10];
+	 A[1]="***";
+	 A[2]="*.*";
+	 A[3]="***";
+	 A[4]="*.*";
+	 A[5]="*.*";
+	
+		string B[10];
+	 B[1]="***";
+	 B[2]="*.*";
+	B[3]="***";
+	 B[4]="*.*";
+	 B[5]="***";
+	
+		string C[10];
+	 C[1]="***";
+	 C[2]="*..";
+	 C[3]="*..";
+	 C[4]="*..";
+	 C[5]="***";
+	
+		string D[10];
+	 D[1]="***";
+	 D[2]="*.*";
+	D[3]="*.*";
+	 D[4]="*.*";
+	 D[5]="***";
+	
+		string E[10];
+	 E[1]="***";
+	 E[2]="*..";
+	 E[3]="***";
+	E[4]="*..";
+	E[5]="***";
+	
+	int n,l,i,j;
+	scd(n);
+	string s;
+	cin>>s;
+	l=s.size();
+	for(i=1;i<=5;++i)
+	{
+		for(j=0;j<l;++j)
+		{
+			if(s[j]=='A')
+			{
+				cout<<A[i];
+			}
+			else if(s[j]=='B') cout<<B[i];
+			else if(s[j]=='C') cout<<C[i];
+			else if(s[j]=='D') cout<<D[i];
+			else if(s[j]=='E') cout<<E[i];
+			
+		}
+		cout<<endl;
+	}
+	
+	
+	
+	return 0;
+}
