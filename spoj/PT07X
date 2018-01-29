@@ -1,0 +1,89 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 100005
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+
+vector<int>gr[SIZ];
+int vis[SIZ],sel[SIZ];
+bool flag;
+
+inline void dfs(int src)
+{
+	vis[src]=1;
+	int i,j,ver;
+	for(i=0;i<gr[src].size();++i)
+	{
+		ver=gr[src][i];
+		
+		if(!vis[ver])
+		{
+			if(!sel[src]) sel[src]=1;
+			
+			
+			 dfs(ver);
+		}
+	}
+	
+//	cout<<" fuck "<<src<<endl;
+	
+	if(sel[src]==1)
+	{
+		flag=false;
+		
+	//	cout<<" suck "<<src<<endl;
+		
+		for(j=0;j<gr[src].size();++j)
+		{
+			if(sel[gr[src][j]]==0)
+			{
+				flag=true;
+				break;
+			}
+		}
+		if(!flag) {sel[src]=0;}
+	}
+	
+}
+
+
+int main()
+{
+	int i,n,u,v;
+	scd(n);
+	
+	rep(i,1,n)
+	{
+		scd2(u,v);
+		gr[u].pb(v);
+		gr[v].pb(u);
+	}
+	
+	dfs(1);
+	
+	int cnt=0;
+	rep(i,1,n+1) 
+	if(sel[i]==1) ++cnt;
+	
+	cout<<cnt<<endl;
+	return 0;
+}
