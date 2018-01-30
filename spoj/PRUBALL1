@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef  pair<int,int>P;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+
+#define scd(xx) scanf("%d",&xx)
+#define scl(xx) scanf("%lld",&xx)
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu);
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+
+#define SIZ 4000001
+#define INF 999999
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define SYNC  ios_base::sync_with_stdio(false);  cin.tie(NULL);
+ // n is number of eggs ang k is the storey of the building
+int dp[1005][1005];
+int val;
+inline int egg(int n,int k)
+{
+	//cout<<n<<" "<<k<<endl;
+		if(n<0 or k<0) return INF;
+	if(k==1 or k==0) return k;
+	
+	if(n==1) return k;
+	
+
+	
+	if(dp[n][k]!=INF) return dp[n][k];
+	
+	
+	// testing on 1..k  storey building
+	
+	for(int i=1;i<=k;++i)
+	{
+		dp[n][k]=min(dp[n][k],1+max(egg(n-1,i-1),egg(n,k-i)));
+		
+	}
+
+	return dp[n][k];
+	
+}
+
+
+int main()
+{
+	 SYNC ios_base::sync_with_stdio(false);  cin.tie(NULL);
+	int n,k,i,j,typ;
+	T{
+		scd(typ);
+	scd2(n,k);
+	
+	rep(i,0,n+5)
+	rep(j,0,k+5)
+	dp[i][j]=INF;
+	
+
+	
+	cout<<typ<<" "<<egg(n,k)<<endl;
+	
+	
+	
+}
+	return 0;
+}
