@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef unsigned long long int ull;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu)
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+
+#define SIZ 4000001
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+
+
+
+int main()
+{
+	int n,k,i,pos,ti;bool flag;
+T{
+scd2(n,k);
+ti=1;
+bool vis[n+5];
+for(i=0;i<=n+2;++i) vis[i]=false;
+
+for(i=0;i<k;++i) 
+{
+	scd(pos);
+	vis[pos]=true;
+}
+
+while(1)
+{
+	flag=false;
+	for(i=1;i<=n;++i)
+	{
+		if(vis[i]==true)
+		{
+			if(i>1 and vis[i-1]==false)
+			{
+				flag=true;
+				vis[i-1]=true;
+			}
+			if(i<n and vis[i+1]==false)
+			{
+				flag=true;
+				vis[i+1]=true;
+				++i;
+			}
+		}
+	}
+	if(flag) ++ti;
+	else break;
+}
+cout<<ti<<endl;
+}
+    return 0;
+}
+
