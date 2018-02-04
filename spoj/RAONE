@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int dp[12][500];
+int l;
+vector<int>s;
+ 
+inline int conv(int n)
+{
+	s.clear();
+	int val=0;
+	if(!n) s.push_back(0);
+	while(n)
+	{
+		val+=9;
+		s.push_back(n%10);n/=10;
+	}
+	return val;
+}
+ 
+inline int rek(int idx,int sum,int id,int tight)
+{
+	if(idx<0)
+	{
+		if(sum==1) return 1;
+		else return 0;
+	}
+	
+	if(dp[idx][sum]!=-1 and tight==0 and sum>=0) return dp[idx][sum];
+	 int ret=0;
+	int k,i,dig,newtight,val;
+	dig=s[idx];
+	k=tight?dig:9;
+	for(i=0;i<=k;++i)
+	{
+		newtight=(i==dig)?tight:0;
+		if(id&1) val=-1;
+		else val=1;
+		ret+=rek(idx-1,sum+(val*i),id-1,newtight);
+		
+	}
+	if(!tight and sum>=0) dp [idx][sum]=ret;
+	return ret;
+	
+	
+}
+int main()
+{
+//	ios_base::sync_with_stdio(false);cin.tie(NULL);
+		int t,i,j,k,val;
+		 int val1,val2;int a,b;
+		scanf("%d",&t);
+//	cin>>t;
+for(i=0;i<10;++i) for(j=0;j<500;++j) dp[i][j]=-1;
+	while(t--)
+	{
+		scanf("%d%d",&a,&b);  --a;
+		
+		
+		val=conv(b);
+		
+		
+		l=s.size();
+		val1=rek(l-1,0,l,1);
+		
+	//	cout<<val1<<endl;
+	
+		
+		val=conv(a);
+		l=s.size();
+		//	for(i=0;i<10;++i) for(j=0;j<val+5;++j)  dp[i][j]=-1;
+		val2=rek(l-1,0,l,1);
+	//	cout<<val2<<endl;
+	printf("%d\n",val1-val2);
+	//	cout<<val1-val2<<endl;
+		
+		
+	}
+	
+	return 0;
+} 
