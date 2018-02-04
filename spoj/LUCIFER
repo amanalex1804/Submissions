@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[11][500];
+int bit[500];
+bool prim[1005];
+
+void sieve()
+{
+	int i,j;
+	prim[0]=prim[1]=true;
+	for(i=4;i<1005;i+=2) prim[i]=true;
+	for(i=3;i<1005;i+=2)
+	if(!prim[i])
+	for(j=i*i;j<1005;j+=2*i)
+	prim[j]=true;
+	
+}
+
+inline int rek(int idx,int sum,bool tight)
+{
+	if(idx<=0) {
+	if(sum>=0) return (prim[sum]==false);
+	else return 0;}
+	if(!tight and dp[idx][sum]!=-1 and sum>=0) return dp[idx][sum];
+	int k,i,ret,val;ret=0;
+	k=tight?bit[idx]:9;
+	for(i=0;i<=k;++i)
+	{
+		val=1;
+		if(idx&1) val=-1;
+		ret+=rek(idx-1,sum+(val*i),((i==bit[idx])?tight:0));
+	}
+	if(!tight and sum>=0) dp[idx][sum]=ret;
+	return ret; 
+}
+
+int solve(long int n)
+{
+	memset(bit,0,sizeof(bit));
+	int len=1;
+	while(n)
+	{
+		bit[len++]=n%10;
+		n/=10;
+	}
+	return rek(len,0,1);
+	
+}
+
+int main()
+{
+	sieve();
+	int t,a,b;
+	scanf("%d",&t);
+	memset(dp,-1,sizeof(dp));
+	while(t--)
+	{
+		cin>>a>>b;
+		cout<<(solve(b)-solve(a-1))<<endl;
+	
+	}
+	
+	return 0;
+}
