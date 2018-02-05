@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 200000+5
+#define mod 1000000007
+long long int parent[N],val[N],ans;
+pair<long long int,pair<int,int> >P[N];
+
+inline int rek(int x)
+{
+	if(parent[x]!=x) parent[x]=rek(parent[x]);
+	return parent[x];
+}
+
+inline void uni(long long int wt,int x,int y)
+{
+	int xroot,yroot;
+	xroot=rek(x);
+	yroot=rek(y);
+    if(xroot==yroot) return;
+	parent[xroot]=yroot;
+	
+	
+	ans=((ans%mod)+((wt%mod)*(val[xroot]%mod)*(val[yroot]%mod))%mod)%mod;
+	
+	val[yroot]=val[xroot]%mod+val[yroot]%mod;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t,n,i,wt,u,v;
+	cin>>t;
+	while(t--)
+	{
+		cin>>n;
+		ans=0;
+		for(i=0;i<=n+5;++i)
+		{
+			parent[i]=i;
+			val[i]=1;
+			P[i].first=0;
+			P[i].second.first=0;
+			P[i].second.second=0;
+		}
+		for(i=0;i<n-1;++i)
+		{
+			cin>>u>>v>>wt;
+			P[i].first=wt;
+			P[i].second.first=u;
+			P[i].second.second=v;
+		}
+		sort(P,P+n-1);
+		for(i=0;i<n-1;++i)
+		{
+		
+			uni(P[i].first,P[i].second.first,P[i].second.second);
+		
+		}
+		
+		cout<<ans<<endl;
+		
+	}
+	
+	
+	
+	return 0;
+}
