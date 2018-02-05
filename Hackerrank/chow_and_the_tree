@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 50000+5
+vector<int>gr[N];
+int ans[N],val;
+bool vis[N];
+
+inline void dfs(int src)
+{
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i)
+	{
+		if(!vis[gr[src][i]])
+		{
+			ans[gr[src][i]]-=ans[src];
+			dfs(gr[src][i]);			
+		}
+	}
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t,n,i,u,v,q;
+	cin>>t;
+	while(t--)
+	{
+		cin>>n;
+		for(i=0;i<=n+2;++i)
+		{
+			vis[i]=0;
+			ans[i]=0;
+			gr[i].clear();
+		}
+		for(i=1;i<n;++i)
+		{
+			cin>>u>>v;
+			gr[u].push_back(v);
+			gr[v].push_back(u);
+		
+		}
+		
+		cin>>q;
+		
+		while(q--)
+		{
+			cin>>v>>val;
+			ans[v]+=val;
+			
+		}
+		dfs(1);
+		for(i=1;i<=n;++i) cout<<ans[i]<<endl;
+		
+	}
+	
+	
+	return 0;
+}
