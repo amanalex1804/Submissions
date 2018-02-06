@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	//ios_base::sync_with_stdio(false);cin.tie(NULL);
+	string s;
+	int t,i,j,l,val,f,cntodd,posodd;
+	cin>>t;
+	while(t--)
+	{
+		cin>>s;
+		l=s.size();
+		int cnt[30],permut[l+5];
+		vector<int>pos[40];
+		memset(cnt,0,sizeof(cnt));
+		memset(permut,0,sizeof(permut));
+		for(i=0;i<l;++i)
+		{
+			val=((int)(s[i]-'a'))+1;
+			pos[val].push_back(i+1);
+			++cnt[val];
+		}
+		cntodd=0;posodd=-1;
+		for(i=1;i<=26;++i){
+			if(cnt[i]&1)
+			{	++cntodd;posodd=i;}}
+		
+		if(cntodd>1) 
+		{cout<<"-1\n";continue;}
+		
+		f=1;
+		
+		for(i=1;i<=26;++i)
+		{
+			if(i!=posodd and pos[i].size())
+			{
+				for(j=0;j<pos[i].size();j+=2)
+				{
+					permut[f]=pos[i][j];
+					permut[l-f+1]=pos[i][j+1];
+					++f;
+				}
+			}
+		}
+		if(posodd!=-1)
+		for(i=0;i<pos[posodd].size();++i)
+					permut[f++]=pos[posodd][i];
+		
+		for(i=1;i<=l;++i) cout<<permut[i]<<" ";
+		cout<<endl;
+				
+			
+		
+		
+		
+	}
+	
+	return 0;
+}
