@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int t;
+	cin>>t;
+	long long int d_wall,i_fixed,len,d_fixed,d_min,x;
+	while(t--)
+	{
+		cin>>d_wall>>d_fixed>>i_fixed>>len>>d_min;
+		x=(d_fixed*len)/i_fixed;
+		if(x>=d_wall) 
+		{
+			cout<<"NO\n";
+			continue;
+		}
+		else 
+		{
+			cout<<"YES\n";
+			cout<<max(d_min,x-d_fixed)<<endl;
+		}
+	}
+	return 0;
+}
