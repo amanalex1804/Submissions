@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+char a[510],b[510];
+int dp[510][20][510][20],l1,l2;
+inline int rek(int idx1,int k1,int idx2,int k2)
+{
+	if(idx1>=l1 or idx2>=l2) return 0;
+	if(dp[idx1][k1][idx2][k2]!=-1) return dp[idx1][k1][idx2][k2];
+	if(a[idx1]==b[idx2]) return dp[idx1][k1][idx2][k2]=1+rek(idx1+1,k1,idx2+1,k2);
+	int temp=max(rek(idx1+1,k1,idx2,k2),rek(idx1,k1,idx2+1,k2));
+	if(k1>0) return dp[idx1][k1][idx2][k2]=max(temp,1+rek(idx1+1,k1-1,idx2+1,k2));
+	if(k2>0) return dp[idx1][k1][idx2][k2]=max(temp,1+rek(idx1+1,k1,idx2+1,k2-1));
+		
+		return dp[idx1][k1][idx2][k2]=max(temp,dp[idx1][k1][idx2][k2]);
+	
+	
+}
+
+int main()
+{
+	int k1,k2,i,j,k,l;
+	scanf("%s%s",a,b);
+	l1=strlen(a);l2=strlen(b);
+	scanf("%d%d",&k1,&k2);
+	
+for(i=0;i<=l1+5;++i) for(j=0;j<=k1+5;++j) for(k=0;k<=l2+5;++k) for(l=0;l<=k2+5;++l) dp[i][j][k][l]=-1;
+	cout<<rek(0,k1,0,k2);
+	
+	
+	return 0;
+}
