@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int n,i;
+
+	cin>>n;
+
+	   int cnt,j,k,val;
+	   cnt=0;
+	for(i=1;i<=n;++i)
+	{
+		for(j=i+1;j<=n;++j)
+		{
+			k=(i^j);
+			if(j<k and k<=n and (i+j)>k and (i+k)>j and (k+j)>i )
+			{ ++cnt;
+			//cout<<i<<" "<<j<<" "<<k<<endl;
+			}
+		}
+    }
+    cout<<cnt;
+	   
+	
+	
+	return 0;
+}
