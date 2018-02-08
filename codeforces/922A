@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int copy,orig;
+	cin>>copy>>orig;
+	if(orig-1>copy)
+    {
+    	cout<<"No\n";
+    	return 0;
+	}
+	if(copy>0 and (orig==0 or orig==1))
+	{
+		cout<<"No\n";
+		return 0;
+	}
+	if(copy==1 and orig==0) 
+	{
+		cout<<"No\n";
+		return 0;
+	}
+	if((copy-(orig-1))%2==0) cout<<"Yes\n";
+	else cout<<"No\n";
+	
+	return 0;
+}
