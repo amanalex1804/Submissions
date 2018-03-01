@@ -1,0 +1,41 @@
+ #include<bits/stdc++.h>
+ using namespace std;
+ #define mm(XX) memset(XX,0,sizeof(XX))
+ int main(){
+ 	int t,i,x,y,x1,y1,l,q,n,val1,val2;string s;
+ 	scanf("%d",&t);
+ 	while(t--){
+ 		scanf("%d%d",&n,&q);
+ 		cin>>s;
+ 		l=s.size();
+ 		int left[l+5],right[l+5];
+ 		mm(left);mm(right);
+ 		for(i=1;i<l;++i){
+ 			left[i]+=left[i-1];
+ 		if(s[i]!=s[i-1]) left[i]+=1;
+ 	   }
+ 	   for(i=l-2;i>=0;--i){
+ 	   	right[i]+=right[i+1];
+ 	   	if(s[i]!=s[i+1]) right[i]+=1;
+		}
+ 	
+ 		while(q--){
+ 			scanf("%d%d",&x1,&y1);
+ 			--x1;--y1;
+ 			x=min(x1,y1);
+ 			y=max(x1,y1);
+ 			if(x) val1=left[y]-left[x];
+ 			else val1=left[y];
+ 			
+ 			val2=0;
+ 			if(s[0]!=s[l-1]) val2=1;
+ 			val2+=left[x]+right[y];
+ 			
+ 			cout<<min(val1,val2)<<"\n";
+ 			
+ 			
+		 }
+ 		
+	 }
+ 	return 0;
+ }
