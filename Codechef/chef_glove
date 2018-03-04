@@ -1,0 +1,43 @@
+#include<stdio.h>
+
+#define mod 1000000007
+#define siz 100005
+
+int main(){
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(NULL);
+	int t,i,back,front,n;
+	scanf("%d",&t);
+	while(t--){
+		scanf("%d",&n);
+		int A[n+5],B[n+5];
+		for(i=0;i<n;++i) scanf("%d",&A[i]);
+		for(i=0;i<n;++i) scanf("%d",&B[i]);
+		
+		front=1;
+		for(i=0;i<n;++i){
+			if(B[i]<A[i]){
+				front=0;
+				break;
+			}
+		}
+		
+		back=1;
+		for(i=0;i<n;++i){
+			if(B[i]<A[n-i-1]){
+				back=0;
+				break;
+			}
+		}
+		
+		if(back==1 && front==1) printf("both\n");
+		else if(back==0 && front==0) printf("none\n");
+		else if(front==1) printf("front\n");
+		else printf("back\n");
+		
+		
+	}
+	
+	
+	return 0;
+}
