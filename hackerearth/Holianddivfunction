@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t,i,m,j,val,f,n,l,r;
+	cin>>t;
+	while(t--){
+		cin>>n;
+		int x,freq[100010];m=-1;
+		memset(freq,0,sizeof(freq));
+		for(i=0;i<n;++i){
+			cin>>x;
+			freq[x]+=1;
+			m=max(x,m);
+		}
+		for(i=1;i<=100005;++i)
+			freq[i]+=freq[i-1];
+			
+	   long long int tot,l,r,co,val;tot=0;
+	   for(i=1;i<=m;++i){
+	   	 val=1;co=1;
+	 
+	   	 while(1){
+	   	 	
+	   	 	l=(i&1)?((i*val)/2):((i*val)/2-1);
+	   	 	r=(i&1)?((i*(val+2))/2):((i*(val+2))/2-1);
+	   	 	if(l>m) break;
+	   	 	
+	   	 	tot+=co*(freq[r]-freq[l])*(freq[i]-freq[i-1]);
+	   	 	++co;
+	   	 	val+=2;
+	   	 	
+	   	 	
+			}
+	   	
+	   }
+	   cout<<tot<<"\n";		
+			
+		
+	}
+	
+	return 0;
+}
