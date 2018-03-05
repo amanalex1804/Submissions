@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define siz 100005
+ll A[siz];
+int m;
+vector<int>v[siz];
+
+inline void fill(int idx){
+	ll n=A[idx];
+	while(n){
+		v[idx].push_back(n%2);
+		n/=2;
+	}
+	int va=v[idx].size();
+	m=max(m,va);
+}
+int main(){
+	
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+int i,j,q,l,r,cnt,n;cin>>n>>q;
+	m=-1;
+	for(i=0;i<n;++i) cin>>A[i];
+	for(i=0;i<n;++i) fill(i);
+	
+	
+	for(i=0;i<n;++i){
+		if(v[i].size()<m){
+			for(j=0;j<v[i].size()-m;++j) v[i].push_back(0);
+		}
+	}
+	for(i=1;i<n;++i){
+		for(j=0;j<v[i].size();++j) v[i][j]+=v[i-1][j];
+	}
+	int d,temp0;
+	while(q--){
+		vector<int>ans,cum;
+		cin>>l>>r;
+		--l;--r;
+		if(!l){
+			for(i=0;i<v[r].size();++i) cum.push_back(v[r][i]);		}
+			else {
+				for(i=0;i<v[r].size();++i)
+				cum.push_back(v[r][i]-v[l-1][i]);
+			}
+			d=r-l+1;
+		for(i=0;i<cum.size();++i) {
+			temp0=d-cum[i];
+			if(cum[i]<temp0) ans.push_back(1);
+			else ans.push_back(0);
+			
+			
+		}
+		ll val=0,mult=1;
+		
+		for(i=0;i<31;++i){
+		  if(i<ans.size())	val+=(mult*ans[i]);
+		  else val+=mult;
+			mult*=2;
+		}
+		
+		cout<<val<<endl;
+		
+		
+	}
+	return 0;
+}
