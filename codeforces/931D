@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define siz 100005
+
+int vis[siz],level[siz],freq[siz];
+vector<int>gr[siz];
+int main(){
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(NULL);
+
+   int n,i,x,q,m,ver;
+   cin>>n;
+   for(i=2;i<=n;++i){
+   	cin>>x;
+   	gr[x].push_back(i);
+   	
+   }
+   
+   queue<int>Q;
+   Q.push(1);
+   level[1]=0;m=0;
+   while(!Q.empty()){
+   	q=Q.front();Q.pop();
+   	if(vis[q]) continue;
+   	vis[q]=1;
+   	for(i=0;i<gr[q].size();++i){
+   		ver=gr[q][i];
+   		level[ver]=level[q]+1;
+   		m=max(m,level[ver]);
+   		freq[level[ver]]+=1;
+   		Q.push(ver);
+	   }
+   }
+   long long int ans=1;
+   for(i=0;i<=m;++i)
+	if(freq[i]%2) ans+=1;
+	
+	cout<<ans<<"\n";
+	return 0;
+}
