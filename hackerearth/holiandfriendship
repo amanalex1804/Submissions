@@ -2,6 +2,7 @@
 using namespace std;
 #define mod 1000000007
 #define siz 100005
+typedef  long long int ll;
 bool prime[siz];string s;
 int dp[57][500][500][2][2];int l;
 inline void p(){
@@ -15,11 +16,17 @@ inline void p(){
 887};
 int i;for (i = 0; i < 154; i++) prime[a[i]] = true;
 }
-
+inline int add(ll x,ll y)           //reduces time complexity
+{
+    ll z=x+y;
+    if(z>=mod)
+        z-=mod;
+    return z;
+}
 inline int rek(int idx,int sx,int sy,int tight,int itight){
 	
 	if(idx>=l){
-		if(!itight and sx<sy and prime[sx+sy]==true) return 1;       // itight is false because x<y if(true then x=y)
+		if(!itight and sx<sy and prime[sx+sy]==true) return 1;   //itight is false means x<y if true x=y
 		else return 0;
 	}
 	if(dp[idx][sx][sy][tight][itight]!=-1 ) return dp[idx][sx][sy][tight][itight];
@@ -30,12 +37,12 @@ inline int rek(int idx,int sx,int sy,int tight,int itight){
 	for(i=0;i<=k;++i){
 		k1=(itight)?i:9;
 		for(j=0;j<=k1;++j){
-			ans=(ans%mod)+(rek(idx+1,sx+j,sy+i,(i==(int)(s[idx]-'0'))&&(tight),(j==i)&&(itight))%mod);
+			ans=add(ans,rek(idx+1,sx+j,sy+i,(i==(int)(s[idx]-'0'))&&(tight),(j==i)&&(itight)));
 		}
 	}
 	
 	 dp[idx][sx][sy][tight][itight]=(ans%mod);
-	return ans%mod;
+	return ans;
 	
 	
 	
