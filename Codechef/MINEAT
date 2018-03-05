@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define siz 100005
+typedef  long long int ll;
+inline int add(ll x,ll y)
+{
+    ll z=x+y;
+    if(z>=mod)
+        z-=mod;
+    return z;
+}
+int main(){
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(NULL);
+ long long int t,i,k,n,ff;
+ cin>>t;
+ while(t--){
+ 	cin>>n>>k;
+ 	long long int A[n+5];
+ 	for(i=0;i<n;++i) cin>>A[i];
+ //	if(n==1) {cout<<ceil((double)(A[0])/(double)(k))<<"\n";continue;}
+ 	long long int l,i,h,m,temp;
+ 	l=1;h=1e10;
+ 	while(l<h){
+ 	//	cout<<l<<" "<<h<<endl;
+ 		m=l+(h-l)/2;
+ 		temp=0;
+ 		for(i=0;i<n;++i)
+ 			temp+=ceil((double)(A[i])/(double)(m));
+		 
+ 		if(temp<=k) h=m;
+ 		else l=m+1;
+	 }
+	 cout<<l<<endl;
+ }
+	
+	return 0;
+}
