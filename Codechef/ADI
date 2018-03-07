@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int t,i,l;string s;
+	cin>>t;
+	int A[40];
+	while(t--){
+		cin>>s;
+		memset(A,0,sizeof(A));
+		l=s.size();
+		for(i=0;i<l;++i){
+			int c=(int)(s[i]-'a');
+			A[c]=1;
+		}
+		if(A[0]==1 and A[4]==1 and A[8]==1 and A[14]==1 and A[20]==1) cout<<s<<"\n";
+		
+	}
+	
+	return 0;
+}
