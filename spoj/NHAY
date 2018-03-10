@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 200005
+
+string patt,txt;
+int lps[siz],lp,lt;
+
+
+// finding longest preffix=suffix segment in string
+inline void lpsc(){
+	int len,i;
+    len=0;
+    i=1;
+    while(i<lp){
+    	
+    	if(patt[i]==patt[len]){
+    		++len;
+    		lps[i]=len;
+    		++i;
+		}
+		else{
+			if(len) len=lps[len-1];               //checking inside the already present longest suffix=prefix
+			else {  lps[i]=0;++i;	}              // worst case of finding in matched substring
+			
+		}  	
+	}
+}
+
+int main(){
+	int n;
+	while(scanf("%d",&n)!=EOF){
+		int i,j;
+		cin>>patt;
+		cin>>txt;
+		lt=txt.size();
+		lp=patt.size();
+		for(i=0;i<lp+10;++i) lps[i]=0;
+		lpsc();
+		bool flag=false;
+		
+		//kmp implementation
+		
+		i=0;j=0;             // i is for text and j is for pattern
+		while(i<lt){
+			
+			if(patt[j]==txt[i]) {++i;++j;	}                // simply increment
+			if(j==lp) {cout<<i-j<<"\n";j=lps[j-1];flag=true;	}        // the whole pattern is found here and printing the starting  of the index in text
+			if(patt[j]!=txt[i]){
+				if(j) j=lps[j-1];                            // if not matched..jump until j not becomes 0
+				else {j=0;++i;}                             // no optimization or short pattern is found so simply move on
+			}
+				
+		}
+		if(!flag) printf("\n\n");	
+	}
+	
+	
+	return 0;
+}
