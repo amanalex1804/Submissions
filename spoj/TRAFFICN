@@ -1,0 +1,109 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 200005
+
+
+vector<pair<int,int> >gr[siz],rgr[siz];
+long long  dis[siz],rdis[siz],vis[siz],rvis[siz];
+
+inline void dij(int src){
+	
+	int dist,node,ver,i;
+	priority_queue<pair<int,int> >Q;
+	Q.push({0,src});
+	dis[src]=0;
+	pair<int,int> p;
+	while(!Q.empty()){
+		
+		p=Q.top();
+		Q.pop();
+		node=p.second;
+	//	cout<<node<<" \n";
+		if(vis[node]) continue;
+		vis[node]=1;
+		
+		for(i=0;i<gr[node].size();++i){
+			ver=gr[node][i].first;
+			dist=gr[node][i].second;
+			if(dis[ver]>dist+dis[node]){
+				dis[ver]=dist+dis[node];
+				Q.push({(-1)*dis[ver],ver});
+			}	
+		}	
+	}	
+}
+
+inline void rdij(int src){
+	
+	int dist,node,ver,i;
+	priority_queue<pair<int,int> >Q;
+	Q.push({0,src});
+	rdis[src]=0;
+	pair<int,int> p;
+	while(!Q.empty()){
+		
+		p=Q.top();
+		Q.pop();
+		node=p.second;
+	//	cout<<node<<" \n";
+		if(rvis[node]) continue;
+		rvis[node]=1;
+		
+		for(i=0;i<rgr[node].size();++i){
+			ver=rgr[node][i].first;
+			dist=rgr[node][i].second;
+			if(rdis[ver]>dist+rdis[node]){
+				rdis[ver]=dist+rdis[node];
+				Q.push({(-1)*rdis[ver],ver});
+			}	
+		}	
+	}	
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+
+int n,m,k,s,t,i,x,y,wt,test;
+cin>>test;
+while(test--){
+
+cin>>n>>m>>k>>s>>t;
+
+for(i=0;i<n+5;++i) {gr[i].clear();rgr[i].clear();}
+for(i=0;i<m;++i){
+	cin>>x>>y>>wt;
+	gr[x].push_back({y,wt});
+	rgr[y].push_back({x,wt});
+}
+	for(i=0;i<n+5;++i){
+		dis[i]=9999999999;
+		rdis[i]=9999999999;
+		vis[i]=0;
+		rvis[i]=0;
+	}
+	dij(s);
+	rdij(t);
+	long long int ans,t1,ans1;
+	ans=0;ans1=9999999999;
+    ans=dis[t];
+    
+	
+	for(i=0;i<k;++i){
+		cin>>x>>y>>wt;
+		
+	//	if(dis[x]>=9999999999 or rdis[y]>=9999999999 or dis[y]>=9999999999 or rdis[x]>=9999999999) continue;
+		
+		t1=dis[x]+rdis[y]+wt;
+		ans1=min(ans1,t1);
+		t1=dis[y]+rdis[x]+wt;
+		ans1=min(ans1,t1);
+		
+			
+	}
+
+	if(ans1<=ans and ans1<9999999999) cout<<ans1<<"\n";
+	else if(ans<ans1 and ans<9999999999) cout<<ans<<"\n";
+	else cout<<"-1\n";
+}
+	return 0;
+}
