@@ -1,0 +1,112 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define INF 9999999999
+
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	while(1){
+		int n,m,s,t,i,x,y,wt,j,node,ver,d;
+		cin>>n>>m;
+		if(!n and !m) return 0;
+		cin>>s>>t;
+		vector<pair<int,int> >gr[n+5],par[n+5];
+		for(i=0;i<m;++i){
+			cin>>x>>y>>wt;
+			gr[x].push_back({y,wt});
+				
+		}
+		
+		// first dijikshtra
+		long long int dis[n+10];bool vis[n+10];
+		for(i=0;i<n+5;++i) {dis[i]=INF;vis[i]=false;}
+		pair<int,int>temp;
+		priority_queue<pair<int,int> >Q;
+		Q.push({0,s});
+		dis[s]=0;
+		while(!Q.empty()){
+			temp=Q.top();
+			Q.pop();
+			 node=temp.second;
+			// cout<<node<<endl;
+			if(vis[node]) continue;
+			vis[node]=true;
+			
+			for(i=0;i<gr[node].size();++i){
+				ver=gr[node][i].first;
+			 d=gr[node][i].second;
+				
+				if(dis[ver]>=d+dis[node]){
+					
+					dis[ver]=d+dis[node];
+					par[ver].push_back({dis[ver],node});
+					Q.push({(-1)*dis[ver],ver});
+					
+				}	
+			}
+						
+		}
+	
+		bool edge[m+10];
+		memset(edge,false,sizeof(edge));
+		queue<int>q;
+		q.push(t);
+		bool vism[n+10];
+		memset(vism,false,sizeof(vis));
+		while(!q.empty()){
+			ver=q.front();
+			q.pop();
+	//	cout<<ver<<"--"<<endl;
+			if(vism[ver]) continue;
+			vism[ver]=true;
+			for(j=0;j<par[ver].size();++j){
+				
+				int d=par[ver][j].first;
+				int node=par[ver][j].second;
+			//	cout<<node<<" "<<d<<" "<<dis[ver]<<endl;
+				if(d==dis[ver]){  edge[ver]=true;edge[node]=true;q.push(node);	}
+			}
+			
+		}
+	//	for(i=0;i<n;++i) cout<<edge[i]<<" ";
+		
+		// second dij
+		
+		long long int dis1[n+10];bool vis1[n+10];
+		for(i=0;i<n+5;++i) {dis1[i]=INF;vis1[i]=false;}
+	
+		priority_queue<pair<int,int> >Q1;
+		Q1.push({0,s});
+		dis1[s]=0;
+		
+		while(!Q1.empty()){
+			temp=Q1.top();
+			Q1.pop();
+			node=temp.second;
+			
+			
+			if(vis1[node]) continue;
+			
+			for(i=0;i<gr[node].size();++i){
+				 ver=gr[node][i].first;
+				 d=gr[node][i].second;
+				
+				if(edge[ver]==true and edge[node]==true) continue;
+				
+					if(dis1[ver]>d+dis1[node]){
+					dis1[ver]=d+dis1[node];
+					Q1.push({(-1)*dis1[ver],ver});
+					
+				}					
+			}
+						
+		}
+	//	cout<<endl;
+		if(dis1[t]!=INF) cout<<dis1[t]<<"\n";
+		else cout<<"-1\n";
+		
+	}
+	
+	
+	return 0;
+}
