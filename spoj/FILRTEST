@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(NULL);
+	long long int n,i,len,l;
+	string s;
+	while(1){
+		cin>>n;
+		cin>>s;
+		if(n==-1) return 0;
+		
+		l=s.size();
+		if(n<l) {cout<<"0\n";continue;		}
+		if(n==l) {cout<<"1\n";continue;		}
+		int lps[l+5];
+		memset(lps,0,sizeof(lps));
+		
+		i=1;len=0;
+		while(i<l){
+			if(s[i]==s[len]){++len;lps[i]=len;++i;}
+			else{
+				if(len) len=lps[len-1];
+				else {lps[i]=0;++i;	}
+			}			
+			
+		}
+		long long int t1,idx,val,temp,ans;
+		t1=lps[l-1];
+		idx=l-t1;
+		val=n/idx;
+		ans=val ;
+		for(i=val-t1;;++i){
+			
+			temp=(i*l)-(t1*(i-1));
+			if(temp<=n) ans=i;
+			else break;
+			
+			
+		}
+		cout<<ans<<"\n";
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
