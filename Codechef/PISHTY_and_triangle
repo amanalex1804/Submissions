@@ -1,0 +1,147 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 200005
+typedef long long int ll;
+ll A[siz];
+int l,r,val,idx;
+
+struct node{
+	vector<ll>v;
+	
+	
+	int ans=0,c=-1;
+	
+	ll fun(){
+		if(ans) return v[c]+v[c+1]+v[c+2];
+		return 0;
+	}
+	
+	
+	void merge(node x,node y){           
+		
+		int i,j,len;i=0;j=0;len=-1;ans=0;c=-1;
+		v.clear();
+		while(i<x.v.size() and j<y.v.size() and ans==0){
+			
+			if(x.v[i]>y.v[j]) v.push_back(x.v[i++]);
+			else v.push_back(y.v[j++]);
+		
+			if(v.size()>=3) 
+			{
+				++c;
+				if(v[c]<v[c+1]+v[c+2]) ans=1;
+			}
+			
+		}
+		
+		
+		while(i<x.v.size() and ans==0){
+			v.push_back(x.v[i++]);
+			if(v.size()>=3) 
+			{
+				++c;
+				if(v[c]<v[c+1]+v[c+2]) ans=1;
+			}
+			
+		}
+		
+		
+		while(j<y.v.size() and ans==0){
+			v.push_back(y.v[j++]);
+	     	if(v.size()>=3) 
+			{
+				++c;
+				if(v[c]<v[c+1]+v[c+2]) ans=1;
+			}
+			
+		}
+		
+			
+	}
+		
+}seg[4*siz];
+
+
+
+inline void build (int curr,int st,int en){
+	
+	if(st==en) {seg[curr].v.push_back(A[st]);}
+	else{
+		
+		int mid=st+(en-st)/2;
+		build(2*curr,st,mid);
+		build(2*curr+1,mid+1,en);
+		seg[curr].merge(seg[2*curr],seg[2*curr+1]);
+		
+	}	
+	
+}
+
+inline void update(int curr,int st,int en){
+	
+	if(st>idx or idx>en) return ;
+	if(st==en and st==idx){
+		
+		seg[curr].v.clear();
+		seg[curr].v.push_back(val);
+		A[idx]=val;
+		return;
+	}
+	int mid=st+(en-st)/2;
+	update(2*curr,st,mid);
+	update(2*curr+1,mid+1,en);
+	seg[curr].merge(seg[2*curr],seg[2*curr+1]);
+	
+}
+
+node query(int curr,int st,int en){
+	
+	if(r<st or en<l) {node temp;return temp;	}
+	if(l<=st and en<=r) return seg[curr];
+	
+	int mid=st+(en-st)/2;
+	node a,b,c;
+	a=query(2*curr,st,mid);
+	b=query(2*curr+1,mid+1,en);
+	
+	c.merge(a,b);
+	return c;
+	
+}
+
+
+
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	int n,q,type,i;
+	cin>>n>>q;
+	for(i=1;i<=n;++i) cin>>A[i];
+	
+	build(1,1,n);
+	
+	while(q--){
+		
+		cin>>type;
+		if(type==1){
+			cin>>idx>>val;
+			update(1,1,n);
+		}
+		else
+		{
+			cin>>l>>r;
+			node k=query(1,1,n);
+			cout<<k.fun()<<"\n";
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
