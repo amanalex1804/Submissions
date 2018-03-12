@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	char s[200005];int lps[200005];
+	
+	while(scanf("%s",s)!=EOF){
+		
+		string temp="";int i,len;
+	int l=strlen(s);
+		for(i=l-1;i>=0;--i) temp+=s[i];
+		string rev=temp;
+		temp+=s;
+		
+		
+		// lps
+		
+		memset(lps,0,sizeof(lps));
+		int l1=temp.size();
+		for(i=0;i<l1+10;++i) lps[i]=0;
+		len=0;i=1;
+	
+		while(i<l1){
+			if(temp[i]==temp[len]){
+				++len;
+				lps[i]=len;
+				++i;
+			}
+			else{
+				if(len) len=lps[len-1];
+				else{ lps[i]=0;++i;	}
+			}
+			
+		}
+		int d=lps[l1-1];
+		d=l-d;
+	
+	if(d<=0) {cout<<s<<"\n";continue;
+	}
+		string ans="";
+		
+        ans=rev.substr(l-d,d);
+		cout<<s<<ans<<"\n";
+		
+		
+	}
+	
+	return 0;
+}
