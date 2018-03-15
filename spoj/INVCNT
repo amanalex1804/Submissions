@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 4000010
+typedef long long int ll;
+ll seg[siz];
+ll l,r,val,pos;
+inline ll query(ll node,ll st,ll en){
+	
+	if(r<st or en<l) return 0;
+	if(l<=st and en<=r) return seg[node];
+	ll mid=st+(en-st)/2;
+	ll q1=query(2*node,st,mid);
+	ll q2=query(2*node+1,mid+1,en);
+	return (q1+q2);
+	
+}
+
+inline void update(ll node,ll st,ll en){
+	if(st>pos or pos>en) return ;
+	if(st==pos and pos==en) {seg[node]+=1;return;}
+	ll mid=st+(en-st)/2;
+	update(2*node,st,mid);
+	update(2*node+1,mid+1,en);
+	seg[node]=seg[2*node]+seg[2*node+1];	
+	
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	ll t,n,i,x;
+	cin>>t;
+	while(t--){
+		cout<<"\n";
+		cin>>n;
+		pair<ll,ll>temp[n+5];
+		for(i=1;i<=n;++i) {
+			cin>>x;
+			temp[i].first=x;
+			temp[i].second=i;
+			
+		}
+		
+		for(i=0;i<4*n+4;++i) seg[i]=0;
+		
+		sort(temp+1,temp+n+1);
+		ll ans=0;
+		for(i=1;i<=n;++i){
+			val=temp[i].second;
+			l=val;r=n;
+			ans+=query(1,1,n);
+			pos=val;
+		
+			update(1,1,n);
+			
+		}
+		cout<<ans<<"\n";
+		
+		
+	}
+	
+	return 0;
+}
