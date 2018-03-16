@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef pair<int,int> P;
+#define siz 400005
+#define INF 999999999
+ll dis[siz],vis[siz];
+
+int  main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	ll n,m,s,t,i,j,x,y,wt,k;
+	
+	cin>>n>>m>>s>>t;
+	
+	ll floyd[n+5][n+5];
+	
+	vector<P>gr[siz];
+	for(i=1;i<=n;++i)
+	for(j=1;j<=n;++j)
+	floyd[i][j]=INF;
+	
+	for(i=0;i<n+5;++i) dis[i]=INF;
+	
+	for(i=0;i<m;++i){
+		cin>>x>>y>>wt;
+		gr[x].push_back({y,wt});
+		floyd[x][y]=wt;
+	}
+	
+	// floyd 
+	for(k=1;k<=n;++k)
+	for(i=1;i<=n;++i)
+	for(j=1;j<=n;++j)
+	floyd[i][j]=min(floyd[i][j],floyd[i][k]+floyd[k][j]);
+	
+	// dij
+	P p; ll node,ver,d,nd;
+	priority_queue<P>Q;
+	Q.push({0,s});
+	dis[s]=0;
+	while(!Q.empty()){
+		p=Q.top();Q.pop();
+		node=p.second;
+		if(vis[node]) continue;
+		vis[node]=1;
+		
+		for(i=0;i<gr[node].size();++i){
+			ver=gr[node][i].first;
+			d=gr[node][i].second;
+			nd=floyd[ver][node];
+			if(dis[ver]>d+nd+dis[node]){
+				dis[ver]=d+nd+dis[node];
+				Q.push({(-1)*dis[ver],ver});
+			}
+		}
+				
+		
+	}
+	
+	if(dis[t]>=INF) cout<<"-1";
+	else cout<<dis[t];
+	
+	
+	return 0;
+}
