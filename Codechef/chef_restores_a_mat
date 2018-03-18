@@ -1,0 +1,108 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	 ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	ll t,n,m,i,j,x,y;
+	cin>>t;
+	while(t--){
+		
+		cin>>n>>m;
+		ll A[n+5][m+5],C[n+5][m+5];
+		queue<pair<int,int> >Q;
+		
+		for(i=1;i<=n;++i)
+		{
+			for(j=1;j<=m;++j){
+				cin>>A[i][j];
+				if(A[i][j]==-1) {Q.push({i,j});continue;}
+				C[i][j]=A[i][j];
+			}
+		}
+		bool flag1=true;
+		pair<int,int>p;
+		while(!Q.empty()){
+			p=Q.front();Q.pop();
+			x=p.first;
+			y=p.second;
+			//cout<<" for "<<x<<" "<<y<<endl;
+			ll l,l1,r1,r,val;
+			bool flag=false;
+			for(i=y;i>0;--i){
+				if(A[x][i]!=-1) {l=A[x][i];flag=true;break;	}
+			}
+			if(!flag) l=1;
+			
+			
+			flag=false;
+			for(i=y;i<=m;++i){
+				if(A[x][i]!=-1) {r=A[x][i];flag=true;break;				}
+			}
+			if(!flag) r=2000000000;
+			
+			flag=false;
+			
+			for(i=x;i>0;--i){
+				if(A[i][y]!=-1) {l1=A[i][y];flag=true;break;
+				}
+			}
+			if(!flag) l1=1;
+			
+			flag=false;
+			for(i=x;i<=n;++i){
+				if(A[i][y]!=-1) {r=A[i][y];flag=true;break;				}
+			}
+			if(!flag) r1=2000000000;
+			flag=false;
+			//cout<<l<<" "<<r<<" "<<l1<<" "<<r1<<endl;
+			for(i=max(l1,l);i<=min(r,r1);++i){
+				val=i;
+				flag=true;
+				break;
+			}
+			if(!flag) {cout<<"-1\n";flag1=false;break;			}
+			
+			A[x][y]=val;
+		//	cout<<endl<<endl;
+			
+		}
+		if(flag1){
+			
+			
+			bool f=true;
+			for(i=1;i<=n and f==true;++i){
+				for(j=2;j<=m;++j){
+					if(A[i][j]<A[i][j-1])
+					{
+						f=false;
+						break;
+					}
+				}
+			}
+			if(!f) {cout<<"-1\n";continue;}
+			
+			for(i=1;i<=m and f==true;++i){
+				for(j=2;j<=n;++j){
+					if(A[j][i]<A[j-1][i]){
+						f=false;
+						break;
+					}
+				}
+			}
+				if(!f) {cout<<"-1\n";continue;}
+
+			
+			for(i=1;i<=n;++i){
+				for(j=1;j<=m;++j)
+				 cout<<A[i][j]<<" ";
+				 cout<<"\n";
+			}
+		}
+		
+	}
+	
+	
+	
+	return 0;
+} 
