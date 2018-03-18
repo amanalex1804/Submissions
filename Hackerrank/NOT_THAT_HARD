@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define siz 100005
+typedef  long long int ll;
+typedef pair<int,int> P;
+inline ll add(ll x,ll y)
+{
+    ll z=x+y;
+    if(z>=mod)
+        z-=mod;
+    return z;
+}
+inline ll mult(ll x,ll y){
+	ll r=x*y;
+	if(r>=mod) r%=mod;
+	return r;
+}
+inline ll exp(ll x,ll n){
+	ll res=1;
+	while(n){
+		if(n&1) res=mult(res,x);
+		x=mult(x,x);
+		n/=2;
+	}
+	return res;
+}
+
+int main(){
+//	ios_base::sync_with_stdio(false);
+//	cin.tie(NULL);
+	ll t,n,k;
+	cin>>t;
+	while(t--){
+		cin>>n>>k;
+		if(!n) {cout<<"0\n";continue;		}
+		if(n==1) {cout<<k<<"\n";continue;}
+		ll ans,temp,gg;
+		ans=mult(n,k);
+		temp=add(ans,1);
+		gg=add(1,k);
+		gg=exp(gg,n-2);
+		ans=mult(ans,temp);
+		ans=mult(ans,gg);
+		cout<<ans<<"\n";
+		
+		
+		
+		
+		
+		
+		
+	}
+	return 0;
+}
