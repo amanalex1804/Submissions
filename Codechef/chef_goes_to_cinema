@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define siz 200000
+typedef long long int ll;
+ll A[siz];
+ 
+inline void pre(){
+	
+	ll i=1,l;l=0;
+	A[0]=0;
+	for(i=1;i<siz;++i){
+		
+		A[i]=A[i-1]+i;
+	}
+	
+//	cout<<A[siz-1];
+	
+	
+}
+ 
+int main(){
+	
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	ll t,x,l1,r1;
+	pre();
+	cin>>t;
+	while(t--){
+		cin>>x;
+		ll pos=lower_bound(A,A+siz,x)-A;
+		ll l,r;
+	//	cout<<"pos "<<pos<<endl;
+		l=A[pos-1];
+		r=A[pos];
+		
+		if(l==x) cout<<pos<<"\n";
+		else{
+		//	cout<<" l and r "<<l<<" "<<r<<endl;
+			l1=x-l;
+			r1=r-x;
+			ll cost1=pos-1+l1;
+			ll cost2=pos+r1;
+		//	cout<<" co "<<cost1<<" "<<cost2<<endl;
+			cout<<min(cost1,cost2)<<"\n";
+		}
+		
+		
+	}
+	
+	return 0;
+} 
