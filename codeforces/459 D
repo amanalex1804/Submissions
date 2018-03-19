@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 2000000
+typedef long long int ll;
+ll BIT[sz],A[sz],n,suff[sz],pre[sz],temp[sz],M[sz];
+
+
+inline void update(ll pos,ll val){
+	++pos;
+	for(;pos<=n+10;pos+=pos&(-pos)) BIT[pos]+=val;
+}
+
+ll query(ll pos){
+	ll s=0;
+	
+	for(;pos>0;pos-=pos&(-pos)) s+=BIT[pos];
+	
+	return s;
+}
+int main(){
+	ll i,val;
+	cin>>n;
+	for(i=0;i<n;++i) {cin>>A[i];temp[i]=A[i];}
+	sort(temp,temp+n);
+	ll siz=unique(temp,temp+n)-temp;
+	
+	for(i=0;i<n;++i) A[i]=lower_bound(temp,temp+siz,A[i])-temp;
+	
+	
+	for(i=0;i<n;++i){
+		M[A[i]]+=1;
+		pre[i]=M[A[i]];
+	}
+	
+	for(i=0;i<n+5;++i) M[i]=0;
+	for(i=n-1;i>=0;--i){
+		M[A[i]]+=1;
+		suff[i]=M[A[i]];
+		
+		update(suff[i],1);
+	}
+	long long int ans=0;
+	for(i=0;i<n;++i){
+		update(suff[i],-1);
+		ans+=query(pre[i])-query(1);
+		
+	}
+	cout<<ans<<"\n";
+	
+	
+
+	return 0;
+}
