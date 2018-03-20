@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+vector<string>v;
+int dp[10010][20][20],n;
+
+int rek(int id,int f,int l){
+	
+	if(id>=n) return 0;
+	if(dp[id][f][l]!=-1) return dp[id][f][l];
+	
+	int t,len;string temp=v[id];
+	len=temp.size();
+	int fcs=(int)(temp[0]-'0');
+	int lcs=(int)(temp[len-1]-'0');
+	t=min(rek(id+1,fcs,l)+len,rek(id+1,f,lcs)+len);
+	
+	if(lcs==f) t=min(rek(id+1,fcs,l)+len-1,t);
+	
+	if(l==fcs) t=min(rek(id+1,f,lcs)+len-1,t);
+	
+	dp[id][f][l]=t;
+	return t;
+	
+	
+	
+	
+}
+int main(){
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	int t;
+	cin>>t;
+	while(t--){
+		v.clear();
+		memset(dp,-1,sizeof(dp));
+		cin>>n;
+		string x;
+		for(int i=0;i<n;++i) cin>>x,v.push_back(x);
+		string temp=v[0];
+		int len=temp.size();
+		
+		cout<<rek(1,(int)(temp[0]-'0'),(int)(temp[len-1]-'0'))+len<<"\n";
+		
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
