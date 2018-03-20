@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+
+int main(){
+	 ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	ll n;
+	map<ll,ll>M;
+	cin>>n;
+	ll A[n+5],odd[n+5],even[n+5],diff[n+5],ch[n+5];
+	
+	for(int i=0;i<n;++i) {
+		cin>>A[i];
+		if(A[i]&1) ch[i]=1;
+		else ch[i]=2;
+		odd[i]=0;even[i]=0;diff[i]=0;
+		if(!i) { 
+		if(A[i]&1) odd[i]=1;
+		else even[i]=1;
+		diff[i]=odd[i]-even[i];	
+		M[diff[i]]+=1;
+		continue;	}
+		
+		if(A[i]&1) {odd[i]=1+odd[i-1];even[i]=even[i-1];}
+		else {even[i]=1+even[i-1];odd[i]=odd[i-1];}
+		diff[i]=odd[i]-even[i];
+		M[diff[i]]+=1;
+		
+	}
+
+	
+	long long int ans=M[0];
+	M[diff[0]]-=1;
+	int to=0,te=0,tot=0;
+	for(int i=1;i<n;++i){
+		if(ch[i-1]==1) to+=1;
+		else te+=1;
+		tot=to+((-1)*te);
+		ans+=M[tot];
+	
+		M[diff[i]]-=1;
+		
+		
+	}
+	cout<<ans<<"\n";
+	
+	
+	
+	return 0;
+	
+}
