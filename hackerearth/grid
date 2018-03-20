@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define INF 99999
+int dx[]={-1,1,0,0};
+int dy[]={0,0,-1,1};
+typedef pair<int,int> P;
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	int n,m,q,x,y;
+	cin>>n>>m>>q;
+	int vis[n+5][m+5],ans[n+5][m+5],dis[n+5][m+5];char ch;
+	
+	for(int i=0;i<n+5;++i){
+	for(int j=0;j<m+5;++j)
+	{ans[i][j]=-1;vis[i][j]=0;dis[i][j]=INF;}}
+	
+	
+	for(int i=1;i<=n;++i){
+		for(int j=1;j<=m;++j){
+			cin>>ch;
+			if(ch=='O') ans[i][j]=INF;
+			else ans[i][j]=-1;			
+		}
+	}
+	cin>>x>>y;
+	dis[x][y]=0;
+	queue<P>Q;
+	P p;
+	Q.push({x,y});
+	while(!Q.empty()){
+		p=Q.front();Q.pop();
+		int x=p.first;
+		int y=p.second;
+		vis[x][y]=1;
+			for(int i=0;i<4;++i){
+				int x1=x+dx[i];
+				int y1=y+dy[i];
+				if(x1<=n and x1>0 and y1<=m and y1>0){
+				if(ans[x1][y1]==-1) continue;
+				if(vis[x1][y1]){
+				if(dis[x1][y1]>1+dis[x][y]){
+					dis[x1][y1]=1+dis[x][y];
+					Q.push({x1,y1});
+				}
+			}
+			else{
+				
+				dis[x1][y1]=1+dis[x][y];
+				Q.push({x1,y1});
+			}
+			
+	}
+      }
+	}
+	
+
+	
+	while(q--){
+		cin>>x>>y;
+		if(x>n or y>m or dis[x][y]==INF) {cout<<"-1\n";continue;		}
+		cout<<dis[x][y]<<"\n";
+		
+	}
+	
+	
+	
+	return 0;
+}
