@@ -1,0 +1,123 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 400000
+typedef pair<ll,ll>P;
+ll val[sz],sub[sz],cnt=0;
+vector<int>grr[sz],gr[sz],pre[sz],suff[sz];
+
+struct node{
+	int pos,parr;
+}parent[sz];
+
+inline void dfs1(int src,int par){
+
+   for(int i=0;i<grr[src].size();++i){
+   	if(grr[src][i]==par) continue;
+   	gr[src].push_back(grr[src][i]);
+   	dfs1(grr[src][i],src);
+   }
+
+}
+
+inline void dfs2(int src,int pr){
+	
+	sub[src]=val[src];
+	for(int i=0;i<gr[src].size();++i) dfs2(gr[src][i],src);
+	
+	sub[pr]|=sub[src];
+		
+}
+
+inline void dfs3(int src,int pr){
+	
+	if(gr[src].size()>0) {
+	pre[src].push_back(sub[gr[src][0]]);
+	
+	for(int i=1;i<gr[src].size();++i){
+		int ver=gr[src][i];
+		int temp=sub[ver]|pre[src][i-1];
+		pre[src].push_back(temp);
+	}
+	
+	
+	
+	int l=gr[src].size();
+	int tt[l+5];
+	tt[l-1]=sub[gr[src][l-1]];
+	
+	for(int i=l-2;i>=0;--i){
+		int ver=gr[src][i];
+		int temp=sub[ver]|tt[i+1];
+		tt[i]=temp;
+	}
+	for(int i=0;i<l;++i) suff[src].push_back(tt[i]);
+	}
+	
+	for(int i=0;i<gr[src].size();++i){
+		int ver=gr[src][i];
+		parent[ver].parr=src;
+		parent[ver].pos=i;
+		dfs3(ver,src);
+	}
+	
+	
+}
+
+inline void dfs4(){
+	
+	
+	queue<P>Q;
+	P p;
+	Q.push({1,0});
+	while(!Q.empty()){
+		p=Q.front();Q.pop();
+		ll src=p.first;
+		ll up=p.second;
+		ll ans=up;
+		for(int i=0;i<gr[src].size();++i){
+			int ver=gr[src][i];
+			int left=0,right=0;
+			if(i) left=pre[src][i-1];
+		     if(i+1<gr[src].size()) right=suff[src][i+1];
+		     	ans|=left|right;
+	         	ans|=val[src];
+	          if(ans==sub[ver]) ++cnt;
+	          Q.push({ver,ans});
+			
+		}
+		
+		
+		
+		
+	}
+
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	int n,x,y;
+	cin>>n;
+	for(int i=1;i<=n;++i) cin>>val[i];
+	
+	for(int i=1;i<=n-1;++i){
+		cin>>x>>y;
+		grr[x].push_back(y);
+		grr[y].push_back(x);
+	}
+		
+	
+	dfs1(1,0);
+
+	dfs2(1,0);
+
+	dfs3(1,0);
+
+	dfs4();
+	cout<<cnt<<"\n";
+	
+	
+	
+	return 0;
+}
