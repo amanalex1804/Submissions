@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+#define sz 100010
+ll n;
+ll val[sz];
+inline ll add(ll x,ll y){
+	ll r=x+y;
+	if(r>=mod) r-=mod;
+	return r;
+}
+inline ll mult(ll x,ll y){
+	ll r=x*y;
+	if(r>=mod) r%=mod;
+	return r;
+	
+}
+ll exp(ll x,ll n){
+	
+	ll r=1;
+	while(n){
+		if(n&1) r=mult(r,x);
+		x=mult(x,x);
+		n/=2;
+	}
+	return r%mod;
+}
+inline ll pre(){
+	val[0]=1;
+	
+	for(int i=1;i<sz+5;++i)
+		{
+			val[i]=mult(val[i-1],(i+1));
+		}
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	ll t;
+	pre();
+	cin>>t;
+	while(t--){
+		cin>>n;
+		ll A[n+5];
+		for(int i=0;i<n;++i) cin>>A[i];
+		sort(A,A+n,greater<int>());
+		
+		ll ans=0;
+		for(int i=0;i<n;++i){
+		//	cout<<val[i]<<" "<<A[i]<<endl;
+			ll temp=mult(A[i],val[i]);
+			ans=add(ans,temp);
+			
+		}		
+		
+		cout<<ans<<"\n";
+		
+		
+	}
+	
+	
+	return 0;
+}
