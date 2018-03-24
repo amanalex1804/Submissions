@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+ll exp(ll x,ll n){
+	
+	ll r=1;
+	while(n){
+		if(n&1) r=r*x;
+		x*=x;
+		n/=2;
+	}
+	
+	return r;
+}
+int main(){
+	
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	int t;
+	cin>>t;
+	while(t--){
+		ll n,x;
+		cin>>n;
+		map<int,int>M;
+		vector<int>v;
+		for(int i=0;i<n;++i){
+			cin>>x;
+			if(!M[x]) v.push_back(x);
+			M[x]+=1;
+		}
+		ll ans=0;
+		
+		for(int i=0;i<v.size();++i){
+			
+			ans+=exp(2,M[v[i]])-1;
+		}
+		cout<<ans<<"\n";
+		
+		
+	}
+	
+	
+	return 0;
+}
