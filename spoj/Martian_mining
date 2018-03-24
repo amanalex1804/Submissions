@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 510
+int we[sz][sz],ns[sz][sz],dp[sz][sz];
+
+int rek(int row,int col){
+	
+	if(row<0 or col<0) return 0;
+	
+	if(dp[row][col]!=-1) return dp[row][col];
+	
+	// for to north
+	
+	for(int i=col;i>=0;--i){
+		
+		dp[row][col]=max(ns[row][i]+rek(row,i-1),dp[row][col]);
+	}
+	
+	
+	// for to west
+	
+	for(int i=row;i>=0;--i){
+		
+		dp[row][col]=max(we[i][col]+rek(i-1,col),dp[row][col]);
+	}
+	
+	return dp[row][col];
+	
+	
+}
+
+
+int main(){
+	
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	while(1){
+		int n,m,x;
+		cin>>n>>m;
+		if(!n and !m) return 0;
+		
+		for(int i=0;i<n+5;++i){
+		for(int j=0;j<m+5;++j){	dp[i][j]=-1;we[i][j]=0;ns[i][j];}}
+		
+		
+		
+		for(int i=0;i<n;++i){
+			int sum=0;
+			for(int j=0;j<m;++j){
+				cin>>x;
+				we[i][j]=x+sum;
+				sum+=x;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		for(int i=0;i<n;++i)
+		for(int j=0;j<m;++j)
+		cin>>ns[i][j];
+		
+	
+	
+	  for(int i=1;i<n;++i){
+	  	for(int j=0;j<m;++j){
+	  		ns[i][j]+=ns[i-1][j];
+		  }
+	  }
+		
+	
+	
+		cout<<rek(n-1,m-1)<<"\n";
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	return 0;
+}
