@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+#define sz 100005
+vector<int>v;
+ll cost[sz],seg[4*sz],mod,ans;
+ll add(ll x,ll y){
+	ll r=x+y;
+	if(r<0) r+=mod;
+	if(r>=mod) r-=mod;
+	return r;
+}
+ll mult(ll x,ll y){
+	ll r=x*y;
+	if(r<0) r*=-1;
+	if(r>=mod ) r%=mod;
+	return r;
+}
+
+inline void build(int node,int st,int en){
+	if(st==en) seg[node]=(1+(cost[st]%mod)+mod)%mod;
+	else{
+		int mid=st+(en-st)/2;
+		build(2*node,st,mid);
+		build(2*node+1,mid+1,en);
+	//	seg[node]=mult(seg[2*node],seg[2*node+1]);
+		seg[node]=((seg[2*node]%mod)*(seg[2*node+1]%mod))%mod;
+		if(seg[node]<0){
+			ll x=seg[node]/mod;
+            x*=(-1);
+			ll vc=(x+1)*mod+seg[node];
+			seg[node]=vc%mod;
+		}
+		
+	}
+	
+}
+void query(int node,int st,int en,int l,int r){
+	
+	if(r<st or en<l) return ;
+	if(l<=st and en<=r) { //ans=mult(ans,seg[node]);
+	ans=(((ans%mod)*(seg[node]%mod))+mod)%mod;
+	return ;	}
+	int mid=st+(en-st)/2;
+	 query(2*node,st,mid,l,r);query(2*node+1,mid+1,en,l,r);
+}
+
+int main(){
+	ll n,q,l,r;
+	cin>>n>>mod;
+	//cout<<(-101%mod)<<endl;
+	for(ll i=1;i<=n;++i) cin>>cost[i];
+	build(1,1,n);
+	cin>>q;
+	while(q--){
+		cin>>l>>r;
+	ans=1;
+	query(1,1,n,l,r);
+	cout<<ans<<"\n";
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
