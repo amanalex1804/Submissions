@@ -1,0 +1,107 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1000000
+typedef long long int ll;
+
+vector<ll>fact[sz+15],cnt[sz+15];
+int check[sz+15];
+
+
+
+void factfun(){
+	
+	
+	for(ll i=2;i<=sz;++i){
+		if(!check[i]){
+			for(ll j=i;j<=sz;j+=i)
+			{
+				fact[j].push_back(i);
+				check[j]=1;
+			}
+		}
+		
+	}	
+}
+
+
+
+int main(){
+	ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+	
+	factfun();
+	
+
+	
+	ll t;
+	cin>>t;
+	while(t--){
+		ll n,m;
+		cin>>n>>m;
+		
+		vector<ll>v;
+		map<ll,ll>M;
+		for(ll i=0;i<fact[n].size();++i) {
+		v.push_back(fact[n][i]);
+		M[fact[n][i]]=1;}
+		for(ll i=0;i<fact[m].size();++i){
+			if(!M[fact[m][i]]) v.push_back(fact[m][i]);
+			M[fact[m][i]]=1;
+		}
+		
+	
+		ll ans=1;ll temp2=1;
+		for(ll i=0;i<v.size();++i){
+			
+		   ll factor=v[i];
+		   
+		   ll temp=n,cn=0;
+		   while(temp%factor==0){
+		   	temp/=factor;
+		   	++cn;
+		   }		   
+		   
+		   ll sq=cn;
+		   temp=m;cn=0;
+		     while(temp%factor==0){
+		   	temp/=factor;
+		   	++cn;
+		   }
+		   ll cub=cn;
+		   ll c=0;
+		   
+			while(1){
+				
+				if(sq%2==0 and cub%3==0) break;
+					
+			ll x=sq%2; ll y=cub%3;
+			if(x==1) {ans*=factor;c+=1;}
+			sq+=x;
+			cub+=x;
+			if(sq%2==0 and cub%3==0) break;
+			
+			if(y==1) {ans*=factor;c+=1;}
+			else if(y==2) {ans*=(factor*factor);c+=2;}
+			sq+=y;
+			cub+=y;
+			
+				
+				
+			}
+	
+			temp2*=(1+c);
+			
+			
+		}
+		
+	
+		cout<<temp2<<"\n";
+		
+	}
+	
+	
+	
+	
+	
+	return 0;
+}
