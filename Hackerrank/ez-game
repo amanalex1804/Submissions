@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 5000
+ll grundy[sz+15],dp[sz+15];
+
+
+ll Mex(unordered_set<ll>s){
+	ll m=0;
+	while(s.find(m)!=s.end()) ++m;
+	return m;
+}
+ll rek(ll x){
+	
+	
+	
+	unordered_set<ll>s;
+	
+	ll r;
+	if(x&1) r=x/2;
+	else r=(x/2)-1;
+	for(ll i=1;i<=r;++i){
+		ll z=((grundy[i])^grundy[x-i]);
+	
+	  if(z!=x) 
+	     s.insert(z);
+		
+	}
+	
+	 ll tt=Mex(s);	
+     return tt;
+	
+	
+	
+	
+	
+	
+}
+
+
+int main(){
+	
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	grundy[0]=0;
+	grundy[1]=0;
+	grundy[2]=0;
+	
+	
+	for(ll i=3;i<=sz;++i){
+	  grundy[i]=rek(i);	
+	}
+	
+	int t;
+	cin>>t;
+	while(t--){
+		ll ans=0;
+		ll n,x;
+		cin>>n;
+		for(ll i=0;i<n;++i){
+			cin>>x;
+			ans=(ans^grundy[x]);
+		}
+		if(ans==0) cout<<"Ghosh\n";
+		else cout<<"Aashray\n";
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
