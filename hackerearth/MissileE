@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+ll seg[4005][4005],lazy[40005][4005];
+
+inline void update(int node,int st,int en,int row,int y1,int y2,int val){
+	
+	if(lazy[row][node]){
+		
+		seg[row][node]^=lazy[row][node];
+		if(st!=en){
+			lazy[row][(2*node)]^=lazy[row][node];
+			lazy[row][(2*node)+1]^=lazy[row][node];
+		}
+		lazy[row][node]=0;		
+	}
+	if(y2<st or en<y1) return ;
+	if(y1<=st and en<=y2) {
+		seg[row][node]^=val;
+		if(st!=en){
+			lazy[row][(2*node)]^=val;
+			lazy[row][(2*node)+1]^=val;	
+		}
+		return;
+	}
+	int mid=st+(en-st)/2;
+	update(2*node,st,mid,row,y1,y2,val);
+	update((2*node)+1,mid+1,en,row,y1,y2,val);
+	seg[row][node]=(seg[row][(2*node)]^seg[row][(2*node)+1]);
+	
+}
+inline void q(int node,int st,int en,int row){
+		
+	if(lazy[row][node]){
+		
+		seg[row][node]^=lazy[row][node];
+		if(st!=en){
+			lazy[row][(2*node)]^=lazy[row][node];
+			lazy[row][(2*node)+1]^=lazy[row][node];
+		}
+		lazy[row][node]=0;		
+	}
+	if(st==en ) cout<<seg[row][node]<<" ";
+	else{
+		int mid=st+(en-st)/2;
+		q((2*node),st,mid,row);
+		q((2*node)+1,mid+1,en,row);
+	}
+	
+	
+}
+
+int main(){
+	
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	int n,m,p,x1,y1,x2,y2;
+	cin>>n>>m;
+	for(int i=0;i<m;++i){
+		cin>>p>>x1>>y1>>x2>>y2;
+		for(int j=x1;j<=x2;++j)
+	     	update(1,1,n,j,y1,y2,p);
+	}
+	
+	for(int i=1;i<=n;++i){
+	     q(1,1,n,i);cout<<"\n";}
+	
+	
+	
+	return 0;
+}
