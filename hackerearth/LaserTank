@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+ll n,dp[1005][1005],V[1005][1005],H[1005][1005];
+
+ll rek(ll row,ll col){
+	if(row>n or row<=0 or col>n or col<=0) return 0;
+	if(dp[row][col]!=-1) return dp[row][col];
+	ll t1=V[row][col]+rek(row,col+1);
+	ll t2=H[row][col]+rek(row-1,col);
+	dp[row][col]=max(t1,t2);
+	return dp[row][col];
+	
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
+	cin>>n;
+	for(ll i=1;i<=n;++i) 
+	for(ll j=1;j<=n;++j) cin>>H[i][j];
+	for(ll i=1;i<=n;++i)
+	for(ll j=1;j<=n;++j) cin>>V[i][j];
+	for(ll i=1;i<=n;++i){
+    for(ll j=n;j>0;--j) { dp[i][j]=-1;	}}
+    
+    for(ll i=1;i<=n;++i)
+    for(ll j=1;j<=n;++j)
+    V[j][i]+=V[j-1][i];
+    
+    
+    for(ll i=1;i<=n;++i)
+    for(ll j=n;j>0;--j)
+    H[i][j]+=H[i][j+1];
+    
+    
+  
+    
+    ll ans=rek(n,1);
+    cout<<ans<<"\n";
+    
+	
+	return 0;
+}
