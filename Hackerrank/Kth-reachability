@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef pair<ll,ll>P;
+#define sz 500005
+vector<P>edge;
+pair<ll,pair<ll,ll> > p[sz],pq[sz];
+ll parent[sz],size[sz],res[sz],n;
+ll rek(ll x){
+	
+	while(parent[x]!=x) {
+		
+	if(parent[x]==parent[parent[x]]) break;
+
+	parent[x]=parent[parent[x]]; }
+	
+	return parent[x];
+}
+
+inline void uni(ll x,ll y){
+	
+	
+	ll xroot=rek(x);
+	
+	ll yroot=rek(y);
+
+	
+	if(xroot!=yroot) {
+	
+	if(size[xroot]>size[yroot]) { parent[yroot]=xroot; size[xroot]+=size[yroot];	}
+	else { parent[xroot]=yroot; size[yroot]+=size[xroot];	}
+}
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	ll m,q,x,y,wt;
+	cin>>n>>m>>q; 
+	for(ll i=0;i<n+5;++i) {parent[i]=i;size[i]=1;}
+	for(ll i=0;i<m;++i){
+		cin>>x>>y>>wt;
+		p[i].first=wt;
+		p[i].second.first=x;
+		p[i].second.second=y;
+	}
+	sort(p,p+m);
+	
+	for(ll i=0;i<q;++i){
+		cin>>x>>wt;
+		pq[i].first=wt;
+		pq[i].second.first=x;
+		pq[i].second.second=i;
+	}
+	
+	sort(pq,pq+q);
+	ll j=0;
+	for(ll i=0;i<q;++i){
+		wt=pq[i].first;
+		ll ver=pq[i].second.first;
+		ll ind=pq[i].second.second;
+		ll ans=0;
+		while(p[j].first<=wt and j<m){
+			uni(p[j].second.first,p[j].second.second);
+			++j;
+		}
+		
+		ll par=rek(ver);
+			res[ind]=size[par]-1;
+		
+			
+	}
+	for(ll i=0;i<q;++i) cout<<res[i]<<" \n";
+	
+	
+	return 0;
+}
