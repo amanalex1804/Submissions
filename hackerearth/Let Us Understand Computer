@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;cin>>t;
+    while(t--){
+        ll x;cin>>x;
+        ll low=1,hi=x,mid;
+        while(low<hi){
+            mid=(low+hi)/2;
+            
+            if((int)(log2(mid)>=(int)(log2(x/mid)))) hi=mid;
+            else low=mid+1;
+        }
+        cout<<x-low+1<<"\n";
+        
+    }
+    
+    
+    
+    return 0;
+}
