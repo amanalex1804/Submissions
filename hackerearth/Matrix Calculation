@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+
+int A[21][1000001],ct[21][20]; ll dp[21][1048577];
+ll m;int n;
+
+ll rek(int ind,ll k){
+    
+    if(ind>n) return 1;
+    
+    if(dp[ind][k]!=-1) return dp[ind][k];
+    
+    ll a=0;
+    
+    for(int i=0;i<n;++i){
+        
+        if((((ll)(1<<i))&k)==0) {
+            ll d=(ct[ind][i]*rek(ind+1,k|((ll)(1<<i))))%mod;
+                a=(a+d)%mod;  
+       }   
+    }
+ 
+    dp[ind][k]=a;
+    return a;
+    
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+  cin>>n>>m;
+  
+  for(int i=1;i<=n;++i){
+      for(ll j=1;j<=m;++j){
+          cin>>A[i][j];
+          ct[i][A[i][j]]+=1;
+      }
+  }
+    for(int i=0;i<=20;++i){
+        for(ll j=0;j<=1048576;++j) dp[i][j]=-1;
+        }
+        ll ans=rek(1,0);
+        cout<<ans;
+        
+    return 0;
+}
