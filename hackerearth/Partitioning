@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    string s;
+    cin>>s;
+    int c,p;
+    cin>>c>>p;
+    int k=log2(c);
+    string c1;
+    while(k>=0){
+        if((c&(1<<k))) c1+='1';
+        else c1+='0';
+        --k;
+    }
+    string c2;k=log2(p);
+
+    while(k>=0){
+        if((p&(1<<k))) c2+='1';
+        else c2+='0';
+        --k;
+    }
+    int l1=c1.size();
+    int l2=c2.size();
+    long long int count=0,chk1;
+    for(int i=0;i<=25-l2;++i){
+        string temp="";
+        for(int j=1;j<=i;++j) temp+='0';
+        temp=c1+temp+c2; chk1=count;
+        size_t pos=s.find(temp,0);
+        while(pos!=string::npos){
+            ++count;
+            pos=s.find(temp,pos+1);
+        }
+     // cout<<temp<<" "<<count<<endl;
+       if(count>chk1){
+           int le=l1;
+           string x,y;
+           int chk2;
+           
+           while(le<25){
+               y+='0';
+               chk2=count;
+               x=y+temp;
+               
+               size_t pos=s.find(x,0);
+               while(pos!=string::npos){
+                   ++count;
+                   pos=s.find(x,pos+1);
+               }
+               
+               if(chk2==count) break;
+               ++le;
+           }
+           
+           
+       }      
+  
+        
+    }
+    
+    cout<<count;
+    
+    
+    
+    return 0;
+}
