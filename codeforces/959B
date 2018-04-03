@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int parent[100005]; ll val[100005];
+int main(){
+	ll n,k,m;
+	cin>>n>>k>>m;
+	vector<string>s;
+    string x;map<string,int>M;
+    for(int i=0;i<n;++i){
+    	cin>>x;
+    	s.push_back(x);
+    	M[x]=i+1;
+	}
+	for(int i=1;i<=n;++i) 
+		cin>>val[i];
+	
+	while(k--){
+		int sz;
+		cin>>sz;int temp[sz+5];ll m=99999999999;
+		for(int i=0;i<sz;++i) {
+		cin>>temp[i];m=min(val[temp[i]],m);}
+		
+		for(int i=0;i<sz;++i)
+			val[temp[i]]=m;
+	
+	}	
+	ll ans=0;
+	
+	for(int i=0;i<m;++i){
+		cin>>x;
+		int ind=M[x];
+		ans+=val[ind];
+		
+	}
+	cout<<ans;
+	return 0;
+}
