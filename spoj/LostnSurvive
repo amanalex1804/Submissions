@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+int n,q;
+int parent[sz],siz[sz];
+multiset<int>v;
+multiset<int>::iterator it;
+multiset<int>::reverse_iterator itr;
+
+int rek(int x){
+	
+	while(parent[x]!=x){
+	//	cout<<x<<endl;
+		if(parent[x]==parent[parent[x]]) break;
+		parent[x]=parent[parent[x]];
+	}
+	return parent[x];
+}
+
+int main(){
+ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cin>>n>>q;
+	for(int i=0;i<n+5;++i) {parent[i]=i;siz[i]=1;}
+	for(int i=0;i<n;++i) v.insert(1);
+	int x,y;
+	for(int i=0;i<q;++i){
+		cin>>x>>y;
+		
+		int xroot=rek(x);
+		int yroot=rek(y);
+		
+		if(xroot==yroot){
+			
+			if(v.size()==1) {
+				cout<<"0\n";
+			}
+			else{
+				it=v.begin();
+				int a=*it;
+				itr=v.rbegin();
+				int b=*itr;
+				cout<<b-a<<"\n";
+			}
+		}
+		else{
+		
+			if(v.size()){
+				it = v.find(siz[xroot]);     
+          if(it!=v.end())
+              v.erase(it);
+                 
+			}
+		
+			if(v.size()) {
+				it = v.find(siz[yroot]);     
+                     if(it!=v.end())
+                         v.erase(it);
+                 
+			
+				 
+				 }
+		
+			if(siz[xroot]>siz[yroot]){
+			
+				siz[xroot]+=siz[yroot];
+				parent[yroot]=xroot;
+				v.insert(siz[xroot]);
+				
+			}
+			else{
+				
+				siz[yroot]+=siz[xroot];
+				parent[xroot]=yroot;
+				v.insert(siz[yroot]);
+				
+			}
+		
+	    if(v.size()==0) cout<<"0\n";
+			else if(v.size()==1) {
+			cout<<"0\n";
+			}
+			else {
+				it=v.begin();
+				int a=*it;
+				itr=v.rbegin();
+				int b=*itr;
+	        	cout<<b-a<<"\n";
+			}
+			
+		}
+		
+	}
+	
+	
+	return 0;
+}
