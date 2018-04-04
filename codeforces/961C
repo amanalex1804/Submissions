@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll B[105],vis[105],temp[105][105],n,At[105][105],Bt[105][105];
+ll A[105];
+pair<int,int>P[10];
+int f1(){
+	int d=0;
+	for(int i=0;i<n;++i){
+		for(int j=0;j<n;++j)
+		if(At[i][j]!=temp[i][j]) d+=1;
+	}
+	
+	return d;
+	
+}
+
+int f2(){
+	int d=0;
+	
+	for(int i=0;i<n;++i){
+		for(int j=0;j<n;++j){
+		if(Bt[i][j]!=temp[i][j]) d+=1;
+	}
+	}	
+	return d;
+	
+}
+int main(){
+	
+	
+	cin>>n;
+	for(int i=0;i<n;++i) {
+		for(int j=0;j<n;++j){
+		if(j==0){
+			if(i&1) { At[i][j]=1;Bt[i][j]=0;			}
+			else { At[i][j]=0; Bt[i][j]=1;			}
+		}
+		else 
+		{
+			if(At[i][j-1]==0) At[i][j]=1;
+			if(At[i][j-1]==1) At[i][j]=0;
+			if(Bt[i][j-1]==0) Bt[i][j]=1;
+			if(Bt[i][j-1]==1) Bt[i][j]=0;
+			
+		}
+	}
+	}
+
+	char c;
+	for(int i=0;i<4;++i){
+		memset(temp,0,sizeof(temp));
+		for(int j=0;j<n;++j){
+			for(int k=0;k<n;++k){
+				cin>>c;
+				if(c=='1') temp[j][k]=1;
+			}
+			
+			}
+		
+		
+		A[i]=f1();
+		B[i]=f2();
+		P[i]={A[i],B[i]};
+	//	cout<<A[i]<<" "<<B[i]<<endl;
+	}
+	sort(P,P+4);
+
+	
+	int ans=P[0].first+P[1].first+P[2].second+P[3].second;
+	
+
+	cout<<ans;
+	
+	return 0;
+}
