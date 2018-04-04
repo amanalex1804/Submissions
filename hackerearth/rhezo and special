@@ -1,0 +1,108 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+typedef long long int ll;
+#define sz 110
+ll res[sz][sz],A[sz],X[sz][sz],dp[sz]; ll l,m,n;
+ll add(ll x,ll y){
+	ll r=x+y;
+	if(r>=mod) r-=mod;
+	return r;
+}
+
+ll mult(ll x,ll y){
+	ll r=x*y;
+	if(r>=mod) r%=mod;
+	return r;
+}
+inline void f1(){
+	ll temp[sz][sz];
+	
+	for(int i=1;i<=l;++i){
+		for(int j=1;j<=l;++j){
+			temp[i][j]=0;
+			for(int k=1;k<=l;++k) temp[i][j]=add(temp[i][j],mult(X[i][k],res[k][j]));
+		}
+	}
+	for(int i=1;i<=l;++i)
+	for(int j=1;j<=l;++j)
+	res[i][j]=temp[i][j];
+	
+}
+inline void f2(){
+		ll temp[sz][sz];
+	
+	for(int i=1;i<=l;++i){
+		for(int j=1;j<=l;++j){
+			temp[i][j]=0;
+			for(int k=1;k<=l;++k) temp[i][j]=add(temp[i][j],mult(X[i][k],X[k][j]));
+		}
+	}
+	for(int i=1;i<=l;++i)
+	for(int j=1;j<=l;++j)
+	X[i][j]=temp[i][j];
+	
+}
+void exp(ll n){
+
+	
+	while(n){
+		if(n&1) f1();
+		f2();
+		n/=2;
+	}
+	
+	ll ans=0;
+	
+
+	
+	for(int i=1;i<=l;++i){
+		ans=add(ans,mult(res[1][i],dp[l-i+1]));
+	}
+	cout<<ans;
+	
+}
+int main(){
+	
+	cin>>n>>m;
+	for(int i=1;i<=m;++i) {
+		cin>>A[i];
+		X[1][A[i]]+=1;
+	}
+	
+	sort(A,A+m+1);
+	l=A[m];
+	
+	for(int i=1;i<=l;++i)
+	for(int j=1;j<=l;++j)
+	if(i==j) res[i][j]=1;
+	
+	for(int i=2;i<=l;++i)
+	for(int j=1;j<=l;++j)
+	if(i==j+1) X[i][j]=1;
+	
+	
+	
+	
+	
+	
+	dp[0]=1;
+	for(int i=1;i<sz;++i){
+		dp[i]=0;
+		for(int j=1;j<=m;++j){
+			if(i>=A[j]) dp[i]=add(dp[i],dp[i-A[j]]);
+			else break;
+		}
+
+	}
+
+	if(n>l) {exp(n-l);}
+	
+	else{
+		
+		cout<<dp[n];
+		return 0;
+	}
+	
+	return 0;
+}
