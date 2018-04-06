@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int k,n;int A[110]; 
+ll dp[105][40005];
+ 
+ll rek(int ind,ll sum){
+	
+	if(ind>n) {
+		if(sum==k) return 1;
+		else return -99999;
+	}
+	if(dp[ind][sum]!=-1 ) return dp[ind][sum];
+	
+	ll tt;
+	tt=rek(ind+1,sum);
+	tt=max(rek(ind+1,sum-(2*A[ind])),tt);
+	 tt=max(rek(ind+1,sum+ind),tt);
+	 tt=max(rek(ind+1,sum-ind),tt);
+	dp[ind][sum]=tt;
+	return tt;
+	
+}
+ 
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		cin>>n>>k;ll s=0;
+		for(int i=1;i<=n;++i) cin>>A[i],s+=A[i];
+	    for(int i=0;i<n+5;++i)
+	    for(int j=0;j<30005;++j)
+	    dp[i][j]=-1;
+	    s+=10000;k+=10000;
+	    ll ans=rek(1,s);
+	    if(ans==1) cout<<"YES\n";
+	    else cout<<"NO\n";
+		
+		
+	}
+	
+	return 0;
+}
