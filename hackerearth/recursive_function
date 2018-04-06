@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000
+typedef long long int ll;
+ll x,y; ll dp[2000][2000];
+int add(int x,int y){
+    int r=x+y;
+    if(r>=mod) r-=mod;
+    return r;
+}
+int mult(int x,int y){
+    int r=x*y;
+    if(r>=mod) r%=mod;
+    return r;
+}
+inline ll rek(int x,int y){
+  
+    if(!x) return (y+1)%mod;
+    ll t;
+    if(x>0 and y==0) t=rek(x-1,1)%mod;
+    if(x>0 and y>0) t=rek(x-1,rek(x,y-1)%mod)%mod;
+    return t%mod;
+        
+    
+}
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    
+    cin>>x>>y;
+    ll ans=rek(x,y);
+    ll temp=ans;
+    int dig=0;
+    while(temp){
+        temp/=10;
+        ++dig;
+    }
+    if(dig==1) cout<<"00"<<ans;
+    else if(dig==2) cout<<"0"<<ans;
+    else cout<<ans;
+    
+    return 0;
+}
