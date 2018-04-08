@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	string s;
+	cin>>s;
+	int l=s.size();
+	bool flag=true;
+	int curr=0;
+	if(l<3) {cout<<"NO";return 0;}
+	for(int i=0;i<l;++i){
+		int ind=(int)(s[i]-'a');
+		if(curr==ind) continue;
+		else{
+			++curr;
+			if(curr!=ind) {
+				flag=false;
+				break;
+			}
+		}
+	}
+	if(!flag) { cout<<"NO";return 0;	}
+	int ca=0,cb=0,cc=0;
+	for(int i=0;i<l;++i){
+		if(s[i]=='a') ++ca;
+		if(s[i]=='b') ++cb;
+		if(s[i]=='c') ++cc;
+	}
+	if(ca==0 or cb==0) cout<<"NO";
+	else if(cc==ca or cc==cb) cout<<"YES";
+	else cout<<"NO";
+	
+	return 0;
+}
