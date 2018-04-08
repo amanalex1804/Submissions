@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+
+int  main(){
+	int n,k1,k2;
+	cin>>n>>k1>>k2;
+	k1+=k2;
+	int A[n+5],B[n+5]; vector<ll>v;
+	for(int i=1;i<=n;++i) cin>>A[i];
+	for(int i=1;i<=n;++i){
+		cin>>B[i];
+		v.push_back(abs(B[i]-A[i]));	
+	}
+	
+	while(1){
+		sort(v.begin(),v.end(),greater<ll>());
+		if(v[0]==0 or k1==0) break;
+		int t=v[0];
+		t-=1;
+		v.erase(v.begin());
+		v.push_back(t);
+		k1-=1;
+	
+	}
+	if(k1>0){
+		if(k1&1) cout<<"1";
+		else cout<<"0";
+	}
+	else{
+		ll ans=0;
+		for(int i=0;i<v.size();++i) ans+=(v[i]*v[i]);
+		cout<<ans;
+	}
+	
+	
+	
+	return 0;
+}
