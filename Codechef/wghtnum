@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+ll mult(ll x,ll y){
+	ll r=x*y;
+	if(r>=mod) r%=mod;
+	return r;
+}
+ll add(ll x,ll y){
+	ll r=x+y;
+	if(r>=mod) r-=mod;
+	return r;
+}
+ll exp(ll x,ll n){
+	ll r=1;
+	while(n){
+		if(n&1) r=mult(r,x);
+		x=mult(x,x);
+		n/=2;
+	}
+	return r;
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	ll n,w;
+	cin>>n>>w;
+	ll v=exp(10,n-2);
+	int c=0;
+	for(int i=1;i<=9;++i){
+	   
+	    for(int j=0;j<=9;++j){
+	    	if(j-i==w) ++c;
+		}
+	}
+	ll ans=mult(v,c);
+	cout<<ans<<"\n";
+	
+}
+	return 0;
+}
