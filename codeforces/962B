@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n,a,b;
+	cin>>n>>a>>b;
+	string s;
+	cin>>s;
+	vector<int>pos;
+	pos.push_back(-1);
+	for(int i=0;i<s.size();++i) {
+		if(s[i]=='*') pos.push_back(i);
+	}
+	pos.push_back(s.size());
+
+	int ans=0;
+	for(int i=0;i<pos.size()-1;++i){
+		int spac=pos[i+1]-pos[i]-1;
+		if(spac==0) continue;
+	//	cout<<spac<<endl;
+		if(a==0 and b==0) break;
+		if(spac&1){
+			int p1=spac/2+1;
+			int p2=spac/2;
+			if(a>b){
+				
+				if(b>=p2) {ans+=p2;b-=p2;}
+				else { ans+=b; b=0;}
+				
+				if(a>=p1){	ans+=p1;a-=p1;				}
+					else { ans+=a; a=0;					}
+			}
+			else{
+			     if(b>=p1) { ans+=p1; b-=p1;	 }
+			     else { ans+=b; b=0; }
+			     
+			     if(a>=p2) { ans+=p2;a-=p2;	 }
+			     else { ans+=a;a=0;				 }
+				
+				
+			}
+		}
+		else{
+			int p1=spac/2;
+			int p2=spac/2;
+			if(a>b){
+				
+				if(b>=p2) {ans+=p2;b-=p2;}
+				else { ans+=b; b=0;}
+				
+				if(a>=p1){	ans+=p1;a-=p1;				}
+					else { ans+=a; a=0;					}
+			}
+			else{
+			     if(b>=p1) { ans+=p1; b-=p1;	 }
+			     else { ans+=b; b=0; }
+			     
+			     if(a>=p2) { ans+=p2;a-=p2;	 }
+			     else { ans+=a;a=0;				 }
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+	}
+	cout<<ans;
+	return 0;
+}
