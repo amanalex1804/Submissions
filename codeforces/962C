@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 100005
+ll dig(string s){
+	int l=s.size();
+	ll ans=0;
+	ll ind=1;
+	for(int i=l-1;i>=0;--i){
+		ans+=((int)(s[i]-'0'))*ind;
+		ind*=10;}
+		
+	
+	return ans;
+}
+bool sq(ll n){
+	ll d=sqrt(n);
+	d=d*d;
+	if(d==n) return true;
+	return false;
+}
+int main(){
+	string s;
+	cin>>s;
+	ll l=s.size();ll ans=-1;
+	for(ll i=0;i<(1LL<<l);++i){
+		string temp="";
+		for(ll j=0;j<l;++j){
+			if((1LL<<j)&i) temp+=s[j];
+		}
+		if(temp.size()==0) continue;
+		if(dig(temp)==0) continue;
+		if(sq(dig(temp))){
+			int k=0;
+			
+			int l1=temp.size();
+			while(temp[k]=='0') ++k;
+		//	cout<<temp<<" "<<k<<" "<<l1<<endl;
+			l1-=k;
+			ans=max(ans,(ll)l1);
+			
+			
+			
+		}
+		
+		
+		
+	}
+	if(ans==-1) cout<<"-1";
+	else cout<<l-ans;
+	
+	
+	
+	return 0;
+}
