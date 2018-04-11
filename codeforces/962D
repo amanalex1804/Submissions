@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 150005
+typedef long long int ll;
+ll A[sz];
+map<ll,ll>pos;
+int main(){
+	int n;cin>>n;
+	for(int i=1;i<=n;++i) cin>>A[i];
+	
+	for(int i=1;i<=n;++i){
+		if(pos[A[i]]==0) pos[A[i]]=i;
+		else{
+			
+			A[pos[A[i]]]=-1;
+			pos[A[i]]=0;
+			A[i]=2*A[i];
+			
+			while(pos[A[i]]!=0){
+				    
+				    
+					A[pos[A[i]]]=-1;
+					pos[A[i]]=0;
+					A[i]=2*A[i];
+					if(pos[A[i]]==0) {pos[A[i]]=i;break;}
+				
+			}
+			
+			pos[A[i]]=i;
+		
+		}
+		
+		
+		
+	}
+	int c=0;
+	for(int i=1;i<=n;++i) if(A[i]!=-1) c++;
+	cout<<c<<"\n";
+	for(int i=1;i<=n;++i) if(A[i]!=-1) cout<<A[i]<<" ";
+	
+	
+	
+	
+	return 0;
+}
