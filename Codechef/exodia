@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 200005
+
+vector<int>gr[sz];
+int A[sz];
+map<string,int>M;
+int main(){
+	int n,m,kf,id,x,l,r;
+	cin>>n>>m>>kf;
+	string s;int c=0;
+	for(int i=1;i<=kf;++i){
+		cin>>x>>l>>r>>s;
+		if(!M[s]) { id=c+1;++c;M[s]=c;		}
+		else id=M[s];
+		gr[l].push_back(id);
+		if(r+1<=m) gr[r+1].push_back((-1)*id);
+	}
+	int jon=n;
+	vector<int>carr;
+
+	int mi=-1;
+	vector<pair<int,int> >rem;
+	for(int i=1;i<=m;++i){
+		
+		rem.clear();
+		for(int j=0;j<carr.size();++j){
+			
+			for(int k=0;k<gr[i].size();++k){
+				if(gr[i][k]==(-1)*carr[j]){
+					rem.push_back({k,j});
+					break;
+				}
+			}
+			
+			
+			
+		}
+	/// dont use likw this
+		for(int j=0;j<rem.size();++j) {carr.erase(carr.begin()+rem[j].second);gr[i].erase(gr[i].begin()+rem[j].first);}
+		
+		for(int j=0;j<gr[i].size();++j) carr.push_back(gr[i][j]);
+		
+	
+		
+		int l=carr.size();
+		
+		A[i]=l;
+		if(l<n) A[i]+=1;
+		mi=max(mi,A[i]);
+		
+		
+		
+	}
+	int ct=0;
+	for(int i=1;i<=m;++i) if(A[i]==mi) ++ct;
+	cout<<ct<<" "<<mi;
+	
+	return 0;
+}
