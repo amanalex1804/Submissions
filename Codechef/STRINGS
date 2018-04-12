@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	string s;
+	cin>>s;
+	ll l=s.size();ll cnt1=0,cnt0=0;
+	for(ll i=0;i<l;++i)	
+	  if(s[i]=='1') cnt1++;
+	  else cnt0++;
+	 
+	if(cnt1==1) {
+		cout<<s<<" "<<"0";
+		return 0;
+	}  
+	
+	cout<<"1";
+	for(ll i=1;i<=cnt1;++i) cout<<"0";
+	for(ll i=1;i<=cnt0;++i) cout<<"0";
+	cout<<" 1";
+	for(ll i=1;i<=cnt0;++i) cout<<"0";
+	
+	return 0;
+} 
