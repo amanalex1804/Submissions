@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+
+int main(){
+ ios_base::sync_with_stdio(false);
+ cin.tie(NULL);
+
+int t;cin>>t;
+while(t--){
+	int n,d,k;
+	cin>>n>>k;
+	int f1=1,f2=1;int A[n+5],B[n+5];
+	for(int i=0;i<n;++i){
+		cin>>d;
+		if(i&1) B[f2++]=d;
+		else A[f1++]=d;
+	}
+	sort(A+1,A+f1);
+	sort(B+1,B+f2);
+	// maximise B
+
+		int i=1,e=f1-1;
+		while(i<f2 and e>0 and k>0){
+			if(A[e]>B[i]) swap(A[e],B[i]);
+			else break;
+			++i;--e;--k;
+		}
+	
+	ll s1=0,s2=0;
+	for(int i=1;i<f1;++i) s1+=A[i];
+	for(int i=1;i<f2;++i) s2+=B[i];
+	if(s2>s1) cout<<"YES\n";
+	else cout<<"NO\n";
+	
+	
+}	
+	
+	
+	return 0;
+}
