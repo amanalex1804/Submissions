@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+class CreatureTraining{
+   public:
+                int n;
+                ll C[70],P[70],dp[60][110][110];
+                ll rek(ll ind,ll day,ll p){
+                        ll nw=p+C[ind];
+                        //cout<<ind<<" "<<day<<" "<<p<<endl;
+
+                        if(dp[ind][day][p]!=-1) return dp[ind][day][p];
+                        if(ind==n-1)  return (P[ind]*nw);
+                        ll t;
+                        t=rek(ind+1,day,0)+(P[ind]*nw);
+                        ll sz=min(day,nw);
+                        for(int i=1;i<=sz;++i){
+                            ll t1=rek(ind+1,day-i,i)+(P[ind]*(nw-i));
+                            t=max(t,t1);
+                        }
+
+                        return dp[ind][day][p]=t;
+                    }
+                long maximumPower(vector <int> count, vector <int> power, int D)  { 
+                n=count.size(); 
+                for (int i=0;i<n;i++) C[i]=count[i]; 
+                for (int i=0;i<n;i++) P[i]=power[i]; 
+                memset(dp,-1,sizeof(dp)); 
+                ll ret=rek(0,D,0); 
+                return ret; 
+              } 
+   
+    
+    };
