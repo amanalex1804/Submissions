@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	int t;cin>>t;
+    while(t--){
+	int n,m; ll a;
+	cin>>n>>m>>a;
+	ll B[n+5],P[m+5];
+	for(int i=1;i<=n;++i) cin>>B[i];
+	for(int i=1;i<=m;++i) cin>>P[i];
+	
+	sort(B+1,B+n+1);
+	sort(P+1,P+m+1);
+	
+	int low=0,high=min(n,m);
+	while(low<high){
+		int mid=(low+high+1)/2;
+		int i=1; int k=n-mid+1;
+		ll s=0;
+		
+		while(i<=mid){
+			s+=(P[i]<=B[k])?0:(P[i]-B[k]);
+			++k;++i;
+		}
+		if(s<=a) low=mid;
+		else high=mid-1;
+		
+	}
+	if(!low) cout<<"0 0\n";
+	else{
+		ll ans=0;
+		cout<<low<<" ";
+		for(int i=1;i<=low;++i) ans+=P[i];
+		if(ans<=a) cout<<"0\n";
+		else cout<<ans-a<<"\n";
+	}
+	
+    }
+	return 0;
+}
