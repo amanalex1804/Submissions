@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll A[105][105],n,m,vis[105][105],fil[105][105];
+int dx[]={-1,0,1,0};
+int dy[]={0,1,0,-1};
+priority_queue<pair<ll,pair<int,int> > >q;
+bool ins(int x,int y){
+	if(1<=x and x<=n and 1<=y and y<=m) return true;
+	return false;
+ }
+
+inline void dfs(int x,int y,ll v){
+	vis[x][y]=1;
+	
+	for(int i=0;i<4;++i){
+		int x1=x+dx[i];
+		int y1=y+dy[i];
+		if(vis[x1][y1]==0 and ins(x1,y1)){
+		
+			if(A[x1][y1]<v) dfs(x1,y1,v);
+			else q.push({(-1)*A[x1][y1],{x1,y1}});
+		}
+	}
+	if(x==1 or x==n or y==1 or y==m) {	}
+	else{
+	
+	fil[x][y]=(v-A[x][y]);
+	
+}
+}
+
+
+int main(){
+	 ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		cin>>n>>m;
+		memset(A,0,sizeof(A));
+		memset(fil,0,sizeof(fil));
+		memset(vis,0,sizeof(vis));
+		while(!q.empty()){
+			q.pop();
+		}
+		for(int i=1;i<=n;++i){
+			for(int j=1;j<=m;++j){
+				cin>>A[i][j];
+				if(i==1 or i==n or j==1 or j==m) 
+				{
+				if((i==1 and j==1) or (i==n and j==1) and (i==1 and j==m) or (i==n and j==m)) continue;
+				q.push({(-1)*A[i][j],{i,j}});}
+			}
+		}
+		pair<ll,pair<int,int> >p;
+		
+		while(!q.empty()){
+			p=q.top(); q.pop();
+			if(vis[p.second.first][p.second.second]) continue;
+			dfs(p.second.first,p.second.second,(-1)*p.first);
+		}
+		ll as=0;
+		
+		for(int i=1;i<=n;++i)
+		{
+			for(int j=1;j<=m;++j) 
+			as+=fil[i][j];
+		
+		}
+		cout<<as<<"\n";
+		
+		
+		
+	}
+	
+	
+	return 0;
+}
