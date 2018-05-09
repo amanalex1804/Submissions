@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n,k;
+	cin>>n>>k;
+	char A[4][n+5];
+	for(int i=0;i<4;++i)
+	for(int j=0;j<n+2;++j)
+	A[i][j]='.';
+	
+	int ins=2*(n-2);
+	if(k>ins) cout<<"NO";
+	else{
+		cout<<"YES\n";
+		if(k%2==0){
+			for(int i=1;i<n-1 and k;++i){
+			   A[2][i]=A[1][i]='#';
+			   k-=2;
+			}
+		}
+		else {
+		   
+		   if(k==1) A[1][n/2]='#';
+		
+	    	else if(k==3) {
+				A[1][n/2-1]='#';
+				A[1][n/2]='#';
+				A[1][n/2+1]='#';
+			}
+			else{
+				A[1][1]='#';
+				A[2][1]='#';
+				A[1][2]='#';
+				k-=3;
+				for(int i=3;i<=n-2 and k;++i){
+					A[1][i]='#';
+					A[2][i]='#';
+					k-=2;
+				}
+				
+			}
+		}
+		for(int i=0;i<4;++i)
+		{
+			for(int j=0;j<n;++j) cout<<A[i][j];
+			cout<<"\n";
+		}
+	}
+	
+	
+	
+	return 0;
+}
