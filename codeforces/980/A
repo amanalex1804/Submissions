@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	string s;
+	cin>>s;
+	ll l=s.size();
+	ll link=0,perl=0;
+	for(ll i=0;i<l;++i){
+		if(s[i]=='-') link+=1;
+		else perl+=1;
+	}
+	//cout<<link<<" "<<perl<<endl;
+	if(perl==0 or link==0 or perl==1) {cout<<"YES\n";return 0;}
+	if(link<perl) {
+		 cout<<"NO";
+		return 0;
+	}
+	if(link%perl==0) cout<<"YES\n";
+	else cout<<"NO\n";
+	
+	
+	return 0;
+}
