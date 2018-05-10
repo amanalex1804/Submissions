@@ -1,0 +1,104 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 10005
+
+vector<int>gr[sz],tr[sz],component[sz],cnt[sz];
+int comp[sz],vis[1005];
+int p=1;
+stack<int>st;int c=0;
+
+inline void dfs1(int src){
+	vis[src]=1;
+	
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) dfs1(gr[src][i]);
+	
+	
+	st.push(src);
+	
+}
+
+inline void dfs2(int src){
+	vis[src]=1;
+	for(int i=0;i<tr[src].size();++i)
+	if(!vis[tr[src][i]]) dfs2(tr[src][i]);
+	
+	comp[src]=p;
+	component[p].push_back(src);
+	
+}
+
+inline void dfs3(int src){
+	vis[src]=1;
+	for(int i=0;i<tr[src].size();++i)
+	if(!vis[tr[src][i]]) dfs3(tr[src][i]);
+	++c;
+	
+}
+
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		for(int i=0;i<n+5;++i){
+			gr[i].clear();
+			tr[i].clear();
+			component[i].clear();
+			comp[i]=0;
+			vis[i]=0;
+			cnt[i].clear();
+		}
+		int x,x1;
+		for(int i=1;i<=n;++i){
+			cin>>x;
+			for(int j=0;j<x;++j){
+				cin>>x1;
+				gr[i].push_back(x1);
+				tr[x1].push_back(i);
+			}
+		}
+	
+		p=1;
+		
+		for(int i=1;i<=n;++i)
+		if(!vis[i]) dfs1(i);
+		
+	
+		memset(vis,0,sizeof(vis));
+		
+		while(!st.empty()){
+			int s=st.top(); st.pop();
+			
+			if(!vis[s]) dfs2(s);
+			++p;
+		}
+	   
+	  
+	   
+		ll ans=0;
+		
+		for(int i=1;i<p;++i){
+			if(component[i].size()==0) continue;
+			memset(vis,0,sizeof(vis));
+		    	int v=component[i][0];
+			c=0;
+			dfs3(v);
+			
+			if(c==n) ans+=component[i].size();
+		
+		}
+		
+		cout<<ans<<"\n";
+	}
+	
+	
+	
+	
+	
+	return 0;
+}
