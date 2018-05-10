@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 1000005
+vector<vector<ll> >gr;
+bool mark[sz];
+ll par[sz][25],dis[sz];
+
+inline void dfs1(int src,int pr){
+	par[src][0]=pr;
+	if(pr!=-1) dis[src]=dis[pr]+1;
+	for(int i=0;i<gr[src].size();++i)
+	if(gr[src][i]!=pr) dfs1(gr[src][i],src);
+}
+
+ll getpar(ll x){
+	for(int i=24;i>=0;--i){
+	 if(!mark[par[x][i]] and par[x][i]!=-1){
+	 x=par[x][i];
+	 }}
+	
+	 return par[x][0];
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);cout.tie(NULL);
+	ll n,k,u,v;
+	cin>>n>>k;
+	gr.resize(n+5);
+	memset(par,255,sizeof(par));
+	for(ll i=0;i<n-1;++i){
+		cin>>u>>v;
+		gr[u].push_back(v);
+		gr[v].push_back(u);
+	}
+	dis[n]=1;
+	dfs1(n,-1);
+	for(int j=1;j<25;++j)
+	for(int i=1;i<=n;++i)
+	if(par[i][j-1]!=-1) 
+	par[i][j]=par[par[i][j-1]][j-1];
+	
+//	
+//      for(int i=1;i<=n;++i){
+//      	for(int j=0;j<=20;++j) cout<<par[i][j]<<" ";
+//      	cout<<endl;
+//	  
+	ll inc=1;mark[n]=1;
+	for(ll i=n-1;i>=1;--i){
+		if(mark[i]) continue;
+	
+		ll p=getpar(i);
+	
+		if(inc+(dis[i]-dis[p])<=(n-k)){
+			ll curr=i;
+			inc+=(dis[i]-dis[p]);
+			while(curr!=p){
+				mark[curr]=1;
+				curr=par[curr][0];
+			}
+		}
+	}
+	
+	for(int i=1;i<=n;++i)
+	if(!mark[i]) cout<<i<<" ";
+	
+	
+	return 0;
+}
