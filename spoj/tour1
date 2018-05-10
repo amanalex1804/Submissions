@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 10005
+vector<int>gr[sz],tr[sz];
+int comp[sz],out[sz],n,p,vis[sz];
+stack<int>st;
+
+inline void dfs1(int src){
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) dfs1(gr[src][i]);
+	st.push(src);
+}
+inline void dfs2(int src){
+	vis[src]=0;
+	for(int i=0;i<tr[src].size();++i)
+	if(vis[tr[src][i]]) dfs2(tr[src][i]);
+	comp[src]=p;
+}
+
+inline void reset(){
+	for(int i=0;i<n+5;++i){
+		gr[i].clear();
+		tr[i].clear();
+		comp[i]=0;
+		out[i]=0;
+		vis[i]=0;
+		
+	}
+}
+
+
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		cin>>n;
+        reset();
+        int z,x;
+        for(int i=1;i<=n;++i){
+        	cin>>z;
+        	while(z--){
+        		cin>>x;
+        		gr[i].push_back(x);
+        		tr[x].push_back(i);
+			}
+		}
+		
+		for(int i=1;i<=n;++i)
+		if(!vis[i]) dfs1(i);
+		
+		p=1;
+		while(!st.empty()){
+			int v=st.top(); st.pop();
+			if(vis[v]) {dfs2(v);
+			p++;}
+			
+		}
+		
+		for(int i=1;i<=n;++i){
+			for(int j=0;j<gr[i].size();++j){
+				if(comp[i]!=comp[gr[i][j]]) out[comp[i]]+=1;
+			}
+		}
+		
+	
+		int cnt=0;
+		
+		for(int i=1;i<p;++i)
+		if(out[i]==0) ++cnt;
+		if(cnt>1) cout<<"0\n";
+		else{
+			int ans=0;
+			for(int i=1;i<=n;++i) 
+			if(out[comp[i]]==0) ++ans;
+			cout<<ans<<"\n";
+		}
+		
+	}
+	
+	return 0;
+}
