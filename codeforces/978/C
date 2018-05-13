@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	ll n,m;
+	cin>>n>>m;
+	ll dorm[n+5],letter[m+5];
+	for(int i=1;i<=n;++i) cin>>dorm[i];
+	for(int i=1;i<=m;++i) cin>>letter[i];
+	
+	ll cum[n+5];
+	for(int i=1;i<=n;++i){
+		if(i==1) cum[i]=dorm[i];
+		else cum[i]=cum[i-1]+dorm[i];
+	}
+	for(int i=1;i<=m;++i){
+		ll val=letter[i];
+		int ind=lower_bound(cum+1,cum+n+1,val)-(cum+1);
+		if(cum[ind]==val) { cout<<ind<<" "<<(ll)dorm[ind]<<"\n";continue;		}
+		if(ind==0) {cout<<ind+1<<" "<<(ll)val<<"\n";continue;}
+		else { cout<<ind+1<<" "<<	(ll)(val-cum[ind])<<"\n";continue;	}
+		
+		
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
