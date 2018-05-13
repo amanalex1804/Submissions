@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+bool rv(pair<ll,int>&p1,pair<ll,int>&p2){
+	return p1.first>p2.first;
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	ll n,m,x,y;
+	cin>>n>>m;
+	pair<ll,int> r[n+5];
+	map<ll,int>M;
+	for(int i=1;i<=n;++i) { 
+	cin>>x;
+	M[x]+=1;
+	r[i].first=x;
+	r[i].second=i;	}
+	vector<ll>gr[n+5];
+	vector<int>er;
+	for(int i=0;i<m;++i)
+	{
+		cin>>x>>y;	
+		ll x1=r[x].first; 
+		ll x2=r[y].first;
+		if(x1==x2) continue;
+		if(x1<x2) er.push_back(y);
+		else er.push_back(x);
+		
+	}
+	
+	
+	sort(r+1,r+n+1,rv);
+	
+	
+	
+	ll cnt[n+5];int ind;
+	memset(cnt,0,sizeof(cnt));
+	for(int i=1;i<=n;++i){
+		x=r[i].first;
+		ind=r[i].second;
+		if(M[x]) {M[x]-=1; cnt[ind]=(n-i-M[x]);}
+		else cnt[ind]=(n-i);
+	}
+
+    for(int i=0;i<er.size();++i) cnt[er[i]]-=1;
+	
+
+	for(int i=1;i<=n;++i) cout<<cnt[i]<<" ";
+	
+	
+	return 0;
+}
