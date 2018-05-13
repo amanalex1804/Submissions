@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define INF 999999999999LL
+
+int main(){
+	int n;
+	cin>>n;
+	ll A[n+5],diff[n+5];
+	ll mn=INF;
+	ll mx=-INF;
+	for(int i=0;i<n;++i){
+		cin>>A[i];
+		if(i){
+			diff[i]=A[i]-A[i-1];
+			mn=min(mn,diff[i]);
+			mx=max(mx,diff[i]);
+		}
+	}
+	
+	if(n<=2) { cout<<"0";return 0;	}
+	if(abs(mx-mn)>10) { cout<<"-1";return 0;	}
+	
+	ll st=A[0];ll ans=INF;
+	
+	for(int i=-1;i<=1;++i){
+		
+		for(ll j=mn;j<=mx;++j){
+			ll c;ll cur=st+i;
+			if(i==0) c=0;
+			else c=1;
+			ll d=j;
+		//	if(st+i==24 and d==-6) cout<<" "<<cur<<" "<<d<<" "<<cur+d<<endl;
+			for(int k=1;k<n;++k){
+			
+				if(abs(A[k]-cur-d)>1) {
+				c=INF;}
+				if(A[k]!=cur+d) c++;
+				cur+=d;
+				
+			}
+			
+			ans=min(ans,c);
+		}
+	}
+	if(ans>=INF) cout<<"-1";
+	else cout<<ans;
+	
+	return 0;
+}
