@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int n;
+pair<int,pair<int,int> > edges[11000];
+int parent[11000];
+ 
+int rek(int x){
+	
+   if(x!=parent[x]) parent[x]=rek(parent[x]);
+	return parent[x];
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	int t;cin>>t;
+	
+	while(t--){
+		
+		cin>>n;
+		
+		string s;int m,y,cost;
+	    vector<pair<int,pair<int,int> > >edges;
+	    
+	    for(int i=1;i<=n;++i){
+	    	parent[i]=i;
+	    	cin>>s;
+	    	cin>>m;
+	    	while(m--){
+	    		cin>>y>>cost;
+	    		if(y>i) edges.push_back({cost,{i,y}});
+			}
+		}
+		
+		sort(edges.begin(),edges.end());
+		ll ans=0;
+		
+		for(int i=0;i<edges.size();++i){
+			int x1=edges[i].second.first;
+			int y1=edges[i].second.second;
+			
+			int x2=rek(x1);
+			
+			int y2=rek(y1);
+			
+			if(x2!=y2){
+				ans+=edges[i].first;
+				parent[x2]=y2;
+			}
+		
+		}
+		
+		
+		cout<<ans<<"\n";
+	}
+	
+	
+	return 0;
+} 
