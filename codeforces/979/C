@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 300005
+vector<int>gr[sz];
+int color1[sz],color2[sz],vis[sz];
+int n,x,y;
+inline void dfs1(int src,int col){
+	vis[src]=1;
+	color1[src]=col;
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]])
+	if(gr[src][i]==y) dfs1(gr[src][i],9);
+	else dfs1(gr[src][i],col);
+}
+inline void dfs2(int src,int col){
+	vis[src]=0;
+	color2[src]=col;
+	for(int i=0;i<gr[src].size();++i)
+	if(vis[gr[src][i]])
+	if(gr[src][i]==x) dfs2(gr[src][i],8);
+	else dfs2(gr[src][i],col);
+}
+int main(){
+	cin>>n>>x>>y;
+	for(int i=0,a,b;i<n-1;++i){
+		cin>>a>>b;
+		gr[a].push_back(b);
+		gr[b].push_back(a);
+	}
+	dfs1(x,8);
+	dfs2(y,9);
+	ll uppr=0,bet=0,lowr=0;
+	
+	for(int i=1;i<=n;++i){
+		if(color1[i]==8 and color2[i]==8) ++uppr;
+		else if(color1[i]==9 and color2[i]==9) ++lowr;
+		else bet++;
+	}
+	ll ans=0;
+	//cout<<uppr<<" "<<bet<<" "<<lowr<<endl;
+	ans+=(uppr*(uppr-1));
+	ans+=(lowr*(lowr-1));
+	ans+=(bet*(bet-1));
+	ans+=(uppr*bet*2);
+	ans+=(bet*lowr*2);
+	ans+=(lowr*uppr);
+	cout<<ans;
+	
+	return 0;
+}
