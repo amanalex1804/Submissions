@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll n,l;
+
+ll rek(string s){
+	map<char,ll>M;
+	l=s.size();
+	ll mx=-1;
+	
+	for(int i=0;i<l;++i) {
+	M[s[i]]+=1;
+	mx=max(mx,M[s[i]]);
+   }
+  
+   if(n==1 and mx==l) mx-=1;
+    else mx=min(l,(ll)(n+mx));
+    
+    
+    return mx;
+}
+
+int main(){
+
+	cin>>n;
+	string a;
+	ll A[4];
+	for(int i=1;i<=3;++i) cin>>a,A[i]=rek(a);
+	ll ans=max(A[1],max(A[2],A[3]));
+	int c=0,flag;
+	for(int i=1;i<=3;++i) if(ans==A[i]) ++c,flag=i;
+	
+	if(c>1) cout<<"Draw";
+	else{
+		if(flag==1) cout<<"Kuro";
+		else if(flag==2) cout<<"Shiro";
+		else if(flag==3) cout<<"Katie";
+	}
+	return 0;
+}
