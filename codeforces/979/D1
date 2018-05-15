@@ -41,8 +41,8 @@ int rek(int x,int k,int s,nod *cur,int i){
 	if(x&(1<<i)){
 		if(cur->l!=NULL)
 		 ans=rek(x,k,s,cur->l,i-1);
-		if((ans==-1 or ans>ser) and cur->r!=NULL) ans=rek(x,k,s,cur->r,i-1);
-		if(ans==-1 or ans>ser){
+		if(ans==-1 and cur->r!=NULL) ans=rek(x,k,s,cur->r,i-1);
+		if(ans==-1){
 			if(cur->val<=ser) return cur->val;
 			else return -1;
 		}
@@ -51,8 +51,8 @@ int rek(int x,int k,int s,nod *cur,int i){
 	}
 	else{
 		if(cur->r!=NULL) ans=rek(x,k,s,cur->r,i-1);
-		if((ans==-1 or ans>ser) and cur->l!=NULL) ans=rek(x,k,s,cur->l,i-1);
-		if(ans==-1 or ans>ser){
+		if(ans==-1 and cur->l!=NULL) ans=rek(x,k,s,cur->l,i-1);
+		if(ans==-1){
 			if(cur->val<=ser)  return cur->val;
 			else return -1;
 		}	
