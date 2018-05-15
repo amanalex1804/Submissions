@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100001
+vector<vector<int> >fact(sz);
+bool vis[sz];
+struct nod{
+	int val=-1;
+	nod *l=NULL;
+	nod *r=NULL;   // for bit 1
+};
+nod *seg[sz];
+inline void pre(){
+	for(int i=1;i<sz;++i)
+	for(int j=i;j<sz;j+=i)
+	fact[j].push_back(i);
+}
+
+void add(int x,int y){
+	nod *cur=seg[y];
+	for(int i=16;i>=0;--i){
+		if(x&(1<<i)){
+			if(cur->r!=NULL) cur=cur->r;
+			else {
+				cur->r=new nod();
+				cur=cur->r;	
+			}
+		}
+		else{
+			if(cur->l!=NULL) cur=cur->l;
+			else{
+				cur->l=new nod();
+				cur=cur->l;
+			}
+		}
+	}
+	cur->val=x;
+}
+int rek(int x,int k,int s,nod *cur,int i){
+	int ser=s-x;
+	int ans=-1;
+	if(x&(1<<i)){
+		if(cur->l!=NULL)
+		 ans=rek(x,k,s,cur->l,i-1);
+		if((ans==-1 or ans>ser) and cur->r!=NULL) ans=rek(x,k,s,cur->r,i-1);
+		if(ans==-1 or ans>ser){
+			if(cur->val<=ser) return cur->val;
+			else return -1;
+		}
+		 
+	return ans;	
+	}
+	else{
+		if(cur->r!=NULL) ans=rek(x,k,s,cur->r,i-1);
+		if((ans==-1 or ans>ser) and cur->l!=NULL) ans=rek(x,k,s,cur->l,i-1);
+		if(ans==-1 or ans>ser){
+			if(cur->val<=ser)  return cur->val;
+			else return -1;
+		}	
+	return ans;	
+	}
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	pre();
+	for(int i=1;i<sz;++i) seg[i]=new nod();
+	int n,x,t,s,k;cin>>n;
+	while(n--){
+		cin>>t;
+		
+		if(t==1){
+			
+			cin>>x;
+			if(vis[x]) continue;
+			vis[x]=1;
+			for(int i=0;i<fact[x].size();++i) add(x,fact[x][i]);
+		}
+		else{
+			cin>>x>>k>>s;
+			if(x%k!=0) { cout<<"-1\n";continue;			}
+			nod *cur=seg[k];
+			int ans=rek(x,k,s,cur,16);
+			cout<<ans<<"\n";
+		}
+		
+	}
+	
+	return 0;
+}
