@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100001
+bool vis[sz];
+vector<vector<int> >fact(sz);
+vector<set<int> >v(sz);
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	for(int i=1;i<sz;++i)
+	for(int j=i;j<sz;j+=i)
+	fact[j].push_back(i);
+	
+	int n,t,x,k,s; cin>>n;
+	while(n--){
+		cin>>t;
+		if(t==1){
+			cin>>x;
+			if(vis[x]==1) continue;
+			vis[x]=1;
+			for(int i=0;i<fact[x].size();++i) v[fact[x][i]].insert(x);
+		}
+		else{
+			cin>>x>>k>>s;
+			if(x%k!=0 or v[k].size()==0) { cout<<"-1\n";continue;}
+			
+			
+			set<int>::iterator it=v[k].upper_bound(s-x);
+			if(it==v[k].begin()) { cout<<"-1\n";continue;			}
+			int best=-1,ans=-1;
+			while(it!=v[k].begin()){
+				--it;
+				int val=*it;
+				int temp=(val^x);
+			
+				if(temp>best) { best=temp;ans=val;				}
+				if(val+x<best) break;
+			}
+			cout<<ans<<"\n";
+		}
+	}
+	
+	return 0;
+}
