@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int dp[2005][10][10][10][10];
+int n,src[2005],dest[2005];
+
+int rek(int ind,int cur,int p1,int p2,int p3,int p4){
+	
+	int ppl=0;
+	int temp[4];
+	temp[0]=p1; temp[1]=p2; temp[2]=p3; temp[3]=p4;
+	for(int i=0;i<=3;++i) if(temp[i]) ++ppl;
+	sort(temp,temp+4);
+	p1=temp[0]; p2=temp[1]; p3=temp[2]; p4=temp[3];
+	if(ind>n and !ppl) return 0;
+
+	
+	int t=99999;
+	if(ppl==4){
+		
+		if(p1) t=min(t,rek(ind,p1,0,p2,p3,p4)+abs(p1-cur)+1);
+		if(p2) t=min(t,rek(ind,p2,0,p1,p3,p4)+abs(p2-cur)+1);
+		if(p3) t=min(t,rek(ind,p3,0,p1,p2,p4)+abs(p3-cur)+1);
+		if(p4) t=min(t,rek(ind,p4,0,p1,p2,p3)+abs(p4-cur)+1);
+		return t;	
+	}
+	if(dp[ind][cur][p2][p3][p4]!=-1) return dp[ind][cur][p2][p3][p4];
+       if(ind>n){
+       	
+       	if(p1) t=min(t,rek(ind,p1,0,p2,p3,p4)+abs(p1-cur)+1);	
+		if(p2) t=min(t,rek(ind,p2,0,p1,p3,p4)+abs(p2-cur)+1);
+		if(p3) t=min(t,rek(ind,p3,0,p1,p2,p4)+abs(p3-cur)+1);
+		if(p4) t=min(t,rek(ind,p4,0,p1,p2,p3)+abs(p4-cur)+1);
+		return t;
+       	   
+	   }
+    
+	    if(!p1 and ind<=n) t=min(t,rek(ind+1,src[ind],dest[ind],p2,p3,p4)+abs(cur-src[ind])+1);
+		if(p2) t=min(t,rek(ind,p2,0,p1,p3,p4)+abs(p2-cur)+1);
+		if(p3) t=min(t,rek(ind,p3,0,p1,p2,p4)+abs(p3-cur)+1);
+		if(p4) t=min(t,rek(ind,p4,0,p1,p2,p3)+abs(p4-cur)+1);
+   
+	dp[ind][cur][p2][p3][p4]=t;
+	return dp[ind][cur][p2][p3][p4];
+	
+	
+}
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	cin>>n;
+	memset(dp,-1,sizeof(dp));
+	for(int i=1;i<=n;++i) cin>>src[i]>>dest[i];
+	int ans=rek(1,1,0,0,0,0);
+	cout<<ans;
+	return 0;
+}
