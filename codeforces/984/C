@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	ll p,q,b;
+	cin>>p>>q>>b;
+	ll g=__gcd(p,q);
+	p/=g;
+	q/=g;
+	if((p==1 and q==1) or (q==1) ) {cout<<"Finite\n";continue;	}	
+	
+	bool flag=true;
+	ll t1,t2;
+	 t1=q;
+	 t2=b;
+	while(flag){
+	//	cout<<t1<<" "<<t2<<endl;
+	
+	ll temp=__gcd(t1,t2);
+	if(temp==1 and t1!=1) {flag=false;break;}
+	while(temp!=1 and t1%temp==0) t1/=temp;
+	if(t1==1) {flag=true;break;}
+	if(t2%t1==0) flag=true;
+	
+	}
+	
+	
+	
+/*	cout<<temp;
+	while(temp!=1 and t1%temp==0) t1/=temp;
+	cout<<" "<<t1<<endl;
+	if(t1==1) flag=true;
+	if(t2%t1==0) flag=true;
+	
+ll i=2;
+	ll temp=q;
+	ll d=sqrt(temp);
+//	cout<<temp<<endl;
+	while(temp){
+		if(temp==1) break;
+		if(i*i>q) break;
+		if(temp%i==0){
+		//	cout<<i<<endl;
+			if(b%i!=0){
+				flag=false;
+				break;
+			}
+			while(temp%i==0) temp/=i;
+		}
+		++i;
+	}
+	if(temp!=1) if(b%temp!=0) flag=false;*/
+		if(flag) cout<<"Finite\n";
+		else cout<<"Infinite\n";
+		
+	}
+	return 0;
+}
