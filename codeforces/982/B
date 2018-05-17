@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	int n;
+	cin>>n;
+	pair<ll,int> w[n+5];
+	ll x;
+	for(int i=1;i<=n;++i){ 
+	cin>>x;
+	w[i].first=x; w[i].second=i;
+	
+	}
+	string s; 
+	cin>>s;
+	sort(w+1,w+n+1);
+	priority_queue<pair<ll,int> >Q;
+	vector<int>ans;
+	
+	int l=s.size();
+	int counter=1;
+	for(int i=0;i<l;++i){
+		
+		if(s[i]=='0'){
+			ans.push_back(w[counter].second);
+			Q.push(w[counter]);
+			++counter;
+		}
+		else{
+			ans.push_back(Q.top().second);
+			Q.pop();
+		}
+			
+	}
+	
+	for(int i=0;i<ans.size();++i) cout<<ans[i]<<" ";
+	
+	return 0;
+}
