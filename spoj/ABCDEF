@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	// ios_bas::sync_with_stdio(false);
+	// cin.tie(NULL);
+	int n;cin>>n;
+	ll A[n+5];
+
+	for(int i=0;i<n;++i) cin>>A[i];
+    
+     vector<ll>pdt1,left,sum,right;
+     
+     for(int i=0;i<n;++i){
+     	for(int j=0;j<n;++j){
+     		pdt1.push_back((ll)(A[i]*A[j]));
+		 }
+	 }
+	 
+	 for(int i=0;i<pdt1.size();++i){
+	 	for(int j=0;j<n;++j){
+	 		left.push_back(pdt1[i]+A[j]);
+		 }
+	 }
+	
+	for(int i=0;i<n;++i)
+	for(int j=0;j<n;++j)
+	sum.push_back(A[i]+A[j]);
+	
+	for(int i=0;i<sum.size();++i){
+		for(int j=0;j<n;++j){
+			if(A[j]==0) continue;
+			right.push_back((ll)(A[j]*sum[i]));
+		}
+	}
+	sort(right.begin(),right.end());
+	//sort(left.begin(),left.end());
+	
+	ll ans=0;
+	
+	for(int i=0;i<left.size();++i){
+		int ind1=lower_bound(right.begin(),right.end(),left[i])-right.begin();
+		int ind2=upper_bound(right.begin(),right.end(),left[i])-right.begin();
+		if(ind1>=right.size()) continue;
+		if(right[ind1]==left[i]) ans+=(ind2-ind1);
+	}
+	
+	cout<<ans;
+	return 0;
+}
