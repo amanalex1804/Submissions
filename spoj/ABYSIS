@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+ll fn(string s){
+	int l=s.size();
+	ll n=0,p=1;
+	for(int i=l-1;i>=0;--i){
+		n+=((int)(s[i]-'0'))*p;
+		p*=10;
+	}
+	return n;
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+	//	cin.ignore();
+		string s1,s;
+		while(getline(cin,s)) if(s.size()) break;
+		//cin>>s;
+		vector<int>f1,f2;
+		int l=s.size();
+		
+		int pos1=-1,pos2=-1;
+		for(int i=0;i<l;++i){
+			if(s[i]=='+') pos1=i;
+			else if(s[i]=='=') pos2=i;
+		}
+		ll v1,v2,v3;
+	//	cout<<l<<" "<<pos1<<" "<<pos2<<endl;
+		string t1=s.substr(0,pos1-1);
+		string t2=s.substr(pos1+2,pos2-pos1-3);
+		string t3=s.substr(pos2+2,l-pos2-1);
+		int l1=t1.size();
+		int l2=t2.size();
+		int l3=t3.size();
+		bool flag=true;
+		for(int i=0;i<l1;++i){
+			if(t1[i]=='m'){ flag=false; break;			}
+		}
+		if(!flag) { v2=fn(t2); v3=fn(t3); v1=v3-v2; cout<<v1<<" + "<<v2<<" = "<<v3<<"\n";continue;		}
+		
+		for(int i=0;i<l2;++i){
+			if(t2[i]=='m') { flag=false; break;			}
+		}
+		
+		if(!flag) { v1=fn(t1); v3=fn(t3); v2=v3-v1; cout<<v1<<" + "<<v2<<" = "<<v3<<"\n";continue;			}
+		v1=fn(t1); v2=fn(t2); v3=v1+v2; cout<<v1<<" + "<<v2<<" = "<<v3<<"\n";
+		
+		
+	}
+	
+	return 0;
+} 
