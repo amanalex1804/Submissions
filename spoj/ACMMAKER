@@ -1,0 +1,121 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include<ctype.h>
+#define INF 99999999
+typedef long long int ll;
+map<string,bool>dump;
+map<char,bool>keep;
+vector<string>v;
+string abb; int l1,l2;
+ll dp[155][155][155];
+
+
+ll rek(int ind1,int ind2,int li){
+	
+
+	if(ind1>=l1){	
+		if(ind2<l2) return -INF;
+		else return 1;
+	}
+	
+	if(ind2>=l2){
+		if(ind1<l1) return -INF;
+		else return 1;
+	}
+	if(dp[ind1][ind2][li]!=-1) return dp[ind1][ind2][li];
+	string s=v[ind2];
+	int ls=s.size();
+	ll tt=0;
+	for(int i=li;i<ls;++i){
+	//	ll found=-INF;
+		if(s[i]==abb[ind1]){
+			
+			ll f1=rek(ind1+1,ind2,i+1);
+			ll f2=rek(ind1+1,ind2+1,0);
+			if(f1>0) tt+=f1;
+			if(f2>0) tt+=f2;
+		}
+	
+	}
+	
+	if(!tt) tt=-INF;
+	dp[ind1][ind2][li]=tt;
+
+	return tt;
+	
+}
+
+int main(){
+	
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	 
+	 while(1){
+	 	int n;
+	 	cin>>n;
+	 	if(!n) break;
+	 	dump.clear();
+	 	string s;
+	 	while(n--){
+	 		cin>>s;
+	 		dump[s]=true;
+		 }
+		 
+		while(1){
+		while(getline(cin,s)) if(s.size()) break;
+		if(s=="LAST CASE") 	break;
+	 	
+	 	ll l=s.size();
+	 	abb="";string pass="";
+	 	keep.clear();
+	 	int pos;
+	 	for(int i=0;i<l;++i){
+	 		if(s[i]==' ') { pos=i;break; }
+	 		pass+=s[i];
+	 		abb+=(tolower(s[i]));
+	 		keep[tolower(s[i])]=true;	 		
+		 }
+	 	
+	 	v.clear();
+	 	int mx=-1;
+	 	string temp,temp1="";
+	 	for(int i=pos+1;i<=l;++i){
+	 		if(s[i]==' ' or i==l) {
+	 			temp="";
+	 			for(int j=0;j<temp1.size();++j)
+	 			if(temp1[j]!=' ') temp+=temp1[j];
+	 			
+			 if(temp.size() and !dump[temp]) {		 	
+			 	string x="";
+			 	for(int j=0;j<temp.size();++j) if(keep[temp[j]]) x+=temp[j];
+			 	
+			 	int l22=x.size();
+			   v.push_back(x);
+			   mx=max(l22,mx);
+			 
+			 }
+			 temp1="";continue;
+			 
+			 }
+			 else  temp1+=s[i]; 	 		
+		 }
+	 	
+	 	  l1=abb.size();
+	 	  l2=v.size();
+	 	  
+	 	  for(int i=0;i<l1+5;++i)
+	 	  for(int j=0;j<l2+5;++j)
+	 	  for(int k=0;k<mx+5;++k)
+	 	  dp[i][j][k]=-1;
+
+	 	
+	   ll ans=rek(0,0,0);
+	 	  if(ans<=0) cout<< pass<<" is not a valid abbreviation\n";
+	 	  else cout<<pass<<" can be formed in "<<ans<<" ways \n";
+	 	
+      	 }
+	 }
+	
+	
+	return 0;
+}
