@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll col[5680],row[1235],pcol[5680],prow[1235];
+ 
+ll Qn(int x,int y){
+	ll val=0;
+	ll x1=row[x];
+	ll y1=col[y];
+	--x1;
+	x1*=5678;
+	val=x1+y1;
+	return val;
+		
+}
+ll Wn(ll x){
+	
+	int r=(x+5678-1)/5678;
+	int c=(x%5678);
+	if(!c) c=5678;
+	
+	int cc =prow[r];
+    int rr=pcol[c];
+	cout<<cc<<" "<<rr<<"\n";
+	
+}
+int main(){
+	for(int i=1;i<=1234;++i) row[i]=i,prow[i]=i;
+	for(int i=1;i<=5678;++i) col[i]=i,pcol[i]=i;
+	
+	char ch;ll x,y;
+	while(cin>>ch){
+		
+		if(ch=='R'){
+			cin>>x>>y;
+			swap(row[x],row[y]);
+			prow[row[x]]=x;
+			prow[row[y]]=y;
+			
+		}
+		else if(ch=='C'){
+			cin>>x>>y;
+			swap(col[x],col[y]);
+			pcol[col[x]]=x;
+			pcol[col[y]]=y;
+			
+		}
+		else if(ch=='Q'){
+			cin>>x>>y;
+			ll ans=Qn(x,y);
+			cout<<ans<<"\n";
+		}
+		else if(ch=='W'){
+			cin>>x;
+			Wn(x);
+			
+			
+		}
+	}
+	
+	
+	return 0;
+} 
