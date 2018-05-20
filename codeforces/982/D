@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+#define sz 100005
+int seg[sz],mx,loc,par[sz];
+int rek(int x){
+	while(x!=par[x] and par[x]!=par[par[x]]) par[x]=par[par[x]];
+	return par[x];
+}
+
+void add(int x){
+	seg[x]=1; mx=max(mx,1); ++loc;
+	if(seg[x-1]){
+		int f=rek(x-1);
+		par[f]=x;
+		seg[x]+=seg[f];
+		--loc;
+		mx=max(mx,seg[x]);	
+	}
+	if(seg[x+1]){
+		int f=rek(x+1);
+		par[f]=x;
+		seg[x]+=seg[f];
+		--loc;
+		mx=max(mx,seg[x]);
+	}
+}
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	int n;
+	cin>>n;
+	ll A[n+5];
+	vector<pair<ll,int> >v;
+	
+	for(int i=1;i<=n;++i){
+		cin>>A[i];
+		par[i]=i;
+		v.push_back({A[i],i});
+	}
+	sort(v.begin(),v.end());
+	int prev=0;int ans;
+	for(int i=0;i<n;++i){
+		add(v[i].second);
+		if(1LL*loc*mx==(i+1)){
+			if(loc>prev) prev=loc,ans=v[i].first;
+		}
+	}
+	cout<<ans+1;
+	
+	return 0;
+}
