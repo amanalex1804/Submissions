@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+ll fact(ll x){
+	int c=0;
+	
+	for(ll i=1;i*i<=x;++i){
+		if(x==i*i) c+=1;
+		else if(x%i==0) c+=1;
+	}
+	return c;
+}
+int main(){
+	
+	ll A[10005],n;
+	A[1]=1;
+	A[2]=2;
+	cin>>n;
+	for(int i=3;i<=n;++i){
+		
+		A[i]=fact(i)+A[i-1];
+		
+		//cout<<A[i]<<" ";
+	}
+	cout<<A[n];
+	
+	
+	
+	return 0;
+} 
