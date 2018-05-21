@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define INF 9999999LL
+string s;
+int l;
+
+ll dp[30][256];
+
+ll rek(int ind,ll last){
+	
+	if(ind>=l) return 1;
+	if(dp[ind][last]!=-1) return dp[ind][last];
+	int sum=0;
+	ll t=0;
+	for(int i=ind;i<l;++i){
+		sum+=(int)(s[i]-'0');
+		if(sum>=last) t+=rek(i+1,sum);
+	}
+	dp[ind][last]=t;
+	return t;
+}
+
+int main(){
+//	 ios_base::sync_with_stdio(false);
+//	 cin.tie(NULL);
+	
+	ll test=0;
+	while(1){
+		++test;
+	cin>>s;
+	if(s=="bye") break;
+	l=s.size();
+	
+	for(int k=0;k<l+4;++k)
+	for(int i=0;i<=(10*l)+5;++i)
+	dp[k][i]=-1;
+	
+	ll ans=rek(0,0);
+	cout<<test<<". "<<ans<<"\n";
+	
+	
+	}	
+	return 0;
+}
