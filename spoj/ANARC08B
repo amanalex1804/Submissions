@@ -1,0 +1,126 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+vector<int>num1,num2;
+
+ll dig1(){
+	ll ans=0;
+	ll p=1;
+	for(int i=num1.size()-1;i>=0;--i){
+		ans+=(p*num1[i]);
+		p*=10;
+	}
+	return ans;
+	
+}
+
+ll dig2(){
+	
+	ll ans=0;
+	ll p=1;
+	for(int i=num2.size()-1;i>=0;--i){
+		ans+=(p*num2[i]);
+		p*=10;
+	}
+	return ans;
+	
+}
+int main(){
+	
+	// ios_base:sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	string king;
+	map<string,int>m1;
+	map<int,string>m2;
+	m1["063"]=0;
+	m1["010"]=1;
+	m1["093"]=2;
+	m1["079"]=3;
+	m1["106"]=4;
+	m1["103"]=5;
+	m1["119"]=6;
+	m1["011"]=7;
+	m1["127"]=8;
+	m1["107"]=9;
+	
+	m2[0]="063";
+	
+	m2[1]="010";
+	m2[2]="093";
+	m2[3]="079";
+	m2[4]="106";
+	m2[5]="103";
+	
+	m2[6]="119";
+    m2[7]="011";
+	m2[8]="127";
+	m2[9]="107";
+	
+	
+	
+	
+	
+	
+	while(1){
+		cin>>king;
+		if(king=="BYE") break;
+		
+		ll l=king.size();
+		int pos1=-1,pos2=-1;
+		for(int i=0;i<l;++i){
+			if(king[i]=='+') pos1=i;
+			else if(king[i]=='=') pos2=i;
+		}
+		
+		string t1=king.substr(0,pos1);
+		string t2=king.substr(pos1+1,pos2-pos1-1);
+		
+		ll l1=t1.size();
+		ll l2=t2.size();
+		num1.clear(); num2.clear();
+		
+		string temp="";
+		for(int i=0;i<l1;++i){
+			temp+=t1[i];
+			if((i+1)%3==0){
+				num1.push_back(m1[temp]);
+				temp="";
+				
+			}
+		}
+		temp="";
+		for(int i=0;i<l2;++i){
+			temp+=t2[i];
+			if((i+1)%3==0){
+				num2.push_back(m1[temp]);
+				temp="";
+				
+			}
+		}
+		
+		ll c1=dig1();
+		ll c2=dig2();
+		
+		ll c3=c1+c2;
+		
+		vector<string>vv;
+		while(c3){
+			int d=c3%10;
+			vv.push_back(m2[d]);
+		//	temp+=m2[d];
+			c3/=10;
+		}
+		cout<<king;
+		for(int j=vv.size()-1;j>=0;--j) cout<<vv[j];
+		cout<<endl;
+		
+		
+		
+		
+		
+	}
+	
+	
+	return 0;
+}
