@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+ll conv(string x){
+	ll r=0,p=1;
+	for(int i=x.size()-1;i>=0;--i){
+		r+=((int)(x[i]-'0'))*p;
+		p*=10;
+	}
+	return r;
+}
+
+int main(){
+	//ios_base::sync_with_stdio(false);
+	//cin.tie(NULL);
+	int t;cin>>t;
+	
+	while(t--){
+		
+		ll ans=0;
+		ll tt=0; ll x; char ch;
+		while(1){
+			++tt;
+			if(tt&1) {
+				cin>>x;
+				if(tt==1) ans=x;
+				else{
+					if(ch=='+') ans+=x;
+					if(ch=='-') ans-=x;
+					if(ch=='/') ans/=x;
+					if(ch=='*') ans*=x;
+					if(ch=='%') ans%=x;
+				}
+			}
+			else{
+				cin>>ch;
+				if(ch=='=') break;
+			}
+		}
+		cout<<ans<<"\n";
+			
+	}
+	
+	return 0;
+}
