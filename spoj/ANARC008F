@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+long int conv(string x){
+	long int r=0,p=1;
+	for(int i=x.size()-1;i>=0;--i){
+		r+=((int)(x[i]-'0'))*p;
+		p*=10;
+	}
+	return r;
+}
+int main(){
+	
+//	 ios_base::sync_with_stdio(false);
+//	 cin.tie(NULL);
+	int n,c,r;
+	ll test=0;
+	while(1){
+		++test;
+		cin>>n>>c>>r;
+		if(!n and !c and !r) break;
+		map<string,int>M;
+		int counter=1;
+		string c1;
+		cin>>c1;
+		M[c1]=counter++;
+		vector<int>broken;
+		while(c--){
+			cin>>c1;
+			if(!M[c1]) M[c1]=counter++;
+			broken.push_back(M[c1]);			
+		}
+		
+		long int mat[n+5][n+5],matr[n+5][n+5];
+		for(int i=1;i<=n;++i){
+			for(int j=1;j<=n;++j){
+				if(i==j) mat[i][j]=0,matr[i][j]=0;
+				else matr[i][j]=mat[i][j]=999999;					
+			}
+		}
+		
+		string s1,s2,s3;
+		while(r--){
+			cin>>s1>>s2>>s3;
+			
+			if(!M[s1]) M[s1]=counter++;
+			if(!M[s3]) M[s3]=counter++;
+			
+			string x=s2.substr(2,s2.size()-4);
+		//	cout<<x<<endl;
+			
+			long int val=conv(x);
+	
+			
+			if(s2[0]=='<') {mat[M[s3]][M[s1]]=min(val,mat[M[s3]][M[s1]]);matr[M[s1]][M[s3]]=min(val,mat[M[s1]][M[s3]]);}
+			if(s2[s2.size()-1]=='>') {mat[M[s1]][M[s3]]=min(val,mat[M[s1]][M[s3]]);matr[M[s3]][M[s1]]=min(val,mat[M[s3]][M[s1]]);}
+			 
+		}
+		
+		
+		for(int k=1;k<=n;++k)
+		for(int i=1;i<=n;++i)
+		for(int j=1;j<=n;++j)
+		mat[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]),matr[i][j]=min(matr[i][j],matr[i][k]+matr[k][j]);
+		
+		
+	
+		long int ans=0;
+
+	  
+	  for(int i=0;i<broken.size();++i){
+	  	ll ans1=0,ans2;
+	  //	ans1=min(mat[1][broken[i]],matr[1][broken[i]]);
+	  	//ans2=min(mat[broken[i]][1],matr[broken[i]][1]);
+	  //	cout<<ans1<< " "<<ans2<<endl;
+	  	//ans+=ans1+ans2;
+	  	ans+=mat[1][broken[i]]+mat[broken[i]][1];
+	  	
+	  }
+		cout<<test<<". "<<ans<<"\n";
+		
+		
+	}
+	
+	return 0;
+}
