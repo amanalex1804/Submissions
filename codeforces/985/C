@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	 ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	ll n,k,l;
+	cin>>n>>k>>l;
+	ll sz=n*k;
+	ll A[sz+5];
+	for(int i=1;i<=sz;++i) cin>>A[i];
+	
+	sort(A+1,A+sz+1);
+	ll ind=upper_bound(A+1,A+sz+1,A[1]+l)-A;	
+	--ind;
+	if(ind<n) { cout<<"0";return 0;	}
+	
+	ll ans=A[1],counter=1; ll req=n; --req;
+	
+	for(int i=2;i<=ind and req>0;++i){
+		counter++;
+		if(counter==k+1 or (ind-i+1)<=req) {
+			ans+=A[i];
+			//cout<<A[i]<<endl;
+			--req;
+			counter=1;
+			continue;
+		}
+		
+		
+	}
+	cout<<ans;
+	return 0;
+}
