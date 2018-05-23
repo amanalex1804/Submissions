@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	ll a,b;
+	while(1){
+	cin>>a>>b;
+	if(a==-1 and b==-1) break;
+	if(a==0 and b==0) { 	cout<<a<<"+"<<b<<"!="<<(a+b)<<"\n"; continue;	}
+	
+	
+	if(a<b){
+		if(a==1 or  (a==0 and b==1)) { cout<<a<<"+"<<b<<"="<<(a+b)<<"\n";	}
+		else { 	cout<<a<<"+"<<b<<"!="<<(a+b)<<"\n";	}
+		
+	}
+	else{
+		if(b==1 or (b==0 and a==1) ) { cout<<a<<"+"<<b<<"="<<(a+b)<<"\n";	}
+		else { 	cout<<a<<"+"<<b<<"!="<<(a+b)<<"\n";	}
+		
+	}
+}
+	
+	return 0;
+}
