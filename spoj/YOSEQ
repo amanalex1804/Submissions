@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef int ll;
+ll numb[100005],cpy[100005];
+vector<string>v;
+int main(){
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	string x1,s="";
+	cin>>x1;
+	bool fg=false;
+	for(int i=0;i<x1.size();++i){
+		if(x1[i]!='0') fg=true;
+		if(fg) s+=x1[i];
+	}
+	int l=s.size();
+    for(int i=0;i<l;++i) v.push_back("");
+	bool flag=true;
+	int idx=-1;
+	set<ll>myset;
+	set<ll>::iterator it;
+	while(flag){
+		
+		++idx;
+		int l1=l-idx;
+		myset.clear();
+		for(int i=0;i<l1;++i){
+			v[i]+=s[i+idx];
+			numb[i]=(numb[i]*10)+(int)(s[i+idx]-'0');
+			if(numb[i]>0 and s[i]!='0') myset.insert(numb[i]);
+		}
+	
+		int tr=idx;
+		ll p=1;
+		while(tr--){
+			p*=10;
+		}
+		
+		ll r=(10*p);
+		
+		if(myset.size()==0) { cout<<p<<"\n";break;		}
+	   
+	   for(it=myset.begin();it!=myset.end();++it){
+	   	
+	   	if(*it!=p){
+	   		flag=false;
+	   		cout<<p<<"\n";
+	   		break;
+		   }
+		   ++p;
+	   }
+		
+		if(p!=r and flag==true) { cout<<p<<"\n";break;		}
+	
+		
+	}
+	
+	
+	
+	return 0;
+}
