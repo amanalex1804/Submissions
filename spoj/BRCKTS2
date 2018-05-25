@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 350005
+typedef long int ll;
+typedef long long int lli;
+string s;
+ll l; lli ans=0;
+lli area[sz],base[sz],ht[sz];
+vector<int>gr[sz];
+int parent[sz],vis[sz];
+inline void reset(){
+	ans=0;
+	for(int i=0;i<l+3;++i){
+		gr[i].clear();
+		parent[i]=i;
+		vis[i]=0;
+		base[i]=0;
+		ht[i]=0;
+		area[i]=0;	
+	}
+}
+inline void rek(){
+	
+	int st=0,node=0;parent[0]=-1;
+	for(ll i=0;i<l;++i){
+		if(i==st) continue;
+	
+		if(s[i]=='('){
+			//cout<<" here "<<i<<" "<<node<<endl;
+			parent[i]=node;
+			gr[node].push_back(i);
+			node=i;
+		}
+		else if(s[i]==')')	{//cout<<" hello "<<node<<" "<<parent[node]<<endl;
+		node=parent[node];}
+		
+		if(node==parent[st]) { //cout<<" surprisen"<<i+1<<endl;
+		parent[i+1]=-1;st=i+1;node=i+1;		}
+		
+	}	
+}
+
+void dfs(int src,int col){
+	vis[src]=1;
+	
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) dfs(gr[src][i],(col^1));
+	
+	if(gr[src].size()==0){
+		base[src]=1;
+		ht[src]=1;
+		area[src]=1;
+		if(col==1) ans+=area[src];
+	}
+	else{
+		ll temp=0;
+		for(int i=0;i<gr[src].size();++i){
+			int ver=gr[src][i];
+			base[src]+=base[ver];
+			ht[src]=max(ht[src],ht[ver]);
+			temp+=area[ver];
+		}
+		ht[src]+=1;
+		base[src]+=(gr[src].size()+1);
+		area[src]=base[src]*ht[src];
+		if(col==1) ans+=(area[src]-temp);
+		
+	}
+//	cout<<" area "<<src<<" "<<base[src]<<" "<<(1+ht[src])<<" "<<area[src]<<" "<<col<<endl;
+	
+	
+}
+
+int main(){
+	 ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		cin>>s;
+		l=s.size();
+		reset();
+		vector<int>v;
+		
+		rek();
+//		
+//	for(int i=0;i<l;++i){
+//			cout<<i<<" -->";
+//			for(int j=0;j<gr[i].size();++j) cout<<gr[i][j]<<" ";
+//			cout<<endl;
+//		}
+		
+		for(ll i=0;i<l;++i)
+		if(s[i]=='(')
+		v.push_back(i);
+		
+		for(ll i=0;i<v.size();++i)
+			if(!vis[v[i]]) dfs(v[i],1);
+			
+		cout<<ans<<"\n";
+	}
+	
+	
+	
+	return 0;
+}
