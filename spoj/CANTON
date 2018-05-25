@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 10000002
+ll cum[10000002];
+
+inline void pre(){
+	for(ll i=1;i<sz;++i) cum[i]=cum[i-1]+i;
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	pre();
+	int t;cin>>t;
+	while(t--){
+		ll n;
+		cin>>n;
+		ll ind=lower_bound(cum+1,cum+sz,n)-cum;
+		ll val=cum[ind];
+		ll den=n-cum[ind-1];
+		ll num=(ind+1-den);
+		cout<<"TERM "<<n<<" IS ";
+		if((ind&1)) cout<<num<<"/"<<den<<"\n";
+		else cout<<den<<"/"<<num<<"\n";
+	}
+	
+	
+	return 0;
+}
