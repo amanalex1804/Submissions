@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
+typedef pair<int,int>pii;
+int main(){
+	
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	int t; cin>>t;
+	while(t--){
+		int n,m;
+		cin>>n>>m;
+		int A[n+5][m+5],M[n+5][m+5];
+		for(int i=1;i<=n;++i){
+			for(int j=1;j<=m;++j){
+				cin>>A[i][j];
+				M[i][j]=999999;
+			}
+		}
+		int a,b,tim;
+		cin>>a>>b>>tim;
+		queue<pii>q;
+		q.push({1,1});
+		M[1][1]=A[1][1];
+		while(!q.empty()){
+			pii p1=q.front(); q.pop();
+			int x=p1.first;
+			int y=p1.second;
+			for(int i=0;i<4;++i){
+				int x1=x+dx[i];
+				int y1=y+dy[i];
+				if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+					if(M[x1][y1]>M[x][y]+A[x1][y1]) {
+						M[x1][y1]=M[x][y]+A[x1][y1];
+						q.push({x1,y1});
+					}
+				}
+			}
+		}
+		 int val=M[a][b];
+		 if(val>tim) cout<<"NO\n";
+		 else{
+		 	tim-=val;
+		 	cout<<"YES\n"<<tim<<"\n";
+		 }
+	
+	}
+	
+	
+	return 0;
+}
