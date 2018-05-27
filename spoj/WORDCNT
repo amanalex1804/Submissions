@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v;
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	string x;
+	cin.ignore();
+	while(t--){
+		string s,temp;
+		getline(cin,s);
+		stringstream ss(s);
+		int ans=0,last=0;int pr=0;
+		while(ss>>temp){
+			int l=temp.size();
+			if(l==last) ++pr,ans=max(pr,ans);
+			else{
+				ans=max(pr,ans);
+				pr=1;
+				last=l;
+			}
+		}
+		ans=max(ans,pr);
+		cout<<ans<<"\n";
+		
+	}
+	
+	return 0;
+}
