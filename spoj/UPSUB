@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+
+vector<vector<int> >gr(105);
+vector<string>upsub;
+int vis[105];
+string s;
+map<string,bool>M;
+
+void dfs(int src,string x){
+	
+	
+	for(int i=0;i<gr[src].size();++i)
+	 dfs(gr[src][i],x+s[src]);
+	
+	if(gr[src].size()==0){
+		x+=s[src];
+		int l1=x.size();
+		string temp="";
+		for(int i=l1-1;i>=0;--i) temp+=x[i];
+		if(!M[temp]) upsub.push_back(temp);
+		M[temp]=1;
+	}
+}
+
+int main(){
+	// ios_base::sync_with_stdio(false);
+	// cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		
+		cin>>s;
+		upsub.clear();
+		M.clear();
+		int l=s.size();
+		
+		int lis[l+5]; int ans=0;
+		
+		for(int i=0;i<l;++i){
+		
+			lis[i]=1; 
+			int mx=-1;
+			gr[i].clear();
+			for(int j=0;j<i;++j){
+				if(s[j]<=s[i]) mx=max(mx,lis[j]);
+			}
+			if(mx!=-1) lis[i]=mx+1;
+			
+			for(int j=0;j<i;++j){
+				if(lis[i]-1==lis[j] and s[j]<=s[i]) gr[i].push_back(j);
+			}
+			
+			ans=max(ans,lis[i]);
+			
+		}
+		
+		
+		for(int i=0;i<l;++i)
+		if(lis[i]==ans) dfs(i,"");
+		
+		
+		sort(upsub.begin(),upsub.end());
+		for(int i=0;i<upsub.size();++i) cout<<upsub[i]<<"\n";
+		
+	}
+	
+	
+	return 0;
+}
