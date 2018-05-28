@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+map<ll,ll>M;
+vector<ll>v;
+
+int main(){
+	
+	int n,m;
+	ll a,x;
+	cin>>n;
+	while(n--){
+		cin>>a>>x;
+		M[a]=x;
+		v.push_back(a);
+	}
+	cin>>m;
+	while(m--){
+		cin>>a>>x;
+		if(!M[a]) { v.push_back(a);M[a]=x;		}
+		else M[a]=max(M[a],x);
+	}
+	ll ans=0;
+	for(long int  i=0;i<v.size();++i)
+	ans+=M[v[i]];
+	cout<<ans;
+	
+	return 0;
+}
