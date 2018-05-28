@@ -1,0 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int x,power;	while(1){		cin>>x>>power;	if(!x and !power) break;	if(!power or x==1) { cout<<1<<"\n";continue;		}		int A[10005];	A[0]=x;int sz=1; --power;	while(power--){		int carry=0;		
+			for(int i=0;i<sz;++i){int val=(A[i]*x)+carry;A[i]=val%10;carry=val/10;}	while(carry){A[sz++]=carry%10;	carry/=10;	}}
+		for(int i=sz-1;i>=0;--i) cout<<A[i];		cout<<"\n";			}	return 0;}
