@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>gr[100005];
+int vertex;
+vector<int>ans;
+void dfs(int src,int par){
+	for(int i=0;i<gr[src].size();++i){
+		int ver=gr[src][i];
+		if(ver==par) continue;
+		dfs(ver,src);
+	}
+	
+	if(src!=vertex and gr[src].size()==1) ans.push_back(src);
+	
+}
+int main(){
+	// ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int n;
+	cin>>n;
+	
+	for(int i=0,a,b;i<n-1;++i){
+		cin>>a>>b;
+		gr[a].push_back(b);
+		gr[b].push_back(a);
+	}
+	int l=0;vertex=1;
+	
+	for(int i=1;i<=n;++i){
+		if(gr[i].size()>2) ++l,vertex=i;
+	}
+	
+	if(l>1) { cout<<"No";return 0;	}
+	
+	dfs(vertex,0);
+	cout<<"Yes\n";
+	cout<<ans.size()<<"\n";
+	for(int i=0;i<ans.size();++i) cout<<vertex<<" "<<ans[i]<<"\n";
+	
+	return 0;
+}
