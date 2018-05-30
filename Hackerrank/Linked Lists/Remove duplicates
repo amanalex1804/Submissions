@@ -1,0 +1,32 @@
+SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* head) {
+
+SinglyLinkedListNode* nhead=NULL;
+    SinglyLinkedListNode* tail=NULL;
+    SinglyLinkedListNode* ptr=NULL;
+    while(head!=NULL){
+        int val=head->data;
+        
+        bool flag=true;
+        ptr=nhead;
+        while(ptr!=NULL){
+            if(ptr->data==val){
+                flag=false;
+                break;
+            }
+            ptr=ptr->next;
+        }
+        if(flag){
+            //cout<<head->data<<endl;
+            SinglyLinkedListNode* temp=new SinglyLinkedListNode(head->data);
+            temp->next=NULL;
+            if(nhead==NULL) nhead=temp,tail=temp;
+            else{
+                tail->next=temp;
+                tail=temp;
+            }
+        }
+        
+        head=head->next;
+    }
+    return nhead;
+}
