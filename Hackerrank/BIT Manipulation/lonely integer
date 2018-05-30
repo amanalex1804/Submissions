@@ -1,0 +1,10 @@
+// Complete the lonelyinteger function below.
+int lonelyinteger(vector<int> a) {
+ int ans=0;
+    for(int i=0;i<a.size();++i) ans=(ans^a[i]);
+    return ans;
+
+}
+
+
+// even count numbers gets 0
