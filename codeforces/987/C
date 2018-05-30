@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define INF 999999999LL
+typedef long long int ll;
+int n; ll s[3005],c[3005]; ll dp[3005][3005][3];
+ll fn(int ind,int last,int till){
+//	cout<<ind<<" "<<till<<endl;
+	if(till==3) return 0;
+	if(ind>n) return INF;
+	if(dp[ind][last][till]!=-1) return dp[ind][last][till];
+	ll t1=INF,t2=INF,t3=INF;
+	
+	if(s[ind]>s[last]) t2=fn(ind+1,ind,till+1)+c[ind];
+	
+	t3=fn(ind+1,last,till);
+	dp[ind][last][till]=min(t2,t3);
+	return dp[ind][last][till];
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	 cin.tie(NULL);
+	
+	cin>>n;
+	for(int i=1;i<=n;++i) cin>>s[i];
+	for(int i=1;i<=n;++i) cin>>c[i];
+	memset(dp,-1,sizeof(dp));
+	ll ans=fn(1,0,0);
+	if(ans>=INF) ans=-1;
+	cout<<ans;
+	return 0;
+}
