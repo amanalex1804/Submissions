@@ -1,0 +1,18 @@
+
+Node* Insert(Node *head,int data)
+{
+  
+    Node *temp=new Node();
+    temp->data=data;
+    temp->next=NULL;
+    Node *tail=head;
+    if(head==NULL) head=temp;
+    else{
+        while(tail->next!=NULL)  tail=tail->next;       // see this not tail!=NULL becoz we need to link with prev node to new node
+        tail->next=temp;
+        
+    }
+    
+    
+    return head;
+}
