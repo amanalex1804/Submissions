@@ -1,0 +1,42 @@
+/*
+   Find merge point of two linked lists
+   Node is defined as
+   struct Node
+   {
+       int data;
+       Node* next;
+   }
+*/
+int FindMergeNode(Node *headA, Node *headB)
+{
+    Node *nhead1=NULL;
+    Node *nhead2=NULL;
+    while(headA!=NULL){
+        Node *temp=new Node();
+        temp->data=headA->data;
+        if(nhead1==NULL) {temp->next=NULL;nhead1=temp;}
+        else{
+           temp->next= nhead1;
+            nhead1=temp;
+        }
+        headA=headA->next;
+    }
+    while(headB!=NULL){
+        Node *temp=new Node();
+        temp->data=headB->data;
+        if(nhead2==NULL) {temp->next=NULL;nhead2=temp;}
+        else{
+           temp->next= nhead2;
+            nhead2=temp;
+        }
+        headB=headB->next;
+    }
+    int ans;
+    while(head1!=NULL and head2!=NULL and head1->data==head2->data){
+        head1=head1->next;
+        head2=head2->next;
+        ans=head1->data;
+    }
+    return ans;
+    
+}
