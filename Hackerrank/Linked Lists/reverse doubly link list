@@ -1,0 +1,30 @@
+/*
+ * For your reference:
+ *
+ * DoublyLinkedListNode {
+ *     int data;
+ *     DoublyLinkedListNode* next;
+ *     DoublyLinkedListNode* prev;
+ * };
+ *
+ */
+DoublyLinkedListNode* reverse(DoublyLinkedListNode* head) {
+DoublyLinkedListNode* rhead=NULL;
+    DoublyLinkedListNode* tail=NULL;
+    DoublyLinkedListNode* ptr=head;
+    while(ptr->next!=NULL) ptr=ptr->next;
+    
+    while(ptr!=head->prev){
+        DoublyLinkedListNode* temp=new DoublyLinkedListNode(ptr->data);
+        if(rhead==NULL) {temp->next=NULL;rhead=temp;tail=temp;}
+        else{
+            tail->next=temp;
+            tail=temp;
+            
+        }
+        ptr=ptr->prev;
+    }
+    return rhead;
+    
+
+}
