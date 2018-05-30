@@ -1,0 +1,26 @@
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode* next;
+ * };
+ *
+ */
+SinglyLinkedListNode* deleteNode(SinglyLinkedListNode* head, int position) {
+
+     int cnt=0;
+    SinglyLinkedListNode* ptr=head;
+    SinglyLinkedListNode* pptr=ptr;
+     while(ptr->next!=NULL and cnt!=position){
+         ++cnt;
+        // cout<<cnt<<" "<<ptr->data<<endl;
+         pptr=ptr;
+         ptr=ptr->next;
+     }
+  //  cout<<" "<<ptr->data<<" "<<pptr->data;
+    if(ptr==head) head=head->next;        //check for the head value
+     else  pptr->next=ptr->next;
+return head;
+}
