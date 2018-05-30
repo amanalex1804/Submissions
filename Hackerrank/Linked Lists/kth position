@@ -1,0 +1,30 @@
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode* next;
+ * };
+ *
+ */
+SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* head, int data, int position) {
+   SinglyLinkedListNode *temp=new SinglyLinkedListNode(data);
+    
+    if(head==NULL) {temp->next=NULL;head=temp;}
+    else{
+        SinglyLinkedListNode *pr=head;
+        int hero=1;
+        while(pr->next!=NULL and position!=hero){
+          // cout<<hero<<" "<<pr->data<<" "<<position<<"\n";
+            pr=pr->next;
+           // --position;
+            ++hero;
+        }
+       
+        temp->next=pr->next;
+        pr->next=temp;
+        
+    }
+return head;
+}
