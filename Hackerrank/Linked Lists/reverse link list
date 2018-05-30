@@ -1,0 +1,21 @@
+void reversePrint(SinglyLinkedListNode* head) {
+SinglyLinkedListNode* head1=NULL;
+    SinglyLinkedListNode* ptr=head;
+   
+    while(ptr!=NULL) {
+        SinglyLinkedListNode* temp=new SinglyLinkedListNode(ptr->data);
+       // temp->data=ptr->data;
+       // cout<<ptr->data<<endl;
+        if(head1==NULL) { temp->next=NULL;head1=temp;}
+        else {
+            temp->next=head1;
+            head1=temp;
+        }
+        ptr=ptr->next;
+    }
+    while(head1!=NULL){
+        cout<<head1->data<<"\n";
+        head1=head1->next;
+    }
+
+}
