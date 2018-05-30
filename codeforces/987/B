@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	ll x,y;
+	cin>>x>>y;
+	if(x==y) { cout<<"=";return 0;	}
+   long	double a=(long double)(y*(long double)(log(x)));
+    long double b=(long double)(x*(long double)(log(y)));
+	if(a>b) cout<<">\n";
+	else if(a<b) cout<<"<\n";
+	else cout<<"=\n";
+	return 0;
+}
