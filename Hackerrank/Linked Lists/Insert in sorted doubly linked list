@@ -1,0 +1,32 @@
+*
+ * DoublyLinkedListNode {
+ *     int data;
+ *     DoublyLinkedListNode* next;
+ *     DoublyLinkedListNode* prev;
+ * };
+ *
+ */
+DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* head, int data) {
+    DoublyLinkedListNode* ptr=NULL;
+    DoublyLinkedListNode* pptr=NULL;
+    DoublyLinkedListNode* temp=new DoublyLinkedListNode(data);
+    if(head==NULL) {temp->next=NULL;temp->prev=NULL;head=temp;}
+    else{
+        cout<<" for "<<data<<endl;
+        ptr=head;pptr=head;
+        while(ptr!=NULL and ptr->data<=data){
+            cout<<pptr->data<<" "<<ptr->data<<endl;
+            pptr=ptr;
+            ptr=ptr->next;
+        }
+        temp->next=ptr;
+        if(pptr==head and ptr==head) {temp->next=head;head=temp;}
+        else{ temp->prev=pptr;
+         pptr->next=temp;
+             
+            }
+    }
+    
+
+return head;
+}
