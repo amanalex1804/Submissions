@@ -1,0 +1,142 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+pair<ll,ll>pii;
+string x;int l;
+vector<int>gr[10005];
+int ind=0;
+ll dp[10005][2][2];
+stack<int>st;
+inline void reset(){
+	for(int i=0;i<l+3;++i)
+	for(int j=0;j<2;++j)
+	for(int k=0;k<2;++k)
+	dp[i][j][k]=-1;
+}
+void build(){
+	int i=l-1;
+	while(i>=0){
+		if(x[i]=='0') st.push(i);
+		else if(x[i]=='1'){
+			int ver=st.top(); st.pop();
+			gr[i].push_back(ver);
+			st.push(i);
+		}
+		else if(x[i]=='2'){
+			int ver=st.top(); st.pop();
+			gr[i].push_back(ver);
+			ver=st.top(); st.pop();
+			gr[i].push_back(ver);
+			st.push(i);
+		}
+		i-=1;
+	}
+	
+}
+ 
+// green=1 ,red=2,blue=3
+ll fnm(int src,int green,int red){
+	
+	if(src>=l) return 0;
+	if(dp[src][green][red]!=-1) return dp[src][green][red];
+	
+	
+	ll mx=0;
+	 if(gr[src].size()==2){
+	 	int v1=gr[src][0];
+	 	int v2=gr[src][1];
+	 	if(green==1) {
+	 		 ll t1=fnm(v1,0,1);
+	 		 ll t2=fnm(v2,0,1);
+	 		 mx=t1+t2;
+		 }
+		 else {
+		 	ll t1=fnm(v1,1,0)+1;
+		 	ll t2=fnm(v2,0,1);
+		 	mx=t1+t2;
+		 	ll t3=fnm(v2,1,0)+1;
+		 	ll t4=fnm(v1,0,1);
+		 	mx=max(mx,(t3+t4));
+		 	
+		 }
+	 }
+	 else if(gr[src].size()==1){
+	 	int ver=gr[src][0];
+	 	if(green==1) {
+	 		ll t1=fnm(ver,0,1);
+	 		mx=t1;
+		 }
+	
+		 else{
+		 	ll t1=fnm(ver,1,0)+1;
+		 	ll t2=fnm(ver,0,1);
+		 	mx=max(t1,t2);
+		 	
+		 }
+	 }
+	return dp[src][green][red]=mx;
+}
+ll fnn(int src,int green,int red){
+	
+	if(src>=l) return 0;
+	if(dp[src][green][red]!=-1) return dp[src][green][red];
+	
+	
+	ll mx=0;
+	 if(gr[src].size()==2){
+	 	int v1=gr[src][0];
+	 	int v2=gr[src][1];
+	 	if(green==1) {
+	 		 ll t1=fnn(v1,0,1);
+	 		 ll t2=fnn(v2,0,1);
+	 		 mx=t1+t2;
+		 }
+		 else {
+		 	ll t1=fnn(v1,1,0)+1;
+		 	ll t2=fnn(v2,0,1);
+		 	mx=t1+t2;
+		 	ll t3=fnn(v2,1,0)+1;
+		 	ll t4=fnn(v1,0,1);
+		 	mx=min(mx,(t3+t4));
+		 	
+		 }
+	 }
+	 else if(gr[src].size()==1){
+	 	int ver=gr[src][0];
+	 	if(green==1) {
+	 		ll t1=fnn(ver,0,1);
+	 		mx=t1;
+		 }
+	
+		 else{
+		 	ll t1=fnn(ver,1,0)+1;
+		 	ll t2=fnn(ver,0,1);
+		 	mx=min(t1,t2);
+		 	
+		 }
+	 }
+	return dp[src][green][red]=mx;
+}
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		cin>>x;
+		l=x.size();
+		while(!st.empty()) st.pop();
+		for(int i=0;i<l+4;++i) gr[i].clear();
+		build();
+		reset();
+		ll ans1=fnm(0,1,0)+1;
+		ll ans2=fnm(0,0,1);
+		ll ans=max(ans2,ans1);
+		reset();
+		ll t1=fnn(0,1,0)+1;
+		ll t2=fnn(0,0,1);
+		ll ansm=min(t1,t2);
+		cout<<ans<<" "<<ansm<<"\n";
+	}
+	
+	return 0;
+} 
