@@ -1,0 +1,32 @@
+/*
+Node is defined as 
+
+typedef struct node
+{
+	int data;
+	node * left;
+	node * right;
+}node;
+
+*/
+ 
+void fn(node *&root,int value){          /***** see the ampercent & **********/
+      if(root==NULL) {node *temp=new node();temp->data=value;temp->left=NULL;temp->right=NULL;root=temp;}
+    else{
+        if(value<root->data){
+            if(root->left==NULL){ node *temp=new node();temp->data=value;temp->left=NULL;temp->right=NULL;root->left=temp;}
+            else fn(root->left,value);
+        }
+        else{
+            if(root->right==NULL) {node *temp=new node();temp->data=value;temp->left=NULL;temp->right=NULL;root->right=temp;}
+            else fn(root->right,value);
+        }
+    }
+
+}
+
+node * insert(node * root, int value) {
+   fn(root,value);
+  
+	return root;
+}
