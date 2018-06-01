@@ -1,0 +1,25 @@
+/*
+struct node
+{
+    int data;
+    node* left;
+    node* right;
+};
+
+*/
+
+void l(node *root){
+    if(root->left!=NULL) l(root->left);
+    cout<<root->data<<" ";
+}
+void r(node *root){
+    cout<<root->data<<" ";
+    if(root->right!=NULL) r(root->right);
+    
+}
+void topView(node * root) {
+    if(root->left!=NULL) l(root->left);
+    cout<<root->data<<" ";
+    if(root->right!=NULL) r(root->right);
+
+}
