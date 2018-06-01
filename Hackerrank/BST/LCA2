@@ -1,0 +1,23 @@
+/*
+Node is defined as 
+
+typedef struct node
+{
+	int data;
+	node *left;
+	node *right;
+}node;
+
+*/
+
+
+node *lca(node *root, int v1,int v2)
+{
+int val=root->data;
+    if(v1==val or val==v2) return root;
+    else if(min(v1,v2)<val and val<max(v2,v1)) return root;
+    else if(min(v1,v2)<val and max(v2,v1)<val) return root=lca(root->left,v1,v2);
+    else return root=lca(root->right,v1,v2);
+	
+}
+
