@@ -1,0 +1,19 @@
+
+/*The tree node has data, left child and right child 
+class Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+*/
+int ans=0;
+void cal(Node *root,int cnt){
+    ans=max(ans,cnt);
+    if(root->left!=NULL) cal(root->left,cnt+1);
+    if(root->right!=NULL) cal(root->right,cnt+1);
+}
+    int height(Node* root) {
+        cal(root,0);
+        return ans;
+    }
