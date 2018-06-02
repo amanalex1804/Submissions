@@ -1,0 +1,21 @@
+int fn(Node *node,int sum){
+    
+    if(node->left==NULL and node->right==NULL){
+        sum-=node->data;
+        if(sum==0) return 1;
+        else return 0;
+    }
+    if(sum<=0) return 0;
+    int t1=0,t2=0;
+    if(node->left!=NULL and sum>0) t1=fn(node->left,sum-(node->data));
+    if(node->right!=NULL and sum>0) t2=fn(node->right,sum-(node->data));
+    
+
+    return max(t1,t2);
+}
+bool hasPathSum(Node *node, int sum)
+{
+    if(node==NULL) return 0;
+   return fn(node,sum);
+  
+}
