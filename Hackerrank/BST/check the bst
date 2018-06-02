@@ -1,0 +1,17 @@
+
+The Node struct is defined as follows:
+	struct Node {
+		int data;
+		Node* left;
+		Node* right;
+	}
+*/
+
+int fn(Node *root,int mn,int mx){
+    if(root==NULL) return 1;
+    if(root->data<mn or root->data>mx) return 0;
+    return (fn(root->left,mn,root->data-1) and fn(root->right,root->data+1,mx));
+}
+	bool checkBST(Node* root) {
+		return fn(root,-1,9999);
+	}
