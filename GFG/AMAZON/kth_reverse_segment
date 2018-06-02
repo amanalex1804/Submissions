@@ -1,0 +1,38 @@
+struct node *reverse (struct node *head, int k)
+{ 
+    
+    if(head!=NULL){
+   struct node * mainhead=NULL;
+   struct node *h=NULL;
+   struct node *t1=NULL;
+   struct node *t2=NULL;
+   struct node *ptr=head;
+   int cnt=0;
+   while(ptr!=NULL){
+       struct node *temp=(struct node *)malloc(sizeof(struct node *));
+       temp->data=ptr->data;
+       if(cnt%k==0){
+           if(t1==NULL) mainhead=h;
+           else t1->next=h;
+           t1=t2;
+           t2=NULL;
+           h=NULL;
+           
+       }
+      
+           if(cnt%k==0) { h=temp;t2=temp;}
+           else{
+               temp->next=h;
+               h=temp;
+           }
+       ++cnt;
+       ptr=ptr->next;
+       
+   }
+   if(mainhead==NULL) mainhead=h;
+   else t1->next=h;
+   return mainhead;
+        
+    }
+  
+}
