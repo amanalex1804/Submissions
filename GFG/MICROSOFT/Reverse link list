@@ -1,0 +1,20 @@
+// Should reverse list and return new head.
+Node* reverse(Node *head)
+{
+  Node *head1=NULL;
+  Node *ptr=head;
+  while(ptr!=NULL){
+      Node *temp=new Node();
+      temp->data=ptr->data;
+      if(head1==NULL) head1=temp;
+      else{
+          temp->next=head1;
+          head1=temp;
+          
+      }
+      
+      ptr=ptr->next;
+      
+  }
+  return head1;
+}
