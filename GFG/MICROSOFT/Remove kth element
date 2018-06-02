@@ -1,0 +1,18 @@
+/*You are required to complete this method*/
+Node * deleteK(Node *head,int K)
+{
+    Node *ptr=head;
+    Node *pptr=head;
+    int cnt=1;
+  while(ptr!=NULL){
+      if(cnt%K==0){
+          if(ptr==head) head=ptr->next;
+          else
+              pptr->next=ptr->next;
+      }
+      pptr=ptr;
+      ptr=ptr->next;
+      ++cnt;
+  }
+  return head;
+}
