@@ -1,0 +1,47 @@
+//write a function returns the resultant linked list
+Node*  addTwoLists(Node* first, Node* second){
+    int carry=0;
+    Node *h1=first;
+    Node *h2=second;
+    Node *head=NULL;
+    Node *tail=NULL;
+    while(h1!=NULL and h2!=NULL){
+        Node *temp=new Node();
+        int val=h1->data+h2->data+carry;
+        temp->data=val%10;
+        carry=val/10;
+        if(head==NULL) {head=temp;tail=temp;}
+        else { tail->next=temp;tail=temp;}
+        h1=h1->next;
+        h2=h2->next;
+    }
+    while(h1!=NULL){
+        Node *temp=new Node();
+        int val=h1->data+carry;
+        temp->data=val%10;
+        carry=val/10;
+        if(head==NULL) {head=temp;tail=temp;}
+        else { tail->next=temp;tail=temp;}
+        h1=h1->next;
+    }
+    while(h2!=NULL){
+         Node *temp=new Node();
+        int val=h2->data+carry;
+        temp->data=val%10;
+        carry=val/10;
+        if(head==NULL) {head=temp;tail=temp;}
+        else { tail->next=temp;tail=temp;}
+        h2=h2->next;
+    }
+    while(carry){
+        Node *temp=new Node();
+        temp->data=carry%10;
+        carry/=10;
+        
+        if(head==NULL) {head=temp;tail=temp;}
+        else { tail->next=temp;tail=temp;}
+        
+    }
+    return head;
+  
+}
