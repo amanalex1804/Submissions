@@ -1,0 +1,53 @@
+struct Node * mergeResult(Node *node1,Node *node2)
+{
+    Node *head=NULL;
+    Node *tail=NULL;
+   Node *head1=node1;
+   Node *head2=node2;
+   while(head1!=NULL and head2!=NULL){
+       Node *temp=new Node();
+       if(head1->data<head2->data) {temp->data=head1->data;head1=head1->next;}
+         else {temp->data=head2->data;   head2=head2->next;}
+       
+          if(head==NULL) {head=temp;tail=temp;}
+           else{
+               tail->next=temp;
+               tail=temp;
+           }
+   }
+   while(head1!=NULL){
+         Node *temp=new Node();
+         temp->data=head1->data;
+         head1=head1->next;
+          if(head==NULL) {head=temp;tail=temp;}
+           else{
+               tail->next=temp;
+               tail=temp;
+           }
+   }
+   while(head2!=NULL){
+         Node *temp=new Node();
+         temp->data=head2->data;
+         head2=head2->next;
+       if(head==NULL) {head=temp;tail=temp;}
+           else{
+               tail->next=temp;
+               tail=temp;
+           }
+   }
+   Node *rhead=NULL;
+ 
+   while(head!=NULL){
+       Node *temp=new Node();
+       temp->data=head->data;
+     
+       if(rhead==NULL) rhead=temp;
+       else {
+           temp->next=rhead;
+           rhead=temp;
+       }
+       head=head->next;
+   }
+   //cout<<endl;
+   return rhead;
+}
