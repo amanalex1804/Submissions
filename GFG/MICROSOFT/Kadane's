@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    int A[n+5];
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    int lastmx=A[0],ans=A[0];
+	    for(int i=1;i<n;++i){
+	    	lastmx=max(A[i],lastmx+A[i]);
+	    	ans=max(ans,lastmx);
+		}
+		cout<<ans<<"\n";
+	     
+	}
+	return 0;
+}
