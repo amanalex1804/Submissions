@@ -1,0 +1,18 @@
+  int fn(Node *r1,Node *r2){
+       if(r1==NULL and r2!=NULL) return -1;
+       if(r1!=NULL and r2==NULL) return -1;
+       
+       if(r1==NULL and r2==NULL) return 0;
+       if(r1->data!=r2->data) return -1;
+       int t1,t2;
+       t1=fn(r1->left,r2->left);
+       t2=fn(r1->right,r2->right);
+       return (t1+t2);
+       
+   }
+bool isIdentical(Node *r1, Node *r2)
+{
+    int v=fn(r1,r2);
+    if(!v) return 1;
+    else return 0;
+}
