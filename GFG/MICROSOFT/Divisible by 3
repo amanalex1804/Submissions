@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mod 3
+int add(int x,int y){
+    int r=x+y;
+    if(r>=mod) r-=mod;
+    return r;
+}
+int mul(int x,int y){
+    int r=x*y;
+    if(r>=mod) r%=mod;
+    return r;
+}
+int exp(int x,int n){
+    int r=1;
+    while(n){
+        if(n&1) r=mul(r,x);
+        x=mul(x,x);
+        n/=2;
+    }
+    return r;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;cin>>t;
+    while(t--){
+        string s;
+    cin>>s;
+    int carry=0;
+    for(int i=s.size()-1;i>=0;--i){
+        if(s[i]=='1'){
+            int rem=exp(2,s.size()-i-1);
+            carry=add(rem,carry);
+        }
+    }
+	if(!carry) cout<<"1\n";
+	else cout<<"0\n";
+    }
+	return 0;
+}
