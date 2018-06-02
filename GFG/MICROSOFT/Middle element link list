@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+int getMiddle(Node *head)
+{
+    if(head==NULL) return -1;
+    
+ map<int,int>M;
+  int p=1;
+  while(head!=NULL){
+      M[p++]=head->data;
+      head=head->next;
+  }
+  --p;
+  
+  return M[(p/2)+1];
+}
