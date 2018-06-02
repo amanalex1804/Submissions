@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+int conv(string x){
+    int sum=0;
+    for(int i=0;i<x.size();++i)
+    sum+=(int)(x[i]-'0');
+    return sum;
+}
+int main() {
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    int l=s.size();
+	    int ans=0;
+	    for(int i=0;i<l;++i){
+	        for(int j=1;j<l and i+(2*j)<=l ;j++){
+	            string s1=s.substr(i,j);
+	            string s2=s.substr(i+j,j);
+	            int t1=conv(s1); int t2=conv(s2);
+	            if(t1==t2) ans=max(ans,2*j);
+	        }
+	    }
+	    cout<<ans<<"\n";
+	    
+	}
+	return 0;
+}
