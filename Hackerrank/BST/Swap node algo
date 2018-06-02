@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#define pii pair<node *,int>
+struct node{
+    int data;
+     node *left=NULL;
+     node *right=NULL;
+};
+
+void inorder(node *root,vector<vector<int> >&tt,int ind){
+   if(root->left!=NULL) inorder(root->left,tt,ind);
+    tt[ind].push_back(root->data);
+    if(root->right!=NULL) inorder(root->right,tt,ind);
+}
+vector<vector<int>> swapNodes(vector<vector<int>> indexes, vector<int> queries) {
+   
+    node *root=NULL;
+    vector<vector<node *> >gr(1030);
+    vector<vector<int> >ret(queries.size()+1);
+    queue<pii>q;
+    node *temp=new node();
+    temp->data=1;
+    q.push({temp,1});int ht=0;
+    while(!q.empty()){
+        pii pq=q.front();q.pop();
+        node *p=pq.first; int cnt=pq.second; ht=max(ht,cnt);
+        gr[cnt].push_back(p);
+        if(root==NULL) root=p;
+        
+            int ind=p->data-1;
+                    
+            if(indexes[ind][0]!=-1) {temp=new node();temp->data=indexes[ind][0];p->left=temp;q.push({temp,cnt+1});}
+            if(indexes[ind][1]!=-1) {temp=new node();temp->data=indexes[ind][1];p->right=temp;q.push({temp,cnt+1});}
+        
+    }
+    
+    node *ptr=root;
+
+    for(int i=0;i<queries.size();++i){
+        int h=queries[i];
+        for(int j=h;j<=ht;j+=h){
+            for(int k=0;k<gr[j].size();++k) swap(gr[j][k]->left,gr[j][k]->right);
+        }
+        
+        inorder(ptr,ret,i);
+        cout<<"\n";
+    }
+    
+
+    return ret;
+}
