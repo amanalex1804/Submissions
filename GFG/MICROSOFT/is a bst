@@ -1,0 +1,9 @@
+
+int fn(Node *cur,int mn,int mx){
+    if(cur==NULL) return 1;
+    if(cur->data<mn or cur->data>mx) return 0;
+    return (fn(cur->left,mn,cur->data-1) and fn(cur->right,cur->data+1,mx));
+}
+bool isBST(Node* root) {
+    return fn(root,INT_MIN,INT_MAX);
+}
