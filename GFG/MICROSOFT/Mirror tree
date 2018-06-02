@@ -1,0 +1,14 @@
+/* Should convert tree to its mirror */
+void mirror(Node* node) 
+{
+    if(node!=NULL){
+    queue<Node *>q;
+     q.push(node);
+     while(!q.empty()){
+         Node *temp=q.front(); q.pop();
+         if(temp->right!=NULL) q.push(temp->right);
+         if(temp->left!=NULL) q.push(temp->left);
+         swap(temp->left,temp->right);
+     }
+    }
+}
