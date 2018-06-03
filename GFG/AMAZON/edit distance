@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX 99999
+int dp[105][105][205];
+int l1,l2,c1,c2; string a,b;
+int fn(int ind1,int ind2,int ch){
+ if(ind1>=l1) return (l2-ind2);
+ if(ind2>=l2) return (l1-ind1);
+ 
+ if(dp[ind1][ind2][ch]!=-1) return dp[ind1][ind2][ch];
+ 
+ int t1=MAX,t2=MAX;
+
+ if(a[ind1]==b[ind2]) t1=fn(ind1+1,ind2+1,ch);
+ else {
+      if(ch>0){
+          t2=1+min(fn(ind1+1,ind2+1,ch-1),min(fn(ind1+1,ind2,ch-1),fn(ind1,ind2+1,ch-1)));
+      }
+    
+ }
+
+ return dp[ind1][ind2][ch]=min(t1,t2);
+ 
+}
+int main() {
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	    cin>>c1>>c2;
+	    cin>>a>>b;
+	    l1=a.size(); l2=b.size();
+	    for(int i=0;i<l1+1;i++)
+	    for(int j=0;j<l2+1;++j)
+	    for(int k=0;k<(c1+c2)+1;++k)
+	    dp[i][j][k]=-1;
+	   // memset(dp,-1,sizeof(dp));
+	    cout<< fn(0,0,c1+c2)<<"\n";
+	}
+	return 0;
+}
