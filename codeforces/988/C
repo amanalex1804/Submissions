@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+map<int,pair<int,int > >M;
+int main(){
+	// ios_base::sync_with_stdio(false); cin.tie();
+	int n;
+	cin>>n;
+	int s1=-1,s2,i1,i2;bool flag=false;
+	for(int i=0,sz;i<n;++i){
+		cin>>sz;
+		map<int,int>vis;
+		vector<pair<int,int > >v;
+		int sum=0;
+		for(int j=0,x;j<sz;++j){
+			cin>>x;
+			sum+=x;
+			if(!flag) {
+			if(vis[x]) continue; 
+			vis[x]=1;
+			v.push_back({x,j+1});
+			
+		}
+		}
+		if(!flag){
+			//cout<<" for "<<i+1<<" \n";
+			for(int j=0;j<v.size();++j) {
+				int temp=sum-v[j].first;
+			//	cout<<" fuck "<<v[j].first<<" "<<temp<<" "<<M[temp].first<<" "<<M[temp].second<<endl;
+				if(M[temp].second>0){
+					s1=i+1;s2=M[temp].first;
+					i1= v[j].second   ;i2=M[temp].second;
+					flag=true;
+					break;
+				}
+				M[temp].first=i+1;
+				M[temp].second=v[j].second;
+			}
+		}
+		
+	}
+	if(!flag) { cout<<"NO";return 0;	}
+	cout<<"YES\n";
+	cout<<s1<<" "<<i1<<"\n"<<s2<<" "<<i2<<"\n";
+	
+	
+	
+	return 0;
+}
