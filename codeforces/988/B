@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n;
+	cin>>n;
+	string s;
+	pair<int,int>ind[n+5];
+	map<string,int>vis;
+	vector<string>v;
+	for(int i=0;i<n;++i){
+		cin>>s;
+		v.push_back(s);
+	}
+	int dis=0;
+	for(int i=0;i<v.size();++i){
+		int temp=0;
+		if(!vis[v[i]]) ++dis;
+		vis[v[i]]+=1;
+		for(int j=0;j<n;++j){
+			if(v[i].size()<=v[j].size()){
+				if(v[j].find(v[i])!=string::npos) ++temp;
+			}
+		}
+		ind[i].first=temp;
+		ind[i].second=i;
+	}
+	sort(ind,ind+n,greater<pair<int,int> >());
+	//for(int i=0;i<n;++i) cout<<ind[i].first<<" "<<v[ind[i].second]<<"\n";
+    
+    bool flag=true;
+    map<string,int>vb;int counter=n;
+    for(int i=0;i<n and flag==true;++i ){
+    	if(vb[v[ind[i].second]]) {--counter;continue;}
+    	if(ind[i].first==counter){
+    		
+    		--counter;
+    		vb[v[ind[i].second]]=1;
+    		
+		}
+    	else {flag=false;}
+    	
+    /*	if(vb[v[ind[i].second]]) continue;
+    	if(!vb[v[ind[i].second]] and ind[i].first!=dis) flag=false;
+    	else{
+    		vb[v[ind[i].second]]=1;
+    		--dis;
+		}*/
+	}
+	if(!flag) {cout<<"NO";return 0;}
+	cout<<"YES\n";
+	for(int i=0;i<n;++i) cout<<v[ind[i].second]<<"\n";
+	
+	return 0;
+}
