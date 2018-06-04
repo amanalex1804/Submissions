@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t;cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    int l=s.size();
+	    string temp="",ans="";
+	    for(int i=l-1;i>=-1;--i){
+	        if(s[i]=='.' or i==-1){
+	            reverse(temp.begin(),temp.end());
+	            ans+=temp;
+	            ans+=".";
+	            temp="";
+	            continue;
+	        }
+	        temp+=s[i];
+	    }
+	    int l1=ans.size();
+	    for(int i=0;i<l1-1;++i) cout<<ans[i];
+	    cout<<"\n";
+	}
+	
+	return 0;
+}
