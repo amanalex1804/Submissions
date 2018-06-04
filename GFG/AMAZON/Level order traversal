@@ -1,0 +1,13 @@
+void levelOrder(Node* node)
+{
+  queue<Node *>q;
+  if(node!=NULL){
+      q.push(node);
+      while(!q.empty()){
+          Node * p=q.front(); q.pop();
+          cout<<p->data<<" ";
+          if(p->left!=NULL) q.push(p->left);
+          if(p->right!=NULL) q.push(p->right);
+      }
+  }
+}
