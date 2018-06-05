@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+int A[100],n;
+void fn(){
+    int st=0,en=-9999,mx=-9999,mn=9999;
+    bool flag=false;
+    for(int i=0;i<n;++i){
+        
+        if(A[i]<mx or A[i]<mn){
+            
+            if(st<en){
+                cout<<"("<<st<<" "<<en<<") ";
+                flag=true;
+            }
+            st=i;
+            en=i;
+            mn=A[i];
+            mx=A[i];
+        }
+        
+        else if(A[i]>mx){
+            mx=A[i];
+            en=i;
+        }
+        
+    }
+    if(en>st) cout<<"("<<st<<" "<<en<<") ",flag=true;
+    if(!flag) cout<<"No Profit";
+}
+int main() {
+    int t;cin>>t;
+    while(t--){
+        cin>>n;
+        for(int i=0;i<n;++i) cin>>A[i];
+        fn();
+        cout<<"\n";
+    }
+	
+	return 0;
+}
