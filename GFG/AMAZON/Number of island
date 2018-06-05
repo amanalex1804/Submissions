@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+int findIslands(int A[MAX][MAX], int N, int M)
+{
+  int dx[]={-1,-1,-1,0,0,1,1,1};
+  int dy[]={-1,0,1,-1,1,-1,0,1};
+  int vis[N+3][M+5];
+  memset(vis,0,sizeof(vis));
+  vector<pair<int,int> >v;
+  int ans=0;
+  for(int i=0;i<N;++i){
+      for(int j=0;j<M;++j){
+          if(A[i][j]==1) v.push_back({i,j});
+      }
+  }
+  queue<pair<int,int> >q;
+  for(int i=0;i<v.size();++i){
+      pair<int,int>temp=v[i];
+      int x=temp.first;
+      int y=temp.second;
+      //cout<<" pass "<<x<<" "<<y<<endl;
+      if(vis[x][y]) continue;
+      ++ans;// cout<<" fuck "<<x<<" "<<y<<endl;
+      q.push({x,y});
+  while(!q.empty()){
+      pair<int,int>t1=q.front(); q.pop();
+      x=t1.first;
+      y=t1.second;
+      vis[x][y]=1;
+      for(int j=0;j<8;++j){
+          int x1=x+dx[j];
+          int y1=y+dy[j];
+          if(0<=x1 and x1<N and 0<=y1 and y1<M){
+             // if(x1==2 and y1==0) cout<<"hell "<<x<<" "<<y<<" "<<dx[j]<<" "<<dy[j]<<endl;
+              if(!vis[x1][y1] and A[x1][y1]==1) q.push({x1,y1});
+          }
+      }
+  }
+  }
+  return ans;
+}
