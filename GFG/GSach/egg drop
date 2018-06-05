@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dp[15][60];
+int fn(int egg,int flor){
+    if(egg<0 or flor<0) return 99999;
+    if(egg==1 or egg==0 or flor==1 or flor==0) return flor;
+    if(dp[egg][flor]!=99999) return dp[egg][flor];
+   
+    for(int i=1;i<=flor;++i){
+        dp[egg][flor]=min(dp[egg][flor],1+max(fn(egg-1,i-1),fn(egg,flor-i)));
+    }
+    return dp[egg][flor];
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n,k;
+	    cin>>n>>k;
+	    for(int i=0;i<n+2;++i)
+	    for(int j=0;j<k+2;++j)
+	    dp[i][j]=99999;
+	    int ans=fn(n,k);
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
