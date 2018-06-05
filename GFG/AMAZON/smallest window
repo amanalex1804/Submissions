@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int sz=256;
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    string s1,s2;
+	    cin>>s1>>s2;
+	    int l1=s1.size();
+	    int l2=s2.size();
+	    if(l2>l1) {cout<<"-1\n";continue;}
+	    int hashs1[sz],hashs2[sz];
+	    memset(hashs1,0,sizeof(hashs1));
+	    memset(hashs2,0,sizeof(hashs2));
+	    for(int i=0;i<l2;++i)
+	    hashs2[s2[i]]+=1;
+	    int st=0,l=99999,cnt=0,sx=-1;
+	    
+	    for(int i=0;i<l1;++i){
+	        hashs1[s1[i]]++;
+	        
+	        if(hashs2[s1[i]]!=0 and hashs2[s1[i]]>=hashs1[s1[i]]) ++cnt;
+	       // cout<<" dude "<<s1[i]<<" "<<cnt<<" "<<hashs1[s1[i]]<<" "<<hashs2[s1[i]]<<endl;
+	        if(cnt==l2){
+	         //  cout<<" here"<<st<<" "<<i<<endl;
+	            while(hashs2[s1[st]]==0 or hashs2[s1[st]]<hashs1[s1[st]]){
+	                hashs1[s1[st]]--;
+	                st++;
+	            }
+	          
+	            int temp=i-st+1;
+	            if(temp<l){
+	                l=temp;
+	                sx=st;
+	                
+	            }
+	            
+	            
+	        }
+	    }
+	    if(l==99999) cout<<"-1";
+	    else{
+	        for(int i=sx;i<sx+l;++i) cout<<s1[i];
+	    }
+	    cout<<"\n";
+	}
+	return 0;}
