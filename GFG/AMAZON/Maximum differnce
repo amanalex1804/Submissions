@@ -1,0 +1,29 @@
+int fn(Node *root,int mx,int diff){
+    
+     if(root==NULL) return diff;
+    
+      if(mx==-1) {
+          int t1=fn(root->left,root->data,diff);
+          int t2=fn(root->right,root->data,diff);
+          return max(t1,t2);
+      }
+      else{
+          if(root->data>mx) {
+              int t1=fn(root->left,root->data,max(diff,mx-root->data));
+              int t2=fn(root->right,root->data,max(diff,mx-root->data));
+              return max(t1,t2);
+          }
+          else{
+              int t1=fn(root->left,mx,max(diff,mx-root->data));
+              int t2=fn(root->right,mx,max(diff,mx-root->data));
+              return max(t1,t2);
+          }
+      }
+    
+    
+}
+int maxDiff(Node* root)
+{
+  int ans=fn(root,-1,-99999);
+  return ans;
+}
