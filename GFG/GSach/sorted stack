@@ -1,0 +1,16 @@
+void SortedStack :: sort()
+{
+   map<int,int>M;
+   map<int,int>::iterator it;
+   pair<int,int>pii;
+   while(!s.empty()){
+       M[s.top()]+=1;
+       s.pop();
+   }
+   
+   for(it=M.begin();it!=M.end();++it){
+       pii=*it;
+       int tt=pii.second;
+       while(tt--) s.push(pii.first);
+   }
+}
