@@ -1,0 +1,39 @@
+  int ht(Node *ptr){
+       int cnt=0;
+       while(ptr){
+           ++cnt;
+           ptr=ptr->next;
+       }
+       return cnt;
+   }
+int intersectPoint(Node* head1, Node* head2)
+{
+  if(!head1 or !head2) return -1;
+    int ht1=ht(head1);
+    int ht2=ht(head2);
+
+        Node *c1=head1;
+        Node *c2=head2;
+        int diff1=ht1-ht2;
+        if(diff1<=0) diff1=0;
+        while(diff1){
+            c1=c1->next;
+            --diff1;
+        }
+        int diff2=ht2-ht1;
+        if(diff2<=0) diff2=0;
+        while(diff2){
+            c2=c2->next;
+            --diff2;
+        }
+        
+        while(c1 and c2){
+            if(c1->data==c2->data) return c1->data;
+        
+            c1=c1->next;
+            c2=c2->next;
+        }
+       
+    return -1;
+    
+}
