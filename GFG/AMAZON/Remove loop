@@ -1,0 +1,18 @@
+void removeTheLoop(Node *node)
+{
+    
+    Node *ptr=node;
+    Node *pptr=node;
+    Node *cur;
+    while(ptr and pptr and ptr->next){
+        cur=pptr;
+        pptr=pptr->next;
+        ptr=ptr->next->next;
+        if(pptr==ptr){
+            cur->next=NULL;
+            break;
+        }
+    }
+    
+     
+}
