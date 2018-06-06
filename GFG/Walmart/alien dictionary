@@ -1,0 +1,85 @@
+
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+//User function Template for C++
+/*The function should return a string denoting the 
+order of the words in the Alien Dictionary */
+    void solve(string& a,string& b,vector<int>& inDegree,vector<vector<int>>& edge,bool& f) {
+        int l=0,r=0;
+        while(l<(int)a.size()&&r<(int)b.size()) {
+            if(a[l]!=b[r]) {
+                edge[a[l]-'a'].push_back(b[r]-'a');
+                inDegree[b[r]-'a']++;
+                f=true;
+                return;
+            }
+            l++;
+            r++;
+        }
+        if(a.size()>b.size()) f=false;
+    }
+
+    string alienOrder(vector<string>& words) {
+        int len=words.size();
+        if(len==0) return "";
+        if(len==1) return words[0];
+        vector<int> inDegree(26,0);
+        vector<vector<int>> edge(26,vector<int>());
+        for(int i=0;i<len-1;i++) {
+            bool f=true;
+            solve(words[i],words[i+1],inDegree,edge,f);
+            if(!f) return "";
+        }
+        int flag[26];
+        memset(flag,0,sizeof(flag));
+        queue<int> Queue;
+        for(int i=0;i<len;i++) {
+            for(char c:words[i]) {
+                flag[c-'a']++;
+            }
+        }
+        for(int i=0;i<26;i++) {
+            if(flag[i]>0) {
+                if(inDegree[i]==0) {
+                        /*
+                    if(Queue.size()>0) {
+                        return "";
+                    }
+                    else {
+                        Queue.push(i);
+                    }*/
+                    Queue.push(i);
+                }
+            }
+        }
+        string res="";
+        while(!Queue.empty()) {
+            int cur=Queue.front();
+            res+=(char)(cur+'a');
+            Queue.pop();
+            //int count=0;
+            for(int i=0;i<edge[cur].size();i++) {
+                int nex=edge[cur][i];
+                inDegree[nex]--;
+                if(inDegree[nex]==0) {
+                    //count++;
+                    Queue.push(nex);
+                    //if(count>1) return "";
+                }
+            }
+            //if(edge[cur].size()>0&&count==0) return "";
+        }
+        for(int i=0;i<26;i++) {
+            if(flag[i]>0) {
+                if(inDegree[i]!=0) return "";
+            }
+        }
+        return res;
+    }
+string printOrder(string dict[],int n,int k){
+    vector<string>ttw;
+    for(int i=0;i<n;++i) ttw.push_back(dict[i]);
+    return alienOrder(ttw);
+}
