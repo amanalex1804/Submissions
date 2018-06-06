@@ -1,0 +1,44 @@
+int fn(int ind1,int ind2,string pattern,string str){
+    
+   // cout<<" enter "<<ind1<<" "<<ind2<<" "<<endl;//pattern[ind2]<<" "<<str[ind1]<<endl;
+    
+    if(ind1>=(int)str.size() and ind2>=(int)pattern.size() ) return 1;
+    if(ind1>=(int)str.size() and ind2<(int)pattern.size()){
+      int flag=1;
+      for(int i=ind2;i<pattern.size();++i){
+          if(pattern[i]!='*'){
+              flag=0;
+              break;
+          }
+      }
+      return flag;
+    } 
+    
+    if(ind1<(int)str.size() and ind2>=(int)pattern.size()) return 0;
+    //else if(ind2>=str.size()) return 0;
+    //cout<<" pass "<<ind1<<" "<<ind2<<" "<<pattern[ind2]<<" "<<str[ind1]<<endl;
+    int t=0,t1=0,tt=0;
+    if('a'<=(pattern[ind2]) and pattern[ind2]<='z'){
+        if(str[ind1]!=pattern[ind2]) return 0;
+        else t1=fn(ind1+1,ind2+1,pattern,str);
+    }
+    else if(pattern[ind2]=='?'){
+        t1=fn(ind1+1,ind2+1,pattern,str);
+    }
+    else if(pattern[ind2]=='*'){
+         tt=0;
+         
+        for(int i=ind1;i<=str.size();++i){
+
+            int tf=fn(i,ind2+1,pattern,str);
+            tt=max(tt,tf);
+        }
+    }
+  //  cout<<" retr "<<max(t1,tt)<<endl;
+    return max(t1,tt);
+}
+int wildCard(string pattern,string str)
+{
+    
+    return fn(0,0,pattern,str);
+}
