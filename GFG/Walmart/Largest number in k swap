@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll conv(string x){
+    ll r=0,p=1;
+    for(int i=x.size();i>=0;--i){
+        r+=((int)(x[i]-'0'))*p;
+        p*=10;
+    }
+    return r;
+}
+ll mx=-1;string ans="";
+void fn(int ind,int k,string temp){
+    if(ind>=temp.size() or k==0){
+        ll n=conv(temp);
+        if(n>mx){
+            ans=temp;
+            mx=n;
+        }
+        return;
+    }
+    fn(ind+1,k,temp);
+    if(k>0){
+        for(int i=ind+1;i<temp.size();++i)
+        {
+            string t1=temp;
+            swap(t1[ind],t1[i]);
+            fn(ind+1,k-1,t1);
+        }
+    }
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    string s;
+	    cin>>s;
+	    mx=-1;ans="";
+	    fn(0,n,s);
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
