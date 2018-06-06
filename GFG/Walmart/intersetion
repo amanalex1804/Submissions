@@ -1,0 +1,45 @@
+struct node* findIntersection(struct node* head1, struct node* head2)
+{
+   map<int,int>M1,vis;
+   map<int,int>::iterator it;
+   struct node* ptr=head1;
+   while(ptr){
+       
+       M1[ptr->data]+=1;
+       ptr=ptr->next;
+   }
+ 
+  ptr=head2;
+  struct node *head=NULL;
+  struct node *tail=NULL;
+ while(ptr){
+      
+      if( M1[ptr->data]){
+          node *temp=new node();
+          temp->data=ptr->data;
+         // vis[temp->data]=1;
+         M1[ptr->data]-=1;
+          if(!head) {head=temp;tail=temp;          }
+          else if(temp->data>tail->data) {tail->next=temp;tail=temp;}
+          else{
+              struct node *p=head;
+              struct node *pp=head;
+              while(p and p->data<temp->data){
+                  pp=p;
+                  p=p->next;
+              }
+              if(p==head and pp==head) {temp->next=head;head=temp;}
+              else{
+              temp->next=pp->next;
+              pp->next=temp;
+              }
+          }
+          
+      }
+      
+      
+      
+      ptr=ptr->next;
+  }
+   return head;
+}
