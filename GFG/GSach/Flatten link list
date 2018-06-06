@@ -1,0 +1,50 @@
+Node *flatten(Node *root)
+{
+   Node *head=NULL;
+   Node *tail=NULL;
+   Node *ptr=root;
+   while(ptr){
+       Node *temp=new Node();
+       temp->data=ptr->data;
+     //  cout<<" fuck "<<ptr->data<<endl;
+       if(!head) {tail=temp;head=temp;}
+       else if(temp->data>=tail->data) {tail->bottom=temp;tail=temp;}
+       else{
+           Node *c1=head;
+           Node *pc1=head;
+           while(c1->data<=temp->data){
+               pc1=c1;
+               c1=c1->bottom;
+           }
+           if(pc1==head and c1==head) { temp->bottom=head;head=temp;}
+           else{temp->bottom=pc1->bottom;
+           pc1->bottom=temp;}
+       }
+       Node *ctr=ptr->bottom;
+       while(ctr){
+           
+       Node *temp=new Node();
+     //  cout<<" sucj "<<ctr->data<<" ";
+       temp->data=ctr->data;
+       if(!head) {tail=temp;head=temp;}
+       else if(temp->data>=tail->data) {tail->bottom=temp;tail=temp;}
+       else{
+           Node *c1=head;
+           Node *pc1=head;
+           while(c1->data<=temp->data){
+               pc1=c1;
+               c1=c1->bottom;
+           }
+           if(pc1==head and c1==head) { temp->bottom=head;head=temp;}
+           else{temp->bottom=pc1->bottom;
+           pc1->bottom=temp;}
+           
+       }
+       
+      ctr=ctr->bottom;
+   }
+   ptr=ptr->next;
+}
+
+return head;
+}
