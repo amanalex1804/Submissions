@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+string s;
+unordered_map<string,int>M;
+map<pair<int,string>,int>dp;
+int fn(int ind,string temp){
+    
+    if(ind>=s.size()) {
+        if((int)temp.size()==0) return 1;
+        else return M[temp];
+    }
+    if(dp[{ind,temp}]) return dp[{ind,temp}];
+    int t1=0,t2=0;
+    temp+=s[ind];
+    t2=fn(ind+1,temp);
+    if(M[temp]) t1=fn(ind+1,"");
+    
+    return max(t1,t2);
+}
+
+int main() {
+    int t;cin>>t;
+    while(t--){
+        
+        int n;
+        cin>>n;
+        string x;
+        M.clear();
+        dp.clear();
+        for(int i=0;i<n;++i){
+            cin>>x;
+            M[x]=1;
+        }
+        cin>>s;
+        cout<<fn(0,"")<<"\n";
+    }
+	
+	return 0;
+}
