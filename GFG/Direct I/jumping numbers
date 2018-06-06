@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int>v[10];
+void pre(){
+    v[0].push_back(0);
+    queue<long int>q;
+    for(int i=1;i<10;++i){
+    q.push(i);
+    while(!q.empty()){
+        long int val=q.front(); q.pop();
+        v[i].push_back(val);
+        int last=val%10;
+        int p1=last-1;
+        int p2=last+1;
+        if(0<=p1 and p1<10){
+            long int n=(val*10)+p1;
+            if(n<100002) q.push(n);
+        }
+        if(0<=p2 and p2<10){
+            long int n=(val*10)+p2;
+            if(n<100002) q.push(n);
+        }
+        
+        
+    }   
+    }
+}
+int main() {
+	pre();
+
+	int t;cin>>t;
+	while(t--){
+	    long int n;
+	    cin>>n;
+	    for(int i=0;i<10;++i){
+	        for(int j=0;j<v[i].size() and v[i][j]<=n;++j) cout<<v[i][j]<<" ";
+	    }
+	    cout<<"\n";
+	}
+	return 0;
+}
