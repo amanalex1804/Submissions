@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mod 1003
+#define sz 105
+long int T[sz][sz],F[sz][sz],tot[sz][sz];
+long int add(int x,int y){
+    long int z=x+y;
+    if(z>=mod) z-=mod;
+    return z;
+}
+long int mul(int x,int y){
+    long int z=x*y;
+    if(z>=mod) z%=mod;
+    return z;
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int l;cin>>l;
+	    string s;
+	    cin>>s;
+	    string operand="",operat="";
+	    for(int i=0;i<l;++i){
+	        if(s[i]=='T' or s[i]=='F') operand+=s[i];
+	        else operat+=s[i];
+	    }
+	    memset(T,0,sizeof(T));
+	    memset(F,0,sizeof(F));
+	    
+	    
+	    int n=operand.size();
+	    for(int i=0;i<n;++i){
+	        T[i][i]=(operand[i]=='T')?1:0;
+	        F[i][i]=(operand[i]=='F')?1:0;
+	    }
+	    for(int gap=1;gap<n;++gap){
+	        
+	        for(int i=0,j=gap;j<n;++i,++j){
+	            T[i][j]=F[i][j]=0;
+	            for(int k=i;k<j;++k){
+	                
+	                
+	                if(operat[k]=='&'){
+	                    T[i][j]=add(T[i][j],mul(T[i][k],T[k+1][j]));
+	                    F[i][j]=add(F[i][j],add(add(mul(F[i][k],F[k+1][j]),mul(F[i][k],T[k+1][j])),mul(T[i][k],F[k+1][j])));
+	                    
+	                }
+	                else if(operat[k]=='^'){
+	                    T[i][j]=add(T[i][j],add(mul(T[i][k],F[k+1][j]),mul(T[k+1][j],F[i][k])));
+	                    F[i][j]=add(F[i][j],add(mul(T[i][k],T[k+1][j]),mul(F[i][k],F[k+1][j])));
+	                }
+	                else if(operat[k]=='|'){
+	                    T[i][j]=add(T[i][j],add(add(mul(T[i][k],T[k+1][j]),mul(F[i][k],T[k+1][j])),mul( T[i][k],F[k+1][j])));
+	                    F[i][j]=add(F[i][j],mul(F[i][k],F[k+1][j]));
+	                }
+	                
+	            }
+	        }
+	    }
+	 
+	    cout<<T[0][n-1]<<"\n";
+	}
+	return 0;
+}
