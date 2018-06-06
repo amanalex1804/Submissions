@@ -1,0 +1,18 @@
+void topView(struct Node *root)
+{
+    queue<pair<struct Node *,int> >q;
+    map<int,int>vis;
+    q.push({root,0});
+   while(!q.empty()){
+       pair<struct Node *,int>p=q.front();q.pop();
+       
+       if(!vis[p.second]) cout<<p.first->data<<" ";
+       
+       vis[p.second]=1;
+       if(p.first->left) q.push({p.first->left,p.second-1});
+       if(p.first->right) q.push({p.first->right,p.second+1});
+       
+       
+   }
+    
+}
