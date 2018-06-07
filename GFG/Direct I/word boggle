@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int dx[]={-1,-1,-1,0,0,1,1,1};
+int dy[]={-1,0,1,-1,1,-1,0,1};
+int n,m;
+char A[10][10];
+vector<string>v;
+vector<pair<int,int> >gr[256];
+
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int cnt;
+        cin>>cnt;
+        v.clear();
+      //  gr.clear();
+      for(int i=0;i<256;++i) gr[i].clear();
+      
+        string x;
+        for(int i=0;i<cnt;++i){
+            cin>>x;
+            v.push_back(x);
+        }
+        cin>>n>>m;
+        char ch;
+        for(int i=1;i<=n;++i)
+        {
+            for(int j=1;j<=m;++j){
+            cin>>ch;
+            A[i][j]=ch;
+            int xx=(int)(ch-'A');
+            gr[xx].push_back({i,j});
+            }
+        }
+        set<string>ans;
+       for(int i=0;i<cnt;++i){
+           // cout<<" for "<<v[i]<<endl;
+            bool flag=false;
+            bool vis[9][9];
+            int src=(int)(v[i][0]-'A');
+            for(int j=0;j<gr[src].size() and flag==false;++j){
+                    
+                        memset(vis,false,sizeof(vis));
+                        queue<pair<int,pair<int,int> > >q;
+                      //  cout<<" fuck "<<src<<" "<<gr[src][j].first<<" "<<gr[src][j].second<<" "<<v[i][0]<<endl;
+                        q.push({0,gr[src][j]});
+                        while(!q.empty()){
+                            pair<int,pair<int,int>>pp=q.front(); q.pop();
+                            int ind=pp.first;
+                            
+                            int x=pp.second.first;
+                            int y=pp.second.second;
+                            //cout<<ind<<" "<<A[x][y]<<endl;
+                            if(ind+1==v[i].size()){ flag=true;ans.insert(v[i]);break;}
+                            
+                            vis[x][y]=1;
+                            for(int ff=0;ff<8;++ff){
+                                int x1=x+dx[ff];
+                                int y1=y+dy[ff];
+                                if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+                                    if(!vis[x1][y1] and A[x1][y1]==v[i][ind+1]) q.push({ind+1,{x1,y1}});
+                                
+                            }
+                        }
+                    }    
+                    
+                
+            }
+          //  cout<<endl;
+            
+        }
+        if(ans.size()==0) cout<<"-1";
+        else {
+            for(set<string>::iterator it=ans.begin();it!=ans.end();++it) cout<<*it<<" ";
+        }
+        cout<<"\n";
+    }
+    
+    
+    
+    return 0;
+}
