@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+string a,b;
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    
+	    cin>>a>>b;
+	    int l1=a.size();
+	    int l2=b.size();
+	    if(l1!=l2) {cout<<"-1\n";continue;}
+	    string t1=a;
+	    string t2=b;
+	    sort(t1.begin(),t1.end());
+	    sort(t2.begin(),t2.end());
+	    
+	    int ans=1;
+	    for(int i=0;i<l1;++i){
+	        if(t1[i]!=t2[i]) {
+	            ans=-1;
+	            break;
+	        }
+	    }
+	    if(ans==-1) {cout<<ans<<"\n";continue;}
+	    
+	    
+	    int i=l1-1; int j=l2-1;
+	    int sam=0;
+	    while(i>=0 and j>=0){
+	        if(a[i]==b[j]) {++sam;--i;--j;}
+	        else {--i;}
+	    }
+	    cout<<(int)(l2-sam)<<"\n";
+	}
+	return 0;
+}
