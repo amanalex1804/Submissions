@@ -1,0 +1,25 @@
+int divisibleSumPairs(int n, int k, vector<int> ar) {
+
+    unordered_map<int,int>M;
+    for(int i=0;i<n;++i) M[ar[i]]++;
+    sort(ar.begin(),ar.end());
+    int lim=ar[n-1];
+    int ans=0;
+    for(int i=0;i<n ;++i){
+       // if(!M[ar[i]]) continue;
+        --M[ar[i]];
+        int p1=(ar[i]/k)+1;
+        int val=(p1*k)-ar[i];
+        while(1){
+            if(val>lim) break;
+            if(M[val]) {
+                ans+=M[val];
+                
+            }
+                val+=k;
+        }
+            
+    }
+    return ans;
+
+}
