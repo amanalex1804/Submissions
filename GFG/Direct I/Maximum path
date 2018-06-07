@@ -1,0 +1,27 @@
+map<int,pair<int,int> >M;
+map<int,pair<int,int> >::iterator it;
+int fn(struct Node *root){
+    
+    if(root->left==NULL and root->right==NULL) return root->data;
+    
+    int t=root->data,t1=0,t2=0;
+    if(root->left) t1=fn(root->left);
+    if(root->right) t2=fn(root->right);
+    M[t]={t1,t2};
+    return (max(t+t1,t+t2));
+    
+}
+int maxPathSum(struct Node *root)
+{
+    M.clear();
+if(!root) return 0;
+int ans=0;
+int temp=fn(root);
+
+for(it=M.begin();it!=M.end();++it){
+    pair<int,pair<int,int> >pp=*it;
+  //  cout<<pp.first<<endl;
+    ans=max(ans,pp.first+pp.second.first+pp.second.second);
+}
+return ans;
+}
