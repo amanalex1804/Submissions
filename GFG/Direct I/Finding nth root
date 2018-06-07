@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 1000005
+bool p[sz];
+vector<int>v;
+void sieve(){
+    v.push_back(2);
+    for(int i=4;i<sz;i+=2) p[i]=true;
+    for(int i=3;i*i<=sz;++i){
+        if(!p[i])
+        for(int j=i*i;j<sz;j+=(2*i)) p[j]=true;
+    }
+    for(int i=3;i<sz;i+=2) if(!p[i]) v.push_back(i);
+}
+ll exp(ll x,ll n){
+    ll r=1;
+    while(n){
+        r*=x;
+        --n;
+    }
+    return r;
+}
+int main() {
+    sieve();
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        ll m,temp;cin>>m;
+      
+        temp=m; ll ans=1;
+       bool flag=true;
+      
+       for(int i=0;i<sz and v[i]<=sqrt(m)+2;++i){
+    
+           if(temp%v[i]==0){
+               int c1=0;
+               while(temp%v[i]==0){
+                   ++c1;
+                   temp/=v[i];
+               }
+               if(c1%n==0) ans*=exp(v[i],c1/n);
+               else {flag=false;break;}
+           }
+       }
+       if(temp!=1) flag=false;
+        
+        if(flag) cout<<ans<<"\n";
+        else cout<<"-1\n";
+    }
+	
+	return 0;
+}
