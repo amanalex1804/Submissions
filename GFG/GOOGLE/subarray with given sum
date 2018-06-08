@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int cur=0,st=-1,en=-1;
+	    int n,k;
+	    cin>>n>>k;
+	    int A[n+5];
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    deque<int>q;
+	    for(int i=0;i<n;++i){
+	        
+	        if(cur<k){
+	            q.push_back(A[i]);
+	            cur+=A[i];
+	        }
+	        if(cur>k){
+	            while(cur>k){
+	                int pp=q.front();
+	                q.pop_front();
+	                cur-=pp;
+	            }
+	        }
+	        if(cur==k){
+	            en=i+1;
+	            st=i-q.size()+2;
+	            break;
+	        }
+	        
+	    }
+	    if(st==-1) cout<<"-1\n";
+	    else cout<<st<<" "<<en<<"\n";
+	}
+	
+	return 0;
+}
