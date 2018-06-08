@@ -1,0 +1,36 @@
+bool findTriplets(int arr[], int n)
+{ 
+    vector<int>neg,pos,v;
+    int cnt=0;
+    unordered_map<int,int>M;
+    for(int i=0;i<n;++i){
+        if(cnt>=3) return true;
+        if(!arr[i]) ++cnt;
+        if(!M[arr[i]]) {v.push_back(arr[i]);
+        if(arr[i]>=0) pos.push_back(arr[i]);
+        else neg.push_back(arr[i]);}
+        M[arr[i]]++;
+    }
+    
+    sort(v.begin(),v.end());
+    for(int i=0;i<neg.size();++i){
+        for(int j=0;j<pos.size();++j){
+            if(pos[j]==0 and M[(-1)*neg[j]]) return true;
+            if(!pos[j]) continue;
+            int val=(-1)*(pos[j]+neg[i]);
+            if(val==pos[j]){
+                if(M[pos[j]]>1) return true;
+                continue;
+            }
+            if(val==neg[i]){
+                if(M[neg[i]]>1) return true;
+                continue;
+            }
+            int ind=upper_bound(v.begin(),v.end(),val)-v.begin();
+            --ind;
+            if(ind>=0 and v[ind]==val) return true;
+        }
+    }
+    return false;
+    
+}
