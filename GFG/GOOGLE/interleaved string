@@ -1,0 +1,36 @@
+ou need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/*You are required to complete this method */
+
+bool fn(int ind1,int ind2,string C,string A,string B,string xx){
+    
+    if(ind2>=A.size()){
+        for(int i=ind1;i<(int)C.size();++i) xx+=C[i];
+        //cout<<C<<" "<<A<<" "<<B<<" "<<xx<<endl;
+        if(xx==B) return true;
+        return false;
+    }
+    if(ind1>=C.size() and ind2<A.size()) return false;
+    
+    bool t1=false,t2=false;
+    t1=fn(ind1+1,ind2,C,A,B,xx+C[ind1]);
+    if(C[ind1]==A[ind2]) t2=fn(ind1+1,ind2+1,C,A,B,xx);
+    return (t1|t2);
+}
+
+bool isInterleave(string A, string B, string C) 
+{
+    string temp1=A+B;
+    string temp2=C;
+     int l1=(int)temp1.size();
+     int l2=(int)temp2.size();
+     if(l1!=l2) return false;
+    sort(temp1.begin(),temp1.end());
+    sort(temp2.begin(),temp2.end());
+    for(int i=0;i<l1;++i)
+    if(temp1[i]!=temp2[i])
+    return false;
+    
+    return fn(0,0,C,A,B,"");
+}
