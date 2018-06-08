@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	    ll n;cin>>n;
+	    ll A[n+5];
+	    bool flag=false;
+	    ll ans=0,curmx=9999999999;
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    for(int i=0;i<n and !flag;++i){
+	        if(A[i]<curmx){
+	            curmx=A[i];
+	        for(int j=n-1;j>i;--j){
+	            if(A[j]>=A[i]){
+	                ans=max(ans,(ll)j-i);
+	               
+	            }
+	        }
+	    }
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
