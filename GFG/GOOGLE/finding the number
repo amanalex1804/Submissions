@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    unordered_map<long int,int>M;
+	    unordered_map<long int,int>::iterator it;
+	    long int n,x;
+	    cin>>n;
+	    for(long int i=0;i<(2*n)+2;++i){
+	        cin>>x;
+	        M[x]+=1;
+	    }
+	   long int st=-1,en=-1;
+	    for(it=M.begin();it!=M.end();++it){
+	        pair<long int,int>p1=*it;
+	        if(p1.second&1){
+	            if(st==-1) st=p1.first;
+	            else if(en==-1) en=p1.first;
+	        }
+	    }
+	    cout<<min(st,en)<<" "<<max(st,en)<<"\n";
+	    
+	}
+	return 0;
+}
