@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+	    long int n;
+	    cin>>n;
+	    long int A[(2*n)+5];
+	    long int x=0;
+	    for(long int i=0;i<(2*n)+2;++i){
+	        cin>>A[i];
+	        x^=A[i];
+	    }
+	    long int bit=x&~(x-1);
+	    long int a=0,b=0;
+	    for(long int i=0;i<(2*n)+2;++i){
+	        if(bit&A[i]) a^=A[i];
+	        else b^=A[i];
+	    }
+	    cout<<min(a,b)<<" "<<max(a,b)<<"\n";
+	    
+	}
+	return 0;
+}
