@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={-2,-2,2,2,-1,-1,1,1};
+int dy[]={-1,1,1,-1,2,-2,2,-2};
+int n;
+double dp[105][105][105];
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+    int x,y,st;
+    cin>>n>>x>>y>>st;
+    for(int i=0;i<n+2;++i)
+    for(int j=0;j<n+2;++j)
+    dp[i][j][0]=1;
+    
+    
+    
+    for(int l=1;l<=st;++l){
+        for(int i=0;i<n;++i){
+        for(int j=0;j<n;++j){
+            double pb=0.0;
+            for(int f=0;f<8;++f){
+            int x1=i+dx[f];
+            int y1=j+dy[f];
+            if(0<=x1 and x1<n and 0<=y1 and y1<n)
+            pb+=(1/8.0)*dp[x1][y1][l-1];
+        }
+        dp[i][j][l]=pb;
+        }
+        
+    }
+    
+    }
+   // cout<<dp[x][y][st]<<"\n";
+   printf("%0.6lf\n",dp[x][y][st]);
+    }
+    return 0;
+}
+
