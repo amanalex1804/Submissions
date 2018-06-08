@@ -1,0 +1,81 @@
+axArea(int M[MAX][MAX],int n,int m);
+int main()
+{
+    int T;
+    cin>>T;
+int M[MAX][MAX];
+    while(T--)
+    {
+        int n,m;
+        cin>>n>>m;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                cin>>M[i][j];
+            }
+        }
+        cout<<maxArea(M,n,m)<<endl;
+    }
+}
+
+}
+
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/*You are required to complete this method*/
+int maxArea(int M[MAX][MAX],int n,int m)
+{
+    int dp[n+2][m+2];
+    for(int i=0;i<=n+1;++i)
+    for(int j=0;j<=m+2;++j)
+    dp[i][j]=0;
+    vector<int>v,sor;
+    for(int i=0;i<m;++i) dp[0][i]=M[0][i];
+    int ans=0,last=-1,cnt=0;
+    for(int i=0;i<=m;++i){
+       if(i==m or dp[0][i]!=last){
+           ans=max(ans,cnt*last);
+            cnt=1;
+           if(i<m) last=dp[0][i];
+       }
+       else ++cnt;
+    }
+
+    set<int>s;
+    set<int>::iterator it;
+    for(int i=1;i<n;++i){
+        s.clear();
+      //  cout<<" --> for "<<i<<endl;
+        for(int j=0;j<m;++j){
+            dp[i][j]=M[i][j];
+            if(M[i-1][j]==1 and M[i][j]==1) dp[i][j]+=dp[i-1][j];
+            s.insert(dp[i][j]);
+        }
+      //  for(int j=0;j<m;++j) cout<<dp[i][j]<<" ";
+      //  cout<<endl;
+        for(it=s.begin();it!=s.end();++it){
+            int val=*it;
+            last=val; cnt=0;
+          //  cout<<" here--> "<<val<<" ";
+            for(int j=0;j<=m;++j){
+                if(j==m or dp[i][j]<last){
+                    
+                    ans=max(ans,cnt*last);
+                    cnt=0;
+                
+                }
+                else ++cnt;
+            }
+          //  cout<<" "<<ans<<"\n";
+            
+        }
+        
+        
+    }
+    return ans;
+    
+    
+}
