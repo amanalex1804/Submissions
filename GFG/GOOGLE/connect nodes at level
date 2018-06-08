@@ -1,0 +1,23 @@
+
+/* struct Node
+{
+  int data;
+  Node *left,  *right;
+  Node *nextRight;  // This has garbage value in input trees
+}; */
+// Should set the nextRight for all nodes
+void connect(Node *p)
+{
+   Node *ptr=p;
+   queue<pair<Node *,int>>q;
+   if(ptr){
+       q.push({ptr,0});
+       while(!q.empty()){
+           pair<Node*,int>p=q.front(); q.pop();
+           if(p.first->left) q.push({p.first->left,p.second+1});
+           if(p.first->right) q.push({p.first->right,p.second+1});
+           if(q.empty() or p.second<q.front().second) p.first->nextRight=NULL;
+           else p.first->nextRight=q.front().first;
+       }
+   }
+}
