@@ -1,0 +1,115 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 100000
+ll dp[205][205];
+string s; int l; bool flag=false;
+ll fn(int i,int j){
+	
+//	cout<<" here "<<i<<" "<<j<<" "<<s[i]<<" "<<s[j]<<endl;
+	if(j<i) return 1;
+	if(j==i) return 0;
+	if(dp[i][j]!=-1) return dp[i][j];
+	//	if(i>=l or j>=l ) {cout<<" why "<<i<<" "<<j<<" "<<l<<endl;return 1;}
+	if(j-i==1){
+		if(s[i]=='(' and (s[j]=='?' or s[j]==')')) return 1;
+		if(s[i]=='{' and (s[j]=='?' or s[j]=='}')) return 1;
+		if(s[i]=='[' and (s[j]=='?' or s[j]==']')) return 1;
+		if(s[i]=='?' and (s[j]=='}' or s[j]==')' or s[j]==']')) return 1;
+		if(s[i]=='?' and s[j]=='?') return 3;
+		else return 0;
+	}
+ 
+	
+	
+	if(s[i]==')' or s[i]=='}' or s[i]==']') return 0;	
+	
+//		cout<<" dp "<<i<<" "<<j<<" "<<s[i]<<" "<<s[j]<<endl;
+	ll t=0;
+	for(int k=i+1;k<=j;++k){
+		if(s[i]=='(') {
+			if(s[k]==')' or s[k]=='?') {
+				ll t1=fn(i+1,k-1);
+			    ll t2=fn(k+1,j);
+				t+=(t1*t2);
+				if(t>mod){
+					flag=true;
+					t%=mod;
+				}
+			}	
+		}
+		else if(s[i]=='{'){
+			if(s[k]=='}' or s[k]=='?') {
+				ll t1=fn(i+1,k-1);
+				ll t2=fn(k+1,j);
+				t+=(t1*t2);
+				if(t>mod){
+					flag=true;
+					t%=mod;
+				}
+			}
+		}
+		else if(s[i]=='['){
+			if(s[k]==']' or s[k]=='?') {
+				ll t1=fn(i+1,k-1);
+				ll t2=fn(k+1,j);
+				t+=t1*t2;
+				if(t>mod){
+					flag=true;
+					t%=mod;
+				}
+			}
+		}
+		else if(s[i]=='?'){
+			if(s[k]=='}' or s[k]==')' or s[k]==']'){
+				ll t1=fn(i+1,k-1);
+				ll t2=fn(k+1,j);
+				t+=t1*t2;
+				if(t>mod){
+					flag=true;
+					t%=mod;
+				}
+			}
+			else if(s[k]=='?'){
+				ll t1=fn(i+1,k-1);
+				ll t2=fn(k+1,j);
+				t+=3*t1*t2;
+				if(t>mod){
+					flag=true;
+					t%=mod;
+				}
+			}
+		}
+	}
+	dp[i][j]=t;
+	//cout<<" return "<<i<<" "<<j<<" "<<t<<endl;
+	return t;
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	cin>>l;
+	cin>>s;
+	for(int i=0;i<l+4;++i)
+	for(int j=0;j<l+4;++j)
+	dp[i][j]=-1;
+	
+	ll ans=fn(0,l-1);
+    //ans=100015;flag=true;
+     if(!flag) cout<<ans;
+     else{
+     	ans%=mod;
+     	if(ans==0) { cout<<"00000\n";return 0;		 }
+     	
+     	ll temp=ans;
+     	int dig=0;
+     	while(temp){
+     		++dig;
+     		temp/=10;
+		 }
+		 for(int i=0;i<5-dig;++i) cout<<"0";
+		 cout<<ans;
+	 }
+	
+	
+	return 0;
+} 
