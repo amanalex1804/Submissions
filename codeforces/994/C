@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int>pi;
+pi sq1[4],sq2[4]; bool flag=false;
+void fn(){
+	
+	int stx=101,enx=-101,sty=101,eny=-101;
+	
+    for(int i=0;i<4;++i){
+	   stx=min(stx,sq1[i].first);
+	   enx=max(enx,sq1[i].first);
+	   sty=min(sty,sq1[i].second);
+	   eny=max(eny,sq1[i].second);
+	   
+	}
+	if(stx>enx) swap(stx,enx);
+	if(sty>eny) swap(sty,eny);
+	
+	
+	for(int i=0;i<4;++i){
+		pi p1=sq2[i];
+		if(stx<=p1.first and p1.first<=enx and sty<=p1.second and p1.second<=eny){
+			flag=true;
+			cout<<"YES";
+			break;
+		}
+	}
+	
+if(!flag){
+		int sttx=101,entx=-101,stty=101,enty=-101;
+	
+    for(int i=0;i<4;++i){
+	   sttx=min(sttx,sq2[i].first);
+	   entx=max(entx,sq2[i].first);
+	   stty=min(stty,sq2[i].second);
+	   enty=max(enty,sq2[i].second);
+	   
+	}
+		int x1=(sttx+entx)/2; int y1=(stty+enty)/2;
+		if(stx<=x1 and x1<=enx and sty<=y1 and y1<=eny){
+			flag=true;
+			cout<<"YES";
+			
+		}
+}
+	
+}
+int main(){
+	
+	for(int i=0;i<4;++i) cin>>sq1[i].first>>sq1[i].second;
+	for(int i=0;i<4;++i) cin>>sq2[i].first>>sq2[i].second;
+	
+	
+	fn();
+	if(flag) return 0;
+	for(int i=0;i<4;++i) {
+		int x=sq1[i].first; int y=sq1[i].second;
+		sq1[i].first=x+y;
+		sq1[i].second=x-y;
+		
+	}
+	for(int i=0;i<4;++i) {
+			int x=sq2[i].first; int y=sq2[i].second;
+		sq2[i].first=x+y;
+		sq2[i].second=x-y;
+		
+	}
+	
+	for(int i=0;i<4;++i){
+		swap(sq1[i].first,sq2[i].first);
+		swap(sq1[i].second,sq2[i].second);
+	}
+	
+	fn();
+	if(flag) return 0;
+	cout<<"NO";
+	
+	return 0;
+}
