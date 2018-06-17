@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		int n,m,st,en;
+		cin>>n>>m>>st>>en;
+		int vis[n+4];
+		memset(vis,0,sizeof(vis));
+		vector<pair<int,long int> >gr[n+5];
+		for(int i=0,a,b,c;i<m;++i){
+			cin>>a>>b>>c;
+			gr[a].push_back({b,c});
+			gr[b].push_back({a,c});
+		}
+		
+		priority_queue<pair<long int,int> >q;
+		q.push({0,st});
+		bool flag=false;
+		while(!q.empty()){
+			
+			pair<long int,int>p1=q.top(); q.pop();
+			int src=p1.second;
+		//	cout<<" for"<<src<<"\n";
+			vis[src]=1;
+			if(src==en){
+				flag=true;
+				cout<<(long int)((-1)*p1.first)<<"\n";
+				break;
+			}
+			for(int i=0;i<gr[src].size();++i){
+				int ver=gr[src][i].first;
+				if(vis[ver]) continue;
+				//cout<<ver<<" "<<" "<<p1.second<<" "<<gr[src][i].second<<" "<<p1.second-gr[src][i].second<<endl;
+				q.push({p1.first-gr[src][i].second,ver});
+				
+			}
+		}
+		if(!flag) cout<<"NONE\n";
+	}
+	
+	
+	return 0;
+}
