@@ -1,0 +1,118 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000000
+typedef long long int ll;
+bool flag=false;
+unordered_map<long int,long int>M1,M2;
+unordered_map<long int,bool>vis;
+unordered_map<long int,bool>::iterator it;
+void fn1(ll x){
+	ll sq=sqrt(x);
+	ll i;
+	ll temp=x;
+	if(temp%2==0){
+		int cnt=0;
+		while(temp%2==0){
+			++cnt;
+			temp/=2;
+		}
+		M1[2]+=cnt;
+	}
+ 
+	i=3;
+	while(temp>1){
+		if(i>sq+2) break;
+		if(temp%i==0){
+			int cnt=0;
+			while(temp%i==0){
+				++cnt;
+				temp/=i;
+			}
+			M1[i]+=cnt;
+		}
+		i+=2;
+	}
+	if(temp!=1) M1[temp]+=1;
+ 
+}
+ 
+void fn2(ll x){
+	ll sq=sqrt(x);
+	ll i;
+	ll temp=x;
+	if(temp%2==0){
+		int cnt=0;
+		while(temp%2==0){
+			++cnt;
+			temp/=2;
+		}
+		M2[2]+=cnt;
+		if(M1[2]) vis[2]=true;
+	}
+ 
+	i=3;
+	while(temp>1){
+		if(i>sq+2) break;
+		if(temp%i==0){
+			int cnt=0;
+			while(temp%i==0){
+				++cnt;
+				temp/=i;
+			}
+			M2[i]+=cnt;
+			if(M1[i]) vis[i]=true;
+		}
+		i+=2;
+	}
+	if(temp!=1)  {
+	M2[temp]+=1;
+	if(M1[temp]) vis[temp]=true;
+}
+}
+ 
+int main(){
+ 
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int n,m; ll x;
+	cin>>n;
+    while(n--){
+    	cin>>x;
+    	fn1(x);
+	}
+	cin>>m;
+	while(m--){
+		cin>>x;
+		fn2(x);
+	}
+	ll ans=1;
+//	cout<<" ye "<<
+	for(it=vis.begin();it!=vis.end();++it){
+		pair<long int,bool>p1=*it;
+		long int c1=min(M1[p1.first],M2[p1.first]);
+		while(c1){
+			ans*=(ll)p1.first;
+			if(ans>=mod){
+				ans%=mod;
+				flag=true;
+			}
+			--c1;
+		}
+	}
+	if(!flag) cout<<ans;
+	else{
+		if(!ans) cout<<"000000000";
+		else{
+			ll temp=ans;
+			int dig=0;
+			while(temp){
+				++dig;
+				temp/=10;
+			}
+			for(int i=1;i<=(9-dig);++i) cout<<"0";
+			cout<<ans;
+		}
+	}
+ 
+ 
+	return 0;
+}
