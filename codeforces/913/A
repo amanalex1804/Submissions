@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	long double n,m;
+	cin>>n>>m;
+	
+	long double n1=n;
+	long double m1=log2(m);
+	
+//	if(n1==m1) cout<<(ll)n;
+	 if(n1>m1) cout<<(ll)m;
+	else{
+		ll r=1;
+		while(n>0){
+			r*=2;
+			n-=1;
+		}
+		
+		cout<<(ll)((ll)m%(ll)r);
+	}
+	
+	return 0;
+}
