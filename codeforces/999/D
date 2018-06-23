@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	// ios_base::sync_withs_tdio(falsE); cin.tie(NULL);
+	
+	int n,m;
+	cin>>n>>m;
+	ll A[n+5],B[n+5];
+	for(int i=0;i<n;++i) cin>>A[i],B[i]=A[i];
+	
+	int goal=n/m;
+	vector<int>gr[m+5];
+	for(int i=0;i<n;++i) gr[A[i]%m].push_back(i);
+	
+	ll ans=0;
+	vector<pair<int,int> >v;
+	for(int i=0;i<2*m;++i){
+		
+		int cr=i%m;
+		int sz=gr[cr].size();
+		while(sz>goal){
+			v.push_back({i,gr[cr].back()});
+			gr[cr].pop_back();
+			--sz;
+		}
+		
+		while(sz<goal and v.size()>0){
+			
+			int rem=v.back().first;
+			int ind=v.back().second;
+			v.pop_back();
+			gr[cr].push_back(ind);
+			int c=i-rem;
+			B[ind]+=c;
+			ans+=c;
+			++sz;
+		}
+	}
+	cout<<ans<<"\n";
+	for(int i=0;i<n;++i) cout<<B[i]<<" ";
+	return 0;
+}
