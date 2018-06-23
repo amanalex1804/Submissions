@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n,k;
+	cin>>n>>k;
+	deque<int>q;
+	for(int i=0,x;i<n;++i){
+		cin>>x;
+		q.push_back(x);
+	}
+	int sol=0;
+	bool flag1=false,flag2=false;
+	while(!q.empty()){
+		if(flag1==true and flag2==true) break;
+		int p1=q.front();
+		if(p1<=k) {
+			++sol;
+			q.pop_front();
+		}
+		else flag1=true;
+		if(q.size()) {int p2=q.back();
+		if(p2<=k){
+			++sol;
+			q.pop_back();
+		}
+		else flag2=true;
+	}
+	}
+	cout<<sol;
+	return 0;
+}
