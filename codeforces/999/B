@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n;
+	cin>>n;
+	string s;
+	cin>>s;
+	vector<int>div;
+	int sq=sqrt(n);
+	for(int i=1;i<=sq;++i){
+		if(n%i==0){
+			if((i*i)==n) div.push_back(i);
+			else{
+				div.push_back(i);
+				div.push_back(n/i);
+			}
+		}
+		
+	}
+	sort(div.begin(),div.end());
+	string ans=s;
+	for(int i=0;i<(int)div.size();++i){
+		int pos=div[i];
+		--pos;
+		
+		int l1=pos+1;
+		int l2=n-pos-1;
+		string s1=ans.substr(0,l1);
+		string s2=ans.substr(pos+1,l2);
+		reverse(s1.begin(),s1.end());
+		ans="";
+		ans+=s1;
+		ans+=s2;
+		
+	}
+	cout<<ans;
+	
+	return 0;
+}
