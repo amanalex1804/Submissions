@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>gr[5005],rgr[5005];
+deque<int>q;
+int vis[5005];
+bool flag=false;
+void d1(int src){
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) d1(gr[src][i]);
+		
+}
+void d2(int src){
+	vis[src]=1;
+	for(int i=0;i<rgr[src].size();++i)
+	if(!vis[rgr[src][i]]) d2(rgr[src][i]);
+	
+	q.push_back(src);
+}
+void d3(int src){
+	vis[src]=0;
+	for(int i=0;i<gr[src].size();++i)
+	if(vis[gr[src][i]]) d3(gr[src][i]);
+}
+int main(){
+	int n,m,s;
+	cin>>n>>m>>s;
+	for(int i=0,x,y;i<m;++i){
+		cin>>x>>y;
+		gr[x].push_back(y);
+		rgr[y].push_back(x);
+	}
+	d1(s);
+	for(int i=1;i<=n;++i)
+	if(!vis[i]) d2(i);
+	
+	int ans=0;
+	while(!q.empty()){
+		int p=q.front(); q.pop_front();
+		if(!vis[p]) continue;
+		++ans;
+		d3(p);
+	}
+	cout<<ans;
+	return 0;
+}
