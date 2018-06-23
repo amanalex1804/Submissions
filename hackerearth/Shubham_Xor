@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+unordered_map<ll,ll>M;
+unordered_map<ll,ll>::iterator it;
+int main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    
+    int n;cin>>n;
+    ll A[n+4];
+    for(int i=0;i<n;++i) cin>>A[i],M[A[i]]+=1;
+    ll ans=0;
+    for(it=M.begin();it!=M.end();++it){
+        pair<ll,ll>p1=*it;
+        ll c=p1.second;
+        ll f;
+        if(c%2==0) f=c/2,ans+=(c-1)*f;
+        else f=(c-1)/2,ans+=c*f;
+        
+    }
+   cout<<ans;
+    return 0;
+}
