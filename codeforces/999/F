@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cnt1[100005],cnt2[100005],n,k,fav[505],card[100005],h[100005];
+int dp[505][5005];
+
+int fn(int f,int c){
+	if(f<=0) return 0;
+	if(dp[f][c]!=-1) return dp[f][c];
+	int ret=0;
+	for(int i=0;i<=k;++i){
+		if(c-i>=0){
+			ret=max(ret,h[i]+fn(f-1,c-i));
+		}
+	}
+	return dp[f][c]=ret;
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	cin>>n>>k;
+	for(int i=0;i<(k*n);++i){
+		cin>>card[i];
+		cnt1[card[i]]+=1;
+	}
+	for(int i=0;i<n;++i){
+		cin>>fav[i];
+		cnt2[fav[i]]+=1;
+	}
+	for(int i=1;i<=k;++i) cin>>h[i];
+	memset(dp,-1,sizeof(dp));
+	long int ans=0;
+	for(int i=1;i<100005;++i){
+		ans=ans+fn(cnt2[i],cnt1[i]);
+	}
+	cout<<ans;
+	return 0;
+}
