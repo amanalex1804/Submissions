@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+int n;
+ll dp[1005][2][2][2][2][2][2][2][2];
+ll add(ll x,ll y){
+	ll r=(x%mod)+(y%mod);
+	if(r>=mod) r-=mod;
+	return r;
+}
+
+inline void reset(){
+	for(int i=0;i<n+4;++i)
+	for(int a=0;a<2;++a)
+	for(int b=0;b<2;++b)
+	for(int c=0;c<2;++c)
+	for(int d=0;d<2;++d)
+	for(int e=0;e<2;++e)
+	for(int f=0;f<2;++f)
+	for(int g=0;g<2;++g)
+	for(int a1=0;a1<2;++a1)
+	dp[i][a][b][c][d][e][f][g][a1]=-1;
+	
+	
+}
+ll fn(int ind,int c2,int c3,int c4,int c5,int c6,int c7,int c8,int c9){
+//	cout<<" here "<<s<<endl;
+	if(ind>n) return 1;
+	
+	if(dp[ind][c2][c3][c4][c5][c6][c7][c8][c9]!=-1) return dp[ind][c2][c3][c4][c5][c6][c7][c8][c9];
+	ll ret=0;
+	ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,c9));
+    for(int i=2;i<10;++i){
+    	if(i==2 and c2==1) ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,c9));
+    	if(i==3 and c3==1) ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,c9));
+    	if(i==4 and (c2==1 or c4==1))  ret=add(ret,fn(ind+1,c2,c3,1,c5,c6,c7,c8,c9));
+    	if(i==5 and c5==1) ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,c9));
+    	if(i==6 and (c2==1 or c3==1 or c6==1)) ret=add(ret,fn(ind+1,c2,c3,c4,c5,1,c7,c8,c9));
+    	if(i==7 and c7==1)  ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,c9));
+    	if(i==8 and (c2==1 or c4==1 or c8==1))  ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,1,c9));
+    	if(i==9 and (c3==1 or c9==1)) ret=add(ret,fn(ind+1,c2,c3,c4,c5,c6,c7,c8,1));
+    	
+		
+	}
+	return dp[ind][c2][c3][c4][c5][c6][c7][c8][c9]=ret;
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+		
+	int t;cin>>t;
+	while(t--){
+		cin>>n;
+		reset();
+		ll ans=0;
+	    if(n==1) { cout<<"9\n";continue;		}
+		for(int i=1;i<10;++i)
+		{
+			if(i==1) ans=add(ans,fn(2,0,0,0,0,0,0,0,0));
+			if(i==2) ans=add(ans,fn(2,1,0,0,0,0,0,0,0));
+			if(i==3) ans=add(ans,fn(2,0,1,0,0,0,0,0,0));
+			if(i==4) ans=add(ans,fn(2,0,0,1,0,0,0,0,0));
+			if(i==5) ans=add(ans,fn(2,0,0,0,1,0,0,0,0));
+			if(i==6) ans=add(ans,fn(2,0,0,0,0,1,0,0,0));
+			if(i==7) ans=add(ans,fn(2,0,0,0,0,0,1,0,0));
+			if(i==8) ans=add(ans,fn(2,0,0,0,0,0,0,1,0));
+			if(i==9) ans=add(ans,fn(2,0,0,0,0,0,0,0,1));
+		}
+		
+		cout<<ans<<"\n";
+		
+	}
+	
+	
+	
+	return 0;
+}
