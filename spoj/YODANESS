@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int bit[30005];
+void upd(int idx,int n){
+	while(idx<=n){
+		bit[idx]+=1;
+		idx+=(idx&(-idx));
+	}
+}
+int qry(int idx,int n){
+	int cnt=0;
+	while(idx>0){
+		cnt+=bit[idx];
+		idx-=(idx&(-idx));
+	}
+	return cnt;
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		int n; cin>>n;
+		for(int i=0;i<n+4;++i) bit[i]=0;
+		vector<string>ab;
+		
+		string s;
+		unordered_map<string,int>M;
+		for(int i=0;i<n;++i) cin>>s,ab.push_back(s);
+		for(int i=0;i<n;++i){
+			cin>>s;
+			M[s]=i+1;
+		}
+		vector<pair<int,int> >v;
+		for(int i=0;i<n;++i)
+			v.push_back({M[ab[i]],i+1});
+		
+		sort(v.begin(),v.end());
+		int ans=0;
+		for(int i=n-1;i>=0;--i){
+		//	cout<<v[i].first<<" "<<v[i].second<<" "<<qry(v[i].second,n)<<endl;
+			ans+=qry(v[i].second,n);
+			upd(v[i].second,n);
+		}
+		cout<<ans<<"\n";
+		
+	}
+	
+	
+	return 0;
+}
