@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int n;
+typedef struct nod{
+	int l,r,ind;
+};
+bool comp(nod x,nod y){
+	if(x.r>y.r) return false;
+	return true;
+}
+int bit[30005];
+void upd(int idx,int val){
+	
+	while(idx<=n){
+		bit[idx]+=val;
+		idx+=((idx)&(-idx));
+	//	cout<<idx<<endl;
+	}
+	
+}
+int qry(int idx){
+	int ans=0;
+	while(idx>0){
+		ans+=bit[idx];
+		idx-=((idx)&(-idx));
+	//	cout<<idx<<endl;
+	}
+	return ans;
+}
+int main(){
+	
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	cin>>n;
+	int A[n+5];
+	for(int i=0;i<n;++i) cin>>A[i];
+	map<int,int>vis;
+	int t;cin>>t;
+	nod q[t+5];int ans[t+5];
+	for(int i=0;i<t;++i){
+		int a,b;cin>>a>>b;
+		q[i].l=a;
+		q[i].r=b;
+		q[i].ind=i;	
+	}
+	sort(q,q+t,comp);
+	int j=0;
+	for(int i=0;i<n;++i){
+		
+		if(!vis[A[i]]) {vis[A[i]]=i+1;upd(i+1,1);}
+		else { upd(i+1,1); upd(vis[A[i]],-1); vis[A[i]]=i+1;		}
+		
+		while(j<t and q[j].r<=i+1){
+			int x1=qry(q[j].l-1);
+			int y1=qry(q[j].r);
+		
+			ans[q[j].ind]=y1-x1;
+		//	cout<<" for "<<q[j].l<<" "<<q[j].r<<" "<<x1<<" "<<y1<<" "<<q[j].ind<<"\n";
+			++j;
+		}
+		
+	}
+	for(int i=0;i<t;++i) cout<<ans[i]<<"\n";
+	
+	return 0;
+}
