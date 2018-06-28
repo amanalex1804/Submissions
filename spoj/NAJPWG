@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 100001
+ll dp[sz];
+inline void pre(){
+	
+	for(int i=2;i<sz;++i){
+		//cout<<i<<endl;
+		
+		int temp=i;
+		int sq=sqrt(temp);
+		int j=2;
+		int ans=i;
+		while(temp>1){
+			if(j>sq) break;
+			if(temp%j==0){
+				while(temp%j==0) temp/=j;
+				ans/=j;
+				ans*=(j-1);	
+			}
+			++j;
+		}
+		if(temp!=1) { ans/=temp; ans*=(temp-1);		}
+		dp[i]=dp[i-1]+(i-ans);
+	}
+	
+}
+
+
+int main(){
+	
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	pre();
+	int t;cin>>t;
+	for(int test=1;test<=t;++test){
+		int n;cin>>n;
+		cout<<"Case "<<test<<": "<<dp[n]<<"\n";
+	}
+	return 0;
+}
