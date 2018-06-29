@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int n,n1,n2; ll a,b;
+ll A[40],B[40],ans=0;
+vector<ll>v1,v2;
+int f1=0,f2=0;
+void fn1(){
+	ll sub=(1<<f1);
+	for(ll i=0;i<sub;++i){
+		ll sum=0;
+		for(ll j=0;j<f1;++j)
+			if((1<<j)&i) sum+=A[j];
+		
+		v1.push_back(sum);
+	}
+}
+void fn2(){
+	ll sub=(1<<f2);
+	for(ll i=0;i<sub;++i){
+		ll sum=0;
+		for(ll j=0;j<f2;++j)
+			if((1<<j)&i) sum+=B[j];
+		
+		v2.push_back(sum);
+	}
+}
+
+int main(){
+	
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	cin>>n>>a>>b;
+	ll x;
+	for(int i=0;i<n;++i){
+		cin>>x;
+		if(i<n/2) A[f1++]=x;
+		else B[f2++]=x;
+	}
+	fn1(); fn2();
+	sort(v1.begin(),v1.end());
+	for(int i=0;i<(int)v2.size();++i){
+	//	cout<<v2[i]<<" ";
+		ll ind1=lower_bound(v1.begin(),v1.end(),a-v2[i])-v1.begin();
+		ll ind2=upper_bound(v1.begin(),v1.end(),b-v2[i])-v1.begin();
+		ans+=(ind2-ind1);
+		
+	}
+	
+	cout<<ans;
+	
+	return 0;
+}
