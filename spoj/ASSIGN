@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int A[25][25],n;
+ll dp[22][1048600];
+ll fn(int ind,ll mask){
+	if(ind>=n){
+	
+		return 1;
+	}
+	if(dp[ind][mask]!=-1) return dp[ind][mask];
+	ll ret=0;
+//	ll t1=fn(ind+1,mask);
+	for(int i=0;i<n;++i){
+		if(A[ind][i]==1 and !(mask&(1LL<<i))) {
+			ll t2=fn(ind+1,mask|(1LL<<i));
+			ret+=t2;
+		}
+	}
+	return dp[ind][mask]=ret;
+	
+}
+int main(){
+	
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		memset(A,0,sizeof(A));
+		cin>>n;
+		for(int i=0;i<n;++i)
+		for(int j=0;j<n;++j)
+		cin>>A[i][j];
+		
+		for(int i=0;i<n+2;++i)
+		for(ll j=0;j<(1<<n)+6;++j) dp[i][j]=-1;
+			
+		ll ans=fn(0,0);
+		cout<<ans<<"\n";	
+		
+	}
+	
+	
+	return 0;
+}
