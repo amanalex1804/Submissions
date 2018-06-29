@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 1000002
+bool p[sz];
+void pre(){
+	p[1]=true;
+	for(int i=4;i<sz;i+=2) p[i]=true;
+	for(ll i=3;i*i<=sz;i+=2)
+		if(!p[i])
+		for(ll j=i*i;j<sz;j+=(2*i)) p[j]=true;
+	
+	
+}
+int main(){
+	
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	pre();
+	int n; cin>>n;
+	int A[n+5];
+	ll mo[n+5];
+	vector<ll>v;
+	v.push_back(-1);
+	memset(mo,0,sizeof(mo));
+	for(int i=0;i<n;++i) {
+	cin>>A[i];
+	if(!p[A[i]]) mo[i]=1,v.push_back(A[i]);
+    }
+	for(int i=1;i<n;++i) mo[i]+=mo[i-1];
+	
+	vector<ll>chk;
+	int x; cin>>x;
+	ll B[x+4];
+	for(int i=0;i<x;++i){
+		cin>>B[i];
+		if(B[i]<0){
+			int l=abs(B[i]);
+			l=max(0,l-1);
+			ll diff=mo[n-1]-mo[l];
+			if(chk.size()==0) chk.push_back(diff);
+			else chk.push_back(diff+chk.back());
+		}
+		else{
+			ll diff=mo[B[i]];
+			if(chk.size()==0) chk.push_back(diff);
+			else chk.push_back(diff+chk.back());
+			
+		}
+		
+	}
+
+	int l=(int) v.size();
+	int q; cin>>q;
+	while(q--){
+		ll k; cin>>k;
+		if(k>chk.back()) { cout<<"-1\n";continue;		}
+		
+		ll ind=lower_bound(chk.begin(),chk.end(),k)-chk.begin();
+		
+		if(B[ind]<0){
+			ll diff=chk[ind]-k;
+			
+			diff=l-diff-1;
+			cout<<v[diff]<<"\n";
+			
+		}
+		else{
+			ll diff;
+			if(!ind) diff=k;
+			else diff=k-chk[ind-1];
+			cout<<v[diff]<<"\n";
+		}
+		
+		
+	}
+	
+	
+	return 0;
+}
