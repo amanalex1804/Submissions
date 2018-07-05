@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 400005
+int n,d,k;
+vector<int>level[sz];
+pair<int,int>gr[sz];
+int fr=0;
+int degree[sz],parent[sz],dis[sz];
+void fn(int x,int y){
+	gr[fr].first=x; gr[fr].second=y;
+	++fr;
+}
+int main(){
+	//ios_base::sync_with_stdio(false); cin.tie(NULL);
+	cin>>n>>d>>k;
+	
+      if(d+1>n) { cout<<"NO"; return 0;	  } 
+	if( k==1 and n>2) { cout<<"NO";return 0;	}
+	
+	int i=2;
+	dis[1]=max(1,d+1);
+	level[1].push_back(1);
+	degree[1]=1;
+	while(i<=d+1 and i<=n){
+		fn(i,i-1);
+		dis[i]=max(i,d+1-i+1);
+		level[1].push_back(i);
+		degree[i]=2;
+		++i;
+	}
+	degree[d+1]=1;
+
+	int lv=1,cur=1;
+	while(i<=n){
+	
+		if(level[lv].size()==0) break;
+		int ver=level[lv][cur];
+		if(lv==1 and cur==level[lv].size()-1) { ++lv; cur=0; continue;		}
+		int distance=dis[ver]+1;
+	//	cout<<ver<<" "<<i<<endl;
+		if(distance<=d+1){
+			while(degree[ver]<k and i<=n){
+				level[lv+1].push_back(i);
+				fn(i,ver);
+				parent[i]=ver;
+				++degree[i];
+				dis[i]=distance;
+				++degree[ver];
+				++i;
+			}
+			++cur;
+			if(lv==1 and cur==level[lv].size()-1) { ++lv; cur=0;		}
+			else if(cur==level[lv].size()) ++lv,cur=0;
+		}
+		else{
+			++cur;
+			if(lv==1 and cur==level[lv].size()-1) { ++lv; cur=0;		}
+		    else if(cur==level[lv].size()) {++lv,cur=0;}
+		}
+		
+		
+	}
+	if(i!=n+1) { cout<<"NO";	return 0;}
+	cout<<"YES\n";
+    for(int j=0;j<fr;++j) cout<<gr[j].first<<" "<<gr[j].second<<"\n";
+	
+	return 0;
+}
