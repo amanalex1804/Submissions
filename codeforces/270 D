@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+vector<pair<int,ll> >gr[2005];
+int parent[2005];
+void mk(int x,int y,ll cost){
+	gr[x].push_back({y,cost});
+	gr[y].push_back({x,cost});
+}
+int rek(int x){
+	while(parent[x]!=x and parent[x]!=parent[parent[x]]) parent[x]=parent[parent[x]];
+	return parent[x];
+}
+
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int n;cin>>n;
+	for(int i=0;i<n+5;++i) parent[i]=i;
+	ll mat[n+4][n+4];
+	for(int i=1;i<=n;++i)
+	for(int j=1;j<=n;++j)
+	cin>>mat[i][j];
+	
+	pair<ll,pair<int,int> >p[(n*n)+5];
+	int f=0;
+	for(int i=1;i<=n;++i){
+		for(int j=1;j<=n;++j){
+			if(i==j and mat[i][j]!=0) { cout<<"NO";return 0;			}
+			if(i!=j and mat[i][j]==0) { cout<<"NO";return 0;			}
+			if(mat[i][j]!=mat[j][i]) { 	cout<<"NO"; return 0;		}
+			if(i<j) { p[f].first=mat[i][j]; p[f].second.first=i; p[f].second.second=j; ++f;			}
+		}
+	}
+	sort(p,p+f);
+	for(int i=0;i<f;++i){
+		int x=p[i].second.first;
+		int y=p[i].second.second;
+		int x1=rek(x);
+		int y1=rek(y);
+		if(x1!=y1) {parent[x1]=y1; mk(x,y,p[i].first);}
+	}
+	int x=rek(1);
+	for(int i=1;i<=n;++i){
+		if(rek(i)!=x) {
+			cout<<"NO";return 0;
+		}
+	}
+	
+	
+    for(int i=1;i<=n;++i){
+    	
+    	queue<pair<int,ll> >q;
+    	q.push({i,0}); 
+    	bool vis[n+4];
+    	memset(vis,false,sizeof(vis));
+    	vis[i]=true;
+    	while(!q.empty()){
+    		pair<int,ll>temp=q.front(); q.pop();
+    		vis[temp.first]=true;
+    		if(temp.second!=mat[i][temp.first]) { cout<<"NO"; return 0;			}
+    		for(int j=0;j<gr[temp.first].size();++j)
+    		if(!vis[gr[temp.first][j].first]) q.push({gr[temp.first][j].first,temp.second+gr[temp.first][j].second});	
+		}
+	}
+	cout<<"YES";
+	return 0;
+}
