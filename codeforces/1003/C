@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+ll cum[5005];
+int main(){
+	int n,k;cin>>n>>k;
+	int A[n+5];
+	cum[0]=0;
+	for(int i=1;i<=n;++i){
+		cin>>A[i];
+		cum[i]=A[i]+cum[i-1];
+	}
+	double ans=0.0;
+//	for(int i=1;i<=n;++i) cout<<cum[i]<<" ";
+	//cout<<endl;
+	for(int i=k;i<=n;++i){
+		
+		for(int j=i;j<=n;++j){
+			ll prev=cum[j]-cum[j-i];
+			double pp=(1.0*prev)/(1.0*i);
+		//	cout<<prev<<" "<<i<<" "<<pp<<endl;
+			ans=max(ans,pp);
+		}
+	}
+	printf("%0.15lf",ans);
+	return 0;
+}
