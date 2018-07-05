@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int a,b,x;
+	cin>>a>>b>>x;
+	if(x%2==0){
+		
+		x/=2;
+		if(a>b) {
+			
+			for(int i=1;i<=x;++i){
+				 cout<<"01",--a;
+				--b;
+			}
+			while(b>0) { cout<<"1";--b;	}
+						while(a>0) { cout<<"0";--a;	}
+			
+
+		}
+		else{
+				for(int i=1;i<=x;++i){
+				 cout<<"10";--b;--a;
+			}
+			while(a>0) { cout<<"0";--a;	}
+			while(b>0) { cout<<"1";--b;	}
+			
+			
+		}
+	}
+	else{
+		x=(x-1)/2;
+		if(a>b){
+				for(int i=1;i<=x;++i){
+				 cout<<"01";--b;--a;
+				
+			}
+			while(a>0) { cout<<"0";--a;	}
+			while(b>0) { cout<<"1";--b;	}
+		}
+		else{
+				for(int i=1;i<=x;++i){
+				 cout<<"10",--a;
+				--b;
+			}
+			while(b>0) { cout<<"1";--b;	}
+			while(a>0) { cout<<"0";--a;	}
+		}
+	}
+	
+	return 0;
+}
