@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll A[23];
+void pre(){
+	A[1]=1;
+	for(int i=2;i<=20;++i) A[i]=3*A[i-1];
+}
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	pre();
+	ll n,x;
+	cin>>n>>x;
+	vector<ll>v1,v2,sum1,sum2; int pos; bool flag=false;
+	for(int i=1;i<=n;++i) v2.push_back(A[i]),v1.push_back(A[i]);
+	ll sub=1LL<<n;
+	for(ll i=1;i<sub;++i){
+		
+		ll sum=0;
+		for(int j=0;j<v1.size();++j)
+			if((1LL<<j)&i) sum+=v1[j];
+		
+		sum1.push_back(sum);
+	}
+	sort(sum1.begin(),sum1.end());
+	if(x>sum1.back()) { cout<<"-1";return 0;}
+	
+	 sub=1<<n;
+	for(ll i=0;i<sub;++i){
+		ll sum=0;
+		for(int j=0;j<(int)v2.size();++j) 
+		if((1LL<<j)&i) sum+=v2[j];
+		
+		ll ind=lower_bound(sum1.begin(),sum1.end(),sum+x)-sum1.begin();
+	//	cout<<sum<<" "<<sum+x<<" "<<ind<<" "<<sum1[ind]<<endl;
+		if(ind<sum1.size() and sum1[ind]==sum+x){
+			
+			++ind;
+				for(int j=0;j<(int)v2.size();++j) 
+		if((1LL<<j)&i) cout<<j+1<<" ";
+		cout<<"\n";
+			for(int j=0;j<v1.size();++j)
+			if((1LL<<j)&ind) cout<<j+1<<" ";
+			cout<<"\n";
+			
+		
+			return 0;
+		}
+	}
+	cout<<"-1";
+	
+	
+	return 0;
+}
