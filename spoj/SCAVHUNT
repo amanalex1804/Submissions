@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+vector<int>gr[1000],grrev[1000]; int n,pos;
+bool flag=false;
+unordered_map<string,int>M1;
+unordered_map<int,string>M2; 
+void reset(){
+	for(int i=0;i<(2*n)+20;++i) {gr[i].clear();grrev[i].clear();}
+	M1.clear();
+	M2.clear();
+}
+void dfs1(int src){
+	for(int i=0;i<grrev[src].size();++i)
+	dfs1(grrev[src][i]);
+	
+	if(!flag) { pos=src;flag=true;	}
+}
+void dfs2(int src){
+	cout<<M2[src]<<"\n";
+	for(int i=0;i<gr[src].size();++i)
+	dfs2(gr[src][i]);
+}
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	for(int test=1;test<=t;++test){
+		cin>>n;
+		reset();
+		string s1,s2; int f=1;
+
+		for(int i=0;i<n-1;++i){
+			cin>>s1>>s2;
+			if(!M1[s1]) {M1[s1]=f;M2[f]=s1;f++;}
+			if(!M1[s2]) { M1[s2]=f;M2[f]=s2;f++;		}
+			gr[M1[s1]].push_back(M1[s2]);
+			grrev[M1[s2]].push_back(M1[s1]);		
+		}
+		flag=false;
+		dfs1(1);
+		cout<<"Scenario #"<<test<<":\n";
+		dfs2(pos);
+		cout<<"\n";
+		
+		
+	}
+	
+	
+	return 0;
+}
