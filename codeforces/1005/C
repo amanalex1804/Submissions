@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll dp[35];
+void fn(){
+	dp[0]=1;
+	dp[1]=2;
+	for(ll i=2;i<32;++i) dp[i]=2*dp[i-1];
+}
+int main(){
+	fn();
+	int n; cin>>n;
+	vector<ll>v;
+	ll x;
+	map<ll,int>M;
+	for(int i=0;i<n;++i) {
+		cin>>x;
+		v.push_back(x);
+		M[x]++;
+	}
+	sort(v.begin(),v.end());
+	int ans=0;
+	for(int i=0;i<(int)v.size();++i){
+		
+		bool flag=false;
+		for(ll j=0;j<32;++j){
+			
+			ll ind=lower_bound(v.begin(),v.end(),dp[j]-v[i])-v.begin();
+			if(ind<v.size() and v[ind]==(dp[j]-v[i])){
+			   if((dp[j]-v[i])==v[i] ) {
+			   	if(M[v[i]]>1){
+			   		flag=true;
+			   		break;
+				   }
+			   	
+			   }
+			   else {
+			   	flag=true;
+			   	break;
+			   }
+			}
+			
+		}
+		if(!flag) {++ans;}
+	}
+	cout<<ans;
+	
+	return 0;
+}
