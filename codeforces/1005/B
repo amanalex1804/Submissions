@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	
+	string s1,s2;
+	cin>>s1>>s2;
+	int l1=s1.size();
+	int l2=s2.size();
+	int sam=0,j=l2-1;
+	for(int i=l1-1;i>=0 and j>=0;--i){
+		if(s1[i]==s2[j]){
+			++sam;
+			--j;
+		}
+		else break;
+		
+	}
+	int ans=l1+l2-(2*sam);
+	cout<<ans;
+	return 0;
+}
