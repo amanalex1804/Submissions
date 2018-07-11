@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void fn(int x){
+    
+    if(x>0) {  cout<<x<<" ";fn(x-5); cout<<x<<" "	;}
+    else { cout<<x<<" ";return ;	}
+}
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+      //  cout<<n<<" ";
+        fn(n);
+        cout<<"\n";
+    }
+    
+    return 0;
+}
