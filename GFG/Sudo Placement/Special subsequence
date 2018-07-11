@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<string>v;
+void fn(string s){
+	int l=(int) s.size();
+	int sub=1<<l;
+	for(int i=1;i<sub;++i){
+		string temp=s;
+		for(int j=0;j<l;++j)
+		if((1<<j)&i) temp[j]=toupper(temp[j]);
+		
+		v.push_back(temp);
+	}
+	
+}
+void fn1(string s){
+	int l=(int)s.size();
+	int sub=1<<l;
+	for(int i=1;i<sub;++i){
+		string temp="";
+		for(int j=0;j<l;++j)
+		if((1<<j)&i) temp+=s[j];
+		v.push_back(temp);
+		fn(temp);
+	}
+}
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		v.clear();
+		string s;
+		cin>>s;
+		fn1(s);
+		cout<<(int)v.size()<<"\n";
+		sort(v.begin(),v.end());
+		for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+		cout<<"\n";
+	}
+	
+	return 0;
+}
