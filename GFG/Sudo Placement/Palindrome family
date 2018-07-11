@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool palin(string s){
+	int l=(int)s.size();
+	for(int i=0;i<l;++i)
+	if(s[i]!=s[l-i-1]) return false;
+	return true;
+}
+int main(){
+	int t;cin>>t;
+	while(t--){
+	
+	string s;
+	cin>>s;
+	bool flag=palin(s);
+	if(flag){
+		cout<<"PARENT\n";continue;
+	}
+	int l=(int)s.size();
+	string ev="",od="";
+	for(int i=1;i<=l;++i){
+		if(i&1) od+=s[i-1];
+		else ev+=s[i-1];
+	}
+	bool f1=palin(od);
+	bool f2=palin(ev);
+	if(f1 and f2) { cout<<"TWIN\n"; continue;	}
+	if(f1) { cout<<"ODD\n"; continue;	}
+	if(f2) { cout<<"EVEN\n";continue;	}
+	cout<<"ALIEN\n";
+}
+	return 0;
+	
+	
+}
