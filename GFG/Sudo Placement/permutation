@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+string s;int l;vector<string>v;
+void fn(int ind,int mask,string temp){
+	
+	if(ind>=l) { v.push_back(temp);	return ;}
+	
+	for(int i=0;i<l;++i){
+		if(!(mask&(1<<i))) fn(ind+1,mask|(1<<i),temp+s[i]);
+	}
+}
+int main(){
+   ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		cin>>s; 
+		l=(int)s.size();
+		v.clear();
+		fn(0,0,"");
+		sort(v.begin(),v.end());
+		for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+		cout<<endl;
+		
+	}
+	
+	
+	return 0;
+}
