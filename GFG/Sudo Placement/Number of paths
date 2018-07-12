@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,m;
+int fn(int x,int y){
+	
+	if(x==n and y==m) return 1;
+	
+	int ret=0,t1=0,t2=0;
+	int x1=x; int y1=y+1;
+	if(1<=x1 and x1<=n and 1<=y1 and y1<=m) t1=fn(x1,y1);
+	int x2=x+1; int y2=y;
+	if(1<=x2 and x2<=n and 1<=y2 and y2<=m) t2=fn(x2,y2);
+	ret=t1+t2;
+	return ret;
+	
+	
+}
+
+int main(){
+	int t;cin>>t;
+	while(t--){
+	cin>>n>>m;
+	int ret=fn(1,1);
+	cout<<ret<<"\n";
+}
+	return 0;
+}
