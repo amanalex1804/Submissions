@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+vector<ll>v;
+
+void fn(){
+	
+	for(int i=0;i<=7;++i) v.push_back(i);
+	
+	for(ll i=4;i<=61;++i){
+		
+		ll f1=(1LL<<(i-1));
+		
+		v.push_back(f1);
+		// two bit
+		
+		for(ll j=i-2;j>=0;--j){
+			ll t1=(1LL<<j);
+		
+			for(ll k=j-1;k>=0;--k){
+				
+				ll tt1=(1LL<<k);
+		
+				ll in=t1+tt1+f1;
+				v.push_back(in);
+			}
+			
+		}
+		
+		
+		// one 
+		
+		for(ll j=i-2;j>=0;--j){
+			ll t1=(1LL<<j);
+			t1+=f1;
+			v.push_back(t1);
+		}
+		
+	}	
+	
+}
+
+int bit(ll n){
+	
+	int cnt=0;
+	for(int i=0;i<=61;++i){
+		if((1LL<<i)&n) ++cnt;
+	}
+	return cnt;
+	
+}
+
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	fn();
+	sort(v.begin(),v.end());
+   
+	int t;cin>>t;
+
+	while(t--){
+		int q; cin>>q;
+		while(q--){
+			ll n11,n22;
+			cin>>n11>>n22;
+			ll n1=min(n11,n22);
+			ll n2=max(n11,n22);
+			ll ind2=lower_bound(v.begin(),v.end(),n2)-v.begin();
+			ll ind1=lower_bound(v.begin(),v.end(),n1)-v.begin();
+		//	for(int i=ind1;i<=ind2;++i) cout<<v[i]<<" ";
+		//	cout<<endl;
+			
+			if(ind2<v.size() and v[ind2]!=n2) --ind2;
+		  
+		     ll ans=ind2-ind1+1;
+		     
+			cout<<ans<<"\n";
+		}
+	}
+	
+	
+	return 0;
+}
