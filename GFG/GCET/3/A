@@ -1,0 +1,26 @@
+using namespace std;
+typedef long long int ll;
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    ll n;
+	    cin>>n;
+	    ll ans=n;
+	    ll den=6;
+	    ll g1=__gcd(ans,den);
+	    ans/=g1; den/=g1;
+	   
+	    g1=__gcd((n+1),den);
+	    ans*=((n+1)/g1); den/=g1;
+	     g1=__gcd(ans,den);
+	    ans/=g1; den/=g1;
+	    g1=__gcd(((2*n)+1),den);
+	    ans*=(((2*n)+1)/g1); den/=g1;
+	     g1=__gcd(ans,den);
+	    ans/=g1; den/=g1;
+	    cout<<ans<<"\n";
+	}
+	    
+	
+	return 0;
+}
