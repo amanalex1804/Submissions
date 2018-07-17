@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+char A[]={'a','o','u','i','e'};
+string s;
+bool check(int ind){
+	
+	for(int i=0;i<5;++i)
+	if(s[ind]==A[i]) return true;
+	return false;
+	
+}
+int main(){
+	
+	cin>>s;
+	int l=(int)s.size();
+	for(int i=0;i<l;++i){
+		if(s[i]=='n') continue;
+		bool flag=check(i);
+		if(flag) continue;
+		if(i==l-1) { cout<<"NO";return 0;		}
+		if(i<l-1){
+			bool flag1=check(i+1);
+			if(!flag1) { cout<<"NO";return 0;			}
+		}
+		
+	}
+	
+	cout<<"YES";
+	
+	
+	return 0;
+}
