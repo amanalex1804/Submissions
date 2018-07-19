@@ -1,0 +1,31 @@
+bool chk(int n){
+    
+    int sq=sqrt(n);
+    int i=2;
+    while(i<n){
+        if(i>sq) return true;
+        if(n%i==0) return false;
+        ++i;
+    }
+    return true;
+}
+
+vector<int> Solution::primesum(int A) {
+    vector<int>ret;
+    bool flag=chk(A-2);
+    //cout<<"here"<<flag<<endl;
+    if(flag) { ret.push_back(2); ret.push_back(A-2); return ret;}
+    
+    for(int i=3;(2*i)<=A;i+=2){
+        flag=chk(i);
+        if(flag) {
+            if(chk(A-i)) {
+                ret.push_back(i);
+                ret.push_back(A-i);
+                return ret;
+            }
+        }
+    }
+    
+    
+}
