@@ -1,0 +1,26 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    int n=A.size();
+    int m=0,mm=0,txor=0,x=0,y=0;
+    for(int i=1;i<=n;++i) m^=i;
+    for(int i=0;i<n;++i) mm^=A[i];
+    txor=m^mm;
+    int bit=txor & ~(txor-1);
+    for(int i=1;i<=n;++i)
+    if(bit&i) x^=i;
+    for(int i=0;i<n;++i)
+    if(bit&A[i]) y^=A[i];
+    
+    int n1=x^y;
+    int n2=txor^n1;
+    vector<int>v;
+    for(int i=0;i<n;++i){
+        if(n1==A[i]){
+            v.push_back(n1);
+            v.push_back(n2);
+            return v;
+        }
+    }
+            v.push_back(n2);
+            v.push_back(n1);
+            return v;
+}
