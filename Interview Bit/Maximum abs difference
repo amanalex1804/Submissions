@@ -1,0 +1,15 @@
+int Solution::maxArr(vector<int> &A) {
+    int ret=0; int n=A.size();
+    int C[n+5],D[n+5];
+    for(int i=0;i<A.size();++i){
+        C[i]=A[i]-i;
+        D[i]=A[i]+i;
+    }
+    sort(C,C+n);
+    sort(D,D+n);
+   ret=max(ret,D[n-1]-D[0]);
+   
+   ret=max(ret,C[n-1]-C[0]);
+   return ret;
+     
+}
