@@ -1,0 +1,16 @@
+int Solution::firstMissingPositive(vector<int> &A) {
+    sort(A.begin(),A.end());
+    int ans=1;
+    int ind=lower_bound(A.begin(),A.end(),1)-A.begin();
+    if(ind==A.size() or A[ind]!=1) return 1;
+    int last=1;
+    for(int i=ind;i<A.size();++i){
+        if(A[i]==last) continue;
+        else{
+            if(A[i]!=last+1) return last+1;
+            ++last;
+        }
+    }
+    return A.back()+1;
+    
+}
