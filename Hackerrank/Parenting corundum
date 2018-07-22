@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 100005
+vector<int>gr[sz],ans[sz];
+char ch[sz]; int parent[30];
+int vis[sz];ll sub[sz];
+
+void dfs(int src,int par){
+    
+    for(int i=0;i<gr[src].size();++i){
+        int ver=gr[src][i];
+        if(ver==par) continue;
+        int ind=(int)(ch[ver]-'a');
+        int y=parent[ind];
+        
+        if(parent[ind]==-1) parent[ind]=ver;
+        else{
+            ans[parent[ind]].push_back(ver);
+            parent[ind]=ver;
+        }
+        dfs(ver,src);
+        parent[ind]=y;
+    }
+}
+void dfs1(int src,int par){
+    sub[src]=1;
+    vis[src]=1;
+    for(int i=0;i<ans[src].size();++i){
+        int ver=ans[src][i];
+        if(ver==par or vis[ver]==1) continue;
+        dfs1(ver,src);
+        
+    }
+    sub[par]+=sub[src];
+    
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+  int t;cin>>t;
+  while(t--){
+      int n; cin>>n;
+      memset(parent,-1,sizeof(parent));
+      sub[0]=0;
+      for(int i=0;i<n+2;++i) {gr[i].clear(); ans[i].clear();vis[i]=0;}
+      for(int i=1;i<=n;++i) cin>>ch[i];
+      for(int i=0,x,y;i<n-1;++i){
+          cin>>x>>y;
+          gr[x].push_back(y);
+          gr[y].push_back(x);
+          
+      }
+      int ind=(int)(ch[1]-'a');
+      parent[ind]=1;
+      dfs(1,0);
+     // memset(vis,0,sizeof(vis));
+    
+      for(int i=1;i<=n;++i){
+          if(!vis[i]) dfs1(i,0);
+      }
+      
+      
+      
+      
+      
+      for(int i=1;i<=n;++i) cout<<sub[i]<<" ";
+      cout<<"\n";
+      
+      
+      
+      
+      
+  }
+    return 0;
+}
