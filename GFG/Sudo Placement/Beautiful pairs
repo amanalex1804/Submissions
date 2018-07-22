@@ -1,0 +1,55 @@
+using namespace std;
+typedef long long int ll;
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n1,n2,x;
+	    cin>>n1;
+	    vector<int>v1,v2;
+	    map<int,int>M;
+	    for(int i=0;i<n1;++i){
+	    	cin>>x;
+	    	M[x]++;
+	    	v1.push_back(x);
+		}
+		cin>>n2;
+		for(int i=0;i<n2;++i){
+	    	cin>>x;
+	    	v2.push_back(x);
+		}
+		sort(v1.begin(),v1.end());
+		bool flag=false;
+		for(int i=0;i<n1 and !flag;++i){
+			
+			for(int j=0;j<n2 and !flag;++j){
+				int sum=v2[j]-v1[i];
+				
+				int ind=lower_bound(v1.begin(),v1.end(),sum)-v1.begin();
+			//	cout<<v1[i]<<" "<<v2[j]<<" "<<sum<<" "<<ind<<" "<<v1[ind]<<endl;
+				if(ind<(int)v1.size() and v1[ind]==sum){
+					
+					if(sum==v1[i]){
+						if(M[v1[i]]>1) {
+							
+					cout<<"1";
+					flag=true;
+					break;
+						}
+						else continue;
+					}
+					
+					cout<<"1";
+					flag=true;
+					break;
+				}
+			}
+		}
+		if(!flag) cout<<"0";
+		cout<<"\n";
+		
+		
+	}
+	    
+	
+	return 0;
+}
