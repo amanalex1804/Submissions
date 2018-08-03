@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+#define lim 2000001
+vector<int>gr[sz];
+int sub[sz],n,m;
+bool p[lim/2]; vector<int>v;
+bool vis[sz];
+void pre(){
+	v.push_back(2);
+	for(int i=3;i<lim;i+=2){
+		if(lim/i<i) break;
+		if(!p[i/2])
+			for(int j=i*i;j<lim;j+=(2*i)) p[j/2]=true;
+	}
+	for(int i=3;i<lim;i+=2)
+	if(!p[i/2]) v.push_back(i);
+}
+void dfs(int src,int par){
+	sub[src]=1;
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) dfs(gr[src][i],src);
+	sub[par]+=sub[src];
+}
+
+int main(){
+	
+ ios_base::sync_with_stdio(false); cin.tie(NULL);
+	pre();
+
+	int t;cin>>t;
+	while(t--){
+		cin>>n>>m;
+		
+		for(int i=0;i<n+2;++i) {sub[i]=0;gr[i].clear();vis[i]=false;}
+		for(int i=0,x,y;i<m;++i){
+			cin>>x>>y;
+			gr[x].push_back(y);
+			gr[y].push_back(x);
+		}
+		for(int i=1;i<=n;++i)
+		if(!vis[i]) dfs(i,0);
+		
+		int mx=1;
+		for(int i=1;i<=n;++i) mx=max(mx,sub[i]);
+		
+		if(mx==1) cout<<"-1\n";
+		else cout<<v[mx-1]<<"\n";
+		
+		
+		
+	}
+	
+	return 0;
+}
