@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	 // ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		string s; cin>>s;
+		int l=(int)s.size();
+		if(l==1){
+			if(s[0]=='9') cout<<"11\n";
+			else cout<<(char)((int)s[0]+1)<<"\n";
+			continue;
+		}
+		else{
+	string st="",en="";
+	int mid=l/2;
+	if(l&1){
+		for(int i=mid-1;i>=0;--i) st+=s[i];
+		for(int i=mid+1;i<l;++i) en+=s[i];
+	}
+	else{
+		for(int i=mid-1;i>=0;--i) st+=s[i];
+		for(int i=mid;i<l;++i) en+=s[i];
+	}
+	if(st>en) {
+	//	cout<<st<<" "<<en<<endl;
+		if(!(l&1)){
+		for(int i=0;i<mid;++i) cout<<s[i];
+		cout<<st<<"\n";
+	     }
+	     else{
+	     	
+		for(int i=0;i<mid;++i) cout<<s[i];
+		cout<<s[l/2];
+		cout<<st<<"\n";
+		 }
+	}
+	else{
+		
+		int cnt=0;
+		for(int i=0;i<l;++i)
+		if(s[i]=='9') ++cnt;
+		
+		if(cnt==l){
+			--cnt;
+			cout<<"1";
+			for(int i=0;i<cnt;++i) cout<<"0";
+			cout<<"1";
+			cout<<"\n";
+			continue;
+			
+			
+			
+		}
+		
+		
+		
+		
+		mid=(l-1)/2;
+		int carr=1;
+		int left=l-mid;
+		string temp="";
+		for(int i=mid;i>=0;--i){
+			
+			int ind=(int)(s[i]-'0');
+			ind=(ind+carr);
+			carr=ind/10;
+			ind%=10;
+			temp+=(char)((char)ind+'0');			
+		}
+		while(carr){
+			temp+=(char)((char)(carr%10)+'0');
+			carr/=10;
+		}
+		int l1=(int)temp.size();
+		reverse(temp.begin(),temp.end());
+		cout<<temp;
+	    if(l&1) for(int i=l1-2;i>=0;--i) cout<<temp[i];
+	    else for(int i=l1-1;i>=0;--i) cout<<temp[i];
+		
+		cout<<"\n";
+	}
+		}
+	}
+	
+	
+	
+	return 0;
+}
