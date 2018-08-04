@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	
+	int n;
+	cin>>n;
+	string s,t;
+	cin>>s>>t;
+	int A[n+2],B[n+3];
+	for(int i=0;i<n;++i){
+		A[i]=(int)(s[i]-'A')+1;
+		B[i]=(int)(t[i]-'A')+1;		
+	}
+	int ans=0;
+	for(int i=0;i<n;++i){
+		int st=A[i];
+		int en=A[i]+13;
+		if(en>26) en-=26;
+		int mn=min(st,en);
+		int mx=max(st,en);
+		
+		//cout<<mn<<" "<<mx<<" "<<A[i]<<" "<<B[i]<<endl;
+		
+		if(B[i]<mn){
+			ans+=(26-mx+B[i]);
+			if(mx==en) ++ans;
+		}
+		else if(mn<=B[i] and B[i]<mx){
+			ans+=(B[i]-mn);
+			if(mn==en) ++ans;
+		}
+		else if(B[i]>=mx){
+			ans+=(B[i]-mx);
+			if(mx==en) ++ans;
+		}
+	//	cout<<ans<<endl;
+		
+		
+	}
+	cout<<ans;
+	return 0;
+}
