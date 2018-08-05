@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef long double ld;
+
+int main(){
+	int t;cin>>t;
+	while(t--){
+		ll n,p;
+		cin>>n>>p;
+		ll sum=(n*(n+1))/2;
+		ll ans=p/sum;
+		p=p%sum;
+		if(p==0) {
+			cout<<ans<<"\n";
+			continue;
+		}
+		ld low=0,high=1,mid;
+		ld e=1.0/((ld)1e6);
+		
+		while(low<high){
+			mid=(ld)(low+high)/((ld)2);
+			ll temp=0;
+			for(int i=1;i<=n;++i) temp+=(ll)((1.0*i)*(ld)mid);
+			if(temp==p) break;
+			if(temp>p) high=mid-e;
+			else  low=mid+e;			
+			
+			
+		}
+		if(low<high) cout<<ans<<"\n";
+		else cout<<"-1\n";
+		
+		
+		
+	}
+	
+	
+	
+	return 0;
+}
