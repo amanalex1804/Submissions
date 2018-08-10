@@ -1,0 +1,89 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 500005
+
+int par[sz][21],d[sz],n;
+vector<int>gr[sz];
+void dfs(int src,int p){
+	d[src]=d[p]+1;
+	par[src][0]=p;
+	for(int i=0;i<(int)gr[src].size();++i){
+		int ver=gr[src][i];
+		if(ver==p) continue;
+		dfs(ver,src);
+	}
+}
+void pre(){
+    //should only be like this
+    
+    for(int j=1;j<=19;++j)
+	for(int i=1;i<=n;++i)        // not from 0
+		par[i][j]=par[par[i][j-1]][j-1];
+	
+}
+int lca(int u,int v){
+	if(d[u]>d[v]) swap(u,v);
+	int dis=d[v]-d[u];
+	
+	
+	for(int i=0;i<=19;++i)
+		if(dis&(1<<i))
+			v=par[v][i];
+		
+	if(u==v) return u;
+	
+	for(int i=19;i>=0;--i){
+		if(par[u][i]!=par[v][i]){
+			u=par[u][i];
+			v=par[v][i];
+		}
+	}
+	return par[u][0];
+	
+}
+int distanc(int u,int v){
+	int temp=lca(u,v);
+	return ((d[u]-d[temp])+(d[v]-d[temp]));
+}
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int q;cin>>n>>q;
+	for(int i=0,x,y;i<n-1;++i){
+		cin>>x>>y;
+		gr[x].push_back(y);
+		gr[y].push_back(x);
+	}
+	
+	dfs(1,0);
+	pre();
+	while(q--){
+		int x; cin>>x;
+		if(x<=1) {cout<<"0\n";continue;}
+		int A[x+3];
+		for(int i=1;i<=x;++i) cin>>A[i];
+		
+		int mn=0,id=0;
+		for(int i=2;i<=x;++i){
+			int temp=distanc(A[i],A[1]);
+		
+			if(temp>mn){
+				mn=temp;
+				id=i;
+			}
+		}
+		
+		mn=0;
+		for(int i=1;i<=x;++i){
+			int temp=distanc(A[i],A[id]);
+			mn=max(mn,temp);			
+			
+		}
+		cout<<mn<<"\n";
+		
+		
+	}
+
+	
+	return 0;
+}
