@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define szi 600005
+
+int val[szi],ind[szi],segind[4*szi],segval[4*szi],temp=-1;
+void build(int node,int st,int en){
+	if(st==en){
+		segval[node]=val[st];
+		segind[node]=ind[st];
+		return;
+	}
+	int mid=(st+en)/2;
+	build(2*node+1,st,mid);
+	build(2*node+2,mid+1,en);
+	segind[node]=segind[2*node+1]+segind[2*node+2];
+	segval[node]=max(segval[2*node+1],segval[2*node+2]);
+}
+int get(int node,int st,int en,int pos){
+	if(st==en) return st;
+	int mid=(st+en)/2;
+	int val=segind[2*node+1];
+	if(pos<=val) return get(2*node+1,st,mid,pos);
+	else return get(2*node+2,mid+1,en,pos-val);
+}
+int qry(int node,int st,int en,int l,int r){
+	if(en<st or r<st or en<l) return 0;
+	if(l<=st and en<=r) return segval[node];
+	int mid=(st+en)/2;
+	return max(qry(2*node+1,st,mid,l,r),qry(2*node+2,mid+1,en,l,r));
+}
+void upd(int node,int st,int en,int pos,int k,int v){
+	if(pos>en or pos<st) return;
+	if(st==en){
+		temp=segval[node];
+		segval[node]=v;
+		segind[node]=k;
+		return;
+	}
+	int mid=(st+en)/2;	
+	 upd(2*node+1,st,mid,pos,k,v);
+	 upd(2*node+2,mid+1,en,pos,k,v);
+	 
+	segind[node]=segind[2*node+1]+segind[2*node+2];
+	segval[node]=max(segval[2*node+1],segval[2*node+2]);
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int n,q;cin>>n>>q;
+	for(int i=0;i<n;++i){
+		cin>>val[q+i];
+		ind[q+i]=1;
+	}
+	int sz=q+n+q;
+	int st=q,en=q+n-1;
+	build(0,0,sz-1);
+	while(q--){
+		int typ;cin>>typ;
+		if(typ==1){
+			int l,r;cin>>l>>r;
+			l=get(0,0,sz-1,l);
+			r=get(0,0,sz-1,r);
+			cout<<qry(0,0,sz-1,l,r)<<"\n";
+		}
+		else{
+			int p,k;cin>>p>>k;
+			k=get(0,0,sz-1,k);
+			upd(0,0,sz-1,k,0,0);
+			
+			if(p==1){
+				++en;
+				upd(0,0,sz-1,en,1,temp);
+			}
+			else{
+				--st;
+				upd(0,0,sz-1,st,1,temp);
+			
+			}
+		}
+	}
+	
+	return 0;
+}
