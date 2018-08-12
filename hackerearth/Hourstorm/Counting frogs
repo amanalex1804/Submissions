@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,pair<int,int> >pi;
+int main(){
+	// ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int x,y,s,t;cin>>x>>y>>s>>t;
+	int x1=min(x,x+s); int x2=max(x,x+s);
+	int y1=min(y,y+s); int y2=max(y,y+s);
+	queue<pi>q;
+	q.push({t,{0,0}});
+	int ans=0;
+	map<pair<int,int>,bool>vis;
+	while(!q.empty()){
+		pi temp=q.front(); q.pop();
+		int xc=temp.second.first; int yc=temp.second.second; int val=temp.first;
+		if(vis[{xc,yc}]) continue;
+		vis[{xc,yc}]=true;
+		if(x1<=xc and xc<=x2 and y1<=yc and yc<=y2) ++ans;
+		if(val==0) continue;
+		--val;
+		q.push({val,{xc+1,yc}});
+		q.push({val,{xc,yc+1}});
+	}
+	cout<<ans;
+	return 0;
+}
