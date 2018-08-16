@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define loop(i,x,n) for(int i=x;i<n;i++)
+#define sf scanf
+#define pf printf
+#define ll long long int
+#define pb push_back
+int main()
+{
+    int t;
+    string s1,s2;
+    cin>>t;
+    while(t--)
+    {
+        cin>>s1>>s2;
+        int len1=s1.length(),len2=s2.length();
+        int n=0,m=0;
+        loop(i,0,len1)
+        if(s1[i]=='1')
+            n++;
+        loop(i,0,len2)
+        if(s2[i]=='1')
+            m++;
+        if(n==0||m==0)
+        {cout<<"0"<<endl;
+        continue;}
+        int ma=max(n,m);
+        vector<int> v;
+        ll carry=0,sum=0;
+        int mi=min(n,m);
+       // cout<<ma<<" "<<mi<<endl;
+        loop(i,1,mi)
+        {
+            sum=i+carry;
+            if(sum<9)
+            v.pb(sum),
+            carry=0;
+            else
+            v.pb(sum%10),
+            carry=sum/10;
+        }
+        //cout<<v.size()<<endl;
+        for(int i=1;i<=ma-mi+1;i++)
+        {
+                 sum=mi+carry;
+            if(sum<9)
+            v.pb(sum),
+            carry=0;
+            else
+            v.pb(sum%10),
+            carry=sum/10;
+        }
+        for(int i=mi-1;i>=1;i--)
+        {
+            sum=i+carry;
+            if(sum<9)
+            v.pb(sum),
+            carry=0;
+            else
+            v.pb(sum%10),
+            carry=sum/10;
+        }
+        while(carry>0)
+            v.pb(carry%10),
+            carry/=10;
+        int siz=v.size();
+        for(int i=siz-1;i>=0;i--)
+            cout<<v[i];
+        cout<<endl;
+    }
+    return 0;
+}
