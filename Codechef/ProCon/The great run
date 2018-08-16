@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		int n,k;cin>>n>>k;
+		int ans=0,sum=0;
+		int A[n+5];
+		for(int i=0;i<n;++i) cin>>A[i];
+		int i=0; deque<int>q;
+		while(i<n){
+			q.push_back(A[i]);
+			sum+=A[i];
+			int sz=q.size();
+			while(q.size()>k) {
+				sum-=q.front();
+				q.pop_front();
+			}
+			ans=max(ans,sum);
+			++i;
+		}
+		cout<<ans<<"\n";
+	}
+	
+	return 0;
+} 
