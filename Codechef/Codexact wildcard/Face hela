@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int n;cin>>n;
+	ll A[n+5];
+	for(int i=1;i<=n;++i) cin>>A[i];
+	int c0[n+5],cp[n+5],c1[n+1],c01[n+5],cn[n+5];
+	for(int i=0;i<n+4;++i)
+		c0[i]=0,cp[i]=0,c1[i]=0,cn[i]=0,c01[i]=0;
+	
+	for(int i=1;i<=n;++i){
+		if(A[i]>1) cp[i]=1;
+		else if(A[i]==0) c0[i]=1;
+		else if(A[i]==1) c1[i]=1;
+		else if(A[i]==-1) c01[i]=1;
+		else if(A[i]<-1) cn[i]=1;
+	}
+	
+	for(int i=1;i<=n;++i){
+		cp[i]+=cp[i-1];
+		c0[i]+=c0[i-1];
+		c1[i]+=c1[i-1];
+		cn[i]+=cn[i-1];
+		c01[i]+=c01[i-1];
+	}
+	int q;cin>>q;
+	while(q--){
+		int l,r;cin>>l>>r; --l;
+		int zer,pos,neg,on,non;
+		zer=c0[r]-c0[l];
+		pos=cp[r]-cp[l];
+		neg=cn[r]-cn[l];
+		on=c1[r]-c1[l];
+		non=c01[r]-c01[l];
+		if(pos>0){
+			if(neg&1){
+				if(non>0) cout<<(ll)(pos+neg+1)<<"\n";
+				else cout<<(ll)(pos+neg-1)<<"\n";
+			}
+			else cout<<(ll)(pos+neg)<<"\n";
+		}
+		else{
+			if(neg>0){
+				if(neg&1){
+					if(non>0) cout<<(ll)(neg+1)<<"\n";
+					else if(neg==1) cout<<"1\n";
+					else cout<<neg-1<<"\n";
+				}
+				else cout<<neg<<"\n";
+			}
+			else{
+				if(on>0) cout<<"1\n";
+				else if(non>1) cout<<"2\n";
+				else cout<<"1\n";
+			}
+		}
+		
+		
+	}
+	
+	return 0;
+}
