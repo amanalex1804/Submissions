@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+ll dp[20][2][165];
+ll add(ll x,ll y){
+	ll z=(x%mod)+(y%mod);
+	if(z>=mod) z-=mod;
+	return z;	
+}
+ll mul(ll x,ll y){
+	ll z=(x%mod)*(y%mod);
+	if(z>=mod) z%=mod;
+	return z;
+}
+ 
+ll fn(int ind,int tight,int sum,string s){
+	
+	if(sum<0) return 0;
+	if(ind>=(int)s.size()) return (sum==0);
+	if(dp[ind][tight][sum]!=-1) return dp[ind][tight][sum];
+	
+	int k=(tight)?(int)(s[ind]-'0'):9;
+	ll ret=0;
+	for(int i=0;i<=k;++i){
+		int newtight=(i==((int)s[ind]-'0'))?tight:0;
+		ret=add(ret,fn(ind+1,newtight,sum-i,s)%mod);
+	}
+	return dp[ind][tight][sum]=ret;
+}
+ 
+int main(){
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		string l,r;cin>>l>>r;
+		if(stoll(l)>stoll(r)) {      // stoll converts to integer
+			cout<<"0\n";
+			continue;
+		}
+		l=to_string(stoll(l)-1);
+		ll cntl[165],cntr[165];
+	    memset(dp,-1,sizeof(dp));
+		for(int i=0;i<=162;++i)
+			cntl[i]=fn(0,1,i,l)%mod;
+	
+        memset(dp,-1,sizeof(dp));
+		for(int i=0;i<=162;++i)
+			cntr[i]=fn(0,1,i,r)%mod;
+		
+		ll ans=0;
+		
+		for(int i=1;i<=162;++i){
+			if(__gcd(i,i)==1){
+				ll diff=(cntr[i]-cntl[i]+mod)%mod;
+			    ll temp=(diff*(diff-1))/2;
+			    ans=add(ans,temp);
+			}
+			for(int j=i+1;j<=162;++j){
+				if(__gcd(i,j)==1){
+					ll x=cntr[j]-cntl[j];
+					ll y=cntr[i]-cntl[i];
+					ans=add(ans,mul(x,y));					
+				}
+			}
+		}
+		cout<<ans%mod<<"\n";
+		
+		
+	}
+	
+	return 0;
+} 
