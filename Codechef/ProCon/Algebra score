@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll inf=-1e17;
+
+int main(){
+ ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		ll x; char y;
+		vector<ll>num;
+		vector<char>st;
+		for(int i=0;i<n;++i){
+			cin>>x;
+			num.push_back(x);
+			if(i!=n-1) {
+				cin>>y;
+				st.push_back(y);
+			}
+		}
+		int l=(int)num.size();
+		ll dp1[l+5][l+5],dp2[l+5][l+5];
+		for(int i=0;i<l;++i){
+			for(int j=0;j<l;++j){
+				dp1[i][j]=inf;
+				dp2[i][j]=-inf;
+				if(i==j) dp1[i][j]=dp2[i][i]=num[i];
+			}
+		}
+		
+		for(int L=2;L<=l;++L){
+			
+			for(int i=0;i<n-L+1;++i){
+				int j=i+L-1;
+				for(int k=i;k<j;++k){
+					ll mx=0,mn=0;
+					if(st[k]=='+') {
+					 mx=dp1[i][k]+dp1[k+1][j];
+					 mn=dp2[i][k]+dp2[k+1][j];
+				}
+					else if(st[k]=='-') {       /*see here */
+					mx=max(dp1[i][k]-dp1[k+1][j],dp1[i][k]-dp2[k+1][j]);
+					mn=dp2[i][k]-dp1[k+1][j];
+				}
+					dp1[i][j]=max(dp1[i][j],mx);
+					dp2[i][j]=min(dp2[i][j],mn);
+				}
+			}
+			
+		}
+	
+		cout<<dp1[0][l-1]<<"\n";
+	}
+	
+	return 0;
+}
