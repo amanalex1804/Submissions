@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	ll n,k;cin>>n>>k;
+	ll st,en,ans=0;
+	if(k>(n+n-1)) {
+		cout<<"0";return 0;
+	}
+	if(k&1){
+		ll st=k/2;
+		ll en=st+1;
+		if(en>n or st>n) ans=0;
+		else ans=min(st,n-en+1);
+	}
+	else{
+		ll st=k/2;
+		en=st+1;
+		st=st-1;
+		if(en>n or st>n or st<0 or en<0) ans=0;
+		else ans=min(st,n-en+1);
+	}
+	cout<<ans;
+	return 0;
+}
