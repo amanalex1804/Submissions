@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 200005
+int n,q;
+int seg[4*sz],A[sz],l,r,B[sz];
+void build(int node,int st,int en){
+	if(st==en){
+		seg[node]=B[st];
+		return ;
+	}
+	int mid=(st+en)/2;
+	build(2*node+1,st,mid);
+	build(2*node+2,mid+1,en);
+	seg[node]=min(seg[2*node+1],seg[2*node+2]);
+}
+int qry(int node,int st,int en){
+	
+	if(en<st or r<st or en<l) return 999999999;
+	if(l<=st and en<=r) return seg[node];
+	int mid=(st+en)/2;
+	return min(qry(2*node+1,st,mid),qry(2*node+2,mid+1,en));
+	
+}
+int main(){
+	cin>>n>>q;
+	
+	for(int i=0;i<n;++i) {
+	cin>>A[i];
+	B[i]=A[i];
+	if(!A[i]) B[i]=999999999;
+     }
+     build(0,0,n-1);
+
+     int vis[sz],cnt=0,pos=-1;
+     memset(vis,-1,sizeof(vis));
+     for(int i=0;i<n;++i){
+     	if(A[i]==0) {++cnt;pos=i;continue;}
+     	if(vis[A[i]]==-1){
+     		vis[A[i]]=i;
+     		continue;
+		 }
+		 l=vis[A[i]];r=i;
+		 int ret=qry(0,0,n-1);
+		 if(ret<A[i]){
+		 	cout<<"NO";
+		 	return 0;
+		 }
+		 vis[A[i]]=i;
+	 }
+	if(vis[q]==-1 and cnt==0){
+		cout<<"NO";
+		return 0;
+	}
+	bool flag=false;
+	
+	for(int i=0;i<n;++i){
+	
+		if(A[i]==0){
+			if(i-1>=0 and A[i-1]>0) A[i]=A[i-1];
+			else if(i+1<n and A[i+1]>0) A[i]=A[i+1];			
+		}
+	}
+	if(!flag and vis[q]==-1) A[pos]=q;
+	for(int i=n-1;i>=0;--i){
+		if(A[i]==0){
+			
+			if(i-1>=0 and A[i-1]>0) A[i]=A[i-1];
+			else if(i+1<n and A[i+1]>0) A[i]=A[i+1];	
+		}
+	}
+	cout<<"YES\n";
+	for(int i=0;i<n;++i) cout<<A[i]<<" ";
+	return 0;
+}
