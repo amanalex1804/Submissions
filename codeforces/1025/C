@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	string s;cin>>s;
+	int l=(int)s.size();
+	 int cnt=1;
+	 if(s[0]!=s[l-1]){
+	 	char x=s[0];
+	 	int i=1;
+	 	
+	 	while(i<l){
+	 		if(s[i]!=x){
+	 			++cnt;
+	 			x=s[i];
+			 }
+			 else break;
+			 ++i;
+		 }
+		 int j=l-2;
+		 x=s[l-1];
+		 ++cnt;
+		 while(j>=0){
+		 	if(s[j]!=x){
+		 		++cnt;
+		 		x=s[j];
+			 }
+			 else break;
+			 --j;
+		 }
+		 cnt=min(cnt,l);
+	}
+		 int ch=1,ans=1;
+		 for(int i=1;i<l;++i){
+		 	if(s[i]!=s[i-1]) ++ch;
+		 	else {
+		 		ans=max(ch,ans);
+		 		ch=1;
+			 }
+		 	
+		 }
+		 ans=max(ch,ans);
+		 cout<<max(ans,cnt);
+	 
+	 
+	
+	return 0;
+}
