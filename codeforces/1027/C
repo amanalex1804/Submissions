@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		int A[n+5];
+		for(int i=0;i<n;++i) cin>>A[i];
+		unordered_map<int,int>M;
+		vector<int>v;
+		int x=-1,y=-1;
+		for(int i=0;i<n;++i){
+			M[A[i]]+=1;
+			if(M[A[i]]==2) v.push_back(A[i]);
+			if(M[A[i]]>=4){
+				x=A[i]; y=A[i];
+				break;
+			}
+		}
+		if(x!=-1) {
+			cout<<x<<" "<<x<<" "<<x<<" "<<x<<"\n";
+			continue;
+		}
+		sort(v.begin(),v.end());
+		for(int i=1;i<(int)v.size();++i){
+			ll x1=v[i]; ll y1=v[i-1];
+			if(x==-1 or ((ll)(x1*y1*(x*x+y*y))>(ll)(x*y*(x1*x1+y1*y1)))){
+				x=x1;
+				y=y1;
+			}
+		}
+		cout<<x<<" "<<y<<" "<<x<<" "<<y<<"\n";
+			
+		
+	}
+	
+	return 0;
+}
