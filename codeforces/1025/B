@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int>pi;
+set<int>s;
+set<int>::iterator it;
+vector<pi>v; int n;
+inline void f1(int x){
+	
+	while(x%2==0){
+		s.insert(2);
+		x/=2;
+	}
+	for(int i=3;i<=sqrt(x);i+=2){
+		while(x%i==0){
+			s.insert(i);
+			x/=i;
+		}
+	}
+	if(x>1) s.insert(x);	
+}
+inline bool fn2(int s){
+	for(int i=1;i<n;++i)
+		if(v[i].first%s!=0 and v[i].second%s!=0) return false;
+	return true;
+}
+int main(){
+	
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	cin>>n;
+	
+	for(int i=0,x,y;i<n;++i){
+		cin>>x>>y;
+		v.push_back({x,y});
+	}
+	f1(v[0].first); f1(v[0].second);
+	
+	int ans=-1;
+	for(it=s.begin();it!=s.end();++it){
+		
+		bool flag=fn2(*it);
+		if(flag) {
+			ans=*it;
+			break;
+		}
+	}
+	cout<<ans;
+	
+	return 0;
+}
