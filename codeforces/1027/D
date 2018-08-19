@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 200005
+int n;
+vector<vector<int> >gr(sz,vector<int>());
+vector<vector<int> >rgr(sz,vector<int>());
+
+int cost[sz],ans;
+stack<int>st,nw;
+int vis[sz],comp[sz],mn[sz],ind=1,mnm=INT_MAX;
+bool flag=false;
+void dfs1(int src){
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i)
+	if(!vis[gr[src][i]]) dfs1(gr[src][i]);
+	st.push(src);
+}
+
+void dfs2(int src){
+	vis[src]=0;
+	for(int i=0;i<rgr[src].size();++i)
+	if(vis[rgr[src][i]]) dfs2(rgr[src][i]);
+	comp[src]=ind;
+	nw.push(src);
+	
+}
+void dfs3(int src){
+	vis[src]=1;
+	for(int i=0;i<gr[src].size();++i){
+		int ver=gr[src][i];
+		if(vis[ver]==1 and comp[ver]!=comp[src]) flag=true;
+		if(!vis[ver]) dfs3(ver);
+	}
+}
+int main(){
+	cin>>n;
+	gr.resize(n+5);
+	rgr.resize(n+5);
+	for(int i=1;i<=n;++i) cin>>cost[i];
+	for(int i=1,x;i<=n;++i){
+		cin>>x;
+		gr[i].push_back(x);
+		rgr[x].push_back(i);
+	}
+	for(int i=1;i<=n;++i)
+	if(!vis[i]) dfs1(i);
+
+    while(!st.empty()){
+    	int src=st.top(); st.pop();
+    	if(vis[src]==0) continue;
+    	dfs2(src);
+    	++ind;
+	}
+	for(int i=1;i<=n;++i){
+		int c=comp[i];
+		if(!mn[c]) mn[c]=cost[i];
+		else mn[c]=min(mn[c],cost[i]);
+	}
+	
+	while(!nw.empty()){
+		int i=nw.top(); nw.pop();
+		flag=false;
+		if(!vis[i]){
+			dfs3(i);
+			if(!flag) ans+=mn[comp[i]];
+		}
+	}
+	
+	cout<<ans;
+	
+	return 0;
+}
