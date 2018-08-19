@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	ll n,q;cin>>n>>q;
+	while(q--){
+		ll l,r;cin>>l>>r;
+		ll sum=(l+r);
+		if(n&1){
+			ll ind=0;
+			if(sum%2==0){
+				if(l&1){
+				ind+=((((n+1)/2)+(n/2))*((l-1)/2));
+				
+				ind+=(r+1)/2;
+				cout<<ind<<"\n";
+			}
+			else{
+				
+				ind+=((((n+1)/2)+(n/2))*(l/2));
+					
+				ind-=(n/2-r/2);
+			
+				cout<<ind<<"\n";
+			}
+			}
+			else{
+				ll h=(n*n)/2;
+				++h;
+				if(l&1){
+					ind+=((((n+1)/2)+(n/2))*((l-1)/2));
+					ind+=(r/2);
+					cout<<(ind+h)<<"\n";
+				}
+				else{
+					ind+=((((n+1)/2)+(n/2))*(l/2));
+					ind-=(n/2-r/2);
+					cout<<(ind+h)<<"\n";
+				}
+			}
+			
+		}
+		else{
+			ll ind=0;
+			if(sum%2==0){
+				ind+=(l*(n/2));
+				if(r&1) 
+					ind-=((n/2)-((r+1)/2));
+				else ind-=((n/2)-(r/2));
+				cout<<ind<<"\n";
+			}
+			else{
+				ind+=(l*(n/2));
+				if(r&1) ind-=((n/2)-((r+1)/2));
+				else ind-=((n/2)-(r/2));
+			
+				cout<<ind+((n/2)*(n))<<"\n";
+			}
+		}
+	}
+	
+	
+	return 0;
+}
