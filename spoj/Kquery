@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+#define sz 30005
+typedef pair<ll,pair<int,pair<int,int> > >pi;
+ll bit[sz],A[sz];int n;
+
+inline void upd(int ind){
+	
+	while(ind<=n){
+		bit[ind]+=1;
+		ind+=(ind&(-ind));
+	}
+}
+inline int qrr(int ind){
+	int ret=0;
+	while(ind>0){
+		ret+=bit[ind];
+		ind-=(ind&(-ind));
+	}
+	return ret;
+}
+int main(){
+	 ios_base::sync_with_stdio(false); cin.tie(NULL);
+	cin>>n;
+	for(int i=0;i<n;++i) cin>>A[i];
+	
+	pair<ll,int> B[n+5];
+	for(int i=0;i<n;++i) { B[i].first=A[i];B[i].second=i+1;	}
+	
+	int q;cin>>q;
+	pi qry[q+5];
+	for(int i=0,l,r,k;i<q;++i){
+		cin>>l>>r>>k;
+		qry[i].first=k;
+		qry[i].second.first=l;
+		qry[i].second.second.first=r;
+		qry[i].second.second.second=i;
+	}
+	int ans[q+5];
+	sort(B,B+n);
+	sort(qry,qry+q);
+	int j=n-1;
+	for(int i=q-1;i>=0;--i){
+		ll val=qry[i].first;
+		while(B[j].first>val and j>=0){
+			upd(B[j].second);
+			--j;
+		}
+		int l=qry[i].second.first;
+		int r=qry[i].second.second.first;
+		int ind=qry[i].second.second.second;
+		int st=qrr(l-1);
+		int en=qrr(r);
+		ans[ind]=en-st;
+		
+	}
+	for(int i=0;i<q;++i) cout<<ans[i]<<"\n";
+	
+	return 0;
+}
