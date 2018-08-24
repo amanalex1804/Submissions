@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+typedef pair<ll,ll>pi;
+int main(){
+	// ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		vector<pi>v;
+		for(int i=0,x,y;i<n;++i){
+			cin>>x>>y;
+		    v.push_back({y,x});
+		}
+		priority_queue<pi>Q;
+		sort(v.begin(),v.end());
+		int ans=1;
+	
+		for(int i=0;i<n;++i){
+			
+				ll y=v[i].first;
+				ll x=v[i].second;
+			int sz=(int)Q.size();
+			if(!sz) 
+				Q.push({(-1)*x,y});
+			
+			else{
+				while(!Q.empty()){
+					pi temp=Q.top(); 
+					ll x1=(-1)*temp.first;
+					ll y1=temp.second;
+					if(y>=x1) Q.pop();
+					
+				     else break;
+				}
+				Q.push({(-1)*x,y});
+				ans=max(ans,(int)Q.size());
+			}
+		}
+		ans=max(ans,(int)Q.size());
+		cout<<ans<<"\n";
+	}
+	
+	
+	return 0;
+}
