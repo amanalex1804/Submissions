@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n,m;cin>>n>>m;
+	char A[n+5][m+5];
+	int x=-1,y,l;
+	for(int i=1;i<=n;++i)
+	for(int j=1;j<=m;++j)
+	cin>>A[i][j];
+	
+	for(int i=1;i<=n and x==-1;++i){
+		for(int j=1;j<=m;++j){
+			if(A[i][j]=='B'){
+				x=i; y=j;
+				l=0;
+				for(int k=j;k<=m;++k)
+				if(A[i][k]=='B') ++l;
+				break;
+			}
+		}
+	}
+	l=l/2;
+	cout<<x+l<<" "<<y+l;
+	
+	return 0;
+}
