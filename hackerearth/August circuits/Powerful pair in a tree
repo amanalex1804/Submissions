@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+vector<int>gr[sz],v[sz];
+int tim=1;
+int st[sz],en[sz],val[sz];
+vector<int>temp,po;
+inline void dfs(int src,int par){
+	st[src]=tim++;
+	temp.push_back(val[src]);
+	for(int i=0;i<(int)gr[src].size();++i){
+		int ver=gr[src][i];
+		if(ver!=par) dfs(ver,src);
+	}
+	en[src]=tim-1;
+}
+int main(){
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int n;cin>>n;
+	po.push_back(1);
+	while(po.back()<=100000)
+		po.push_back(po.back()*2);
+	po.pop_back();	
+	
+	for(int i=1;i<=n;++i) cin>>val[i];
+	for(int i=0,y,x;i<n-1;++i) {
+		cin>>x>>y;
+		gr[x].push_back(y);
+		gr[y].push_back(x);		
+	}
+	temp.push_back(-1);
+	dfs(1,0);
+	for(int i=1;i<=n;++i) v[temp[i]].push_back(i);
+	
+	int q;cin>>q;
+	while(q--){
+		int x,y;cin>>x>>y;
+		
+		int mx,mn;
+		if((en[x]-st[x])<(en[y]-st[y])) mx=y,mn=x;
+		else mx=x,mn=y;
+	
+			int ans=0;
+			
+			for(int i=st[mn];i<=en[mn];++i){
+	                int v1=temp[i];
+	                
+	                for(int j=0;j<(int)po.size();++j){
+	                	int v2=(v1^po[j]);
+	                	ans+=(upper_bound(v[v2].begin(),v[v2].end(),en[mx])-lower_bound(v[v2].begin(),v[v2].end(),st[mx]));
+	                	
+					}
+		
+		}
+		cout<<ans<<"\n";
+	}
+	
+	return 0;
+}
