@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main(){
+     ios_base::sync_with_stdio(false);cin.tie(NULL);
+     
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+             
+        int A[n+5],sm[n+5];sm[0]=0;
+        for(int i=1;i<=n;++i) cin>>A[i];
+         
+        for(int i=1;i<=n;++i) sm[i]=(sm[i-1]^A[i]);
+         
+        int q;cin>>q;
+        while(q--){
+            int k;cin>>k;
+            int ans=0;
+            int M[100005]; memset(M,0,sizeof(M)); M[0]=1;
+            for(int i=1;i<=n;++i){
+                int val=(k^sm[i]);
+                ans+=M[val];
+                M[sm[i]]+=1;
+            }
+            cout<<ans<<"\n";
+        }
+    }
+     
+     
+    return 0;
+}
