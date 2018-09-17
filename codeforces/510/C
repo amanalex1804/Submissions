@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int s;cin>>s;
+	vector<pair<int,int> >p,n,z;
+	for(int i=0,x;i<s;++i){
+		cin>>x;
+		if(x>0) p.push_back({x,i+1});
+		if(x<0) n.push_back({x,i+1});
+		if(x==0) z.push_back({x,i+1});
+	}
+	for(int i=(int)z.size()-1;i>0;--i){
+		cout<<"1 "<<z[i].second<<" "<<z[0].second<<"\n";
+	}
+	sort(n.begin(),n.end());
+	int sz=(int)n.size();
+	if(sz&1) {
+		if((int)z.size()>0) {cout<<"1 "<<n.back().second<<" "<<z[0].second<<"\n";}
+		else cout<<"2 "<<n.back().second<<"\n";
+		n.pop_back();
+	}
+	if(z.size()>0){
+		if((int)p.size()>0 or (int)n.size()>0)
+	   cout<<"2 "<<z[0].second<<"\n";
+	
+	   
+	   
+	   }
+	if((int)n.size()>0){
+	
+		for(int i=(int)n.size()-1;i>0;--i) cout<<"1 "<<n[i].second<<" "<<n[0].second<<"\n";
+	
+		if((int)p.size()>0) cout<<"1 "<<n[0].second<<" "<<p[0].second<<"\n";
+	}
+	
+	for(int i=(int)p.size()-1;i>0;--i) cout<<"1 "<<p[i].second<<" "<<p[0].second<<"\n";
+	
+	
+	
+	
+	return 0;
+}
