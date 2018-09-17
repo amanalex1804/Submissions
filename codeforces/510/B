@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n;cin>>n;
+	vector<int>v1,v2,v3,v4,v5,v6,v7;
+	v1.push_back(999999);
+	v2.push_back(999999);
+	v3.push_back(999999);v4.push_back(999999);
+	v5.push_back(999999);
+	v6.push_back(999999);
+	v7.push_back(999999);
+	while(n--){
+		int v;string s;
+		cin>>v>>s;
+		int l=(int)s.size();
+		bool A=false,B=false,C=false;
+		for(int i=0;i<l;++i){
+			if(s[i]=='A') A=true;
+			if(s[i]=='B') B=true;
+			if(s[i]=='C') C=true;
+		}
+		if(A and B and C) v7.push_back(v);
+		else if(A and C) v6.push_back(v);
+		else if(A and B) v4.push_back(v);
+		else if(B and C) v5.push_back(v);
+		else if(C) v3.push_back(v);
+	    else if(B) v2.push_back(v);
+	    else if(A) v1.push_back(v);
+	}
+	sort(v1.begin(),v1.end());
+	sort(v2.begin(),v2.end());
+	sort(v3.begin(),v3.end());
+	sort(v4.begin(),v4.end());
+	sort(v5.begin(),v5.end());
+	sort(v6.begin(),v6.end());
+	sort(v7.begin(),v7.end());
+	
+	int ans=999999;
+	ans=min(ans,v7[0]);
+	
+	ans=min(ans,min(v6[0]+v2[0],min(v6[0]+v4[0],v6[0]+v5[0])));
+	ans=min(ans,min(v5[0]+v1[0],min(v5[0]+v4[0],v5[0]+v6[0])));
+	ans=min(ans,min(v4[0]+v3[0],min(v4[0]+v6[0],v4[0]+v5[0])));
+	ans=min(ans,v1[0]+v2[0]+v3[0]);
+	if(ans==999999) ans=-1;
+	cout<<ans;
+	
+	return 0;
+}
