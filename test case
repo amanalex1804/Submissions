@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	freopen("in9.txt","w",stdout);
+	srand(time(NULL));
+	long int n=100000;
+	for(long int i=1;i<=n;++i){
+		int x=rand()%26;
+		char c='a'+x;
+		cout<<c;
+	}
+	cout<<"\n";
+	long int q=100000;
+	cout<<q<<"\n";
+	while(q--){
+		int x=rand()%2;
+		cout<<x<<" ";
+		if(x==0){
+			long int l=rand()%(n+1);
+			if(l==0)
+				l++;
+			long int r=rand()%(n+1);
+			if(r==0)
+				r++;
+			if(l>r)
+				swap(l,r);
+			int c=rand()%26;
+			char y='a'+c;
+			cout<< l<<" "<<r<<" "<<y<<"\n";
+		}
+		else{
+			long int k=rand()%(n+1);
+			if(k==0)
+				k++;
+			int c=rand()%26;
+			char y='a'+c;
+			cout<<k<<" "<<y<<"\n";
+		}
+	}
+	return 0;
+}
