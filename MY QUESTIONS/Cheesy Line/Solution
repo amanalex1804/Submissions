@@ -1,0 +1,88 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 10000001
+int dp[sz];
+inline void pre(){
+	dp[0]=1;
+	for(int i=1;i<sz;++i){
+		if(!(i&(i+1))) {
+			dp[i]=0;
+			continue;
+		}
+		int mid=i/2;
+		int ans=dp[mid];
+		mid++;
+		ans+=dp[i-mid];
+		dp[i]=ans;
+	}
+	
+}
+int main(){
+	
+	// check for values l=r
+	
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	pre();
+	
+	
+	int t;cin>>t;
+	while(t--){
+		
+		ll l,r;cin>>l>>r;
+		r-=l;l=0;
+		if(r<sz) {
+			cout<<dp[r]<<"\n";
+			continue;
+		}
+	    if((r&(r+1))==0){
+	    	cout<<0<<"\n"; 
+	    	continue;
+		}
+		
+		queue<ll>q;
+		map<ll,ll>M;
+		q.push(r);
+		map<ll,bool>vis;
+		int ans=0;
+		M[r]=1; 
+		while(!q.empty()){
+						
+			int szi=(int)q.size();
+			
+			while(szi--){
+				
+				ll temp=q.front(); q.pop();
+				
+				//cout<<temp<<endl;
+				
+				if((temp&(temp+1))==0)  { continue;		}
+				
+				if(temp<sz) {ans+=(ll)(M[temp]*dp[temp]); continue;}
+			    
+				ll mid=temp/2;
+				
+				if(!vis[mid]) q.push(mid),vis[mid]=true;
+				
+				
+				 M[mid]+=M[temp];
+				
+				int val=M[temp];
+				++mid;
+				
+				temp-=mid;
+				
+				if(!vis[temp]) q.push(temp),vis[temp]=true;
+				
+				 M[temp]+=val;
+				
+				
+			}
+			
+		}
+		cout<<ans<<"\n";
+	}
+	
+	
+	return 0;
+}
