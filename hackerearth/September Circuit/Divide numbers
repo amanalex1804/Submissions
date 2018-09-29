@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 40005
+bool p[sz];
+typedef long long int ll;
+int main(){
+ // ios_base::sync_with_stdio(false);cin.tie(NULL);
+ 
+ for(int i=4;i<sz;i+=2) p[i]=true;
+ for(int i=3;i*i<=sz;i+=2){
+ 	if(!p[i]) 
+ 	 for(int j=i*i;j<sz;j+=(2*i)) p[j]=true;
+ }	
+	
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+	//	cout<<n<<" --> ";
+		if(n&1) cout<<-1<<"\n";
+		else if(!p[n]) cout<<-1<<"\n";
+		else if(n%4==0) {
+			ll ans=1;
+			ans*=(n/4);
+			ans*=(n/4);
+			ans*=(n/4);
+			ans*=(n/4);
+			cout<<ans<<"\n";
+		}
+		else if(n%6==0) {
+					ll ans=1;
+			ans*=(n/6);
+			ans*=(n/6);
+			ans*=(n/3);
+			ans*=(n/3);
+			cout<<ans<<"\n";
+		}
+		else if(n>10 and !p[n/2]) cout<<-1<<"\n";
+		else{
+  	        if(n%10==0){
+  	        	int x=n-((n/2)+(n/10));
+  	        	if(x%2) {
+  	        		cout<<-1<<"\n";
+  	        		continue;
+				  }
+				  x/=2;
+				  if(n%x){
+				  	cout<<-1<<"\n";
+				  	continue;
+				  }
+				  ll ans=1;
+				  ans*=(n/2);
+				  ans*=(n/10);
+				  ans*=x;
+				  ans*=x;
+				  cout<<ans<<"\n";
+			  }
+			  else cout<<-1<<"\n";
+		}
+	}
+	return 0;
+}
