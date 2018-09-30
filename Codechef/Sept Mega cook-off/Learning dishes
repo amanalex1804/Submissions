@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1000005
+vector<int>gr[sz];
+int par[sz][25];
+int dp[sz],n,val[sz],vis[sz],change[sz];
+inline void reset(){
+		for(int i=0;i<n+5;++i){
+			gr[i].clear();
+			change[i]=0;
+			dp[i]=0;
+			val[i]=0;
+			vis[i]=0;
+			for(int j=0;j<23;++j) par[i][j]=0;
+			par[i][0]=i;
+		}	
+}
+void dfs(int src,int parent){
+	par[src][1]=parent;
+	vis[src]=1;
+	if(parent) {
+		if(val[src]>dp[parent]){
+			dp[src]=val[src];
+			change[src]=change[parent]+1;
+		}
+		else{
+			change[src]=change[parent];
+			dp[src]=dp[parent];
+		}
+		
+	}
+	for(int i=0;i<(int)gr[src].size();++i){
+		int ver=gr[src][i];
+		if(vis[ver]) continue;
+		dfs(ver,src);
+	}
+}
+int main(){
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		cin>>n;
+		reset();
+		for(int i=1;i<=n;++i) cin>>val[i];
+		for(int i=2,x;i<=n;++i){
+			cin>>x;
+			gr[x].push_back(i);
+			gr[i].push_back(x);
+		}
+		change[1]=1;
+		dp[1]=val[1];
+		dfs(1,0);
+		
+		for(int i=1;i<=n;++i)
+		for(int j=2;j<23;++j)
+		par[i][j]=par[par[i][j-1]][j-1];
+				
+			
+		int q;cin>>q;
+		int prev=0;
+		while(q--){
+			int v,w;cin>>v>>w;
+             
+			v=(v^prev);
+			w=(w^prev);
+				if(w<dp[1]){
+				
+				cout<<change[v]<<"\n";
+				prev=change[v];
+				continue;
+			}
+			if(w>=dp[v]){
+				
+				cout<<0<<"\n";
+				prev=0;
+				continue;
+			}
+			int ver=v,src;
+			for(int i=22;i>=0;--i){
+				 src=par[ver][i];
+				
+				if(dp[src]>w){
+					ver=par[ver][i];
+					
+				}
+				
+			}
+			
+			prev=change[v]-change[ver]+1;
+            cout<<prev<<"\n";
+			
+		
+			
+		}
+			  
+		
+	}
+	
+	
+	return 0;
+}
