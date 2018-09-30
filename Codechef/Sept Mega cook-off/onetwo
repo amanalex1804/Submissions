@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	// ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		int sum=0,n;cin>>n;
+		int cnt1=0,cnt2=0; int A[n+5];
+		for(int i=0;i<n;++i) {
+			cin>>A[i];
+			sum+=A[i];
+			if(A[i]==2) ++cnt2;
+			else ++cnt1;
+		}
+		if(cnt2==n) {
+			cout<<n<<"\n";
+			continue;
+		}
+		
+		if(A[0]==2){
+			bool flag=true;
+			
+			for(int i=0;i<n;i+=2){
+				if(A[i]!=2){
+					flag=false;
+					break;
+				}
+			}
+			
+			for(int i=1;i<n;i+=2){
+				if(A[i]!=1){
+					flag=false;
+					break;
+				}
+			}
+			
+			if(flag) {
+				cout<<sum-1<<"\n";
+				continue;
+			}
+			
+			int temp=cnt2;
+		    flag=false;
+			for(int i=0;i<n and A[i]==2;++i) --temp,flag=true;
+			if(flag){
+				flag=false;
+			for(int i=n-1;i>=0 and A[i]==2;--i) --temp,flag=true;
+			if(temp==0 and flag==true){
+				cout<<sum-1<<"\n";
+				continue;
+			}
+			
+		}
+			
+		}
+		cout<<sum<<"\n";
+		
+		
+	}
+	
+	
+	return 0;
+}
