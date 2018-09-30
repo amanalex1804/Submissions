@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		long int A[n+5];
+		unordered_map<long int,int>M;
+		
+		unordered_map<long int,int>::iterator it;
+		
+		for(int i=0;i<n;++i) cin>>A[i],M[A[i]]+=1;
+		long int ans=0;
+		for(it=M.begin();it!=M.end();++it){
+			pair<long int ,int>temp=*it;
+			if(temp.first>n) ans+=temp.second;
+			else ans+=temp.second-1;
+		}
+		cout<<ans<<"\n";
+		
+	}
+	
+	
+	return 0;
+}
