@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mm(X,V) memset(X,V,sizeof(X))
+typedef long long int ll;
+int dp[301][301][301][4];
+
+inline int fn(int cnt1,int cnt2,int cnt3,int sum){
+	
+	if(cnt1==0 and cnt2==0 and cnt3==0) return 0;
+	
+	if(dp[cnt1][cnt2][cnt3][sum]!=-1) return dp[cnt1][cnt2][cnt3][sum];
+	int ret=0;
+	
+	if(cnt1>0 and ((sum+1)%4)!=2 and fn(cnt1-1,cnt2,cnt3,(sum+1)%4)==0) ret=1;
+	if(cnt2>0 and ((sum+2)%4)!=2 and fn(cnt1,cnt2-1,cnt3,(sum+2)%4)==0) ret=1;
+	if(cnt3>0 and ((sum+3)%4)!=2 and fn(cnt1,cnt2,cnt3-1,(sum+3)%4)==0) ret=1;
+	
+	return dp[cnt1][cnt2][cnt3][sum]=ret;
+	
+}
+int main(){
+	
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int t;cin>>t;
+	mm(dp,-1);
+	while(t--){
+		int freq[5];
+		mm(freq,0);
+		int n;cin>>n;
+		ll x;
+		
+		for(int i=0;i<n;++i) cin>>x,freq[x%4]+=1;
+		
+		int ret=fn(freq[1],freq[2],freq[3],0);
+    
+		if(freq[0]%2==1) ret^=1;
+		if(ret==1) cout<<"Ghayeeth\n";
+		else cout<<"Siroj\n";
+	}
+	
+	
+	return 0;
+}
