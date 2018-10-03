@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int li;
+typedef long long int ll;
+#define sz 1000003
+ll seg[4*sz][2],lazy[4*sz][2];
+
+li n,tim=0;
+vector<pair<li,li> >gr[sz];
+li sub[sz],s[sz],e[sz],idx[sz],wt[sz];
+
+void dfs(li src,li par){
+	s[src]=++tim;
+	sub[src]=1;
+	for(int i=0;i<(int)gr[src].size();++i){
+		li ver=gr[src][i].first;
+		if(ver==par) continue;
+		li ind=gr[src][i].second;
+		idx[ind]=ver;
+		dfs(ver,src);
+	}
+	sub[par]+=sub[src];
+	e[src]=tim;
+}
+void dfs1(li src,li par,ll dow,ll upi){
+	seg[s[src]][0]=dow;
+	seg[s[src]][1]=upi;
+//	cout<<" ojk "<<s[src]<<" "<<src<<" "<<par<<" "<<dow<<" "<<upi<<endl;
+	for(int i=0;i<(int)gr[src].size();++i){
+		li ver=gr[src][i].first;
+		if(ver==par) continue;
+		li ind=gr[src][i].second;
+		ll t1=wt[ind]*(n-sub[ver]);
+		t1+=dow;
+		ll t2=wt[ind]*sub[ver];
+		t2+=upi;
+		dfs1(ver,src,t1,t2);
+	}
+}
+ void fn(li node,li st,li en,int typ){
+	if(st==en){
+		seg[st][typ]+=lazy[node][typ];
+		lazy[node][typ]=0;
+		return;
+	}
+	li mid=(st+en)/2;
+	lazy[2*node][typ]+=lazy[node][typ];
+	lazy[2*node+1][typ]+=lazy[node][typ];
+	lazy[node][typ]=0;
+	return;
+}
+void upd(li node,li st,li en,li l, li r,ll val,int typ){
+	if(lazy[node][typ]) fn(node,st,en,typ);
+	if(r<st or en<l) return;
+	if(l<=st and en<=r){
+		lazy[node][typ]+=val;
+		return;
+	}
+	li mid=(st+en)/2;
+	upd(2*node,st,mid,l,r,val,typ);
+	upd(2*node+1,mid+1,en,l,r,val,typ);
+	
+}
+ll qry(li node,li st,li en,li ind,li typ){
+	if(lazy[node][typ]) fn(node,st,en,typ);
+	if(st==ind and ind==en) return seg[ind][typ];
+	li mid=(st+en)/2;
+    if(ind<=mid) return qry(2*node,st,mid,ind,typ);
+    else return qry(2*node+1,mid+1,en,ind,typ);
+}
+int main(){
+	
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	cin>>n;
+	li x,y;
+	for(int i=1;i<n;++i){
+		cin>>x>>y>>wt[i];
+		gr[x].push_back({y,i});
+		gr[y].push_back({x,i});
+	}
+	
+	dfs(1,0);
+	dfs1(1,1,0,0);
+	
+	ll sum=0;
+	for(int i=1;i<n;++i){
+		sum+=(wt[i]*sub[idx[i]]);
+	}
+//	cout<<" ok "<<sum<<endl;
+	int q;cin>>q;
+	while(q--){
+		int typ;cin>>typ;
+		if(typ==1){
+			cin>>x;
+			ll ret1=qry(1,1,n,s[x],0);
+			ll ret2=qry(1,1,n,s[x],1);
+		//	cout<<" qry "<<ret1<<" "<<ret2<<endl;
+			ret2=(sum-ret2)+ret1;
+			cout<<ret2<<"\n";
+		}
+		else{
+			cin>>x>>y;
+			ll diff=y-wt[x];
+			sum-=wt[x]*(sub[idx[x]]);
+			sum+=y*sub[idx[x]];
+			wt[x]=y;
+			upd(1,1,n,s[idx[x]],e[idx[x]],diff*(n-sub[idx[x]]),0);
+			upd(1,1,n,s[idx[x]],e[idx[x]],diff*sub[idx[x]],1);
+			
+		}
+	}
+	
+	
+	
+	
+	return 0;
+}
