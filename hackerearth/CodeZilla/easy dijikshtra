@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		ll x1,y1,x2,y2,a,b;cin>>x1>>y1>>x2>>y2>>a>>b;
+		x2-=x1; y2-=y1;
+		x1=0; y1=0;
+		x2=abs(x2); y2=abs(y2);
+		ll cr=abs(min(x2,y2));
+		
+		ll ans=0;
+		
+		ll l1=(ll)2*cr;
+		l1*=a;
+				
+		ans=min((ll)cr*b,l1);
+		
+		ll diff1=abs(cr-x2);
+		ll diff2=abs(cr-y2);
+		
+		if(diff1){
+			
+			ll rem1=(diff1%2);
+			ll t1=diff1-(rem1);
+			ans+=(ll)t1*min(a,b);
+			if(rem1) ans+=a;
+			
+		}
+		else if(diff2){
+			ll rem2=(diff2%2);
+			ll t2=diff2-(rem2);
+			ans+=(ll)t2*min(a,b);
+			if(rem2) ans+=a;
+		}
+		
+		cout<<ans<<"\n";
+		
+	}
+	
+	
+	return 0;
+}
