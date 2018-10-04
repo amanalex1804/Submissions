@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+priority_queue<long long int>l,r;
+
+int main(){
+	int n;cin>>n;
+	long long int x,y,ans=n;
+	for(int i=0;i<n;++i){
+		cin>>x>>y;
+		l.push(x);
+		r.push(y);
+	}
+	while(!l.empty()){
+		long long int l1=l.top(); l.pop();
+		long long int r1=r.top(); r.pop();
+		ans+=max(l1,r1);
+	}
+	cout<<ans;
+	
+	return 0;
+}
