@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int freq[12];
+
+int main(){
+	int n;cin>>n;
+	string s; cin>>s;
+	int l=(int)s.size();
+	long int cnt8=0,oth=0;
+	for(int i=0;i<l;++i){
+		if(s[i]=='8') ++cnt8;
+		else ++oth;
+	}
+	
+	long int ans=0;
+	while(cnt8>0 and oth>=10){
+		if(cnt8>0 and oth>=10) {
+			++ans;
+			--cnt8;
+			oth-=10;
+		}
+	} 
+	if(cnt8==0){
+		cout<<ans;
+		return 0;
+	}
+	
+	while(cnt8>0){
+		--cnt8;
+		if(cnt8>=10-oth){
+			cnt8-=(10-oth);
+			++ans;
+			oth=0;
+		}
+		else{
+			break;
+		}
+	}
+	 
+	cout<<ans;
+	
+	return 0;
+}
