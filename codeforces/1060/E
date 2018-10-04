@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+#define sz 200005
+int parent[sz];
+vector<ll>gr[sz];
+
+long long sub[sz],n;
+long long int cnto=0,cnte=0,all=0;
+
+void dfs(ll src,ll par,int lv){
+	if(lv&1) ++cnto;
+	else ++cnte;
+	sub[src]=1;
+	for(int i=0;i<(int)gr[src].size();++i){
+		ll ver=gr[src][i];
+		if(ver==par) continue;
+		dfs(ver,src,lv^1);
+	}
+	sub[par]+=sub[src];
+	if(par) all+=((n-sub[src])*sub[src]);
+}
+int main(){
+	cin>>n;
+	ll x,y;
+	for(int i=1;i<n;++i){
+		cin>>x>>y;
+		gr[x].push_back(y);
+		gr[y].push_back(x);
+		
+	}
+
+	dfs(1,0,0);
+	long long int odd=(long long int)(cnto*cnte);
+	long long int ans=(all+odd)/2;
+	cout<<ans;
+	return 0;
+}
