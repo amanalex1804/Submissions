@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+
+typedef long int ll;
+typedef pair<int,ll>pi;
+vector<pi>gr[sz];
+int par[sz][25],lv[sz]; ll dp[sz][25];
+void dfs(int src,int parent){
+	//<<src<<" "<<parent<<endl;
+    par[src][0]=parent;
+    lv[src]=lv[parent]+1;
+   for(int i=0;i<(int)gr[src].size();++i){
+   	pi temp=gr[src][i];
+   	if(temp.first==parent) continue;
+   	dp[temp.first][0]=temp.second;
+   	dfs(temp.first,src);
+   }
+	
+}
+int main(){
+       ios_base::sync_with_stdio(false);cin.tie(NULL);
+	  int t;cin>>t;
+	  while(t--){
+	  	int n,q;
+	  	cin>>n>>q;
+	  	
+	  	for(int i=0;i<n+5;++i)
+	  		for(int j=0;j<24;++j) dp[i][j]=9000000009,par[i][j]=0;
+		  
+		 for(int i=0;i<n+5;++i) gr[i].clear();
+		 int x,y;ll wt;
+		 for(int i=1;i<n;++i){
+		 	cin>>x>>y>>wt;
+		 	gr[x].push_back({y,wt});
+		 	gr[y].push_back({x,wt});
+		 }
+		 
+		 dfs(1,0); 
+		
+		 for(int i=1;i<=n;++i){
+		 	for(int j=1;j<21;++j){
+		 		par[i][j]=par[par[i][j-1]][j-1];
+		 		dp[i][j]=min(dp[i][j-1],dp[par[i][j-1]][j-1]);
+			 }
+		 }
+		
+		 
+		 while(q--){
+		 	cin>>x>>y>>wt;
+		 	int lv1=lv[x]; 
+		 	int lv2=lv[y];
+		 	
+		 	if(lv1>lv2) swap(x,y);
+		 	int diff=abs(lv2-lv1);
+		 
+		 	//<<" here "<<diff<<endl;
+		 	for(int i=20;i>=0;--i){
+		 		if((1<<i)&diff){
+		 			wt=min(wt,dp[y][i]);
+		 			y=par[y][i];
+				 }
+			 
+			 }
+			 //<<" now "<<x<<" "<<y<<endl;
+			 if(x!=y){
+			 	
+			 	for(int i=20;i>=0;--i){
+			 		if(par[x][i]!=par[y][i]){
+			 			wt=min(wt,min(dp[x][i],dp[y][i]));
+			 			x=par[x][i];
+			 			y=par[y][i];
+					 }
+				 }
+			 	wt=min(wt,min(dp[x][0],dp[y][0]));
+			 }
+				
+			 cout<<wt<<"\n";
+		 }
+		 
+	  }	
+	
+	return 0;
+}
