@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 200005
+vector<int>gr[sz];
+vector<int>fact;
+int val[sz],ans[sz],g[sz],w[sz]; bool flag=false;
+int M[sz],lv[sz];
+void dfs0(int src,int par,int ret){
+   
+	lv[src]=lv[par]+1;
+  for(int i=0;i<(int)gr[src].size();++i){
+  	int ver=gr[src][i];
+  	if(ver==par) continue;
+  	int x=__gcd(ret,val[ver]);
+  	ans[ver]=max(ans[ver],x);
+  	dfs0(ver,src,x);
+  }
+}
+
+void dfs(int src,int par,int ft,int cnt){
+	
+	if(cnt>=lv[src]-1) ans[src]=max(ans[src],ft);
+	else return;
+	
+	for(int i=0;i<(int)gr[src].size();++i){
+		int ver=gr[src][i];
+		if(ver==par) continue;
+		if(val[ver]%ft==0) dfs(ver,src,ft,cnt+1);
+		else dfs(ver,src,ft,cnt);
+	}
+	
+}
+
+int main(){
+	
+	int n;cin>>n;
+	for(int i=1;i<=n;++i) cin>>val[i];
+	for(int i=1,x,y;i<n;++i){
+		cin>>x>>y;
+		gr[x].push_back(y);
+		gr[y].push_back(x);
+	}
+    ans[1]=val[1];
+    
+    dfs0(1,0,0);
+ 	
+ 	for(int i=val[1];i>=1;--i)
+ 	if(val[1]%i==0) 
+ 	fact.push_back(i);
+
+	for(int i=fact.size()-1;i>=0;--i){
+		dfs(1,0,fact[i],1);
+	}
+	for(int i=1;i<=n;++i) cout<<ans[i]<<" ";
+	
+	return 0;
+}
