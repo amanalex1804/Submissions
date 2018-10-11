@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	double r,d,x,y,z;cin>>r>>d;
+	d=r-d;
+	int n;cin>>n;
+	int ans=0;
+	for(int i=0;i<n;++i){
+		cin>>x>>y>>z;
+		long double dis=(long double)(x*x)+(y*y);
+		dis=sqrt(dis);
+		if(d<=dis and dis<=r){
+			if(d<=dis-z and dis-z<=r){
+				if(d<=dis+z and dis+z<=r) ++ans;
+			}
+		}
+		
+	}
+	cout<<ans;
+	
+	return 0;
+}
