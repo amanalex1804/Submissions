@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int ln=21;
+const int sz=1<<20;
+bool use[sz];
+int n,m;
+struct node{
+	 node *left;
+	 node *right;
+	 node(){
+	 	left=right=nullptr;
+	 }
+};
+
+node *head=nullptr;
+node *ins(node *root,int val,int bit){
+	if(root==nullptr) root=new node();
+	
+	if(bit>=0){
+	if((1<<bit)&val) root->left= ins(root->left,val,bit-1);
+	else root->right= ins(root->right,val,bit-1);
+     }
+return root;
+	
+}
+int qry(node *root,int val,int bit){
+	if(root==nullptr or bit==-1) return 0;
+	if(((1<<bit)&val)==0){
+		if(root->right!=nullptr) return qry(root->right,val,bit-1);
+		return (1<<bit)|qry(root->left,val,bit-1);
+	}
+	if(root->left!=nullptr) return qry(root->left,val,bit-1);
+	return (1<<bit)|qry(root->right,val,bit-1);
+}
+int main(){
+	cin>>n>>m;
+	for(int i=1,x;i<=n;++i) cin>>x,use[x]=true;
+	
+	for(int i=0;i<=sz;++i){
+		if(!use[i]) head=ins(head,i,ln);
+	}
+	
+	int cum=0;
+	for(int i=0,x;i<m;++i){
+		cin>>x;
+		cum=(x^cum);
+		cout<<qry(head,cum,ln)<<"\n";
+	}
+	return 0;
+}
