@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	ll l,r,x,y,k;cin>>l>>r>>x>>y>>k;
+	for(ll i=x;i<=y;++i){
+		long long int ch=i*k;
+		if(l<=ch and ch<=r){
+			cout<<"YES";
+			return 0;
+		}
+	}
+	cout<<"NO";
+
+	return 0;
+}
