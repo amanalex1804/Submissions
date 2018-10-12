@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	int t;cin>>t;
+	while(t--){
+		ll s,a,b,c;
+		cin>>s>>a>>b>>c;
+		ll tof=s/c;
+		ll ans=0;
+		ll sz=(tof/a);
+		ans+=sz;
+		ans+=(sz*b);
+		ans+=(tof-sz);
+		cout<<ans<<"\n";
+	}
+	
+	return 0;
+}
