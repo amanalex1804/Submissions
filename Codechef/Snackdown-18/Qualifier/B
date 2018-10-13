@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 205
+bool p[sz];
+vector<int>fact;
+int main(){
+	p[1]=true;
+	p[0]=true;
+	for(int i=4;i<sz;i+=2) p[i]=true;
+	for(int i=3;i<sz;i+=2)
+		if(!p[i]) for(int j=2*i;j<sz;j+=i) p[j]=true;
+		
+    for(int i=2;i<sz;++i){
+    	if(!p[i]){
+    		int x=i;
+    		for(int j=i+1;j<sz;++j){
+    			if(!p[j]){
+    				int y=j;
+    				fact.push_back(x*y);
+				}
+			}
+		}
+	}		
+	sort(fact.begin(),fact.end());
+	
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		bool flag=false;
+		int szi=(int)fact.size();
+		for(int i=0;i<szi;++i){
+			int x=n-fact[i];
+
+			if(x<=0) break;
+			int ind=lower_bound(fact.begin(),fact.end(),x)-fact.begin();
+			if(ind<szi and fact[ind]==x){
+				//cout<<fact[i]<<" "<<x<<endl;
+				cout<<"YES\n";
+				flag=true;
+				break;
+			}
+		}
+		if(!flag) cout<<"NO\n";
+		
+	}
+	
+	return 0;
+}
