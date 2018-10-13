@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int freq[100005];
+vector<int>gr[10005];
+bool use[10005];
+vector<int>heat;
+int main(){
+	
+	int n,r;cin>>n>>r;
+	for(int i=1,x;i<=n;++i){
+		cin>>x;
+		if(x==1){
+			heat.push_back(i);
+	
+	}
+	}
+	
+
+	
+	for(int i=0;i<(int)heat.size();++i){
+		int x=heat[i]-r+1;
+		int y=heat[i]+r-1;
+		if(x<=0) x=0;
+		if(y>n) y=n;
+		for(int j=x;j<=y;++j) gr[j].push_back(heat[i]);
+	}
+	
+	int ans=0;
+	for(int i=1;i<=n;++i){
+		if(gr[i].size()==0) {
+			ans=-1;
+			break;
+		}
+		if(gr[i].size()==1){
+			if(use[gr[i][0]]) continue;
+			use[gr[i][0]]=true;
+			ans++;
+		}
+		bool ch=false;
+		for(int j=0;j<gr[i].size();++j){
+			int ver=gr[i][j];
+			if(use[ver]==true) {ch=true;break;}
+			
+		}
+		if(!ch) {
+			int ver=gr[i].back();
+			++ans;
+			use[ver]=true;
+		}
+	}
+	cout<<ans;
+	
+	return 0;
+}
