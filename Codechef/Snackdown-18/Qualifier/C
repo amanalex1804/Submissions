@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+
+int main(){
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		int A[n+5];
+		A[0]=0;
+		for(int i=1;i<=n;++i) cin>>A[i];
+		ll last=0;int ans=0;
+		ll cum[n+5]; cum[0]=0;
+		for(int i=1;i<=n;++i) cum[i]=(A[i]+cum[i-1]);
+		
+		int i=1;
+		ll sum=0;
+	//	for(int i=1;i<=n;++i) cout<<cum[i]<<" ";cout<<endl;
+		while(i<n and sum<n){
+			sum+=cum[i];
+			i+=(cum[i]);
+			++ans;
+		}
+		
+		cout<<ans<<"\n";
+	}
+	
+	
+	return 0;
+}
