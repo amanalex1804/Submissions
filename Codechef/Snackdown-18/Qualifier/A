@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long int ll;
+
+int main(){
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;cin>>t;
+	while(t--){
+		int n,k;cin>>n>>k;
+		ll S[n+5];
+		for(int i=1;i<=n;++i) cin>>S[i];
+		sort(S+1,S+n+1,greater<ll>());
+		ll val=S[k];
+		int ans=0;
+		for(int i=1;i<=n;++i){
+			if(S[i]>=val){
+				++ans;
+				continue;
+			}
+			break;
+		}
+		
+		cout<<ans<<"\n";
+	}
+	
+	
+	return 0;
+}
