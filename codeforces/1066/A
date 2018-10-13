@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+   int t;cin>>t;
+   while(t--){	
+	ll L,v,l,r;
+      cin>>L>>v>>l>>r;
+	  ll tr=L/v;
+	  ll t1=l/v;
+	  ll t2=r/v;
+	  ll diff=t2-t1;
+	  if(l%v==0) ++diff;
+	  tr-=diff;
+	  cout<<tr<<"\n";  
+}
+	
+	return 0;
+}
