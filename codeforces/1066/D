@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+	int n,m;ll k;cin>>n>>m>>k;
+	ll ans=0;
+	ll sum=0;
+	ll val[n+5];
+	for(int i=0;i<n;++i) cin>>val[i];
+	for(int i=n-1;i>=0 and m>0;--i){
+		if(sum+val[i]<=k){
+			++ans;
+			sum+=val[i];
+			continue;
+		}
+        if(m>1 and val[i]<=k){
+        	sum=val[i];
+        	--m;
+        	++ans;
+        	continue;
+		}
+		break;
+	}
+	cout<<ans;
+	
+	return 0;
+}
