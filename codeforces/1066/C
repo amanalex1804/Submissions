@@ -1,0 +1,93 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int sz=200005;
+typedef long long int ll;
+
+int seg[4*sz][2],lazy[4*sz][2];
+typedef pair<char,int>pi;
+// ty=0 left
+
+void pr(int node,int st,int en){
+	cout<<seg[node][0]<<" "<<seg[node][1]<<" "<<st<<" "<<en<<endl;
+	cout<<lazy[node][0]<<" "<<lazy[node][1]<<" "<<st<<" "<<en<<endl;
+	cout<<"--\n";
+	if(st==en) return;
+	int mid=(st+en)/2;
+	pr(2*node,st,mid);
+	pr(2*node+1,mid+1,en);
+}
+void upd(int node,int st,int en,int l,int r,int typ,int val){
+	if(lazy[node][typ]){
+		seg[node][typ]+=lazy[node][typ];
+		if(st!=en){
+			lazy[2*node][typ]+=lazy[node][typ];
+			lazy[2*node+1][typ]+=lazy[node][typ];
+		}
+		lazy[node][typ]=0;
+	}
+	if(r<st or en<l or l>r) return;
+	if(l<=st and en<=r){
+		seg[node][typ]+=val;
+		if(st!=en){
+			lazy[2*node][typ]+=val;
+			lazy[2*node+1][typ]+=val;
+		}
+		return;
+	}
+	int mid=(st+en)/2;
+	upd(2*node,st,mid,l,r,typ,val);
+	upd(2*node+1,mid+1,en,l,r,typ,val);
+	seg[node][typ]=seg[2*node][typ]+seg[2*node+1][typ];
+}
+int qry(int node,int st,int en,int ind,int typ){
+	if(lazy[node][typ]){
+		seg[node][typ]+=lazy[node][typ];
+		if(st!=en){
+			lazy[2*node][typ]+=lazy[node][typ];
+			lazy[2*node+1][typ]+=lazy[node][typ];
+		}
+		lazy[node][typ]=0;
+	}
+
+	if(st==en) return seg[node][typ];
+	int mid=(st+en)/2;
+	int r1=0,r2=0;
+	if(ind<=mid) r1=qry(2*node,st,mid,ind,typ);
+	else  r2=qry(2*node+1,mid+1,en,ind,typ);
+	return (r1+r2);
+	
+	
+}
+
+int main(){
+	
+	int q,x;cin>>q;
+	char c;
+	int cnt=0;
+	int idx[sz];
+	for(int i=1;i<=q;++i){
+		cin>>c>>x;
+		if(c=='L'){
+			++cnt;
+			idx[x]=cnt;
+			upd(1,1,q,1,cnt-1,0,1);
+			upd(1,1,q,cnt,cnt,1,cnt-1);
+			//pr(1,1,q);
+		}
+		else if(c=='R'){
+			++cnt;
+			idx[x]=cnt;
+			upd(1,1,q,1,cnt-1,1,1);
+			upd(1,1,q,cnt,cnt,0,cnt-1);
+			//pr(1,1,q);
+		}
+		else if(c=='?'){
+			int r1=qry(1,1,q,idx[x],0);
+			int r2=qry(1,1,q,idx[x],1);
+			cout<<min(r1,r2)<<"\n";
+		}
+	}
+	
+	
+	return 0;
+}
