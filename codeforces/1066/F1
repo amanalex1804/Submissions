@@ -1,0 +1,72 @@
+
+ #include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef long int li;
+typedef pair<li,li> pi;
+
+bool cmp(const pi &x,const pi &y){
+//	cout<<" ok\n"<<x.first<<" "<<x.second<<endl;
+	if(x.first==y.first) return x.second>y.second;
+	return x.first<y.first;
+}
+int main(){
+	int n;cin>>n;
+	pi p[n+5];
+    ll maxn=999999999999999999LL;
+	vector<pi>gr[n+5];
+	map<li,vector<pi> >M;
+	map<li,vector<pi> >::iterator it;
+	for(int i=0,x,y;i<n;++i){
+		cin>>x>>y;
+		M[max(x,y)].push_back({x,y});	
+	}	
+	ll d[n+5];
+    int lv=0,last=-1;
+    d[lv]=0;
+    gr[lv].push_back({0,0});
+    gr[lv].push_back({0,0});
+    int i=0;
+    int sz=M.size();
+	ll dp[sz+2][2];
+	for(int i=0;i<sz+1;++i)
+	for(int j=0;j<=1;++j)
+	dp[i][j]=maxn;
+	
+	
+	
+	
+	for(it=M.begin();it!=M.end();++it){
+		pair<li,vector<pi> >temp=*it;
+		sort(temp.second.begin(),temp.second.end(),cmp);
+		++lv;
+		d[lv]=0;
+		for(int i=1;i<(int)temp.second.size();++i){
+			d[lv]+=abs(temp.second[i].first-temp.second[i-1].first)+abs(temp.second[i].second-temp.second[i-1].second);
+		}
+		gr[lv].push_back(temp.second[0]);
+		gr[lv].push_back(temp.second.back());
+		
+	}
+	
+	dp[0][0]=0;
+	dp[0][1]=0;
+	for(int i=1;i<=lv;++i){
+		
+		ll dis=d[i];
+	 //cout<<" ok "<<dis<<endl;
+			pi prev1=gr[i-1][0];
+			pi prev2=gr[i-1][1];
+			//cout<<prev1.first<<" "<<prev1.second<<" "<<prev2.first<<" "<<prev2.second<<endl;
+			dp[i][0]=min(dp[i][0],dp[i-1][0]+abs(prev1.first-gr[i].back().first)+abs(prev1.second-gr[i].back().second)+dis);
+			dp[i][0]=min(dp[i][0],dp[i-1][1]+abs(prev2.first-gr[i].back().first)+abs(prev2.second-gr[i].back().second)+dis);
+			dp[i][1]=min(dp[i][1],dp[i-1][0]+abs(prev1.first-gr[i][0].first)+abs(prev1.second-gr[i][0].second)+dis);
+			dp[i][1]=min(dp[i][1],dp[i-1][1]+abs(prev2.first-gr[i][0].first)+abs(prev2.second-gr[i][0].second)+dis);
+		
+	}
+	cout<<min(dp[lv][0],dp[lv][1]);
+	
+	
+	
+	return 0;
+}
