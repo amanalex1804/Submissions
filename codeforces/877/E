@@ -1,0 +1,98 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 200005
+int seg[4*sz],lazy[4*sz],s[sz],e[sz],tim=0,val[sz];
+vector<int>gr[sz];
+void dfs(int src,int par){
+	++tim;
+	s[src]=tim;
+	for(int i=0;i<(int)gr[src].size();++i){
+		int ver=gr[src][i];
+		if(ver==par) continue;
+		dfs(ver,src);
+	}
+	e[src]=tim;
+}
+void build(int node,int st,int en){
+	if(st==en){
+		seg[node]=val[st];
+		return ;
+	}
+	int mid=(st+en)/2;
+	build(2*node,st,mid);
+	build(2*node+1,mid+1,en);
+	seg[node]=seg[2*node]+seg[2*node+1];
+}
+void upd(int node,int st,int en,int l,int r){
+	if(lazy[node]){
+		seg[node]=(en-st+1)-seg[node];
+		if(st!=en){
+			lazy[2*node]^=1;
+			lazy[2*node+1]^=1;
+		}
+		lazy[node]=0;	
+	}
+	if(r<st or en<l) return ;
+	if(l<=st and en<=r){
+		seg[node]=(en-st+1)-seg[node];
+		if(st!=en){
+			lazy[2*node]^=1;
+			lazy[2*node+1]^=1;
+		}
+		return;
+	}
+	int mid=(st+en)/2;
+	upd(2*node,st,mid,l,r);
+	upd(2*node+1,mid+1,en,l,r);
+	seg[node]=seg[2*node]+seg[2*node+1];
+	
+}
+int qry(int node,int st,int en,int l,int r){
+	if(lazy[node]){
+		seg[node]=(en-st+1)-seg[node];
+		if(st!=en){
+			lazy[2*node]^=1;
+			lazy[2*node+1]^=1;
+		}
+		lazy[node]=0;	
+	}
+	if(r<st or en<l) return 0;
+	if(l<=st and en<=r) return seg[node];
+	int mid=(st+en)/2;
+	int r1=0,r2=0;
+	r1=qry(2*node,st,mid,l,r);
+	r2=qry(2*node+1,mid+1,en,l,r);
+	return (r1+r2);
+	
+	
+}
+int main(){
+	int n;cin>>n;
+	for(int i=2,x;i<=n;++i){
+		cin>>x;
+		gr[x].push_back(i);
+		gr[i].push_back(x);
+	}
+	dfs(1,0);
+	for(int i=1,x;i<=n;++i){
+		cin>>x;
+		val[s[i]]=x;
+	}
+	//for(int i=1;i<=n;++i) cout<<s[i]<<" "<<e[i]<<endl;
+	build(1,1,tim);
+	int q;cin>>q;
+	while(q--){
+		string temp;cin>>temp;
+		if(temp=="pow"){
+			int x;
+			cin>>x;
+			upd(1,1,tim,s[x],e[x]);
+		}
+		else{
+			int x;
+			cin>>x;
+			cout<<qry(1,1,tim,s[x],e[x])<<"\n";
+		}
+	}
+	return 0;
+}
