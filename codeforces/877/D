@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int maxm=999999;
+int dx[]={-1,1,0,0};
+int dy[]={0,0,1,-1};
+bool vis[1005][1005];
+typedef pair<int,pair<int,int> >pi;
+int main(){
+	int n,m,k;cin>>n>>m>>k;
+	char ch; int A[n+5][m+5];
+	for(int i=1;i<=n;++i){
+		for(int j=1;j<=m;++j){
+			cin>>ch;
+			if(ch=='#') A[i][j]=-1;
+			else A[i][j]=maxm;
+		}
+	}
+	int x1,y1,x2,y2;cin>>x1>>y1>>x2>>y2;
+	if(x1==x2 and y1==y2){
+		cout<<0;
+		return 0;
+	}
+	A[x1][y1]=0;
+	queue<pair<int,int> >Q;
+	Q.push({x1,y1});
+	while(!Q.empty()){
+		int x=Q.front().first;
+		int y=Q.front().second;
+		Q.pop();
+		vis[x][y]=true;
+		int br=0;
+		for(int i=x+1;i<=n and br<k;++i){
+			if(A[i][y]==-1 or A[i][y]<A[x][y]+1) break;
+			if(!vis[i][y]){
+				A[i][y]=A[x][y]+1;
+				Q.push({i,y});
+				vis[i][y]=true;
+			}
+			br++;
+		}
+		br=0;
+		
+		for(int i=x-1;i>=1 and br<k;--i){
+			if(A[i][y]==-1 or A[i][y]<A[x][y]+1) break;
+			if(!vis[i][y]){
+				A[i][y]=A[x][y]+1;
+				Q.push({i,y});
+				vis[i][y]=true;
+			}
+			br++;
+		}
+		
+		br=0;
+		
+		for(int i=y+1;i<=m and br<k; ++i){
+			if(A[x][i]==-1 or A[x][i]<A[x][y]+1) break;
+			if(!vis[x][i]){
+				A[x][i]=A[x][y]+1;
+				Q.push({x,i});
+				vis[x][i]=true;
+			}
+			br++;
+		}
+		
+		br=0;
+		
+			for(int i=y-1;i>=1 and br<k; --i){
+			if(A[x][i]==-1 or A[x][i]<A[x][y]+1) break;
+			if(!vis[x][i]){
+				A[x][i]=A[x][y]+1;
+				Q.push({x,i});
+				vis[x][i]=true;
+			}
+			br++;
+		}
+		
+		
+	}
+	if(A[x2][y2]==maxm) A[x2][y2]=-1;
+cout<<A[x2][y2];
+	
+	return 0;}
