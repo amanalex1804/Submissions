@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	string s;cin>>s;
+	int l=(int)s.size();
+	int prea[l+5],preb[l+5];
+	memset(prea,0,sizeof(prea));
+	memset(preb,0,sizeof(preb));
+	for(int i=1;i<=l;++i){
+		prea[i]=prea[i-1]+((s[i-1]=='a')?1:0);
+		preb[i]=preb[i-1]+((s[i-1]=='b')?1:0);
+	}
+	if(prea[l]==l or preb[l]==l){
+		cout<<l;
+		return 0;
+	}
+	int ans=0;
+	for(int i=1;i<=l;++i){
+		for(int j=i;j<=l;++j){
+			int temp=(prea[l]-prea[j-1])+(prea[i])+(preb[j]-preb[i-1]);
+			ans=max(ans,temp);
+		}
+	}
+	cout<<ans;
+	return 0;
+}
