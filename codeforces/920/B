@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef  pair<int,int>P;
+typedef unsigned long long int ull;
+
+#define mm(xx) memset(xx,0,sizeof(xx))
+#define pb push_back
+#define scl2(xx,uu) scanf("%lld%lld",&xx,&uu)
+#define SYNC ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scd(xx) scanf("%d",&xx)
+#define scd2(xx,uu) scanf("%d%d",&xx,&uu)
+#define rep(xx,uu,ee) for(xx=uu;xx<ee;++xx)
+
+//  int dx[]={1,0,-1,0};int dy[]={0,1,0,-1};                           //4 directions
+//  int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};      //8 directions
+//  int dx[]={2,1,-1,-2,-2,-1,1,2}; int dy[]={1,2,2,1,-1,-2,-2,-1};       //knight's move
+//  int dx[]={-1,-1,0,1,1,1,0}; int dy[]={-1,1,2,1,-1,-2};                //hexagonally move
+
+#define SIZ 4000001
+#define INF 999999
+
+#define T int t;for(scanf("%d",&t);t--;)
+#define mod 1000000007
+#define scl(xx) scanf("%lld",&xx)
+
+
+
+int main()
+{
+	int n,i,ti;
+T{
+scd(n);
+int arrival[n+5],wait[n+5],ans[n+5];
+rep(i,1,n+1) 
+scd2(arrival[i],wait[i]);
+
+ti=arrival[1]+1;
+ans[1]=arrival[1];
+for(i=2;i<=n;++i)
+{
+	if(ti<arrival[i]) ti+=(arrival[i]-ti);
+	if(arrival[i]<=ti and ti<=wait[i])
+	{
+		ans[i]=ti;++ti;
+	}
+	else ans[i]=0;
+}
+
+rep(i,1,n+1) cout<<ans[i]<<" ";
+cout<<endl;
+
+}
+
+
+
+
+
+
+
+
+    return 0;
+}
