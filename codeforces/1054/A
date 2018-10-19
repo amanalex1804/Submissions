@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	long int x,y,z,t1,t2,t3;
+	cin>>x>>y>>z>>t1>>t2>>t3;
+	long int el=0;
+	long int st=abs(y-x)*t1;
+	el+=abs(z-x)*t2;
+	el+=(3*t3);
+	el+=abs(y-x)*t2;
+	//cout<<st<<" "<<el<<endl;
+	if(el<=st) {
+		cout<<"YES";
+		return 0;
+	}
+	cout<<"NO";
+	
+	return 0;
+}
