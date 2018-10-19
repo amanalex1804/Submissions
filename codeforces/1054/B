@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	int n;cin>>n;
+	long int A[n+5];
+	
+	bool flag=false;
+	for(int i=0;i<n;++i) cin>>A[i];
+	if(A[0]){
+		cout<<"1";
+		return 0;
+	}
+	map<long int,bool>vis;
+	map<long int,bool>mex;
+	vis[0]=true;
+	mex[0]=true;
+    for(int i=1;i<n;++i){
+    	if(vis[A[i]]) continue;
+    	if(A[i]>i){
+    		cout<<i+1;
+    		return 0;
+		}
+		if(mex[A[i]-1]){
+			mex[A[i]]=true;
+			vis[A[i]]=true;
+			continue;
+		}
+		cout<<i+1;
+		return 0;
+		
+		
+	}
+	cout<<"-1";
+    
+	
+	
+	
+	return 0;
+}
