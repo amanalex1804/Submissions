@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	// ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		map<string,long double>M;
+		int n;cin>>n;
+		char last='0';
+		string s;
+		long double ans=0;
+		while(n--){
+			cin>>s;
+			if(M[s]){
+				ans+=(1.0)*(M[s]/2);
+				continue;
+			}
+			last='0';
+			int l=(int)s.size();
+			long double temp=0.0;
+			for(int i=0;i<l;++i){
+				    char curr;
+					if(s[i]=='d' or s[i]=='f') curr='l';
+					else curr='r';
+			    	if(!i){
+					temp+=0.2;
+					if(s[i]=='d' or s[i]=='f') last='l';
+					else last='r';
+					continue;
+				    }
+				    if(curr==last) temp+=0.4;
+				    else temp+=0.2,last=curr;
+			    
+			}
+			M[s]=temp;
+			ans+=temp;
+		}
+		cout<<(ll)(ans*(10.0))<<"\n";
+	}
+	
+	
+	return 0;
+}
