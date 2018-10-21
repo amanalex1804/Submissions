@@ -1,0 +1,147 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cop[105][105];
+int main(){
+	
+	for(int i=2;i<=50;++i)
+	for(int j=2;j<=50;++j)
+	if(__gcd(i,j)==1)
+	cop[i][j]=1,cop[j][i]=1;
+	
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		int A[n+5];
+		for(int i=1;i<=n;++i) cin>>A[i];
+		
+		vector<int>gr[55];
+		int ind=1;
+		int pos[n+5];
+		for(int i=1;i<=n;++i){
+			int idx=-1,mx=-1;
+			for(int j=1;j<i;++j){
+				if(cop[A[i]][A[j]]==1){
+					int p1=(int)gr[pos[j]].size();
+					if(p1>mx){
+						mx=p1;
+						idx=pos[j];
+					}
+				}
+			}
+			if(idx==-1){
+				gr[ind].push_back(i);
+				pos[i]=ind;
+				++ind;
+			}
+			else{
+				gr[idx].push_back(i);
+				pos[i]=idx;
+			}
+		}
+		
+		vector<int>v;
+		int mx=-1,idx=-1;
+		for(int i=1;i<ind;++i){
+			if((int)gr[i].size()>mx){
+				idx=i;
+				mx=(int)gr[i].size();
+			}
+		}
+		
+		for(int i=0;i<(int)gr[idx].size();++i) v.push_back(gr[idx][i]);
+		bool vis[55];
+		memset(vis,false,sizeof(vis));
+		vis[idx]=true;
+		for(int i=1;i<ind;++i){
+			if(i==idx) continue;
+			bool flag=false;
+			for(int j=0;j<(int)gr[i].size() and flag==false;++j){
+				int x=A[gr[i][j]];
+			
+				for(int k=0;k<(int)gr[idx].size();++k){
+					int y=A[gr[idx][k]];
+					if(cop[x][y]==1){
+						flag=true;
+						vis[i]=true;
+						
+						for(int f=0;f<(int)gr[i].size();++f) v.push_back(gr[i][f]);
+						break;
+					}
+				}
+			}
+		}
+		vector<int>left;
+		for(int i=1;i<ind;++i){
+			if(vis[i]) continue;
+			bool flag=false;
+			for(int j=0;j<(int)gr[i].size() and flag==false;++j){
+				int x=A[gr[i][j]];
+				
+				for(int k=0;k<(int)v.size();++k){
+					int y=A[v[k]];
+					if(cop[x][y]==1){
+						flag=true;
+						vis[i]=true;
+						
+						for(int f=0;f<(int)gr[i].size();++f) v.push_back(gr[i][f]);
+						break;
+					}
+				}
+			}
+			if(!flag) {
+						for(int f=0;f<(int)gr[i].size();++f) left.push_back(gr[i][f]);
+			}
+		}
+		
+		if((int)left.size()==0){
+			cout<<0<<"\n";
+			for(int i=1;i<=n;++i) cout<<A[i]<<" ";
+			cout<<"\n";
+			continue;
+		}
+		int szi=(int)left.size();
+		int sz=(int)v.size();
+		for(int i=2;i<=50;++i){
+			int cnt=0,pos=-1;
+			for(int j=0;j<szi;++j){
+				int x=A[left[j]];
+				if(cop[x][i]==1){
+					++cnt;
+				}
+				else{
+					pos=left[j];
+				}
+			}
+			if(cnt>=szi-1){
+				bool flag=false;
+				for(int j=0;j<sz;++j){
+					if(cop[A[v[j]]][i]==1){
+						flag=true;
+						break;
+					}
+				}
+				if(flag==true){
+					if(cnt==szi){
+					//	cout<<" ok "<<i<<endl;
+						A[left[0]]=i;
+					}
+					else{
+						//cout<<" hello "<<left[pos]<<" "<<i<<" "<<pos<<endl;
+						A[pos]=i;
+						
+					}
+					cout<<1<<"\n";
+					for(int i=1;i<=n;++i) cout<<A[i]<<" ";
+						cout<<"\n";
+						break;
+					
+				}
+				
+			}
+		}
+		
+	}
+	
+	
+	return 0;
+}
