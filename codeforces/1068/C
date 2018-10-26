@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long int
+int main(){
+	ll n,m;
+	cin>>n>>m;
+	ll ind=0;
+	vector<pair<ll,ll> >v[n+5];
+	for(int i=1;i<=n;++i) v[i].push_back({i,i});
+	ind=n+1;
+	for(int i=1,x,y;i<=m;++i){
+		cin>>x>>y;
+		v[x].push_back({x,ind});
+		v[y].push_back({y,ind});
+		++ind;
+	}
+	for(int i=1;i<=n;++i){
+		cout<<(int)v[i].size()<<"\n";
+		for(int j=0;j<(int)v[i].size();++j) cout<<v[i][j].first<<" "<<v[i][j].second<<"\n";
+	}
+	return 0;
+}
