@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	ll n,m,k,l;
+	cin>>n>>m>>k>>l;
+   ll diff=n-k;
+   if(k+l>n or m>n){
+   	cout<<"-1\n";
+   	return 0;
+   }
+   ll need=(l+k)/m;
+   if((l+k)%m) ++need;
+   if((need*m)>n) need=-1;
+   
+   cout<<need;
+   
+	
+	return 0;
+}
