@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+int ans[1005][30];
+int main(){
+	
+	int tt;cin>>tt;
+	string s;
+	cin>>s;
+	s="0"+s;
+	int l=(int)s.size();
+	for(int i=1;i<l;++i){
+		int ch=s[i]-'a'+1;
+		ans[i][ch]=1;
+	}
+	
+	for(int i=1;i<l;++i){
+		for(int j=1;j<=26;++j){
+			ans[i][j]+=ans[i-1][j];
+		}
+	}
+	bool flag=false;
+	int x=-1,y;
+	for(int i=1;i<l and flag==false;++i){
+		
+		for(int j=1;j<=i;++j){
+			int len=i-j+1;
+			bool d=false;
+			for(int k=1;k<=26;++k){
+				if((ans[i][k]-ans[j-1][k])>(len/2)) { d=true;break;}
+			}
+			if(d==false){
+				flag=true;
+				x=j;
+				//cout<<" yo "<<j<<" "<<i<<endl;
+				y=len;
+				break;
+			}
+		}
+	}
+	if(x==-1){
+		cout<<"NO";
+		return 0;
+	}
+	cout<<"YES\n";
+	cout<<s.substr(x,y);
+	
+	return 0;
+}
