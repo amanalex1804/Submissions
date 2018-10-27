@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int dx1[]={0,0,1,1};
+int dy1[]={0,1,1,0};
+int dx2[]={0,-1,-1,0};
+int dy2[]={0,0,1,1};
+int dx3[]={0,-1,-1,0};
+int dy3[]={0,0,-1,-1};
+
+int dx4[]={0,1,1,0};
+int dy4[]={0,0,-1,-1};
+
+int main(){
+	
+	int t;cin>>t;
+	while(t--){
+		
+		int n,m;cin>>n>>m;
+		char A[n+5][m+5];
+		vector<pair<int,int> >v;
+		for(int i=1;i<=n;++i)
+		for(int j=1;j<=m;++j)
+		cin>>A[i][j];
+	//	if(A[i][j]=='#') v.push_back({i,j});}}
+		
+		bool flag=true;
+		
+		for(int i=1;i<=n and flag==true;++i){
+			for(int j=1;j<=m and flag==true;++j){
+				
+				if(A[i][j]=='.'){
+					
+					int cnt=0;
+					int don1=1;
+					for(int k=0;k<4;++k){
+						int x1=i+dx1[k];
+						int y1=j+dy1[k];
+						//cout<<" yo "<<x1<<" "<<y1<<endl;
+			     	    if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+			     	    	++cnt;
+					    if(A[x1][y1]=='#'){
+						don1=0;
+						break;
+					   }
+				     }
+						
+					}
+					if(cnt<4) don1=0;//cout<<"ok";
+					cnt=0;
+					int don2=1;
+					for(int k=0;k<4;++k){
+						int x1=i+dx2[k];
+						int y1=j+dy2[k];
+						//cout<<" why "<<x1<<" "<<y1<<endl;
+			     	    if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+			     	    	++cnt;
+					    if(A[x1][y1]=='#'){
+						don2=0;
+						break;
+					   }
+				     }
+						
+					}
+					
+					if(cnt<4) don2=0;
+					cnt=0;
+					int don3=1;
+					for(int k=0;k<4;++k){
+						int x1=i+dx3[k];
+						int y1=j+dy3[k];
+			     	    if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+			     	    	++cnt;
+					    if(A[x1][y1]=='#'){
+						don3=0;
+						break;
+					   }
+				     }
+						
+					}
+					
+					if(cnt<4) don3=0;
+					cnt=0;
+					int don4=1;
+					for(int k=0;k<4;++k){
+						int x1=i+dx4[k];
+						int y1=j+dy4[k];
+			     	    if(1<=x1 and x1<=n and 1<=y1 and y1<=m){
+			     	    	++cnt;
+					    if(A[x1][y1]=='#'){
+						don4=0;
+						break;
+					   }
+				     }
+						
+					}
+					
+					if(cnt<4) don4=0;
+					cnt=0;
+					int ret=(don1|don2|don3|don4);
+					if(!ret) flag=false;
+					
+				}
+				
+				
+			}
+		}
+		if(flag) cout<<"YES\n";
+		else cout<<"NO\n";
+		
+		
+	}
+
+	
+	
+	return 0;
+}
