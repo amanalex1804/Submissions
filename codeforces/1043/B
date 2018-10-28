@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n;cin>>n;
+	int A[n+5],cum[n+5];A[0]=0;
+	for(int i=0;i<n;++i) cin>>A[i];
+	for(int i=0;i<n;++i){
+		cum[i]=A[i];
+		if(i) cum[i]-=A[i-1];
+	}
+	bool flag=false;
+	vector<int>en;
+	for(int k=1;k<=n and flag==false;++k){
+		
+		vector<int>v;
+		bool don=true;
+		map<int,bool>vis;
+		for(int i=0;i<n;++i){
+			int ind=i%k;
+			if(!vis[ind]) v.push_back(cum[ind]),vis[ind]=true;
+			else{
+				if(v[ind]!=cum[i]){
+					don=false;
+					break;
+				}
+			}
+		}
+		if(don==true){
+			
+			en.push_back(k);
+		}
+		
+		
+	}
+	cout<<(int)en.size()<<"\n";
+	for(int i=0;i<(int)en.size();++i) cout<<en[i]<<" ";
+	
+	return 0;
+}
