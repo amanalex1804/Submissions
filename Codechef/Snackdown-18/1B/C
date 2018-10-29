@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+
+int main(){
+	
+	int t;cin>>t;
+	while(t--){
+		ll n,m,k,l;cin>>n>>m>>k>>l;
+		ll A[n+5]; A[0]=0;
+		for(int i=0;i<n;++i) cin>>A[i];
+		sort(A,A+n);
+		ll mx=999999999999;
+		ll tim=m*l;
+		for(int i=0;i<n;++i){
+			ll temp=tim+((i+1)*l)-A[i];
+			if(mx>temp) mx=temp;
+		}
+		
+			ll temp=tim+((n+1)*l)-k;
+			if(mx>temp) mx=temp;
+		cout<<mx<<"\n";
+		
+		
+		
+		
+	}
+	
+	
+	return 0;
+}
