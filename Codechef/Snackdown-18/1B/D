@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define mod 1000000007
+
+int main(){
+	
+	int t;cin>>t;
+	while(t--){
+		ll n,k;cin>>n>>k;
+		if(k>n){
+			cout<<"-1\n";
+			continue;
+		}
+		ll val=n/k;
+		ll rem=n%k;
+		
+		vector<ll>q;
+		ll right=val;
+		
+		for(int i=0;i<k;++i)
+			q.push_back(val);
+		
+		
+		
+		map<ll,bool>M;
+		vector<ll>ans;
+		if(k%2==0){
+			int ind=1;
+			
+			for(int i=0;i<(int)q.size();i+=2){
+			    q[i]+=ind;
+			    q[i+1]-=ind;
+			    ++ind;
+			}
+			
+			if(rem){
+				sort(q.begin(),q.end());
+				
+				ll idx=lower_bound(q.begin(),q.end(),val)-q.begin();
+				
+				--idx;
+				while(rem>0 and idx>=0){
+					q[idx]++;
+					--rem;
+					--idx;
+				}
+				
+				idx=(int)q.size()-1;
+				
+				while(rem>0 and idx>=0){
+					q[idx]++;
+					--rem;
+					--idx;
+				}
+				
+			}
+			
+		
+			
+		}
+		else{
+			
+			int ind=1;
+			
+			for(int i=1;i<(int)q.size();i+=2){
+				 q[i]+=ind;
+			    q[i+1]-=ind;
+			    ++ind;
+			}
+			
+			int idx=(int)q.size()-1;
+			sort(q.begin(),q.end());
+			while(rem>0 and idx>=0){
+				q[idx]++;
+				--rem;
+				--idx;
+			}
+			
+		}
+		   bool flag=true;
+			for(int i=0;i<(int)q.size() and flag==true;++i) if(q[i]<=0) flag=false;
+				
+				if(!flag){
+					cout<<"-1\n";
+					continue;
+				}
+				
+			//	for(int i=0;i<(int)q.size();++i) cout<<q[i]<<" ";cout<<endl;
+			
+			
+			ll ret=1;
+			
+			for(int i=0;i<(int)q.size();++i){
+				ll v=q[i];
+				ll temp=((v%mod)*((v-1)%mod))%mod;
+				ret=((ret%mod)*(temp%mod))%mod;
+				
+			}
+		
+	    cout<<ret<<"\n";
+		
+	}
+	
+	return 0;
+}
