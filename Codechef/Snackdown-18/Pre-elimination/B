@@ -1,0 +1,101 @@
+ #include<bits/stdc++.h>
+ using namespace std;
+ typedef long long int ll;
+ int n,m;
+ int dx[]={1,1,1,0,0,-1,-1,-1};
+ int dy[]={1,0,-1,1,-1,1,0,-1};
+ int d1(int x,int y){
+ 	return min(n-x,m-y);
+ }
+ int d2(int x,int y){
+ 	return min(n-x,y-1);
+ }
+ int d3(int x,int y){
+ 	return min(x-1,m-y);
+ }
+ int d4(int x,int y){	
+ 	return min(x-1,y-1);
+ }
+ int main(){
+ 	int t;cin>>t;
+ 	while(t--){
+ 		int p,q;
+ 		cin>>n>>m>>p>>q;
+ 		int M[n+4][m+4];
+ 		memset(M,-1,sizeof(M));
+ 	    for(int i=1;;++i){
+ 	    	int x=p+i;
+ 	    	int y=q+i;
+ 	    	if(1<=x and x<=n and 1<=y and y<=m) M[x][y]=4;
+ 	    	else break;
+		 }
+ 		for(int i=1;;++i){
+ 	    	int x=p+i;
+ 	    	int y=q-i;
+ 	    	if(1<=x and x<=n and 1<=y and y<=m) M[x][y]=3;
+ 	    	else break;
+		 }
+		 for(int i=1;;++i){
+ 	    	int x=p-i;
+ 	    	int y=q+i;
+ 	    	if(1<=x and x<=n and 1<=y and y<=m) M[x][y]=2;
+ 	    	else break;
+		 }
+		 for(int i=1;;++i){
+ 	    	int x=p-i;
+ 	    	int y=q-i;
+ 	    	if(1<=x and x<=n and 1<=y and y<=m) M[x][y]=1;
+ 	    	else break;
+		 }
+		 
+		 
+		 ll ans=0;
+		 ll t1=(n*m);
+		 int b1=d1(p,q);
+		 int b2=d2(p,q);
+		 int b3=d3(p,q);
+		 int b4=d4(p,q);
+		// cout<<" ok "<<b1<<" "<<b2<<" "<<b3<<" "<<b4<<endl;
+		 for(int i=1;i<=n;++i){
+		 	for(int j=1;j<=m;++j){
+		 		if(i==p and j==q) continue;
+		 		ll temp=t1;
+		 	//	cout<<" for cr --> "<<i<<" "<<j<<endl;
+		 	//	cout<<d1(i,j)<<" "<<d2(i,j)<<" "<<d3(i,j)<<" "<<d4(i,j)<<" "<<M[{i,j}]<<" ";
+		 		temp-=(d1(i,j)+d2(i,j)+d3(i,j)+d4(i,j));
+		 		temp-=(n+m-2);
+		 		temp--;
+		 		bool f=false;
+		 		if(M[i][j]>0){
+		 			f=true;
+		 			int r=M[i][j];
+		 			if(r==1) temp+=b1;
+					if(r==2) temp+=b2;
+					if(r==3) temp+=b3;
+					if(r==4) temp+=b4;  
+				 }
+		//		 cout<<" ehy "<<temp<<" ";
+				 if(j==q){
+				 	f=true;
+				 	if(i<p) temp+=(n-p);
+				 	else temp+=(p-1);
+				 }
+				 if(i==p){
+				 	f=true;
+				 	if(j<q) temp+=(m-q);
+				 	else temp+=(q-1);
+				 }
+			
+				 if(!f) --temp;
+				 //	 cout<<temp<<endl;
+				 ans+=temp;
+		 		
+			 }
+		 }
+		 cout<<ans<<"\n";
+		 
+		 
+	 }
+ 	
+ 	return 0;
+ }
