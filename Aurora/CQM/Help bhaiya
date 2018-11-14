@@ -1,0 +1,110 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+ 
+int n,a;
+ll A[100005],fact[200],comb[200];
+ 
+ 
+ll add(ll x,ll y){
+	ll z=(x%mod)+(y%mod);
+	if(z>=mod) z-=mod;
+	return (z%mod);
+}
+ 
+ll mul(ll x,ll y){
+	ll z=(x%mod)*(y%mod);
+	if(z>=mod) z%=mod;
+	return (z%mod);
+}
+ 
+ll exp(ll x,ll n){
+	ll r=1;
+	while(n){
+		if(n&1) r=mul(r,x);
+		x=mul(x,x);
+		n/=2;
+	}
+	return r;
+}
+ 
+void pre(){
+	fact[0]=1;
+	for(int i=1;i<=200;++i) fact[i]=mul(fact[i-1],i);
+	
+	for(int i=0;i<=a;++i) comb[i]=mul(fact[a],mul(exp(fact[i],mod-2),exp(fact[a-i],mod-2)));
+}
+ 
+int main(){
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	cin>>n>>a;
+	pre();
+	for(int i=1;i<=n;++i) cin>>A[i];
+	sort(A+1,A+n+1);
+	
+	ll B[a+5][n+5],cum[a+5][n+5];
+	
+	for(int i=0;i<=a;++i){
+		B[i][0]=0;
+		cum[i][0]=0;
+		if(!i)
+			for(int j=1;j<=n;++j) B[i][j]=1;
+		
+		else
+			for(int j=1;j<=n;++j) B[i][j]=mul(A[j],B[i-1][j]);
+		
+		for(int j=1;j<=n;++j) cum[i][j]=add(B[i][j],cum[i][j-1]);
+	}
+	
+	/*for(int i=0;i<=a;++i){
+		for(int j=1;j<=n;++j){
+			cout<<cum[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	
+	cout<<"---\n";
+	for(int i=0;i<=a;++i){
+		for(int j=1;j<=n;++j){
+			cout<<B[i][j]<<" ";
+		}
+		cout<<endl;
+	}*/
+	
+	ll ans=0;
+//	cout<<" ok\n";
+//	for(int i=0;i<=a;++i) cout<<comb[i]<<" ";
+//	cout<<endl;
+	
+	for(int i=0;i<=a;++i){
+		
+		ll temp=0;
+	//	cout<<" for "<<i<<endl;
+		for(int j=1;j<=n;++j){
+			ll x=(cum[i][n]-cum[i][j]+mod)%mod;
+			ll y= B[a-i][j];
+			//cout<<x<<" "<<y<<" "<<endl;
+			ll z=mul(x,y);
+			temp=add(temp,z);			
+		}
+	//	cout<<" dude "<<temp<<endl;
+		temp=mul(temp,comb[i]);
+	//	cout<<" multi plu "<<temp<<" "<<comb[i]<<"ans"<<ans<<endl;
+	
+	    	
+		if((a-i)%2==1) ans=(ans-temp+mod)%mod;
+		else ans=add(ans,temp);
+		
+	//	cout<<" here "<<ans<<endl;
+		
+	}
+	//cout<<"ans"<<ans<<endl;
+	
+	cout<<mul(ans,2)%mod<<"\n";
+	
+	
+	
+	return 0;
+}
