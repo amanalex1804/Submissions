@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> c[26];
+
+int main(){
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    int n;cin>>n;
+    string s;cin>>s;
+    
+    for(int i=0;i<n;++i){
+        int ch=(int)(s[i]-'a');
+      //  cout<<ch<<endl;
+         c[ch].push_back(i);
+    }
+    
+    string ans="";
+    int last=0;
+    for(int i=25;i>=0;--i){
+        char x=(char)(i+'a');
+       for(int j=0;j<(int)c[i].size();++j){
+           if(ans.size()==0){
+               ans+=x;
+               last=c[i][j];
+               break;
+           }
+           if(c[i][j]>last){
+               ans+=x;
+               last=c[i][j];
+               break;
+           }
+           
+       }
+        
+        
+    }
+  
+    cout<<ans;
+    return 0;
+}
