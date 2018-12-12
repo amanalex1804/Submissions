@@ -1,0 +1,139 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define INF 9999999
+ll seg[4*505][4],lazy[4*505][4];int n;
+void pri(int node,int st,int en){
+	//cout<<node<<" -->" <<seg[node][0]<<" "<<seg[node][1]<<" "<<seg[node][2]<<endl;
+	
+	//cout<<node<<" -->" <<lazy[node][0]<<" "<<lazy[node][1]<<" "<<lazy[node][2]<<endl;
+	//cout<<"----\n";
+	if(st==en) return;
+	int mid=(st+en)/2;
+	pri(2*node,st,mid);
+	pri(2*node+1,mid+1,en);
+}
+void fn(int node){
+     	seg[node][0]=max(seg[2*node][0],seg[2*node+1][0]);
+		seg[node][1]=seg[2*node][1]+seg[2*node+1][1];
+		seg[node][2]=seg[2*node][2]+seg[2*node+1][2];
+}
+void build(int node,int st,int en){
+	lazy[node][0]=-INF;
+	if(st==en){
+		seg[node][0]=-INF; // maximum
+		seg[node][1]=0;    //neg
+		seg[node][2]=0;		
+		
+	}
+	else{
+		int mid=(st+en)/2;
+		build(2*node,st,mid);
+		build(2*node+1,mid+1,en);
+		fn(node);
+		
+	}
+}
+void lzy(int node,int st,int en){
+	if(lazy[node][0]!=-INF){
+			//cout<<" ok1 "<<node<<endl;
+		seg[node][0]=max(seg[node][0],lazy[node][0]);
+		if(st!=en){
+		lazy[2*node][0]=max(lazy[2*node][0],lazy[node][0]);
+		lazy[2*node+1][0]=max(lazy[2*node+1][0],lazy[node][0]);
+	    }
+		lazy[node][0]=-INF;
+	}
+	seg[node][1]+=lazy[node][1];
+	if(st!=en){
+	lazy[2*node][1]+=lazy[node][1];
+	lazy[2*node+1][1]+=lazy[node][1];
+      }
+	lazy[node][1]=0;
+	
+	seg[node][2]+=lazy[node][2];
+	if(st!=en){
+	lazy[2*node][2]+=lazy[node][2];
+	lazy[2*node+1][2]+=lazy[node][2];
+	}
+	lazy[node][2]=0;
+}
+void upd(int node,int st,int en,int l,int r,ll val,int typ){
+	lzy(node,st,en);
+	if(r<st or en<l) return ;
+	if(l<=st and en<=r){
+		if(typ==0){
+			//cout<<" ok "<<l<<" "<<r<<" "<<st<<" "<<en<<endl;
+			seg[node][0]=max(seg[node][0],val);
+			if(st!=en){
+			lazy[2*node][0]=max(lazy[2*node][0],val);
+			lazy[2*node+1][0]=max(lazy[2*node+1][0],val);
+		}
+		}
+		else{
+			seg[node][typ]+=val;
+			if(st!=en){
+			lazy[2*node][typ]+=val;
+			lazy[2*node+1][typ]+=val;
+		}
+		}
+		return ;
+	}
+	int mid=(st+en)/2;
+	upd(2*node,st,mid,l,r,val,typ);
+	upd(2*node+1,mid+1,en,l,r,val,typ);
+	fn(node);
+	
+}
+
+ll qry(int node,int st,int en,int l,int r,int typ){
+	lzy(node,st,en);
+	if(r<st or en<l){
+		if(typ==0) return -INF;
+		return 0;
+	}
+	if(st==en){
+		return seg[node][typ];
+	}
+	int mid=(st+en)/2;
+	if(typ==0){
+		return max(qry(2*node,st,mid,l,r,typ),qry(2*node+1,mid+1,en,l,r,typ));
+	}
+	else{
+		return (qry(2*node,st,mid,l,r,typ)+qry(2*node+1,mid+1,en,l,r,typ));
+	}
+}
+int main(){
+	ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	int q;cin>>n>>q;
+	ll A[n+5];
+	for(int i=1;i<=n;++i) cin>>A[i];
+	build(1,1,n);
+	while(q--){
+		int typ,l,r,v;
+		cin>>typ>>l>>r>>v;
+		if(typ==2){
+			upd(1,1,n,l,r,v,0);
+		}
+		else{
+			if(v<0) upd(1,1,n,l,r,v,1);
+			else if(v>0) upd(1,1,n,l,r,v,2);
+		}
+	//	pri(1,1,n);
+	}
+	pri(1,1,n);
+	for(int i=1;i<=n;++i){
+		pri(1,1,n);
+		ll neg=qry(1,1,n,i,i,1);
+		ll mx=qry(1,1,n,i,i,0);
+		ll pos=qry(1,1,n,i,i,2);
+		//cout<<" for "<<i<<" --> "<<pos<<" "<<mx<<" "<<neg<<endl;
+		A[i]+=neg;
+		if(mx!=-INF) A[i]=mx;
+		A[i]+=pos;
+	}
+	for(int i=1;i<=n;++i) cout<<A[i]<<" ";
+	
+	return 0;
+}
