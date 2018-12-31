@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	#define int long int
+	#define pi pair<long int,long int>
+	int n;cin>>n;
+	pi p[n+5],q[n+5];
+	for(int i=0;i<n;++i) cin>>p[i].first>>p[i].second;
+	for(int i=0;i<n;++i) cin>>q[i].first>>q[i].second;
+	sort(p,p+n);
+	sort(q,q+n,greater<pi>());
+	cout<<p[0].first+q[0].first<<" "<<p[0].second+q[0].second;
+	return 0;
+}
