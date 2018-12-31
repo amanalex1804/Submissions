@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int a,b,c;
+	cin>>a>>b>>c;
+	int ans=0;
+	for(int i=a;i>=1;--i){
+		int x=i+1;
+		int y=i+2;
+		if(x<=b and y<=c){
+			ans=i+x+y;
+			break;
+		}
+	}
+	cout<<ans;
+	
+	return 0;
+}
