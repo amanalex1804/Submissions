@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int,int> pi;
+vector<int>ind[5];
+int main(){
+	
+	// ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int n;cin>>n;
+	string s; cin>>s;
+	int c0=0,c1=0,c2=0;
+	for(int i=0;i<n;++i){
+		if(s[i]=='0'){
+			++c0;
+			ind[0].push_back(i);
+		}
+		if(s[i]=='1'){
+			++c1;
+			ind[1].push_back(i);
+		}
+		if(s[i]=='2'){
+			++c2;
+			ind[2].push_back(i);
+		}
+	}
+	int req=n/3;
+	
+	if(c2>req){
+		    int fi=0,la=(int)ind[2].size()-1;
+			while(c0<req and c2>req){
+				int idx=ind[2][fi];
+			//	ind[2].erase(ind[2].begin());
+				s[idx]='0';
+				++c0;
+				--c2;
+				++fi;
+			}
+		    
+		    while(c1<req and c2>req){
+		    	int idx=ind[2][fi];
+			//	ind[2].erase(ind[2].begin());
+				s[idx]='1';
+				++c1;
+				--c2;
+				++fi;
+			}
+	}
+	
+	if(c1>req){
+		     int fi=0,la=(int)ind[1].size()-1;
+			while(c0<req and c1>req){
+				int idx=ind[1][fi];
+			//	ind[1].erase(ind[1].begin());
+				s[idx]='0';
+				++c0;
+				--c1;
+				++fi;
+			}
+			while(c2<req and c1>req){
+				int idx=ind[1][la];
+			//	ind[1].pop_back();
+			//	ind[1].erase(ind[1].begin()+(int)ind[1].size());
+				s[idx]='2';
+				++c2;
+				--c1;
+				--la;
+			}
+		
+	}
+	
+	if(c0>req){
+		// cout<<c0<<endl;
+		          int fi=0,la=(int)ind[0].size()-1;
+			while(c0>req and c2<req){
+				int idx=ind[0][la];
+			//	cout<<idx<<" "<<(int)ind[0].size()<<endl;
+			//	ind[0].pop_back();
+				//ind[0].erase(ind[0].end());
+				s[idx]='2';
+				++c2;
+				--c0;
+				--la;
+			//	cout<<"yes\n";
+			}
+				while(c0>req and c1<req){
+				int idx=ind[0][la];
+			//	ind[0].pop_back();
+			//	ind[0].erase(ind[0].end());
+				s[idx]='1';
+				++c1;
+				--c0;
+				--la;
+			//	cout<<"no\n";
+			}
+	}
+	
+	cout<<s;
+	
+	
+	return 0;
+}
