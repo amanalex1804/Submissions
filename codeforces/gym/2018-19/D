@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+#define mod 1000000009
+typedef pair<ll,ll>pi;
+int k,b;
+int temp[150];
+pi dp[130][1005][2];
+int idx;
+ll add(ll x,ll y){
+	ll z=(x%mod)+(y%mod);
+	return z%mod;
+}
+pi fn(int ind,int sum,int bit){
+	
+	if(ind>=b){
+	//	cout<<" dude "<<ind<<" "<<sum<<" "<<bit<<endl;
+		if(sum==0)
+			{
+				if(bit) return {1,1};
+				return {1,0};
+			}
+		
+		return {0,0};
+	}
+	if(dp[ind][sum][bit].first!=-1) return dp[ind][sum][bit];
+	
+	pi r1=fn(ind+1,sum,0);
+	pi r2=fn(ind+1,(sum+temp[ind])%k,1);
+	
+	ll r3=0;
+	if(bit) r3=add(r1.first,r2.first);
+	
+//	cout<<" why "<<ind<<" "<<sum<<" "<<bit<<" "<<r1.first<<" "<<r2.first<<" "<<add(r3,add(r1.second,r2.second))<<endl;
+	return dp[ind][sum][bit]={add(r1.first,r2.first),add(r3,add(r1.second,r2.second))};
+	
+	
+}
+
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	cin>>k>>b;
+	temp[0]=1%k;
+	for(int i=1;i<b+5;++i) {temp[i]=((temp[i-1]%k)*(2%k))%k;}//cout<<temp[i]<<" ";}
+	
+	for(int i=0;i<b+2;++i)
+	for(int j=0;j<k+2;++j)
+	for(int f=0;f<2;++f)
+	dp[i][j][f].first=-1;
+	pi ans1=fn(1,0,0);
+//	cout<<" ok "<<ans1.first<<" "<<ans1.second<<endl;
+	pi ans2=fn(1,1%k,1);
+
+	cout<<add(ans1.second,ans2.second);
+	return 0;
+}
