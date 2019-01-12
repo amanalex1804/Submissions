@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>gr[5005];
+int main(){
+	
+	int n,k;cin>>n>>k;
+	int A[n+5],B[n+5];
+	for(int i=0;i<n;++i){
+		B[i]=-1;
+		cin>>A[i];
+		gr[A[i]].push_back(i);
+	}
+	int f=1;
+	for(int i=1;i<5001;++i){
+		if((int)gr[i].size()>k){
+			cout<<"NO";
+			return 0;
+		}
+		
+		for(int j=0;j<(int)gr[i].size();++j){
+			B[gr[i][j]]=f;
+			++f;
+			if(f==k+1) f=1;
+		}
+	}
+	for(int i=0;i<n;++i){
+		if(B[i]==-1){
+			cout<<"NO";
+			return 0;
+		}
+	}
+	cout<<"YES\n";
+	for(int i=0;i<n;++i) cout<<B[i]<<" ";
+	
+	return 0;
+}
