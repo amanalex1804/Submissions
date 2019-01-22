@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define mod 1000000007
+ll n,l,r;
+ll x=0,y=0,z=0;
+ll dp[300005][3];
+ll add(ll x,ll y){
+	ll z=(x%mod)+(y%mod);
+	return z%mod;
+}
+ll mul(ll x,ll y){
+	ll z=(x%mod)*(y%mod);
+	return z%mod;
+}
+ll fn(int ind,int sum){
+	if(ind>=n){
+		if(sum==0) {return 1;}
+		return 0;
+	}
+	if(dp[ind][sum]!=-1) return dp[ind][sum];
+	ll ret=0;
+	ret=add(ret,mul(fn(ind+1,sum),x));
+	
+	ret=add(ret,mul(fn(ind+1,add(sum,1)%3),y));
+	
+	ret=add(ret,mul(fn(ind+1,add(sum,2)%3),z));
+	
+	return dp[ind][sum]=ret;
+	
+}
+int main(){
+	cin>>n>>l>>r;
+	ll ind=0;
+    
+    map<ll,bool>M;
+    ll ff=0,fy=0;
+    for(ll i=l;i<=r;++i){
+    	if(i%3==0) {
+    		ff=i;
+    		break;
+		}
+		M[i]=true;
+		ll p=i%3;
+		if(p==1) ++y;
+		if(p==2) ++z;
+	}
+    bool ok=false;
+    for(ll j=r;j>=l and M[j]==false;--j){
+    		if(j%3==2) {
+    			fy=j;
+    			ok=true;
+    		break;
+		}
+	
+		ll p=j%3;
+		if(p==0) ++x;
+		if(p==1) ++y;
+	}
+	if(ok){
+		ll sz=fy-ff+1;
+		x=add(x,sz/3);
+		y=add(y,sz/3);
+		z=add(z,sz/3);
+	}
+//	cout<<x<<" "<<y<<" "<<z<<endl;
+	memset(dp,-1,sizeof(dp));
+	ll r=fn(0,0);
+	cout<<r;
+    
+	return 0;
+}
