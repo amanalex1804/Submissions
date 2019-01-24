@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+
+int n;string s;
+
+int main(){
+	
+	cin>>n;
+	cin>>s;
+	string x="";
+	for(int i=0;i<n;++i) x+=".";
+	for(int i=0;i<n;++i){
+		if(!i) x[i]=s[i];
+		else{
+			if(s[i]==x[i-1]){
+				if(i==n-1){
+					if(x[i-1]=='R') x[i]='G';
+					else if(x[i-1]=='G') x[i]='R';
+					else if(x[i-1]=='B') x[i]='R';
+				}
+				else{
+					if(s[i+1]!=s[i]){
+					if(s[i+1]=='R'){
+						if(x[i-1]=='G') x[i]='B';
+						else if(x[i-1]=='R') x[i]='B';
+						else if(x[i-1]=='B') x[i]='G';
+					}
+					else if(s[i+1]=='G') {
+						if(x[i-1]=='G') x[i]='B';
+						else if(x[i-1]=='R') x[i]='B';
+						else if(x[i-1]=='B') x[i]='R';
+						
+					}
+					else if(s[i+1]=='B'){
+						
+						if(x[i-1]=='G') x[i]='R';
+						else if(x[i-1]=='R') x[i]='G';
+						else if(x[i-1]=='B') x[i]='G';
+					}
+					
+						
+					}
+					else{
+						if(s[i]=='R') x[i]='G';
+						else if(s[i]=='G') x[i]='R';
+						else if(s[i]=='B') x[i]='G';
+					}
+				}
+			}
+			else x[i]=s[i];
+		}
+	}
+	int ans=0;
+	for(int i=0;i<n;++i) if(s[i]!=x[i]) ++ans;
+	cout<<ans<<"\n";
+	cout<<x;
+	
+	
+	return 0;
+}
