@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+
+int n;string s;
+
+int fn(string x){
+	
+	int ans=0;
+	for(int i=0;i<n;++i){
+		if(s[i]!=x[i%3]){
+			++ans;
+		}
+	}
+	return ans;
+}
+
+int main(){
+	
+	cin>>n;
+	cin>>s;
+	
+	int id=-1,ans=n+5;
+	string s1="";
+//	cout<<fn("GRB")<<endl;
+    if(fn("RGB")<ans) s1="RGB",ans=fn("RGB");
+     if(fn("RBG")<ans) s1="RBG",ans=fn("RBG");
+     if(fn("GRB")<ans) s1="GRB",ans=fn("GRB");
+     if(fn("GBR")<ans) s1="GBR",ans=fn("GBR");
+     if(fn("BRG")<ans) s1="BRG",ans=fn("BRG");
+     if(fn("BGR")<ans) s1="BGR",ans=fn("BGR");
+    
+    cout<<ans<<"\n";
+    for(int i=0;i<n;++i){
+    	cout<<s1[i%3];
+	}
+	
+	
+	return 0;
+}
