@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 2000000
+typedef pair<int,int> pi;
+int main(){
+	int n,m;cin>>n>>m;
+	int A[n+5],B[n+5];
+	int ans=0,mx=-sz,mn=sz;
+	for(int i=1;i<=n;++i) {
+		cin>>A[i];
+		mx=max(mx,A[i]);
+		mn=min(mn,A[i]);
+	}
+	ans=mx-mn;
+	pi q[m+5];
+	for(int i=1;i<=m;++i){
+		cin>>q[i].first>>q[i].second;
+	}
+	
+	
+	vector<int>v;
+	for(int i=1;i<=n;++i){
+		for(int j=1;j<=n;++j) B[j]=A[j];
+		mx=-sz; mn=sz;
+		vector<int>s;
+		for(int j=1;j<=m;++j){
+			int x=q[j].first;
+			int y=q[j].second;
+			if(x<=i and i<=y) continue;
+			for(int k=x;k<=y;++k) --B[k];
+			s.push_back(j);
+		}
+		
+		for(int j=1;j<=n;++j){
+			mx=max(mx,B[j]);
+			mn=min(mn,B[j]);
+		}
+		
+		if(mx-mn>ans){
+			v.clear();
+			for(int j=0;j<(int)s.size();++j) v.push_back(s[j]);
+			ans=mx-mn;
+		}
+		
+	}
+	cout<<ans<<"\n";
+	cout<<(int)v.size()<<"\n";
+	for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+	
+	
+	return 0;
+}
