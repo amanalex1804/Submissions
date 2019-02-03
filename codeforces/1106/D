@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int n,m;
+vector<int>gr[200005];
+bool vis[200005];
+vector<int>ans;
+void dfs(int src){
+	ans.push_back(src);
+	vis[src]=true;
+	for(int i=0;i<(int)gr[src].size();++i){
+		if(!vis[gr[src][i]]) dfs(gr[src][i]);
+	}
+}
+int main(){
+	
+	cin>>n>>m;
+	for(int i=1,x,y;i<=m;++i){
+		cin>>x>>y;
+		gr[x].push_back(y);
+		gr[y].push_back(x);
+	}
+	priority_queue<int>Q;
+	vector<int>ans;
+	cout<<1<<" ";
+	vis[1]=true;
+	for(int i=0;i<(int)gr[1].size();++i){
+		if(!vis[gr[1][i]]) Q.push((-1)*gr[1][i]);
+	}
+	while(!Q.empty()){
+		int x=(-1)*Q.top(); Q.pop();
+		if(vis[x]) continue;
+		cout<<x<<" ";
+		vis[x]=true;
+		for(int i=0;i<(int)gr[x].size();++i){
+			if(!vis[gr[x][i]]) Q.push((-1)*gr[x][i]);
+		}
+	}
+	
+	
+	
+	
+	return 0;
+}
