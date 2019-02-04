@@ -1,0 +1,105 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int n;
+ struct abc{
+	ll l,r,d,w;
+	bool operator < (const abc &e) const {
+		return w > e.w || (w == e.w && d > e.d);
+	}
+	
+};
+
+vector<abc>idx[100005];
+map<abc,int>cur;
+ll val[100005],day[100005];
+ll dp[100005][205];
+
+ll fn(int ind,int k){
+	
+//	cout<<ind<<" "<<k<<endl;
+	if(ind>n) {
+		return 0;
+	}
+	
+	ll &ret = dp[ind][k];
+	if(ret!=-1) return ret;
+	
+	ret=fn(day[ind]+1,k)+val[ind];
+	
+	if(k>0) ret=min(ret,fn(ind+1,k-1));
+	
+	return ret;
+}
+
+void ins(abc temp){
+  
+  if(cur.count(temp)){
+  	cur[temp]++;
+  }else{
+  	cur[temp]=1;
+  }
+	
+}
+void del(abc temp){
+	if(cur.count(temp)){
+		--cur[temp];
+	}
+	if(cur[temp]==0){
+		cur.erase(temp);
+	}
+}
+
+
+int main(){
+	
+	ll m,k;
+	cin>>n>>m>>k;
+	
+	abc q[k+5];
+	
+	for(int i=1,l,r,d,w;i<=k;++i) {
+		cin>>q[i].l>>q[i].r>>q[i].d>>q[i].w;
+		idx[q[i].l].push_back((abc){1,q[i].r,q[i].d,q[i].w});
+		
+		idx[q[i].r+1].push_back((abc){-1,q[i].r,q[i].d,q[i].w});
+		
+	}
+	
+	sort(q+1,q+k+1);
+
+	
+	
+	
+	for(int i=1;i<=n;++i){
+		
+		for(int j=0;j<(int)idx[i].size();++j){
+			abc temp = idx[i][j];
+			if(temp.l==1){
+				ins(temp);
+			}else{
+				del(temp);
+			}
+		}
+		
+		if(cur.size()) {
+			val[i]=(*cur.begin()).first.w;
+			day[i]=(*cur.begin()).first.d;
+		}else{
+			val[i]=0;
+			day[i]=i;
+		}
+	
+	//	cout<<val[i]<<" ";
+	}
+	
+	for(int i=0;i<n+3;++i)
+	for(int j=0;j<m+2;++j)
+	dp[i][j]=-1;
+	
+//	cout<<"ok";
+	
+	cout<<fn(1,m);
+	
+	return 0;
+}
