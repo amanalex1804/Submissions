@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 100005
+
+
+ll pos[sz],A,B,k,n;
+
+ll fn(ll left,ll right){
+	
+	ll ind1=lower_bound(pos,pos+k,left)-pos;
+	ll ind2=upper_bound(pos,pos+k,right)-pos;
+	
+    
+	
+	ll avg=ind2-ind1;
+//	cout<<left<<" "<<right<<" "<<ind1<<" "<<ind2<<" "<<avg<<endl;
+	if(!avg) return A;
+	
+	if(left==right){ return B*avg;	}
+	
+	ll mid=(left+right)/2;
+	
+	ll ret= B*(right-left+1)*avg;
+	ret=min(ret,fn(left,mid)+fn(mid+1,right));
+	return ret;
+	
+}
+
+
+
+
+
+int main(){
+    cin>>n>>k>>A>>B;
+    for(int i=0;i<k;++i) cin>>pos[i];
+    sort(pos,pos+k);
+    ll p=1;
+    for(int i=1;i<=n;++i) p*=2;
+    cout<<fn(1,p);
+	return 0;
+}
