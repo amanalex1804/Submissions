@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main(){
+	
+	int n;cin>>n;
+	ll A[n+4],s=0;
+	for(int i=0;i<n;++i) cin>>A[i],s+=A[i];
+	sort(A,A+n);
+	ll ans=9999999999999;
+	
+	
+		for(int i=0;i<n;++i){
+			ll op=0;
+			s=A[i];
+			for(int j=0;j<n;++j){
+				ll v1=abs(s-A[j]);
+				if(v1>A[j]) op+=A[j];
+				else op+=v1;
+			}
+			ans=min(ans,op);
+		}
+		
+	
+	cout<<ans;
+	return 0;
+}
