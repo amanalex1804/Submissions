@@ -1,0 +1,119 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1005
+#define ll long long int
+ll mod = 1e9+9;
+ 
+string a,b;int a1,b1;
+ll fa[sz+5],ba[sz+5],po[sz+5],fb[sz],bb[sz];
+int dp[sz][sz],dpa[sz],dpb[sz];
+ 
+ll add(ll x,ll y){
+	ll z=(x%mod)+(y%mod);
+	return z%mod;
+}
+ll mul(ll x,ll y){
+	ll z=(x%mod)*(y%mod);
+	return z%mod;
+}
+
+int main(){
+    
+	
+	int ans=0;
+	po[0]=1;
+	for(int i=1;i<sz;++i) po[i]=mul(po[i-1],31);
+	
+	cin>>a>>b;
+    a1=(int)a.size();
+	fa[0]=(int)a[0];
+	
+	for(int i=1;i<a1;++i){
+		int ch = (int)a[i];
+		fa[i]=add(mul(fa[i-1],31),ch);
+	}
+	
+	ba[a1-1]=(int)a[a1-1];
+	for(int i=a1-2;i>=0;--i){
+		int ch = (int)a[i];
+		ba[i] = add(mul(ba[i+1],31),ch);
+	}
+	
+	
+	for(int i=0;i<a1;++i){
+		for(int l=a1-i;l>=1;--l){
+			
+			ll x = fa[i+l-1];	
+			if(i) x=(x-mul(fa[i-1],po[l])+mod)%mod;
+			
+			ll y = ba[i];
+			
+			if(i+l<a1) y = (y-mul(ba[i+l],po[l])+mod)%mod;
+		
+			
+			if(x==y){
+				dpa[i]=l;
+				ans=max(ans,l);
+				break;
+			}
+			
+			
+		}
+	}
+	
+	
+    b1=(int)b.size();
+	fb[0]=(int)b[0];
+	
+	for(int i=1;i<b1;++i){
+		int ch = (int)b[i];
+		fb[i]=add(mul(fb[i-1],31),ch);
+	}
+	
+	bb[b1-1]=(int)b[b1-1];
+	for(int i=b1-2;i>=0;--i){
+		int ch = (int)b[i];
+		bb[i] = add(mul(bb[i+1],31),ch);
+	}
+	
+	
+	for(int i=b1-1;i>=0;--i){
+		for(int l=i+1;l>=1;--l){
+			
+			ll x = fb[i];	
+			if(i) x=(x-mul(fb[i-l],po[l])+mod)%mod;
+			
+			ll y = bb[i-l+1];
+			
+			if(i+1<b1) y = (y-mul(bb[i+1],po[l])+mod)%mod;
+		
+			
+			if(x==y){
+				dpb[i]=l;
+				ans=max(ans,l);
+				break;
+			}
+			
+			
+		}
+	}
+	
+	for(int i=a1-1;i>=0;--i){
+		for(int j=0;j<b1;++j){
+			if(a[i]==b[j]) {
+				dp[i][j]=dp[i+1][j-1]+1;
+			}
+		}
+	}
+	
+	for(int i=0;i<a1;++i){
+		for(int j=0;j<b1;++j){
+		//	cout<<i<<" "<<j<<" "<<dp[i][j]<<endl;
+			if(dp[i][j]!=-1){
+			ans=max(ans,2*dp[i][j]+max(dpa[i+dp[i][j]],dpb[j-dp[i][j]]));
+		}
+		}
+	}
+	cout<<ans;
+	return 0;
+}
