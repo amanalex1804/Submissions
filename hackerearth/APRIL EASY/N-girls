@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+#define sz 200005
+int n,k,p,q;
+int A[sz];
+
+bool fn(int x,int y){
+	
+	return (ll)((ll)y*(ll)q)>(ll)((ll)p*(ll)x);
+	
+}
+
+int bin(int x){
+	
+	int low=x,high=n-1,mid=(low+high)/2;
+	
+	while(high-low>1){
+		
+		mid = (high+low)/2;
+		
+		if(fn(A[x],A[mid])) high =mid-1;
+		else low = mid;	
+	}
+	
+	
+	if(high>=0 and !fn(A[x],A[high])) low = max(low,high);
+	else if(!fn(A[x],A[mid])) low =max(low, mid);
+	
+	//cout<<x<<" "<<low;
+	int ret = low+k;
+	int left = 0;
+	if(ret>=n) {
+		int right = (n-low-1);
+		int mid = (low-x+1);
+		
+		int left = min(x,k-right);
+		
+		return (right+mid+left);
+		
+	}
+	return (low-x+1)+k;
+	
+	
+}
+
+int main(){
+	 ios_base::sync_with_stdio(false);cin.tie(NULL);
+	
+	cin>>n>>k>>p>>q;
+	for(int i=0;i<n;++i) cin>>A[i];
+	
+	sort(A,A+n);
+	int ans=0;
+	for(int i=0;i<n;++i){
+		int x = bin(i);
+	//	cout<<" "<<x<<endl;
+		ans=max(x,ans);
+	}
+	cout<<ans;
+	
+	
+	
+   
+	return 0;
+}
