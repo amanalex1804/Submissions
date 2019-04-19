@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long int ll;
+
+int main(){
+	
+	ll a,b,c; cin>>a>>b>>c;
+	
+	ll ans =0;
+	ans = min(a/3,min(b/2,c/2));
+	
+	ll la =a-(ans*3),lb = b-(ans*2),lc = c-(ans*2);
+	
+	int hr =0;
+	
+	int A[10];
+	A[1]=1,A[2]=1,A[3]=2,A[4]=3,A[5]=1,A[6]=3,A[7]=2;
+	
+//	cout<<ans<<endl;
+	
+	for(int i =1;i<=7;++i){
+		ll ta = la,tb =lb,tc=lc;
+		int temp=0,ind;
+		
+			ind = i;
+		   while(1){
+		   	  if(A[ind]==1) {
+		   	  	  if(ta>0) ta--;
+		   	  	  else break;
+				 }
+		   	  if(A[ind]==2) {
+		   	  	if(tb>0) tb--;
+		   	  	else break;
+				 }
+		   	  if(A[ind]==3) {
+		   	  	if(tc>0) tc--;
+		   	  	else break;
+				 }
+		   	  ++temp;
+		   	  ++ind;
+		   	  if(ind>7) ind=1;
+		   }
+		  // cout<< i<<" "<<temp<<endl;
+		   hr =max(hr,temp);
+		
+	
+	}
+	cout<<(ll)((ll)(ans*7)+hr);
+     
+	
+	return 0;
+}
