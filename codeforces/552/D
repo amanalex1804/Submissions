@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+int main(){
+	
+	int n,b,a,c;
+	cin>>n>>b>>a;c=a;
+	int s[n+5];
+	for(int i=0;i<n;++i) cin>>s[i];
+	
+	int i;
+	for(i=0;i<n;++i){
+		if(a==0 and b==0) break;
+		if(s[i]){
+			if(a==c) --a;
+			else if(b==0) --a;
+			else {
+				--b;
+				a = min(a+1,c);
+			}
+		}else{
+			if(a) --a;
+			else if(b) --b;
+		}
+	//	cout<<i<<" "<<b <<" "<<a<<endl;
+	}
+	cout<<min(i,n);
+	
+	return 0;
+}
