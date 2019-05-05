@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n;cin>>n;
+	int A[n+5],B[n+5];
+	multiset<int>s;
+	multiset<int>::iterator it;
+	multiset<int>::reverse_iterator ti;
+	for(int i=0;i<n;++i) cin>>A[i];
+	for(int i=0;i<n;++i) cin>>B[i],s.insert(B[i]);
+	
+	for(int i=0;i<n;++i){
+		int x = n - A[i];
+		it = s.lower_bound(x);
+	    if(it==s.end()) it = s.begin();
+	    cout<<(A[i]+*it)%n<<" ";
+	    s.erase(it);
+		
+	}
+	
+	return 0;
+}
