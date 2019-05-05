@@ -1,0 +1,55 @@
+#include<Bits/stdc++.h>
+using namespace std;
+#define mm(X) memset(X,false,sizeof(X));
+
+int main(){
+	
+	int n;cin>>n;
+	int A[n+5];
+	for(int i=0;i<n;++i) cin>>A[i];
+	
+	int ch = 0;
+	vector<pair<int,char> >v;
+	int l=0,r=n-1,pos =-1;
+	while(l<=r){
+		ch= (int)v.size();
+		if((int)v.size()==0){
+			if(A[l]<A[r]) {
+				v.push_back({A[l],'L'});
+				++l;
+			}
+			else {
+				v.push_back({A[r],'R'});
+				--r;
+			}
+		}else{
+			int x = v.back().first;
+			pos = -1;
+			
+			if(A[l]>x){
+			    if(A[r]<A[l] and A[r]>x) {
+			    	v.push_back({A[r],'R'});
+			    	--r;
+				}else{
+					v.push_back({A[l],'L'});
+					++l;
+				}
+			}
+		    else if(A[r]>x){
+		    	if(A[l]<A[r] and A[l]>x){
+		    		v.push_back({A[l],'L'});
+		    		++l;
+				}else{
+					v.push_back({A[r],'R'});
+					--r;
+				}
+			}
+		}
+		
+		if((int)v.size()==ch) break;
+	}
+	cout<<(int)v.size()<<"\n";
+	for(int i =0 ;i<(int)v.size();++i) cout<<v[i].second;
+	
+	return 0;
+}
