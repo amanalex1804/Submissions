@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+	int n,vv,xx=0;cin>>n;
+    deque<int>q;
+    for(int i=0,x;i<n;++i) {
+    	cin>>x;
+    	q.push_back(x);
+	}
+	vector<int>temp;
+	vector<pair<int,char> >v;
+	v.push_back({0,'S'});
+	int sz;
+	
+	while(1){
+		sz = (int)v.size();
+		int b = v.back().first;
+		
+		if((int)q.size()==1 ) { 
+		if(q.front()>b) v.push_back({q.front(),'L'});
+		q.pop_front();break;}
+		
+		if(q.front()!=q.back()){
+			int x = q.front();
+			int y = q.back();
+			if(x>b){
+				if(y>b and y<x){
+					v.push_back({q.back(),'R'});
+					q.pop_back();
+				}else{
+					v.push_back({q.front(),'L'});
+					q.pop_front();
+				}
+			}else if(y>b){
+				v.push_back({q.back(),'R'});
+				q.pop_back();
+			}
+		}else{
+			vector<int>temp;
+			while(!q.empty()) temp.push_back(q.front()),q.pop_front();
+			
+			int mx = 0,pos = 1;
+			if(temp[0]>v.back().first) {
+				mx =1;
+			for(int j=1;j<(int)temp.size();++j) {
+				if(temp[j]>temp[j-1]){
+					++mx;
+				}else break;
+			}
+		   
+		   }
+			
+			int mn =0;
+			if(temp[(int)temp.size()-1]>v.back().first){
+				mn =1;
+			for(int j=(int)temp.size()-2;j>=0;--j){
+				if(temp[j]>temp[j+1]) ++mn;
+				else break;
+			}
+		}
+			if(mx>mn){
+				xx = mx;
+				vv = 1;
+			}else{
+				xx = mn;
+				vv =2;
+			}
+			break;
+		}
+		if((int)v.size()==sz) break;
+		
+	}
+	cout<<(int)v.size()-1+xx<<"\n";
+	for(int i=1;i<(int)v.size();++i) cout<<v[i].second;
+	for(int i=0;i<xx;++i){
+		if(vv==1) cout<<"L";
+		else cout<<"R";
+	}
+    
+	return 0;
+}
