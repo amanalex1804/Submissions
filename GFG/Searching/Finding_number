@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mx 10000005
+int n;int A[10000005];
+
+int fn(){
+    int low = 1 , high = n,mid;
+    while(high-low>1){
+         mid = (low+high)/2;
+        
+        if(A[mid-1]<A[mid] and A[mid]<A[mid+1]) low = mid;
+        else if(A[mid-1]>A[mid] and A[mid]>A[mid+1]) high = mid;
+        else return mid;
+        
+    }
+    return n;
+    
+}
+
+int main() {
+	
+	int t;cin>>t;
+	A[0]= -mx;
+	
+	while(t--){
+	    cin>>n;
+	    for(int i=1;i<=n;++i) cin>>A[i];
+	    A[n+1]=-mx;
+	    int bit=fn();
+	    int x;cin>>x;
+	    
+	    int ind = lower_bound(A+1,A+bit+1,x)-A;
+	    if(ind<=bit and A[ind]==x) { cout<<ind-1<<"\n";continue;}
+	    ind = lower_bound(A+bit+1,A+n+1,x,greater<int>())-A;
+	    if(ind<=n and A[ind]==x) {cout<<ind-1<<"\n";continue;}
+	    cout<<-1<<"\n";
+	}
+	return 0;
+}
