@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define ll long long int
+ll fib[2005];
+int main() {
+	fib[0]=0;
+	fib[1]=1;
+	for(int i=2;i<=2000;++i) fib[i]=((fib[i-1]%mod)+(fib[i-2]%mod))%mod;
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    cout<<fib[n]<<"\n";
+	}
+	return 0;
+}
