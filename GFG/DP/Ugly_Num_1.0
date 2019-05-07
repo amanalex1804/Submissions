@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define sz 100008
+ll A[sz];
+ll mn(ll x,ll y,ll z){
+    if(x<y){
+        if(x<z) return x;
+        return z;
+    }else{
+        if(y<z) return y;
+        return z;
+    }
+}
+int main() {
+    A[1] = 1;
+    int i2=1,i3=1,i5=1;
+    ll n2=2,n3=3,n5=5;
+    for(int i=2;i<=20005;++i){
+        ll nxt = mn(n2,n3,n5);
+        if(nxt == n2){
+            A[i]=n2;
+            ++i2;
+            n2 = A[i2]*2;
+        }
+         if(nxt == n3){
+            A[i] = n3;
+            ++i3;
+            n3 = A[i3]*3;
+        }
+        if(nxt ==n5){
+            A[i] =n5;
+            ++i5;
+            n5 = A[i5]*5;
+        }
+    }
+    
+    
+    //for(int i=1;i<=10;++i) cout<<A[i]<<" ";cout<<endl;
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    cout<<A[n]<<"\n";
+	}
+	return 0;
+}
