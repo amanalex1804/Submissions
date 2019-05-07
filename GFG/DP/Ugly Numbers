@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define sz 100008
+ll A[sz];
+map<ll,bool>M;
+ll mn(ll x,ll y,ll z){
+    if(x<y){
+        if(x<z) return x;
+        return z;
+    }else{
+        if(y<z) return y;
+        return z;
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    A[1] = 1;
+    priority_queue<ll>q;
+    q.push((-1)*(1e18));
+    int i=2; ll last =1;
+    while(i<10005){
+        ll cur = A[i-1];
+        last =cur;
+        ll nxt = (-1)*q.top();
+        while(!q.empty()){
+            ll tp =(-1)*q.top();
+            if(tp>(cur*2)) break;
+            if(tp==A[i-1]) {q.pop();continue;}
+           // cout<<i<<" "<<A[i-1]<<" "<<tp<<endl;
+             A[i] = tp;
+        
+            q.pop();
+            q.push((-1)*A[i]*2);
+            q.push((-1)*A[i]*3);
+            q.push((-1)*A[i]*5);
+            ++i;
+        }
+        A[i]=(cur*2);
+        ++i;
+        q.push((-1)*cur*3);
+        q.push((-1)*cur*5);
+        
+        
+        
+    }
+   //for(int j=1;j<=20;++j) cout<<A[j]<<" ";cout<<endl;
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    cout<<A[n]<<"\n";
+	}
+	return 0;
+}
