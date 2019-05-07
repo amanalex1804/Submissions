@@ -1,0 +1,57 @@
+using namespace std;
+#define mod 1000000007
+#define ll  long long int
+
+
+ll mult(ll x,ll y){
+    ll z =(x%mod)*(y%mod);
+    return z%mod;
+}
+ll add(ll x,ll y){
+    ll z = (x%mod)+(y%mod);
+    return z%mod;
+}
+
+void mul(ll A[2][2],ll M[2][2]){
+    ll x = add(mult(A[0][0],M[0][0]),mult(A[0][1],M[1][0]));
+    ll y = add(mult(A[0][0],M[0][1]),mult(A[0][1],M[1][1]));
+    ll p = add(mult(A[1][0],M[0][0]),mult(A[1][1],M[1][0]));
+    ll q = add(mult(A[1][0],M[0][1]),mult(A[1][1],M[1][1]));
+    
+    A[0][0]=x;
+    A[0][1]=y;
+    A[1][0]=p;
+    A[1][1]=q;
+}
+
+
+
+void exp(ll F[2][2],ll n){
+  if( n == 0 || n == 1) 
+      return; 
+  ll M[2][2] = {{1,1},{1,0}}; 
+  
+ exp(F, n/2); 
+  mul(F, F); 
+  
+  if (n%2 != 0) 
+     mul(F, M);
+    
+}
+ll fib(ll n) 
+{ 
+  ll F[2][2] = {{1,1},{1,0}}; 
+  if (n == 0) 
+    return 0; 
+  exp(F, n-1); 
+  return F[0][0]; 
+} 
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    cout<<fib(n)<<"\n";
+	}
+	return 0;
+}
