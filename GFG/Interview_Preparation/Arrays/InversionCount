@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1000005
+long int bit[sz],n;
+void upd(int idx){
+	int w;
+    while(idx<=n){
+    //	cout<<" ok "<<idx<<endl;
+        bit[idx]+=1;
+        idx+=(idx&(-idx));
+       // cin>>w;
+    }
+}
+int qry(int idx){
+    int ans = 0;
+    while(idx>0){
+    //	cout<<idx<<"\n";
+        ans+=bit[idx];
+        idx-=(idx&(-idx));
+    }
+    return ans;
+}
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  cin>>n;
+	  priority_queue<pair<long int,int> >q;
+	  long int A[n+3];
+	  for(int i=0;i<n;++i) {
+	  	  bit[i]=0;
+	      cin>>A[i];
+	      q.push({(-1)*A[i],(-1)*(i+1)});
+	  }
+	  bit[n]=0;bit[n+1]=0;
+	  int ans[n+5];
+	  while(!q.empty()){
+	      pair<long int,int>p = q.top(); q.pop();
+	      int idx = (-1)*p.second;
+	    //  cout<<idx<<" "<<(qry(n-1))<<" "<<qry(idx)<<endl;
+	      ans[idx-1]=qry(n)-qry(idx);
+	      upd(idx);
+	  }
+	  
+	  for(int i=0;i<n;++i) cout<<ans[i]<<" ";
+	  cout<<"\n";
+	  
+	  
+	}
+	return 0;
+}
