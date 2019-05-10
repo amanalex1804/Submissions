@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n,m;cin>>n>>m;
+	    int q = n/m;
+	    if(n*m>0){
+	        int x = abs(m*q);
+	        int y = abs(m*(q+1));
+	        int d1 = abs(abs(n)-x);
+	        int d2 = abs(abs(n)-y);
+	        if(d1<d2){
+	            cout<<m*q<<"\n";
+	        }else{
+	            cout<<m*(q+1)<<"\n";
+	        }
+	        
+	    }else{
+	        int x = abs(m*q);
+	        int y = abs(m*(q-1));
+	        int d1 = abs(abs(n)-x);
+	        int d2 = abs(abs(n)-y);
+	        if(d1<d2){
+	            cout<<m*q<<"\n";
+	        }else{
+	            cout<<m*(q-1)<<"\n";
+	        }
+	    }
+	}
+	return 0;
+}
