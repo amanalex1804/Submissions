@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sz 20005
+bool prime[sz];
+typedef long long int ll;
+vector<ll>v;
+void sieve(){
+    for(int i=4;i<sz;i+=2) prime[i]= true;
+    v.push_back(4);
+    prime[1] = true;
+    for(int i=3;i<sz;i+=2){
+        if(!prime[i]){
+            v.push_back((ll)i*i);
+        for(int j=i*i;j<sz;j+=(2*i)) prime[j]= true;
+        }
+    }
+    
+}
+int main() {
+	sieve();
+	int t;cin>>t;
+	while(t--){
+	    ll n;cin>>n;
+	    ll ind =upper_bound(v.begin(),v.end(),n)-v.begin();
+	    cout<<ind<<"\n";
+	}
+	return 0;
+}
