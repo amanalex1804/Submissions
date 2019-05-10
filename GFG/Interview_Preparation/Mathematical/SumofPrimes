@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sz 1000010
+typedef long long int ll;
+bool prime[sz];ll sum[sz];
+void sieve(){
+    for(ll i=4;i<sz;i+=2) prime[i]= true;
+    prime[1] = true;
+    for(ll i=3;i<sz;i+=2){
+        if(!prime[i]){
+        for(long long int j=i*i;j<sz;j+=(2*i)) prime[j]= true;
+        }
+    }
+    for(ll i=1;i<sz;++i){
+        sum[i]=sum[i-1];
+        if(!prime[i]) sum[i]+=i;
+    }
+    
+}
+int main() {
+	sieve();
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    cout<<sum[n]<<"\n";
+	}
+	return 0;
+}
