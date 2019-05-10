@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+
+int main() {
+    int t;cin>>t;
+    while(t--){
+        double a,b;
+        cin>>a>>b;
+        b =(1.0)* (b/a);
+        int n;cin>>n;
+        double ans =a;
+        for(int i=1;i<n;++i){
+            ans*=(b);
+        }
+        cout<<(ll)ans<<"\n";
+    }
+	return 0;
+}
