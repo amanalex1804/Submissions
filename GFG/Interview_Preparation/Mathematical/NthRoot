@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+int fn(ll n,int m){
+    ll i=2; int ans =1;
+    while((i*i)<=n){
+        if(n%i==0){
+            int c=0;
+            
+            while(n%i==0) {
+                n/=i;++c;
+                if(c%m==0) ans*=i;
+            }
+            
+            if(c%m!=0) return -1;
+            
+        }
+        ++i;
+    }
+    if(n>1) return -1;
+    return ans;
+    
+}
+int main() {
+   // fn(12);
+	int t;cin>>t;
+	while(t--){
+	    ll n,m;cin>>n>>m;
+	  cout<<fn(m,n)<<"\n";
+	    
+	}
+	return 0;
+}
