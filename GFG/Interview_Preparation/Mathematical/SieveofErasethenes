@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sz 20005
+bool prime[sz];
+void sieve(){
+    for(int i=4;i<sz;i+=2) prime[i]= true;
+    prime[1] = true;
+    for(int i=3;i<sz;i+=2){
+        if(!prime[i]){
+        for(int j=i*i;j<sz;j+=(2*i)) prime[j]= true;
+        }
+    }
+    
+}
+int main() {
+	sieve();
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    for(int i=1;i<=n;++i) if(!prime[i]) cout<<i<<" ";cout<<"\n";
+	}
+	return 0;
+}
