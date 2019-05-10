@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main() {
+	
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    if(n<10){
+	        for(int i=0;i<=n;++i) cout<<i<<" ";
+	        
+	        continue;
+	    }
+	  queue<ll>q;
+	  for(int i=0;i<10;++i){
+	      cout<<i<<" ";
+	      if(i) q.push(i);
+	  }
+	  int sz = (int)q.size();
+	  int i=0;
+	  while(i<sz){
+	      
+	      int x= q.front(); q.pop();
+	      int d = (x%10);
+	      if(d==0) {
+	          x = x*10;
+	          x+=1;
+	          if(x>n) break;
+	          cout<<x<<" ";
+	          q.push(x);
+	      }
+	      else if(d==9){
+	          x = (x*10);
+	          x+=8;
+	          if(x>n) break;
+	          cout<<x<<" ";
+	          q.push(x);
+	      }
+	      else{
+	          x = (x*10);
+	          if(x+d-1>n) break;
+	          cout<<x+d-1<<" ";
+	          q.push(x+d-1);
+	          if(x+d+1>n) break;
+	          cout<<x+d+1<<" ";
+	          q.push(x+d+1);
+	      }
+	      
+	      if(i>=sz){
+	          sz = sz = (int)q.size();
+	          i=0;
+	      }
+	      
+	      
+	  }
+	  cout<<"\n";
+	}
+	
+	return 0;
+}
