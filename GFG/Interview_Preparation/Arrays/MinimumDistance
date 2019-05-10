@@ -1,0 +1,18 @@
+/*Complete the function below*/
+long long minDist(long long arr[], long long n, long long x, long long y)
+{  
+    int d1=-1,d2=-1;
+    for(int i=1;i<=n;++i){
+        for(int j=0;j<n;++j){
+            if(j+i<n){
+                if(arr[j]==x and arr[j+i]==y){
+                    return i;
+                }
+                if(arr[j]==y and arr[i+j]==x){
+                    return i;
+                }
+            }
+        }
+    }
+    return -1;
+}
