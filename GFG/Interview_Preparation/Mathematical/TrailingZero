@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int n;cin>>n;
+	    int p=5;
+	    int ans=0;
+	    while(p){
+	        int x = n/p;
+	        if(x==0) break;
+	        ans+=x;
+	        p*=5;
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
