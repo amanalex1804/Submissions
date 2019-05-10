@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll mod ;
+ll exp(ll x,ll n){
+    ll r =1;
+    while(n){
+        if(n&1) r=(r*x);
+        x=(x*x);
+        n/=2;
+    }
+    return r;
+}
+int main() {
+	int t;cin>>t;
+	while(t--){
+	    int a,b;cin>>a>>b;
+	    ll c = exp(a,b);
+	    int k ;cin>>k;
+	    while(c){
+	        --k;
+	        if(k==0) {cout<<(c%10)<<"\n";break;}
+	        c/=10;
+	    }
+	}
+	return 0;
+}
