@@ -1,0 +1,33 @@
+{
+#include<bits/stdc++.h>
+using namespace std;
+void addFraction(int num1, int den1, int num2,
+                 int den2);
+int main()
+{
+    int T;
+    cin>>T;
+    while(T--)
+    {
+        int a,b,c,d,resultNum,resultDen;
+        cin>>a>>b>>c>>d;
+        addFraction(a,b,c,d);
+    }
+}
+
+}
+
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/*You are required to complete this function*/
+typedef int ll;
+void addFraction(int num1, int den1, int num2,int den2)
+{
+ ll x1 = num1*den2;
+ ll x2 = num2*den1;
+ x1 +=x2;
+ ll g =__gcd(x1,(den1*den2));
+ cout<<(x1/g)<<"/"<<((den1*den2)/g)<<"\n";
+ }
