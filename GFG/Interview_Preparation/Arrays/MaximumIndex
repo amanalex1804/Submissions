@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define sz 1000000
+ll A[sz+5],inc[sz+5], de[sz+5];
+int n;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  cin>>n;
+	  
+	  for(int i=0;i<n;++i) cin>>A[i];
+	   inc [0]=A[0];
+	   for(int i=1;i<n;++i) inc[i]=min(A[i],inc[i-1]);
+	   de[n-1]=A[n-1];
+	   for(int i=n-2;i>=0;--i) de[i]=max(A[i],de[i+1]);
+	   
+	   int i=0,j=0;
+	   int ans = 0;
+	   while(i<n and j<n){
+	       if(inc[i]<de[j]){
+	           ans = max(ans,j-i);
+	           ++j;
+	       }else {
+	           if(inc[i]==de[j]){
+	               ans =max(ans,j-i);
+	               ++j;
+	           }else ++i;
+	       }
+	   }
+	   cout<<ans<<"\n";
+	}
+	return 0;
+}
