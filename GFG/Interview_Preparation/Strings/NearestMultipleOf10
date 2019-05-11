@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    int l = (int)s.size();
+	    int idx =(int)(s[l-1]-'0');
+	    if(idx<=5){
+	        for(int i=0;i<l-1;++i) cout<<s[i];
+	        cout<<0<<"\n";
+	        continue;
+	    }
+	    int A[l+5];
+	    A[l-1]=0;
+	    bool flag = false;
+	    int pool = 0;
+	    for(int i=l-2;i>=0;--i){
+	        int id =(int)(s[i]-'0');
+	        if(!flag){
+	            if(id<9) {
+	                A[i] = id+1;
+	                flag =true;
+	            }else{
+	                A[i] = 0;
+	            }
+	        }else{
+	            A[i] = id;
+	        }
+	    }
+	    if(!flag) cout<<1;
+	    for(int i=0;i<l;++i) cout<<A[i];
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
