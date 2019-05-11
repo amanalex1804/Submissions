@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  int A[n+5];
+	  for(int i=0;i<n;++i) 
+	      cin>>A[i];
+
+	  int ans = 0;
+	  int i=0,j=0,cur=0;
+	  bool flag = false;
+	  ++j;
+	  while(i<n and j<n){
+	      while(j<n and A[j]<A[i]){
+	         // cout<<"why "<<A[j]<<" "<<A[i]<<endl;
+	          ans+=(A[i]-A[j]);
+	          ++j;
+	          if(j>n-1){
+	              flag = true;
+	              break;
+	          }
+	      };
+	      if(flag) break;
+	      i = j;
+	      ++j;
+	  }
+	  //cout<<"dude"<<ans<<endl;
+	  int x =i;
+	 // cout<<x<<endl;
+	  if(flag){
+	      for(int k=x;k<n;++k) ans-=(A[x]-A[k]);
+	  }
+	 // cout<<"dude"<<ans<<endl;
+	  j = n-1,i=n-1;
+	  while(i>=0 and j>=0 and j>=x and i>=x){
+	      while(j>=x and A[j]<A[i]){
+	          ans+=(A[i]-A[j]);
+	          --j;
+	      }
+	      i = j;
+	      --j;
+	  }
+	 cout<<ans<<"\n";
+	}
+	return 0;
+}
