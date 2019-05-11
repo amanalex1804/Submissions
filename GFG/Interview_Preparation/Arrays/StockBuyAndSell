@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int n;cin>>n;
+	   int A[n+5];
+	   for(int i=0;i<n;++i) cin>>A[i];
+	   int i=0,j=0;
+	   bool flag = false;
+	   while(i<n and j<n){
+	       
+	       while(j<n and A[j]>A[j-1]){
+	           ++j;
+	       }
+	       
+	       if((j-i-1)>=1){
+	           flag =true;
+	           cout<<"("<<i<<" "<<j-1<<") ";
+	       }
+	       i = j;
+	       ++j;
+	   }
+	   if((j-i-1)>1){
+	       flag =true;
+	           cout<<"("<<i<<" "<<j-1<<") ";
+	       }
+	       if(!flag) cout<<"No Profit";
+	       cout<<"\n";
+	}
+	return 0;
+}
