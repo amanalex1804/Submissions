@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string a,b;
+	    cin>>a>>b;
+	    int a1 = (int)a.size();
+	    int b1 = (int)b.size();
+	    if(a1>b1){
+	        cout<<0<<"\n";
+	        continue;
+	    }
+	    int i1=0,i2=0;
+	    while(i2<b1 and i1<a1){
+	        if(b[i2]==a[i1]){
+	            ++i1; ++i2;
+	            continue;
+	        }
+	        ++i2;
+	    }
+	    if(i1<a1) cout<<0<<"\n";
+	    else cout<<1<<"\n";
+	
+	}
+	return 0;
+}
