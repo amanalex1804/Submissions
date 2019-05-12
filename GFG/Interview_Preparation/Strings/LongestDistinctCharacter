@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int A[27];
+	    memset(A,0,sizeof(A));
+	    string s;cin>>s;
+	    int n=(int)s.size();
+	    int i=0,j=0,dis=0,ans=0;
+	    while(i<n and j<n){
+	        int idx = (int)(s[j]-'a');
+	        while(j<n and A[(int)(s[j]-'a')]==0){
+	            dis+=1;
+	            idx = (int)(s[j]-'a');
+	            ++A[idx];
+	            ++j;
+	        }
+	       // cout<<i<<" "<<j<<" "<<dis<<endl;
+	        ans = max(ans,dis);
+	        
+	        if(j==n) break;
+	        idx = (int)(s[i]-'a');
+	        while(i<n and s[i]!=s[j]){
+	            idx = (int)(s[i]-'a');
+	            --A[idx];
+	            --dis;
+	            ++i;
+	        }
+	        --A[(int)(s[i]-'a')];
+	        ++i;
+	        --dis;
+	        
+	        //cout<<" ok "<<i<<" "<<j<<" "<<dis<<endl;
+	    }
+	  cout<<ans<<"\n";
+	}
+	return 0;
+}
