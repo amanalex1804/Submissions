@@ -1,0 +1,8 @@
+typedef long long int ll;
+
+int strstr(string s, string x)
+{
+  if(s.find(x)!=string::npos) return s.find(x);
+  else return -1;
+    
+}
