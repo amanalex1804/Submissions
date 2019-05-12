@@ -1,0 +1,12 @@
+int bin_search(int A[], int left, int right, int k)
+{
+    while(right-left>1){
+        int mid = (right+left)/2;
+        if(A[mid]==k) return mid;
+        if(A[mid]<k) left = mid;
+        else right = mid;
+    }
+    if(A[left]==k) return left;
+    if(A[right]==k) return right;
+    return -1;
+}
