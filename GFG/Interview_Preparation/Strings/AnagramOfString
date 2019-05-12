@@ -1,0 +1,17 @@
+// to be removed to make two strings anagram
+int remAnagram(string str1, string str2)
+{
+int A[27],B[27];
+for(int i=0;i<26;++i) A[i]=0,B[i]=0;
+for(int i=0;i<(int)str1.size();++i){
+    A[(int)(str1[i]-'a')]++;
+}
+for(int i=0;i<(int)str2.size();++i){
+    B[(int)(str2[i]-'a')]++;
+}
+int ret = 0;
+for(int i=0;i<26;++i){
+    ret+=(max(A[i],B[i])-min(A[i],B[i]));
+}
+return ret;
+}
