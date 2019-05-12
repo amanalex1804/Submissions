@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string a,b;cin>>a>>b;
+	    int l1 = (int)a.size();
+	    int l2 = (int)b.size();
+	    string s=""; int i=0,j=0;
+	    while(i<l1 and j<l2){
+	        s+=a[i++];
+	        s+=b[j++];
+	    }
+	    while(i<l1) s+=a[i++];
+	    while(j<l2) s+=b[j++];
+	    cout<<s<<"\n";
+	
+	}
+	return 0;
+}
