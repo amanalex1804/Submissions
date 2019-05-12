@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll fn(string s){
+    ll ans = 0;
+    for(int i=0;i<(int)s.size();++i){
+        int ind = (int)(s[i]-'0');
+        ans=(ans*10)+(ind);
+    }
+    return ans;
+}
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   vector<string>v;
+	   string s;cin>>s;
+	   string temp="";
+	   for(int i=0;i<(int)s.size();++i){
+	       if('0'<=s[i] and s[i]<='9'){
+	           temp+=s[i];
+	       }else {
+	           if((int)temp.size()>0){
+	               //cout<<temp<<endl;
+	               v.push_back(temp);
+	           }
+	           temp="";
+	       }
+	   }
+	   if((int)temp.size()>0)  v.push_back(temp);
+	   ll ret = -1;
+	   for(int i=0;i<(int)v.size();++i) {
+	       //cout<<v[i]<<" "<<fn(v[i])<<endl;
+	       ret = max(ret,fn(v[i]));
+	   }
+	   cout<<ret<<"\n";
+	           
+	   
+	}
+	return 0;
+}
