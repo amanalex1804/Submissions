@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+   // getchar();
+	while(t--){
+	    getchar();
+	    string s;
+	    getline(cin,s);
+	    int n;cin>>n;
+	   // cout<<s<<"ok\n";
+	    int x = 0;
+	    while(x<n and s[x]==' ') ++x;
+	    int y = (int)s.size()-1;
+	   
+	    while(y>=0 and s[y]==' ') cout<<s[y]<<" woo",--y;
+	  
+	    for(int i=x;i<=y;++i){
+	        if(s[i]==' ') cout<<"%20";
+	        else cout<<s[i];
+	    }
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
