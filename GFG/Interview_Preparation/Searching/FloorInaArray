@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n,k;cin>>n>>k;
+	  int ans =-1,mx =0;
+	  for(int i=0,x;i<n;++i){
+	      cin>>x;
+	      if(x<=k){
+	          if(x>mx){
+	              mx = x;
+	              ans =i;
+	          }
+	      }
+	  }
+	  cout<<ans<<"\n";
+	  
+	}
+	return 0;
+}
