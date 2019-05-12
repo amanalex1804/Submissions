@@ -1,0 +1,21 @@
+/*Complete the function below*/
+bool areKAnagrams(string str1, string str2, int k)
+  {
+if((int)str1.size()!=(int)str2.size()) return 0;
+int A[27],B[27];
+for(int i=0;i<26;++i) A[i]=0,B[i]=0;
+for(int i=0;i<(int)str1.size();++i){
+    A[(int)(str1[i]-'a')]++;
+}
+for(int i=0;i<(int)str2.size();++i){
+    B[(int)(str2[i]-'a')]++;
+}
+int ret = 0;
+for(int i=0;i<26;++i){
+    ret+=(max(A[i],B[i])-min(A[i],B[i]));
+}
+//cout<<ret<<" "<<k<<endl;
+ret/=2;
+if(ret>k) return 0;
+return 1;
+   }
