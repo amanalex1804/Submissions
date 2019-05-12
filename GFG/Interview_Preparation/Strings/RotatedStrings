@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	 string a,b,c;
+	 cin>>a>>b;
+	 c=b+b;
+	 if((int)a.size()==(int)b.size() and (c.find(a)!=string::npos)){
+	     cout<<1<<"\n";
+	 }else cout<<0<<"\n";
+	}
+	return 0;
+}
