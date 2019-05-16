@@ -1,0 +1,26 @@
+void mergeSort(int arr[], int l, int r) {
+    if (l < r)   {
+        int m = l+(r-l)/2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m+1, r);
+        merge(arr, l, m, r);
+    }
+} */
+// Merges two subarrays of arr[].  First subarray is arr[l..m]
+// Second subarray is arr[m+1..r]
+void merge(int arr[], int l, int m, int r)
+{
+     // Your code here
+     int A[r-l+1];
+     int i=l,j=m+1,ind=0;
+     while(i<=m and j<=r){
+         if(arr[i]<arr[j]){
+             A[ind++]=arr[i++];
+         }else{
+             A[ind++]=arr[j++];
+         }
+     }
+     while(i<=m) A[ind++]=arr[i++];
+     while(j<=r) A[ind++]=arr[j++];
+     for(int i=0;i<ind;++i) arr[i+l]=A[i];
+}
