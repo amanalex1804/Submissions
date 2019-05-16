@@ -1,0 +1,21 @@
+int minSwaps(int A[], int N){
+    int B[N];
+    for(int i=0;i<N;++i) B[i]=A[i];
+    sort(B,B+N);
+    
+    int ans = 0;
+    int x =N;
+    while(x--){
+        bool flag =false;
+    for(int i=0;i<N;++i){
+        int ind = lower_bound(B,B+N,A[i])-B;
+        if(i!=ind){
+            flag= true;
+            ++ans;
+            swap(A[i],A[ind]);
+        }
+    }
+    if(!flag) break;
+    }
+    return ans;
+}
