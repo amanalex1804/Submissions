@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,m;cin>>n>>m;
+	    int A[n],B[m];
+	    map<int,int>M;
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    for(int i=0;i<m;++i) cin>>B[i],M[B[i]]=i+1;
+	    priority_queue<pair<int,int> > q;
+	    for(int i=0;i<n;++i){
+	        
+	        if(M[A[i]]==0) q.push({-999999,(-1)*A[i]});
+	        else if(M[A[i]]) q.push({(-1)*M[A[i]],(-1)*A[i]});
+	        
+	    }
+	    while(!q.empty()){
+	        cout<<(-1)*q.top().second<<" ";
+	        q.pop();
+	    }
+	    cout<<"\n";
+	    
+	
+	}
+	return 0;
+}
