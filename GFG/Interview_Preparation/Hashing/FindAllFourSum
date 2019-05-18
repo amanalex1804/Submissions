@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct abc{
+    int a,b,c,d;
+};
+inline bool operator<(const abc& lhs, const abc& rhs)
+{
+  if(lhs.a<rhs.a) return true;
+  if(lhs.a>rhs.a) return false;
+  if(lhs.b<rhs.b) return true;
+  if(lhs.b>rhs.b) return false;
+  if(lhs.c<rhs.c) return true;
+  if(lhs.c>rhs.c) return false;
+  if(lhs.d<rhs.d) return true;
+  if(lhs.d>rhs.d) return false;
+  
+     return false;
+  
+}
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int n,k;cin>>n>>k;
+	   int A[n];
+	   vector<struct abc>v;
+	   unordered_map<int,int>M;
+	   for(int i=0;i<n;++i) cin>>A[i],M[A[i]]++;
+	   sort(A,A+n);
+	   set<struct abc>s;
+	   for(int i=n-1;i>=0;--i){
+	       
+	       int x = k - A[i];
+	       for(int j = i-1;j>=0;--j){
+	           int y = x - A[j];
+	           for(int k =j-1;k>=0;--k){
+	               int z = y - A[k];
+	               int ind = lower_bound(A,A+k,z)-A;
+	               if(ind<k and A[ind]==z){
+	                   struct abc temp ;
+	                   temp.a = z;
+	                   temp.b = A[k];
+	                   temp.c = A[j];
+	                   temp.d = A[i];
+	                 // cout<<"wwo "<<A[i]<<" "<<A[j]<<" "<<A[k]<<" "<<z<<endl;
+	                   s.insert(temp);
+	               }
+	           }
+	       }
+	   }
+	   for(auto it =s.begin();it!=s.end();++it){
+	       struct abc temp = *it;
+	       cout<<temp.a<<" "<<temp.b<<" "<<temp.c<<" "<<temp.d<<" $";
+	       
+	   }
+	   if((int)s.size()==0) cout<<-1;
+	   cout<<"\n";
+	   
+	}
+	return 0;
+}
