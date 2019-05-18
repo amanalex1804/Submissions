@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+int flag = -1;
+string fn(int n,int d){
+    int rem = n%d;
+    string res="";
+    map<int,int>M;
+    
+    while((rem>0) and M.find(rem)==M.end()){
+        M[rem]=(int)res.size();
+        rem*=10;
+        int val = rem/d;
+        res+=to_string(val);
+        rem = rem%d;
+    }
+    string ret ="";
+    if(rem==0) flag =1,ret = res;
+    else {
+        flag = 0;
+        for(int i=0;i<M[rem];++i) ret+=res[i];
+        ret+="(";
+        for(int i =M[rem];i<(int)res.size();++i) ret+=res[i];
+        ret+=")";
+    }
+    
+    
+    //cout<<"ok"<<rem<<" "<<M[rem]<<" "<<res<<endl;
+    
+    return ret;
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    flag = -1;
+	    int n,d;cin>>n>>d;
+	    int temp = n;
+	    cout<<(n/d);
+	    if(n%d){
+	        cout<<".";
+	        string s = fn(n%d,d);
+	        cout<<s;
+	    }
+	    cout<<"\n";
+	    
+	}
+	return 0;
+}
