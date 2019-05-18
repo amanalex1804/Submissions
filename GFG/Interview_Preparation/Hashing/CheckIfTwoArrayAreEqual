@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    ll A[n],B[n];
+	    map<ll,ll>M;
+	    for(int i=0;i<n;++i) cin>>A[i],M[A[i]]++;
+	    bool flag=true;
+	    for(int i=0;i<n;++i){
+	        cin>>B[i];
+	        --M[B[i]];
+	    }
+	    
+	    for(auto it=M.begin();it!=M.end();++it){
+	        pair<ll,ll>temp = *it;
+	        if(temp.second!=0){
+	            flag =false;
+	            break;
+	        }
+	    }
+	    cout<<flag<<"\n";
+	    
+	
+	}
+	return 0;
+}
