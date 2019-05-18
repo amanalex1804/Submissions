@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mm(XX) memset(XX,0,sizeof(XX)
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int A[10][10];
+	   for(int i=1;i<=9;++i)
+	   for(int j=1;j<=9;++j)
+	   cin>>A[i][j];
+	 
+	   int cnt[10];
+	   bool flag = true;
+	   for(int i=1;i<=9 and flag;++i){
+	       for(int j=1;j<=9 and flag;++j){
+	           for(int p=1;p<=9;++p) cnt[p]=0;
+	           for(int p=1;p<=9;++p) cnt[A[i][p]]++;
+	       
+	           for(int p=1;p<=9;++p){
+	               if(cnt[p]>1){
+	                 //  cout<<i<<" "<<j<<" "<<p<<" "<<cnt[p]<<endl;
+	                   flag = false;
+	                   break;
+	               }
+	           }
+	           for(int p=1;p<=9;++p) cnt[p]=0;
+	           for(int p=1;p<=9;++p) cnt[A[p][j]]++;
+	           
+	           for(int p=1;p<=9;++p){
+	               if(cnt[p]>1){
+	                //   cout<<i<<" "<<j<<" "<<p<<" "<<cnt[p]<<endl;
+	                   flag = false;
+	                   break;
+	               }
+	           }
+	       }
+	   }
+	   cout<<flag<<"\n";
+	}
+	return 0;
+}
