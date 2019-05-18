@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  string c ="!#$%&*@^~"; 
+	  int n;cin>>n;
+	  char ch;
+	  unordered_map<char,int>M1,M2;
+	  for(int i=0;i<n;++i){
+	      cin>>ch;
+	      M1[ch]++;
+	  }
+	  for(int i=0;i<n;++i){
+	      cin>>ch;
+	      M2[ch]++;
+	  }
+	  for(int i=0;i<9;++i){
+	      int x = min(M1[c[i]],M2[c[i]]);
+	      while(x--) cout<<c[i]<<" ";
+	  }
+	  cout<<"\n";
+	    for(int i=0;i<9;++i){
+	      int x = min(M1[c[i]],M2[c[i]]);
+	      while(x--) cout<<c[i]<<" ";
+	  }
+	  cout<<"\n";
+	  
+	}
+	return 0;
+}
