@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,k;cin>>n>>k;
+	    unordered_map<int,int>M;
+	    int A[n];
+	    for(int i=0;i<n;++i) cin>>A[i],M[A[i]]++;
+	    int ans = 0;
+	    for(int i=0;i<n;++i){
+	        int x = k - A[i];
+	        if(M[x]){
+	            if(x == A[i]) ans+=(M[x]-1);
+	            else ans+=M[x];
+	        }
+	        --M[A[i]];
+	    }
+	    cout<<ans<<"\n";
+	    
+	
+	}
+	return 0;
+}
