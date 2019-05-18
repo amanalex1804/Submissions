@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    
+	    unordered_map<int,int>M;
+	    int n,x;cin>>n>>x;
+	    int A[n];
+	    for(int i=0;i<n;++i) cin>>A[i],M[A[i]]++;
+	    bool flag =false;
+	    for(int i=0;i<n;++i){
+	        int y = x-A[i];
+	        if(M[x-A[i]]>0){
+	            
+	            if(A[i]==y){
+	                if(M[y]>1){
+	                      //cout<<A[i]<<" "<<x-A[i]<<endl;
+	                       flag =true;
+	                       break;
+	                }
+	                
+	            }else{
+	                //cout<<x<<" "<<y<<" "<<A[i]<<" ff "<<x-A[i]<<endl;
+	                   flag =true;
+	                   break;
+	            }
+	         
+	        }
+	    }
+	    cout<<((flag)?"Yes\n":"No\n");
+	}
+	return 0;
+}
