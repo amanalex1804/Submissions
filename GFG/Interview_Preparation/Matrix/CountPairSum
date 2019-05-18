@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,k;cin>>n>>k;
+	    int A[n][n];
+	    for(int i=0;i<n;++i)
+	    for(int j=0;j<n;++j)
+	    cin>>A[i][j];
+	    
+	    int ans =0;
+	    for(int i=0;i<n;++i){
+	        for(int j=0,x;j<n;++j){
+	            cin>>x;
+	            int y = k-x;
+	            for(int p=0;p<n;++p){
+	                for(int q=0;q<n;++q){
+	                    if(y==A[p][q]) ++ans;
+	                }
+	            }
+	        }
+	    }
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
