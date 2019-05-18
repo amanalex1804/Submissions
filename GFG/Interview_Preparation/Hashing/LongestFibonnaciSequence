@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+     unordered_map<int,int>M;
+     M[0]=1;M[1]=1;
+     int a =0,b=1;
+     while(1){
+         int c = a+b;
+         if(c>1000) break;
+         M[c]=1;
+         a=b;
+         b=c;
+     }
+	int t;
+	cin>>t;
+	
+
+	while(t--){
+	 int n;cin>>n;
+	 for(int i=0,x;i<n;++i){
+	     cin>>x;
+	     if(M[x]) cout<<x<<" ";
+	 }
+	 cout<<"\n";
+	}
+	return 0;
+}
