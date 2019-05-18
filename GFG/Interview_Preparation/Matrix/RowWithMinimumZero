@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    
+	    int n,m;cin>>n>>m;
+	    int A[n][m];
+	    for(int i=0;i<n;++i)
+	    for(int j=0;j<m;++j)
+	    cin>>A[i][j];
+	    
+	    int ans = -1,ind = 0,last = m-1,mx=999999;
+	    while(ind<n){
+	        while(last>=0 and A[ind][last]==1) --last;
+	        int cur = (m-1)-last;
+	        
+	        if(cur>0 and cur<mx){
+	            mx = cur;
+	            ans = ind;
+	        }
+	        ++ind;
+	        last = m-1;
+	    }
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
