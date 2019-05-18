@@ -1,0 +1,11 @@
+
+/*you are required to complete this method*/
+int countZeroes(int A[MAX][MAX],int N)
+{
+//Your code here
+int ans = 0;
+for(int i=0;i<N;++i)
+for(int j=0;j<N;++j)
+if(!A[i][j]) ++ans;
+return ans;
+}
