@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define ll long long int 
+
+ll exp(ll x,ll n){
+    ll r =1;
+    while(n){
+        if(n&1) r = ((r%mod)*(x%mod))%mod;
+        x = ((x%mod)*(x%mod))%mod;
+        n/=2;
+    }
+    return r;
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int ret =0,p=1;
+	    int y = n;
+	    while(n){
+	        int x = n%10;
+	        ret = (ret*10)+x;
+	        n/=10;
+	    }
+	    cout<<exp(y,ret)<<"\n";
+	
+	}
+	return 0;
+}
