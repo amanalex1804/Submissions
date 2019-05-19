@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void fn(int N,int last,int flag){
+    cout<<last<<" ";
+   
+    if(last==N){
+        return ;
+    }
+    
+  
+   if(last<=0) flag =0;
+   if(flag) fn(N,last-5,flag);
+   else fn(N,last+5,flag);
+   
+    
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    cout<<n<<" ";
+	   
+	     fn(n,n-5,1);
+	    
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
