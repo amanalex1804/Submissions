@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+map<int,string>M;
+void fn(int idx,string s,int l,vector<int>v){
+    
+    if(idx>=l){
+        cout<<s<<" ";
+        return;
+    }
+    string temp = M[v[idx]];
+    for(int i=0;i<(int)temp.size();++i){
+        fn(idx+1,s+temp[i],l,v);
+    }
+    
+}
+
+int main()
+ {
+     M[1]="";
+     M[2]="abc";
+     M[3]="def";
+     M[4]="ghi";
+     M[5]="jkl";
+     M[6]="mno";
+     M[7]="pqrs";
+     M[8]="tuv";
+     M[9]="wxyz";
+	int t;
+	cin>>t;
+
+	while(t--){
+	    vector<int>v;
+	    int n;cin>>n;
+	    for(int i=0,x;i<n;++i){
+	        cin>>x;
+	        v.push_back(x);
+	    }
+	    fn(0,"",n,v);
+	    cout<<"\n";
+	}
+	return 0;
+}
