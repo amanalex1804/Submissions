@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<string>v;
+void fn(int n,string k,int mask,string s,int l){
+    if(n>=l){
+        cout<<k<<" ";
+        return ;
+    }
+    for(int i=0;i<l;++i){
+        if(mask&(1<<i)){
+            
+        }else{
+            fn(n+1,k+s[i],(mask|(1<<i)),s,l);
+        }
+        
+    }
+}
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    v.clear();
+	    string s;cin>>s;
+	    sort(s.begin(),s.end());
+	    fn(0,"",0,s,(int)s.size());
+	  //  sort(v.begin(),v.end());
+	   // for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+	    cout<<"\n";
+	    
+	
+	}
+	return 0;
+}
