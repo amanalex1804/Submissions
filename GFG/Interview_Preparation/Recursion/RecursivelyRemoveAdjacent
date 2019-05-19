@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+string fn(int idx,string s,string s1,int l){
+    if(idx>=l){
+        //cout<<s;
+        return s;
+    }
+    
+    if(s1[idx]==s1[idx+1] or s1[idx]==s1[idx-1]){
+        return fn(idx+1,s,s1,l);
+    }else{
+        return fn(idx+1,s+s1[idx],s1,l);
+    }
+    
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s,temp="";cin>>s;
+	    
+	    
+	    int l =(int)s.size();
+	    
+	    while(1){
+	        temp = s;
+	        s = fn(0,"",s,(int)s.size());
+	        if(temp==s) break;
+	        
+	    }
+	    
+	    cout<<temp;
+	   
+	    cout<<"\n";
+	    
+	   
+	}
+	return 0;
+}
