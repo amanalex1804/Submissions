@@ -1,0 +1,43 @@
+all/invoke your function is mentioned above.*/
+
+/*
+The structure of linked list is the following
+struct Node
+{
+int data;
+Node* next;
+};
+*/
+Node *removeDuplicates(Node *root)
+{
+    
+    Node *head =NULL,*tail= NULL,*cur = root,*ptr,*temp;
+    
+    while(cur){
+        int x = cur->data;
+        ptr = head;
+        bool flag = false;
+        while(ptr){
+            if(ptr->data==x){
+                flag = true;
+                break;
+            }
+            ptr=ptr->next;
+        }
+        if(!flag){
+            temp = new Node(x);
+            temp->next = NULL;
+            if(head==NULL){
+                head = temp;
+                tail = temp;
+            }else{
+                tail->next = temp;
+                tail = tail->next;
+            }
+            
+        }
+        cur = cur->next;
+    }
+    
+    return head;
+ }
