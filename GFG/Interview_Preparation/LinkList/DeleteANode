@@ -1,0 +1,27 @@
+;*/
+/*You are required to complete below method*/
+Node* deleteNode(Node *head,int x)
+{
+    if(!head) return NULL;
+    //Your code here
+    int cnt = 0;
+    Node *cur,*ptr;
+    cur = head; ptr = head;
+    
+    while(cur){
+        ++cnt;
+        if(cnt == x){
+          //  cout<<cur->data<<endl;
+            break;
+        }
+        
+        
+        ptr = cur;
+        cur = cur ->next;
+    }
+   if(ptr!=cur) ptr->next = cur->next;
+   else return head->next;
+    return head;
+    
+    
+}
