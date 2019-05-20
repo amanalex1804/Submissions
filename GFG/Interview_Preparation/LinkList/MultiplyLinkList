@@ -1,0 +1,19 @@
+long long  multiplyTwoLists (Node* l1, Node* l2)
+{
+  //Your code here
+  
+  Node *c1 = l1,*c2 = l2;
+  
+  long long int a=0,b=0,p=1,mod=1000000007;
+  while(c1){
+      a=((a*10)%mod+(c1->data)%mod)%mod;
+      c1 = c1->next;
+  }
+  while(c2){
+      b = ((b*10)%mod+(c2->data)%mod)%mod;
+      c2 = c2->next;
+  }
+  p = ((a%mod)*(b%mod))%mod;
+  
+  return p;
+}
