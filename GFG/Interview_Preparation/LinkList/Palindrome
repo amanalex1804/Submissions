@@ -1,0 +1,27 @@
+bool isPalindrome(Node *head)
+{
+      if(!head) return head;
+  
+   Node *cur =head,*rev = NULL;
+   Node *temp;
+  while(cur){
+      temp = new Node(cur->data);
+      
+      if(rev==NULL){
+          rev = temp;
+         
+      }else{
+          temp->next = rev;
+          rev = temp;
+      }
+      cur = cur->next;
+  }
+  
+  while(head and rev){
+      if(head->data!=rev->data) return false;
+      head = head->next;
+      rev = rev->next;
+  }
+  return true;
+  
+}
