@@ -1,0 +1,48 @@
+/* The structure of the Linked list Node is as follows:
+struct Node {
+    int val;
+    struct Node* next;
+}; */
+void intersection(Node **head1, Node **head2,Node **head3)
+{
+    // Your Code Here
+    Node *c1 = *head1,*c2 = *head2,*t = NULL,*temp,*nw=NULL,*ptr,*ini=*head2;
+    
+    while(c1){
+        int x = c1->val;
+        c2 = ini;
+        bool flag =false;
+        ptr = NULL;
+        while(c2){
+           // cout<<"kaahe "<<x<<" "<<c2->val<<endl;
+            if(c2->val==x){
+                flag = true;
+               // cout<<"kaahe "<<x<<" "<<c2->val<<endl;
+                if(ptr==NULL){
+                    ini = ini->next;
+                }else{
+                    ptr->next = c2->next;
+                }
+               break;
+            }
+            ptr = c2;
+            c2 = c2->next;
+        }
+        if(flag){
+            //cout<<"woo"<<x<<" "<<c2->val<<endl;
+            temp = new Node();
+            temp->val = x;
+            temp->next = NULL;
+            if(nw==NULL){
+                nw = temp;
+                t = temp;
+            }else{
+                t->next = temp;
+                t = temp;
+            }
+        }
+        c1 = c1->next;
+    }
+
+    *head3 =nw;
+   }
