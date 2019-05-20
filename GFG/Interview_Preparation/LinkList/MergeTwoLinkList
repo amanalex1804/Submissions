@@ -1,0 +1,63 @@
+struct Node {
+    int data;
+    Node* next;
+}; */
+Node* SortedMerge(Node* head1,   Node* head2)
+{
+    // Your Code Here
+    Node *f= NULL,*t=NULL,*temp,*c1 = head1,*c2 = head2;
+    while(c1 and c2){
+        
+        if(c1->data<c2->data){
+            temp = new Node(c1->data);
+            temp->next = NULL;
+            if(f==NULL){
+                f = temp;
+                t = temp;
+            }else{
+                t->next = temp;
+                t =temp;
+            }
+            c1 = c1->next;
+        }else{
+            temp = new Node(c2->data);
+            temp->next = NULL;
+            if(f==NULL){
+                f = temp;
+                t = temp;
+            }else{
+                t->next = temp;
+                t =temp;
+            }
+            c2 = c2->next;
+        }
+    }
+    
+    while(c1){
+             temp = new Node(c1->data);
+            temp->next = NULL;
+            if(f==NULL){
+                f = temp;
+                t = temp;
+            }else{
+                t->next = temp;
+                 t =temp;
+            }
+        c1 = c1->next;
+    }
+    while(c2){
+        temp = new Node(c2->data);
+            temp->next = NULL;
+            if(f==NULL){
+                f = temp;
+                t = temp;
+            }else{
+                t->next = temp;
+                t = temp;
+            }
+            c2 = c2->next;
+        
+    }
+  
+    return f;
+}
