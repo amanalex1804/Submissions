@@ -1,0 +1,11 @@
+*/
+// head : reference to head of linked list
+int getCount(struct Node* head){
+//Code here
+int cnt = 0;
+while(head){
+    ++cnt;
+    head = head->next;
+}
+return cnt;
+}
