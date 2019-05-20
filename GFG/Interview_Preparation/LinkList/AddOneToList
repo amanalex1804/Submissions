@@ -1,0 +1,50 @@
+struct Node
+{
+    int data;
+    Node* next;
+}; */
+// Should rearrange given linked list such that all even
+// positioned Nodes are before odd positioned.
+// Returns new head of linked List.
+Node *addOne(Node *head)
+{
+    Node *cur = head,*rev=NULL,*tail=NULL,*temp,*fh=NULL;
+    while(cur){
+        
+        temp = newNode(cur->data);
+        temp->next = NULL;
+        if(rev==NULL){
+            rev = temp;
+            tail = temp;
+        }else{
+            temp->next = rev;
+            rev = temp;
+        }
+        cur = cur->next;
+    }
+    
+    int carry =1;
+    while(rev){
+        temp = newNode((rev->data+carry)%10);
+        carry = (rev->data+carry)/10;
+        temp->next = NULL;
+        if(fh==NULL) fh = temp;
+        else{
+            temp->next = fh;
+            fh = temp;
+        }
+        rev = rev->next;
+    }
+    if(carry){
+        temp = newNode((carry)%10);
+        
+        temp->next = NULL;
+        if(fh==NULL) fh = temp;
+        else{
+            temp->next = fh;
+            fh = temp;
+        }
+        
+    }
+    return fh;
+}
