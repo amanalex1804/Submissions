@@ -1,0 +1,112 @@
+*///struct node* new_node =	(struct node*) malloc(sizeof(struct node));
+struct node* makeUnion(struct node* head1, struct node* head2)
+{
+    // code here
+    struct node * head = NULL,*cur=head1,*cur2=head2,*temp,*ch,*ptr;
+    
+    while(cur){
+        int x = cur->data;
+        ch = head;
+        bool flag = false;
+        while(ch){
+            if(ch->data==cur->data){
+                flag = true;
+                break;
+            }
+            ch = ch->next;
+        }
+        if(!flag){
+             temp = new node();
+             temp->data = cur->data;
+             if(!head){
+                 temp->next =NULL;
+                 head = temp;
+                 
+             }else{
+                  ch = head; ptr =head;
+             if(x<ch->data){
+                 //cout<<" kyu "<<x<<endl;
+                 temp->next = head;
+                 head = temp;
+             }else{
+                 bool done = false;
+                 while(ch){
+                     if(ptr->data<x and x<ch->data){
+                         done = true;
+                         temp->next = ptr->next;
+                         ptr->next = temp;
+                         break;
+                     }
+                     ptr = ch;
+                    ch = ch->next;
+                 }
+                 if(!done and ptr and ptr->data<x) {
+                     ptr->next = temp;
+                     temp->next = NULL;
+                 }
+                 
+             }
+    
+             }
+            
+            
+        }
+       
+        cur = cur->next;
+    }
+    
+    
+    
+      while(cur2){
+        int x = cur2->data;
+        ch = head;
+        bool flag = false;
+        while(ch){
+            if(ch->data==cur2->data){
+                flag = true;
+                break;
+            }
+            ch = ch->next;
+        }
+        if(!flag){
+             temp = new node();
+             temp->data = cur2->data;
+             if(!head){
+                 temp->next =NULL;
+                 head = temp;
+                 
+             }else{
+                  ch = head; ptr =head;
+             if(x<ch->data){
+                 //cout<<" kyu "<<x<<endl;
+                 temp->next = head;
+                 head = temp;
+             }else{
+                 bool done = false;
+                 while(ch){
+                     if(ptr->data<x and x<ch->data){
+                         done = true;
+                         temp->next = ptr->next;
+                         ptr->next = temp;
+                         break;
+                     }
+                     ptr = ch;
+                    ch = ch->next;
+                 }
+                 if(!done and ptr and ptr->data<x) {
+                     ptr->next = temp;
+                     temp->next = NULL;
+                 }
+                 
+             }
+    
+             }
+            
+            
+        }
+       
+        cur2 = cur2->next;
+    }
+  
+    return head;
+}
