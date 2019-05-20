@@ -1,0 +1,99 @@
+
+/*struct Node
+{
+    int data;
+   Node* next;
+}; */
+//write a function returns the resultant linked list
+Node*  addTwoLists(Node* first, Node* second){
+  // Code here
+  
+  Node *c1 = first,*c2 = second,*h1=NULL,*r1 = NULL,*h2 = NULL, *r2 = NULL,*temp,*fh=NULL,*ft=NULL;
+  
+  while(c1){
+      temp = new Node(c1->data);
+      temp ->next = NULL;
+      if(h1==NULL){
+          h1 = temp;
+          r1 = temp;
+      }else{
+          r1->next = temp;
+          r1 = r1->next;
+      }
+      c1 = c1->next;
+  }
+  
+  while(c2){
+      temp = new Node(c2->data);
+      temp ->next = NULL;
+      if(h2==NULL){
+          h2 = temp;
+          r2 = temp;
+      }else{
+          r2->next = temp;
+          r2 = r2->next;
+      }
+      c2 = c2->next;
+  }
+  
+  
+  int carry = 0;
+  while(h1 and h2){
+      int sum = (h1->data+h2->data+carry);
+      temp = new Node(sum%10);
+      temp->next = NULL;
+      carry = sum/10;
+      if(fh==NULL){
+         fh = temp;
+         ft = temp;
+      }else{
+          ft->next = temp;
+          ft = temp;
+      }
+      
+      
+      h1 = h1->next;
+      h2 = h2->next;
+  }
+  while(h1){
+      int sum = (carry+h1->data);
+      temp = new Node(sum%10);
+      carry= sum/10;
+      if(fh==NULL){
+         fh = temp;
+         ft = temp;
+      }else{
+          ft->next = temp;
+          ft = temp;
+      }
+      h1 = h1->next;
+  }
+  
+  while(h2){
+      int sum = (carry+h2->data);
+      temp = new Node(sum%10);
+      carry= sum/10;
+      if(fh==NULL){
+         fh = temp;
+         ft = temp;
+      }else{
+          ft->next = temp;
+          ft = temp;
+      }
+      h2 = h2->next;
+  }
+  if(carry){
+        temp = new Node(1);
+      
+      if(fh==NULL){
+         fh = temp;
+         ft = temp;
+      }else{
+          ft->next = temp;
+          ft = temp;
+      }
+  }
+  
+  return fh;
+ 
+}
