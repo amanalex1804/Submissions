@@ -1,0 +1,19 @@
+     struct node *next;
+  }
+*/
+void pairWiseSwap(struct node *head)
+{
+   // The task is to complete this method
+   
+  struct node *cur = head,*ptr=NULL;
+  int cnt =0;
+  while(cur){
+      ++cnt;
+      if(cnt%2==0){
+          swap(ptr->data,cur->data);
+      }
+      ptr=cur;
+      cur = cur->next;
+      
+  }
+}
