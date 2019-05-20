@@ -1,0 +1,8 @@
+
+void pairWiseSwap(struct node *head)
+{
+  if(head and head->next){
+      swap(head->data,head->next->data);
+      pairWiseSwap(head->next->next);
+  }
+}
