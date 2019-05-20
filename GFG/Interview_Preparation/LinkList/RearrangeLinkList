@@ -1,0 +1,42 @@
+// Should rearrange given linked list such that all even
+// positioned Nodes are before odd positioned.
+// Returns new head of linked List.
+Node *rearrangeEvenOdd(Node *head)
+{
+   // Your Code here
+   
+   Node *even = NULL,*odd=NULL,*final,*cur= head,*te=NULL,*to=NULL;
+   
+   int cnt = 0;
+   while(cur){
+       ++cnt;
+       Node *temp = newNode(cur->data);
+       temp->next = NULL;
+       if(cnt&1){
+           
+           if(to==NULL) {
+               odd = temp;
+               to = temp;
+           }
+           else{
+               to->next = temp;
+               to = to->next;
+           }
+           
+       }else{
+           if(te==NULL) even = temp,te=temp;
+           else {
+               te->next=temp;
+               te=te->next;
+           }
+       }
+       cur = cur->next;
+   }
+  // cout<<to->data<<endl;
+   to->next =even;
+  // cout<<to->data<<endl;
+   
+   return odd;
+ 
+
+}
