@@ -1,0 +1,59 @@
+  struct Node
+  {
+     int data;
+     Node *next;
+  }
+*/
+void sortList(Node *head)
+{
+   //Add code here
+   
+   Node *cur =head,*newhead=NULL;
+   int c0=0,c1=0,c2=0;
+   while(cur){
+       if(cur->data==0) ++c0;
+       if(cur->data==1) ++c1;
+       if(cur->data==2) ++c2;
+       cur = cur->next;
+   }
+   cur = NULL;newhead =NULL;
+   Node *temp;
+   while(c0--){
+       temp = new Node(0);
+       temp->next =NULL;
+       if(newhead==NULL) {
+           newhead= temp;
+           cur = temp;
+       }else{
+           cur->next = temp;
+           cur = temp;
+        }
+   }
+   while(c1--){
+       temp = new Node(1);
+       temp->next =NULL;
+       if(newhead==NULL) {
+           newhead= temp;
+           cur = temp;
+       }else{
+           cur->next = temp;
+           cur = temp;
+        }
+   }
+   while(c2--){
+       temp = new Node(2);
+       temp->next =NULL;
+       if(newhead==NULL) {
+           newhead= temp;
+           cur = temp;
+       }else{
+           cur->next = temp;
+           cur = temp;
+        }
+   }
+ 
+  
+   start = newhead;
+   
+   
+}
