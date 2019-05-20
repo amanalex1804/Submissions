@@ -1,0 +1,11 @@
+int GetNth(struct node* head, int index)
+{
+   // Code here
+   int cnt =0;
+   while(head){
+       
+       if(cnt==index) return head->data;
+       ++cnt;
+       head= head->next;
+   }
+}
