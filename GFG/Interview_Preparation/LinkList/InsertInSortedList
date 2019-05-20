@@ -1,0 +1,27 @@
+void sortedInsert(struct node** head_ref, int data)
+{
+    // Code here
+    
+    struct node *cur = *head_ref,*ptr = NULL;
+    bool flag = false;
+    struct node *temp =  newNode(data);
+    if(data<=cur->data){
+        temp->next = *head_ref;
+        *head_ref = temp;
+        return ;
+    }
+    while(cur and cur->next){
+        //cout<<"ok "<<cur->data<<endl;
+        if(cur->data<=data and data<=cur->next->data and flag==false){
+            temp->next = cur->next;
+            cur->next = temp;
+            cur = cur->next;
+            flag = true;
+        }
+        cur = cur->next;
+    }
+    if(data>cur->data and flag==false){
+        temp->next = NULL;
+        cur->next = temp;
+    }
+}
