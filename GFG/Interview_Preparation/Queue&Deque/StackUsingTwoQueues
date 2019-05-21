@@ -1,0 +1,47 @@
+/* The structure of the class is
+class QueueStack{
+private:
+    queue<int> q1;
+    queue<int> q2;
+public:
+    void push(int);
+    int pop();
+};
+ */
+/* The method push to push element into the stack */
+void QueueStack :: push(int x)
+{
+        // Your Code
+        if(q1.size()) q1.push(x);
+        else if(q2.size()) q2.push(x);
+        else q1.push(x);
+}
+/*The method pop which return the element poped out of the stack*/
+int QueueStack :: pop()
+{
+        // Your Code 
+        if(!(int)q1.size() and !(int)q2.size()) return -1;
+        if(q1.size()){
+            int sz = (int)q1.size();
+            --sz;
+            while(sz--){
+                q2.push(q1.front());
+                q1.pop();
+            }
+            int x = q1.front();
+            q1.pop();
+            return x;
+        }
+        if(q2.size()){
+            int sz = (int)q2.size();
+            --sz;
+            while(sz--){
+                q1.push(q2.front());
+                q2.pop();
+            }
+            int x = q2.front();
+            q2.pop();
+            return x;
+        }
+        
+}
