@@ -1,0 +1,31 @@
+struct Node
+{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  Node(int x) { data = x; next = prev = NULL; }
+}; */
+/* Function to insert into a Doubly Linked List */
+void addNode(Node *head, int pos, int data)
+{
+   // Your code here
+   
+   Node *c= head,*temp;
+   temp= new Node(data);
+   
+   int cnt = -1;
+   
+   while(c){
+       ++cnt;
+       if(cnt==pos){
+           temp->prev = c;
+           temp->next = c->next;
+           if(c->next) c->next->prev = temp;
+           c->next = temp;
+           
+           break;
+       }
+       c = c->next;
+   }
+   
+}
