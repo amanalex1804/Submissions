@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    int l = (int)s.size();
+	    unordered_map<char,int>M;
+	    for(int i=0;i<l;++i){
+	        M[s[i]]++;
+	    }
+	    int x = 0,y=0,ans=0;
+	    for(auto it=M.begin();it!=M.end();++it){
+	        pair<char,int>temp  =*it;
+	        char ch = temp.first;
+	        int bit = (int)(ch-'a'+1);
+	        if(bit%2==0 and temp.second%2==0) ++ans;
+	        else if(bit%2==1 and temp.second%2==1) ++ans;
+	    }
+	    cout<<((ans%2)?"ODD":"EVEN")<<"\n";
+	
+	}
+	return 0;
+}
