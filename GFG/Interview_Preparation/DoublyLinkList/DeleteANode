@@ -1,0 +1,28 @@
+
+/*struct Node
+{
+  int data;
+  Node *next;
+  Node *prev;
+};
+ */
+void deleteNode(Node **head_ref, int x)
+{
+  //Your code here
+  //printf("ok %d \n",x);
+  Node *c = *head_ref,*ptr=NULL;
+  int cnt = 0;
+  while(c){
+      ++cnt;
+      if(cnt==x){
+          if(ptr==NULL) *head_ref = c->next;
+          else{
+              ptr->next=c->next;
+          }
+          return;
+      }
+      ptr= c;
+      c = c->next;
+  }
+  
+}
