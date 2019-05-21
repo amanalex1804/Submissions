@@ -1,0 +1,82 @@
+void addPolynomial(Node *p1, Node *p2)
+{
+    //Your code here
+    
+    Node *c1 = p1,*c2 = p2,*h=NULL,*t=NULL,*temp;
+    
+    while(c1 and c2){
+        if(c1->pow==c2->pow){
+            temp = new Node();
+            temp->pow = c1->pow;
+            temp->coeff=(c1->coeff+c2->coeff);
+            temp->next = NULL;
+            if(h==NULL) h = temp,t=temp;
+            else{
+                t->next = temp;
+                t = temp;
+            }
+            c1 = c1->next;
+            c2 = c2->next;
+        }else if(c1->pow>c2->pow){
+            temp = new Node();
+            temp->pow = c1->pow;
+            temp->coeff = c1->coeff;
+            temp->next= NULL;
+            if(h==NULL) h = temp,t=temp;
+            else{
+                t->next = temp;
+                t = temp;
+            }
+            c1 = c1->next;
+        }else{
+            temp = new Node();
+            temp->pow = c2->pow;
+            temp->coeff = c2->coeff;
+            temp->next= NULL;
+            if(h==NULL) h = temp,t=temp;
+            else{
+                t->next = temp;
+                t = temp;
+            }
+            c2 = c2->next;
+        }
+    }
+    
+    while(c1){
+            temp = new Node();
+            temp->pow = c1->pow;
+            temp->coeff = c1->coeff;
+            temp->next= NULL;
+            if(h==NULL) h = temp,t=temp;
+            else{
+                t->next = temp;
+                t = temp;
+            }
+            c1 = c1->next;
+        
+    }
+    
+    while(c2){
+        cout<<"Woo\n";
+            temp = new Node();
+            temp->pow = c2->pow;
+            temp->coeff = c2->coeff;
+            temp->next= NULL;
+            if(h==NULL) h = temp,t=temp;
+            else{
+                t->next = temp;
+                t = temp;
+            }
+            c2 = c2->next;
+        }
+    
+    
+    c1 = h;
+    while(c1->next){
+        cout<<c1->coeff<<"x^"<<c1->pow<<" + ";
+        c1 = c1->next;
+    }
+    cout<<c1->coeff<<"x^"<<c1->pow;
+    
+    
+}
