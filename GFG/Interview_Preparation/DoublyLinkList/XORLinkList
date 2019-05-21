@@ -1,0 +1,45 @@
+struct Node* XOR (struct Node *a, struct Node *b)
+{
+	return (struct Node*) ((uintptr_t) (a) ^ (uintptr_t) (b));
+}
+*/
+// function should insert the data to the front of the list
+void insert(struct Node **head_ref, int data)
+{
+	// Code here
+	Node *newnode = new Node();
+	newnode->data = data;
+	  newnode->npx = XOR(*head_ref, NULL);  
+	if(*head_ref){
+	    Node *nxt = XOR((*head_ref)->npx,NULL);
+	    (*head_ref)->npx = XOR(newnode,nxt);
+	}
+	*head_ref = newnode;
+	
+	
+}
+// function should prints the contents of doubly linked list
+// first in forward direction and then in backward direction
+// you should print a next line after printing in forward direction
+void printList (struct Node *head)
+{
+	// Code here
+	
+	Node *cur = head,*prev =NULL,*nxt;
+	while(cur){
+	    cout<<cur->data<<" ";
+	    nxt = XOR(prev,cur->npx);
+	    prev = cur;
+	    if(nxt==NULL) break;
+	    cur = nxt;
+	}
+	cout<<"\n";
+	prev=NULL;
+	while(cur){
+	    cout<<cur->data<<" ";
+	    nxt = XOR(prev,cur->npx);
+	    prev =cur;
+	    cur =nxt;
+	}
+	
+}
