@@ -1,0 +1,19 @@
+/*The function removes the loop from the linked list if present
+You are required to complete this method*/
+void removeTheLoop(Node *head)
+{
+     if(detectloop(head)){
+        Node *c = head;
+        while(c){
+            c->data = -1;
+            if(c->next->data==-1){
+                c->next=NULL;
+                return ;
+            }
+            c = c->next;
+            
+        }
+         
+         
+     }else return ;
+}
