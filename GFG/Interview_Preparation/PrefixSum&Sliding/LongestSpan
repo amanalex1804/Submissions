@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  int A[n+2],B[n+2];
+	  for(int i=1;i<=n;++i) cin>>A[i];
+	  for(int i=1;i<=n;++i) cin>>B[i],B[i]-=A[i];
+	  
+	  unordered_map<int,int>M;
+	  int sum = 0,mx = 0;
+	  for(int i=1;i<=n;++i){
+	      if(B[i]==0 and mx==0) mx = 1;
+	      sum+=B[i];
+	      if(sum==0) mx = max(mx,i);
+	      if(M.find(sum)!=M.end()){
+	          mx = max(mx,i-M[sum]);
+	      }else{
+	          M[sum] = i;
+	      }
+	  }
+	  cout<<mx<<"\n";
+	  
+	  
+	}
+	return 0;
+}
