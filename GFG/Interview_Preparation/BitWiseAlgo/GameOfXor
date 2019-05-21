@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n,x=0;cin>>n;
+	  int A[n+1];
+	  for(int i=1,y;i<=n;++i){
+	      cin>>A[i];
+	      if(i&1) x^=A[i];
+	  }
+	  if(n&1){
+	      cout<<x<<"\n";
+	      
+	  }
+	  else cout<<0<<"\n";
+	}
+	return 0;
+}
+
+// Even n --- all element occus even timesin all subarray
+// Odd n  --- alternate element occur odd times(1st index)
