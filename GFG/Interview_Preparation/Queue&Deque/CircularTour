@@ -1,0 +1,21 @@
+/*You are required to complete this method*/
+int tour(petrolPump p[],int n)
+{
+   //Your code here
+   
+   for(int i=0;i<n;++i){
+       queue<petrolPump>q;
+       for(int j=i;j<n;++j) q.push(p[j]);
+       for(int j=0;j<i;++j) q.push(p[j]);
+       int dis=0;
+       while(!q.empty()){
+           if(dis<0) break;
+           petrolPump temp = q.front();
+           dis+=(temp.petrol-temp.distance);
+           q.pop();
+       }
+       if(dis<0) continue;
+       if(q.empty()) return i;
+   }
+   return -1;
+}
