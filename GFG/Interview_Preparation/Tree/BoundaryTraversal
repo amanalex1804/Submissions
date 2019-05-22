@@ -1,0 +1,45 @@
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/* A binary tree Node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+void pL(Node *root){
+    if(!root) return;
+
+    if(root->left) cout<<root->data<<" ",pL(root->left);
+    else if(root->right) cout<<root->data<<" ",pL(root->right);
+}
+
+void pR(Node *root){
+    if(!root) return;
+
+    if(root->right) pR(root->right),cout<<root->data<<" ";
+    else if(root->left) pR(root->left),cout<<root->data<<" ";
+     
+}
+void l(Node *root){
+    if(!root) return;
+ 
+    l(root->left);
+       if(!root->left and !root->right) {
+        cout<<root->data<<" ";
+        return;
+    }
+    l(root->right);
+}
+
+void printBoundary(Node *root)
+{
+    cout<<root->data<<" ";
+    pL(root->left);
+    l(root->left);
+    l(root->right);
+    pR(root->right);
+
+}
