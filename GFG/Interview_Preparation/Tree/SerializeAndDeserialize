@@ -1,0 +1,70 @@
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child  
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+/*this  function serializes 
+the binary tree and stores 
+it in the vector A*/
+int fn(Node *node){
+    if(!node) return 0;
+    return 1+fn(node->left)+fn(node->right);
+}
+void serialize(Node *root,vector<int> &A)
+{
+    //Your code here
+    int cnt =fn(root);
+    for(int i=0;i<10000;++i) A.push_back(-1);
+    queue<pair<Node *,int> >q;
+    int ind = 0;
+    q.push({root,0});
+    while(!q.empty()){
+        int sz = (int)q.size();
+        while(sz--){
+            ind = q.front().second;
+            A[ind]=q.front().first->data;
+            if(q.front().first->left) A[2*ind+1]=q.front().first->left->data,q.push({q.front().first->left,2*ind+1});
+            if(q.front().first->right) A[2*ind+2]=q.front().first->right->data,q.push({q.front().first->right,2*ind+2});
+            q.pop();
+            
+        }
+    }
+}
+/*this function deserializes
+ the serialized vector A*/
+Node * deSerialize(vector<int> &A)
+{
+   queue<pair<Node *,int> >q;
+   Node *root=NULL,*cur=NULL,*temp;
+   if(A[0]!=-1) {
+       root = newNode(A[0]);
+       q.push({root,0});
+   }
+   cur = root;
+   while(!q.empty()){
+       int sz = (int)q.size();
+       while(sz--){
+       Node* t=q.front().first;
+       int ind = q.front().second;
+       if(A[2*ind+1]!=-1){
+           temp = newNode(A[2*ind+1]);
+           t->left=temp;
+           q.push({temp,2*ind+1});
+       }
+           if(A[2*ind+2]!=-1){
+           temp = newNode(A[2*ind+2]);
+           t->right=temp;
+           q.push({temp,2*ind+2});
+       }
+       q.pop();
+       
+       }
+    
+       
+   }
+   return root;
+}
