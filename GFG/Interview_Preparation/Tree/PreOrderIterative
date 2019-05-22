@@ -1,0 +1,24 @@
+void preorder(Node* cur)
+{
+  // Your code here
+  stack<Node *>st;
+  while(!st.empty() or cur){
+      if(cur){
+          cout<<cur->data<<" ";
+          st.push(cur);
+          cur = cur->left;
+      }else{
+          int x = st.top()->data;
+          st.pop();
+          while(!st.empty()){
+              if(st.top()->right and st.top()->right->data==x){
+                  x = st.top()->data;
+                  st.pop();
+              }else{
+                  cur = st.top()->right;
+                  break;
+              }
+          }
+      }
+  }
+}
