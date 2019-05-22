@@ -1,0 +1,20 @@
+int fn(Node *node,int x,int y,Node**ok){
+    if(!node) return 0;
+    if(node->data==x and node->data==y) {*ok=node;return 1;}
+    int r1=0,r2=0;
+    r1 = fn(node->left,x,y,ok);
+    r2 = fn(node->right,x,y,ok);
+    if(node->data==x or node->data==y) {
+        if(r1|r2) *ok = node; 
+        return 1;
+    }
+    if(r1&r2 and (*ok)->data==-1) *ok = node;
+    return (r1|r2);
+}
+Node * LCA(Node* root ,int n1 ,int n2 )
+{
+    Node *ok = new Node(-1);
+    int xx = fn(root,n1,n2,&ok);
+    return ok;
+    
+}
