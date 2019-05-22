@@ -1,0 +1,14 @@
+   and a pointer to right child  
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+void inOrder(Node* root)
+{
+  // Your code here
+  if(root->left) inOrder(root->left);
+  cout<<root->data<<" ";
+  if(root->right) inOrder(root->right);
+}
