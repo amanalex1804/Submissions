@@ -1,0 +1,22 @@
+ou need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+/*Complete the function below
+Node is as follows:
+struct Node{
+	int data;
+	Node *left,*right;
+};
+*/
+int isSumProperty(Node *node)
+{
+ // Add your code here
+ if(!node->left and !node->right) return 1;
+ if(!node) return 0;
+ int x = 0;int ret = 1;
+ if(node->left) x+=node->left->data,ret&=isSumProperty(node->left);
+ if(node->right) x+=node->right->data,ret&=isSumProperty(node->right);
+ 
+ return ((node->data==x)&ret);
+ 
+}
