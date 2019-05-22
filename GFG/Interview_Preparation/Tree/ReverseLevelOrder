@@ -1,0 +1,35 @@
+
+/* A tree Node has data, pointer to left child
+   and a pointer to right child  
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+void reversePrint(Node *root)
+{
+    //Your code here
+    if(!root) return;
+    deque<Node *>q,done;
+    q.push_back(root);
+    while(1){
+        int sz = (int)q.size();
+        bool flag = false;
+        while(sz--){
+            Node *temp = q.front(); q.pop_front();
+            done.push_back(temp);
+        
+            if(temp->right) q.push_back(temp->right);
+            if(temp->left) q.push_back(temp->left);
+        }
+        if((int)q.size()==0){
+            while(!done.empty()){
+                cout<<done.back()->data<<" ";
+                done.pop_back();
+            }
+            break;
+        }
+    }
+    
+}
