@@ -1,0 +1,31 @@
+void inOrder(Node* root,Node **head){
+    static Node * prev = NULL;
+    if(!root) return ;
+    inOrder(root->left,head);
+    if(!(*head)){
+        prev = root;
+        (*head) = root;
+    }else{
+        root->left = prev;
+        prev->right = root;
+        prev = root;
+    }
+    inOrder(root->right,head);
+  
+}
+
+
+Node *bTreeToCList(Node *root)
+{
+   Node *head =NULL;
+   inOrder(root,&head);
+   
+   Node *cur = head,*last;
+   while(cur->right){
+       cur=cur->right;
+   }
+   cur->right=head;
+   head->left = cur;
+   return head;
+ 
+}
