@@ -1,0 +1,24 @@
+
+/* Tree node structure  used in the program
+ struct Node
+ {
+     int data;
+     Node* left, *right;
+}; */
+/* Computes the diameter of binary tree with given root.  */
+
+int ht(Node *node,int *mx){
+    if(!node) return 0;
+    int x = ht(node->left,mx);
+    int y = ht(node->right,mx);
+    if(1+x+y>*mx) *mx = 1+x+y;
+    return 1+max(x,y);
+}
+
+
+int diameter(Node* node)
+{
+    int mx = 0;
+    int x = ht(node,&mx);
+    return mx;
+}
