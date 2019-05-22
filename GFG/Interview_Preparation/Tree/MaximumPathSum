@@ -1,0 +1,30 @@
+/*Complete the function below
+Node is as follows
+struct Node{
+	int data;
+	Node *left, *right;
+};
+*/
+
+
+int ht(Node *node,int *mx){
+    if(!node->left and !node->right) return node->data;
+    if(!node) return 0;
+    int x = 0,y=0;
+    if(node->left) x+=ht(node->left,mx);
+    if(node->right) y+=ht(node->right,mx);
+    if(node->data+x+y>*mx) *mx = node->data+x+y;
+    return (node->data)+max(x,y);
+}
+
+
+
+int maxPathSum(struct Node *root)
+{
+//add code here.
+if(!root) return 0;
+   int mx = -9999;
+    int x = ht(root,&mx);
+    return mx;
+
+}
