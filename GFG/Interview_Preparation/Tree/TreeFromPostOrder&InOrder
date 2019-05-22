@@ -1,0 +1,36 @@
+// Function should construct tree and return
+// root of it.  in[] stores inorder traversal
+// post[] stores postorder traversal.  n is
+// size of these arrays
+
+int getRoot(int in[],int post[],int l,int r,int n){
+    int ii = -1,ij=-1;
+    for(int i=l;i<=r;++i){
+        for(int j=0;j<n;++j){
+            if(in[i]==post[j]) {
+                if(j>ij){
+                    ij =j;
+                    ii = i;
+                }
+            }
+        }
+    }
+    return ii;
+}
+
+Node *fn(int in[],int post[],int l,int r,int n){
+    if(l>r) return NULL;
+    int ind = getRoot(in,post,l,r,n);
+    Node *root = new Node(in[ind]);
+    root->left = fn(in,post,l,ind-1,n);
+    root->right = fn(in,post,ind+1,r,n);
+    return root;
+}
+
+Node *buildTree(int in[], int post[], int n)
+{
+    // Your code here
+    
+    return fn(in,post,0,n-1,n);
+    
+}
