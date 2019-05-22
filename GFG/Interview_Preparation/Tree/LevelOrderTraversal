@@ -1,0 +1,24 @@
+ode
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+//You are required to complete this method
+void levelOrder(Node* node)
+{
+  //Your code here
+  queue<Node *>q;
+  q.push(node);
+  while(!q.empty()){
+      int sz =(int)q.size();
+      while(sz--){
+          cout<<q.front()->data<<" ";
+          if(q.front()->left) q.push(q.front()->left);
+           if(q.front()->right) q.push(q.front()->right);
+          q.pop();
+          
+      }
+      cout<<"$ ";
+  }
+}
