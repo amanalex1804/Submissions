@@ -1,0 +1,25 @@
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+void inOrder(Node* root)
+{
+    stack<Node *>st;
+    
+    int cnt = 0;
+    while(!st.empty() or root){
+       if(root){
+           //going down
+           st.push(root);
+           root=root->left;
+       }else{
+           //going up
+           cout<<st.top()->data<<" ";
+           root = st.top()->right;
+           st.pop();
+       }
+       
+    }
+} 
