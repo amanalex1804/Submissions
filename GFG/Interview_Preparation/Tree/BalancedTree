@@ -1,0 +1,22 @@
+
+/* A binary tree node structure
+struct Node {
+    int data;
+    Node* left, * right;
+}; */
+// This function should return tree if passed  tree 
+// is balanced, else false. 
+int fn(Node *node){
+    if(!node) return 0;
+    int x = fn(node->left);
+    int y = fn(node->right);
+    if(abs(x-y)>1) return 9999;
+    return 1+max(x,y);
+}
+bool isBalanced(Node *root)
+{
+    //  Your Code here
+    int x = fn(root);
+    if(x>=9999) return false;
+    return true;
+}
