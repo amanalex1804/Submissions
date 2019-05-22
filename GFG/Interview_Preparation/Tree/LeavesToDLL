@@ -1,0 +1,39 @@
+
+/*Complete the function below
+Node is as follows:
+struct Node{
+	int data;
+	Node *left,*right;
+};
+*/
+Node *convertToDLL(Node *root,Node **head_ref)
+{
+//add code here.
+
+Node *t=NULL,*h=*head_ref;
+queue<Node*>q;
+q.push(root);
+while(!q.empty()){
+    int sz = (int)q.size();
+    while(sz--){
+        Node *temp = q.front();
+        
+        if(temp->left) q.push(temp->left);
+        if(temp->right) q.push(temp->right);
+        
+        if(!temp->left and !temp->right){
+            if(t==NULL){
+                *head_ref = temp;
+                t = temp;
+            }else{
+                temp->left = t;
+                t->right = temp;
+                t = temp;
+            }
+        }
+            q.pop();
+    }
+}
+return *head_ref;
+
+}
