@@ -1,0 +1,22 @@
+
+/* Tree node structure  used in the program
+ struct Node
+ {
+     int data;
+     Node* left, *right;
+}; */
+/* Computes the height of binary tree with given root.  */
+void fn(Node *node,int lev,int *mx){
+    if(!node) return;
+    if(lev>*mx) *mx =lev;
+    fn(node->left,lev+1,mx);
+    fn(node->right,lev+1,mx);
+    
+}
+int height(Node* node)
+{
+   // Your code here
+   int mx = 0;
+   fn(node,1,&mx);
+   return mx;
+}
