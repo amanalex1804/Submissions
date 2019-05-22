@@ -1,0 +1,33 @@
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+// L R Root
+void postOrder(Node* cur)
+{
+  stack<Node *>st;
+  int cnt =0;
+  while(!st.empty() or cur){
+      if(cur){
+           st.push(cur);
+           cur = cur->left;
+      }else{
+                  int x = st.top()->data;
+                  cout<<x <<" ";
+                  st.pop();
+                  while(!st.empty()){
+                      if(st.top()->right){
+                          if(st.top()->right->data==x) {cout<<st.top()->data<<" ";x=st.top()->data;st.pop();}
+                          else{
+                              cur = st.top()->right;
+                              break;
+                          }
+                      }else {cout<<st.top()->data<<" ";x=st.top()->data;st.pop();}
+                  }
+             
+      }
+  }
+  
+}
