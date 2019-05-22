@@ -1,0 +1,31 @@
+/* struct Node
+{
+  int data;
+  Node *left,  *right;
+  Node *nextRight;  // This has garbage value in input trees
+}; */
+// Should set the nextRight for all nodes
+void connect(Node *p)
+{
+   // Your Code Here
+   
+   deque<Node*>q;
+   q.push_back(p);
+   while(!q.empty()){
+       int sz = (int)q.size();
+       Node *temp = q.back();
+       temp->nextRight=NULL;
+       
+       if(temp->right) q.push_front(temp->right);
+       if(temp->left) q.push_front(temp->left);
+       q.pop_back(); --sz;
+       while(sz--){
+           q.back()->nextRight = temp;
+           temp = q.back();
+            
+             if(temp->right) q.push_front(temp->right);
+              if(temp->left) q.push_front(temp->left);
+             q.pop_back();
+       }
+   }
+}
