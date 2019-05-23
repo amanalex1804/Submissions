@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int dp[35];
+	   for(int i=0;i<35;++i) dp[i] = INT_MAX;
+	       
+	   int n;cin>>n;
+	   vector<int>lad[40],sn[40];
+	   
+	   for(int i=0,a,b;i<n;++i){
+	       cin>>a>>b;
+	       if(a<b) lad[a].push_back(b);
+	       else if(a>b) sn[a].push_back(b),dp[a] =-1;
+	   }
+	 
+	   dp[1] = 0;
+	   // row = 5 col = 6
+	   
+	   for(int i=2;i<=30;++i){
+	       int cnt = 0;
+	       for(int j=i-1;j>=1 and cnt<6;--j){
+	           ++cnt;
+	           if(dp[j]==-1) continue;
+	           dp[i] = min(dp[i],dp[j]+1);
+	       }
+	       for(int j=0;j<(int)lad[i].size();++j){
+	           dp[lad[i][j]] = min(dp[lad[i][j]],dp[i]);
+	       }
+	   }
+	       
+	       cout<<dp[30]<<"\n";
+	   
+	   
+	}
+	return 0;
+}
