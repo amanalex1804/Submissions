@@ -1,0 +1,20 @@
+bool isCyclic(int V, vector<int> adj[])
+{
+    // Your code here
+    
+    int vis[V+1];
+    bool flag =true;
+    for(int i=0;i<V and flag;++i){
+        for(int j=0;j<V;++j) vis[j]=0;
+        queue<int>q;
+        q.push(i);
+        while(!q.empty()){
+            int x= q.front(); q.pop();
+            if(vis[x]>V) return true;
+            vis[x]+=1;
+            for(int j=0;j<(int)adj[x].size();++j) q.push(adj[x][j]);
+        }
+    }
+    return false;
+    
+}
