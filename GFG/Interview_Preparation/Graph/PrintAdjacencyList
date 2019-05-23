@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n,m,a,b;cin>>n>>m;
+	  vector<int>v[n+1];
+	  while(m--){
+	      cin>>a>>b;
+	      v[a].push_back(b);
+	      v[b].push_back(a);
+	  }
+	  for(int i=0;i<n;++i){
+	      cout<<i;
+	      if((int)v[i].size()){
+	          cout<<"-> ";
+	          
+	         for(int j=0;j<(int)v[i].size()-1;++j) cout<<v[i][j]<<"-> ";
+	        if((int)v[i].size()) cout<<v[i].back();
+	          
+	      }
+	      
+	      cout<<"\n";
+	  }
+	}
+	return 0;
+}
