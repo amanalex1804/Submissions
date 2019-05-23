@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={-2,-2,2,2,-1,-1,1,1};
+int dy[]={-1,1,1,-1,2,-2,2,-2};
+struct abc{
+    int x,y,z;
+    abc(int a,int b,int c){
+        x = a;
+        y = b;
+        z = c;
+    }
+};
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int n,m;cin>>n>>m;
+	   int x,y,a,b;
+	   cin>>x>>y>>a>>b;
+	   queue<struct abc *>q;
+	   struct abc *temp = new abc(x,y,0);
+	   q.push(temp);
+	   int cnt= 0;
+	   int vis[n+1][m+1];
+	   memset(vis,0,sizeof(vis));
+	   bool flag =false;
+	   while(!q.empty()){
+	       ++cnt;
+	       temp = q.front(); q.pop();
+	      // cout<<" ok "<<temp->x<<" "<<temp->y<<endl;
+	       if(temp->x ==a and temp->y==b){
+	           flag =true;
+	           cout<<temp->z<<"\n";
+	           break;
+	       }
+	       
+	       for(int i=0;i<8;++i){
+	           int x1 = temp->x+dx[i];
+	           int y1 = temp->y+dy[i];
+	           if(1<=x1 and x1<=n and 1<=y1 and y1<=m and !vis[x1][y1]){
+	               struct abc *c = new abc(x1,y1,temp->z+1);
+	               vis[x1][y1]=1;
+	               q.push(c);
+	           }
+	       }
+	     //  if(cnt>20) break;
+	   }
+	   if(!flag) cout<<-1<<"\n";
+	   
+	}
+	return 0;
+}
