@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={-1,0,0,1};
+int dy[]={0,1,-1,0}; 
+    
+int main()
+ {
+     ios_base::sync_with_stdio(false);cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  int A[n+1][n+1],vis[n+1][n+1];
+	  int s1,s2,d1,d2;
+	  for(int i=1;i<=n;++i){
+	      for(int j=1;j<=n;++j){
+	          cin>>A[i][j];
+	          vis[i][j] = 0;
+	          if(A[i][j]==1) s1 =i,s2 =j;
+	          if(A[i][j]==2) d1 =i,d2 =j;
+ 	      }
+	  }
+	  queue<pair<int,int> >q;
+	  q.push({s1,s2});
+	  vis[s1][s2]=1;
+	  bool flag = false;
+	  while(!q.empty()){
+	      if(q.front().first ==d1 and q.front().second==d2){
+	          flag = true;
+	          break;
+	      }
+	      for(int i=0;i<4;++i){
+	          int x = q.front().first+dx[i];
+	          int y = q.front().second+dy[i];
+	          if(1<=x and x<=n and 1<=y and y<=n and !vis[x][y] and A[x][y]){
+	              q.push({x,y});
+	              vis[x][y]=1;
+	          }
+	      }
+	      q.pop();
+	  }
+	  cout<<flag<<"\n";
+	}
+	return 0;
+}
