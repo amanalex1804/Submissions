@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	
+		int n;cin>>n;
+		int A[n+1],cur = 0;
+		priority_queue<int>mx,mn;
+		for(int i=0;i<n;++i) cin>>A[i];
+		
+		for(int i=0;i<n;++i){
+			int szx = (int)mx.size();
+			int szn = (int)mn.size();
+			
+			if(szx>szn){
+				if(A[i]<cur){
+					int x = mx.top();mx.pop();
+					mn.push((-1)*x);
+					mx.push(A[i]);
+				}else{
+					mn.push((-1)*A[i]);
+				}
+				int x = mx.top();
+				int y = (-1)*mn.top();
+				cur=(x+y)/2;
+			
+			}else if(szx<szn){
+				if(A[i]>cur){
+					int x =(-1)*mn.top(); mn.pop();
+					mx.push(x);
+					mn.push((-1)*A[i]);
+				}else mx.push(A[i]);
+				
+				int x = mx.top();
+				int y = (-1)*mn.top();
+				cur=(x+y)/2;
+				
+			}else{
+				if(A[i]<cur){
+					mx.push(A[i]);
+					cur = mx.top();
+				}else{
+					mn.push((-1)*A[i]);
+					cur = (-1)*mn.top();
+				}
+			}
+			cout<<cur<<"\n";
+		}
+		
+		
+	
+	
+	
+	return 0;
+}
