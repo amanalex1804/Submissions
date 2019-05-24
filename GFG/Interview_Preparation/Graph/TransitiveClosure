@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1][n+1],T[n+1][n+1];
+	    vector<int>gr[n+1];
+	    for(int i=1;i<=n;++i){
+	    for(int j=1;j<=n;++j){
+	        T[i][j]=0;
+	         cin>>A[i][j];
+	        if(A[i][j]) gr[i].push_back(j);
+	       }
+	    }
+	    bool vis[n+1];
+	    for(int k=1;k<=n;++k){
+	        
+	        for(int i=0;i<=n;++i) vis[i] = 0;
+	        queue<int>q;
+	        q.push(k);
+	        while(!q.empty()){
+	            int x = q.front();q.pop();
+	            if(vis[x]) continue;
+	            T[k][x] =1;
+	            vis[x] =1;
+	            for(int i=0;i<(int)gr[x].size();++i){
+	                if(!vis[gr[x][i]]) q.push(gr[x][i]);
+	            }
+	        }
+	         
+	    }
+	    for(int i=1;i<=n;++i){
+	        for(int j=1;j<=n;++j) cout<<T[i][j]<<" ";
+	    }
+	    cout<<"\n";
+	    
+	}
+	return 0;
+}
