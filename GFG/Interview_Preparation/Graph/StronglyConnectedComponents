@@ -1,0 +1,93 @@
+{
+
+#include<bits/stdc++.h>
+using namespace std;
+//Position this line where user code will be pasted.
+int main()
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int a,b ;
+   	    cin>>a>>b;
+   	    int m,n;
+   	    vector<int> adj[a+45];
+        for(int i=0;i<b;i++){
+            cin>>m>>n;
+            adj[m].push_back(n);
+        }
+        // exit(0);
+        cout<<kosaraju(a, adj,1)<<endl;
+    }
+    return 0;
+}
+}
+
+/*Please note that it's Function problem i.e.
+you need to write your solution in the form of Function(s) only.
+Driver Code to call/invoke your function is mentioned above.*/
+
+
+/*  Function to find the number of strongly connected components
+*   using Kosaraju's algorithm
+*   V: number of vertices
+*   adj[]: array of vectors to represent graph
+*/
+
+void dfs(int src,vector<int> adj[],bool vis[],stack<int>&st){
+    vis[src] = true;
+    for(int i=0;i<(int)adj[src].size();++i){
+        int x = adj[src][i];
+        if(!vis[x]) dfs(x,adj,vis,st);
+    }
+    st.push(src);
+}
+void dfs2(int src,vector<int> adj[],bool vis[]){
+    vis[src] = true;
+    for(int i=0;i<(int)adj[src].size();++i){
+        int x = adj[src][i];
+        if(!vis[x]) dfs2(x,adj,vis);
+    }
+    
+}
+
+
+int kosaraju(int V, vector<int> adj[])
+{
+    for(int i=0;i<V;++i){
+        for(int j=0;j<(int)adj[i].size();++j) cout<<adj[i][j]<<" ";
+        cout<<endl;
+    }
+    // Your code here
+    
+    vector<int>gr[V+1];
+    bool vis[V+1];
+    for(int i=0;i<=V;++i) vis[i] = false;
+    
+    for(int i=1;i<=V;++i){
+        vis[i] = false;
+        cout<<i<<" --> ";
+        for(int j=0;j<(int)adj[i].size();++j){
+            int x = adj[i][j];
+            cout<<x<<" ";
+          //  gr[x].push_back(i);
+        }
+        cout<<"\n";
+     }
+    
+    stack<int>st;
+    for(int i=1;i<=V;++i) if(!vis[i]) dfs(i,adj,vis,st);
+    cout<<(int)st.size()<<"\n";
+     int ans=0;
+    for(int i=0;i<=V;++i) vis[i] = 0;
+    while(!st.empty()){
+        int x = st.top();st.pop();
+        if(!vis[x]){
+            ++ans;
+            dfs2(x,gr,vis);
+        }
+    }
+    
+    return ans;
+}
