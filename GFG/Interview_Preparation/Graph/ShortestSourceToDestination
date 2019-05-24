@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,m,d1,d2;cin>>n>>m;
+	    int A[n+1][m+1],dp[n+1][m+1];
+	    for(int i=0;i<n;++i)
+	    for(int j=0;j<m;++j)
+	    cin>>A[i][j],dp[i][j]=INT_MAX;
+	    cin>>d1>>d2;
+	    bool flag = true;
+	    if(A[0][0]==0) flag = false;
+	    if(A[d1][d2]==0) flag = false;
+	    queue<pair<int,pair<int,int> > > q;
+	    q.push({0,{0,0}});
+	    dp[0][0]=0;
+	    while(!q.empty() and flag){
+	        pair<int,pair<int,int> > temp = q.front();
+	        q.pop();
+	        int x = temp.second.first;
+	        int y = temp.second.second;
+	        int pt = temp.first;
+	       
+	        for(int i=0;i<4;++i){
+	            int x1 = x+dx[i];
+	            int y1 = y+dy[i];
+	            if(0<=x1 and x1<n and 0<=y1 and y1<m and A[x1][y1]){
+	                if(dp[x1][y1]>pt+1){
+	                    dp[x1][y1] = pt+1;
+	                    q.push({pt+1,{x1,y1}});
+	                }
+	            }
+	        }
+	    }
+	    if(dp[d1][d2]>=INT_MAX) flag = false;
+	    if(flag) cout<<dp[d1][d2]<<"\n";
+	    else cout<<-1<<"\n";
+	}
+	return 0;
+}
