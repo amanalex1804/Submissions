@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n,m;cin>>n>>m;
+	  int A[n+1][m+1],dp[n+1][m+1];
+	  //vector<pair<int,int> >kh;
+	  queue<pair<int,pair<int,int> > >q,kh;
+	  for(int i=1;i<=n;++i){
+	      for(int j=1;j<=m;++j){
+	          cin>>A[i][j];
+	          dp[i][j]=INT_MAX;
+	          if(A[i][j]==2)
+	              kh.push({0,{i,j}}),dp[i][j]=0;
+	      }
+	  }
+	  
+	  
+	  while(!kh.empty()){
+	      pair<int,pair<int,int> >temp = kh.front(); kh.pop();
+	      int pt =temp.first;
+	      int x = temp.second.first;
+	      int y = temp.second.second;
+	     // cout<<" why "<<x<<" "<<y<<endl;
+	      for(int i=0;i<4;++i){
+	          int x1 = x+dx[i];
+	          int y1 = y+dy[i];
+	          if(1<=x1 and x1<=n and 1<=y1 and y1<=m and A[x1][y1]==1){
+	              if(dp[x1][y1]>pt+1){
+	                  dp[x1][y1] = pt+1;
+	                  kh.push({pt+1,{x1,y1}});
+	              }
+	          }
+	      }
+	      
+	      
+	  }
+	  bool flag =true;
+	  int mx = -1;
+	  
+/*	  for(int i=1;i<=n;++i){
+	      for(int j=1;j<=m;++j) cout<<dp[i][j]<<" ";cout<<endl;
+	  }
+	  */
+	  
+	  for(int i=1;i<=n;++i){
+	      for(int j=1;j<=m;++j){
+	        //  cout<<dp[i][j]<<" ";
+	          if(A[i][j]==1){
+	              if(dp[i][j]>=INT_MAX){
+	                  flag = false;
+	                  break;
+	              }
+	              mx = max(mx,dp[i][j]);
+	          }
+	      }
+	     // cout<<"\n";
+	  }
+	  if(flag) cout<<mx<<"\n";
+	  else cout<<-1<<"\n";
+	  
+	  
+	}
+	return 0;
+}
