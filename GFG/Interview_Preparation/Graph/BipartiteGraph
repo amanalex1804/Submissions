@@ -1,0 +1,33 @@
+
+/*The function takes an adjacency matrix representation of the graph (g)
+and an integer(v) denoting the no of vertices as its arguments.
+You are required to complete below method */
+bool isBipartite(int G[][MAX],int V)
+{
+     
+     //Your code here
+     
+     for(int i=0;i<V;++i){
+         if(G[i][i]) return false;
+     }
+     
+     int color[V+1];
+     for(int i=0;i<V;++i) color[i] = -1;
+     color [0] = 1;
+     queue<int>q;
+     q.push(0);
+     while(!q.empty()){
+         int x = q.front(); q.pop();
+         if(G[x][x]) return false;
+         for(int i=0;i<V;++i){
+            // if(G[x][x]) continue;
+             if(G[x][i] and color[i]==-1){
+                 color[i] = 1-color[x];
+                 q.push(i);
+             }else if(G[x][i] and color[x]==color[i]) return false;
+         }
+     }
+     return true;
+     
+     
+}
