@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;double w; cin>>n>>w;
+	    double V[n+3],W[n+3];
+	    pair<double,int>pi[n+5];
+	    for(int i=0;i<n;++i){
+	        cin>>V[i]>>W[i];
+	        double temp = (1.0)*(((1.0)*V[i])/((1.0)*W[i]));
+	        pi[i] = {temp,i};
+	    }
+	    sort(pi,pi+n);
+	    
+	    double ans = 0.0;
+	    double cur = 0;
+	    for(int i=n-1;i>=0;--i){
+	        int idx = pi[i].second;
+	        if(cur+W[idx]<=w){
+	            ans+=(1.0)*V[idx];
+	            cur+=W[idx];
+	            
+	        }else{
+	            w-=cur;
+	            double temp = (1.0)*V[idx]*(((1.0)*w)/((1.0)*W[idx]));
+	            ans+=(1.0)*temp;
+	            w = 0;
+	            break;
+	        }
+	    }
+	    printf("%0.2lf\n",ans);
+	}
+	return 0;
+}
