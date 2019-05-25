@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int mx = 0;
+	    priority_queue<pair<int,int> > q;
+	    for(int i=0,x,y,z;i<n;++i){
+	        cin>>x>>y>>z;
+	        q.push({z,y});
+	        mx = max(mx,y);
+	    }
+	    int dead[mx+5];
+	    for(int i=0;i<=mx+1;++i) dead[i] = -1;
+	    int ans = 0,jb=0;
+	    while(!q.empty()){
+	        pair<int,int>temp = q.top(); q.pop();
+	        int p = temp.first;
+	        int d = temp.second;
+	        int j =d;
+	        while(j>=1){
+	            if(dead[j]==-1){
+	                dead[j] = 1;
+	                ans+=p;
+	                ++jb;
+	                break;
+	            }
+	            --j;
+	        }
+	        
+	    }
+	    cout<<jb<<" "<<ans<<"\n";
+	    
+	
+	}
+	return 0;
+}
