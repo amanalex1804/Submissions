@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 4005
+int A[5],dp[sz][sz];
+
+int fn(int idx ,int left,int n){
+    if(left<0) return INT_MIN;
+    if(left==0) return 0;
+    if(idx>=n) return INT_MIN;
+     if(dp[idx][left]!=-1) return dp[idx][left];
+    //cout<<idx<<" "<<left<<endl;
+    int ret = 0;
+     ret = max(fn(idx,left-A[idx],n)+1,fn(idx+1,left,n));
+   // cout<<idx<<" "<<left<<" "<<ret<<" "<<fn(idx,left-A[idx],n)+1<<" "<<fn(idx+1,left,n)<<endl;
+    return dp[idx][left]=ret;
+    
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,ind=0;cin>>n;
+	    unordered_map<int,int>M;
+	    
+	    for(int i=0,x;i<3;++i) {
+	        cin>>x;
+	        if(!M[x]) A[ind++] = x;
+	        M[x] = 1;
+	    }
+	    sort(A,A+ind);
+	    for(int i=0;i<n+3;++i)
+	    for(int j=0;j<n+3;++j)
+	    dp[i][j] = -1;
+	    
+	   // cout<<ind<<"\n";
+	     cout<<max(0,fn(0,n,ind))<<"\n";
+	    
+	
+	}
+	return 0;
+}
