@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1000005
+
+int main()
+ {
+     ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1],dp[n+2],ans =0;
+	    dp[0]=0; A[0]=0;
+	    for(int i=1;i<=n;++i) cin>>A[i],dp[i]=A[i],ans=max(ans,A[i]);
+	    
+	    for(int i=1;i<=n;++i){
+	        for(int j=i-1;j>=1;--j){
+	            if(A[i]>A[j]){
+	                dp[i] = max(dp[i],dp[j]+A[i]);
+	                ans = max(ans,dp[i]);
+	            }
+	        }
+	    }
+	    cout<<ans<<"\n";
+	     
+	}
+	return 0;
+}
