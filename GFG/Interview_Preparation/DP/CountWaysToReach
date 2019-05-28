@@ -1,0 +1,23 @@
+using namespace std;
+#define mod 1000000007
+#define ll long  int 
+
+
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+	ll fib[100003];
+	fib[0] = 0; fib[1] = 1;
+	for(int i=2;i<100002;++i) fib[i] = ((fib[i-1]%mod)+(fib[i-2]%mod))%mod;
+
+	while(t--){
+	    int n;cin>>n;
+	 
+	    cout<<fib[n+1]<<"\n";
+	    
+	}
+	return 0;
+}
