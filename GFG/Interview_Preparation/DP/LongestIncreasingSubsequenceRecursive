@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fn(int idx,int last,int A[],int n,int dp[][305]){
+    if(idx>=n) return 0;
+   int &ret = dp[idx][last];
+     if(ret!=-1) return ret;
+    int x = fn(idx+1,last,A,n,dp);
+    if(A[idx]>last) x = max(fn(idx+1,A[idx],A,n,dp)+1,x);
+    return  ret =x;
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n],mx=0;
+	    for(int i=0;i<n;++i) cin>>A[i],++A[i],mx=max(mx,A[i]);
+	    int dp[n+1][305];
+	    for(int i=0;i<=n;++i)
+	    for(int j=0;j<=mx+2;++j)
+	    dp[i][j] = -1;
+	    
+	    cout<<fn(0,0,A,n,dp)<<"\n";
+	
+	}
+	return 0;
+}
