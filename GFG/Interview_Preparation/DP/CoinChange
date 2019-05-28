@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MAX 305
+int fn(int idx,int left,int n,int V[],int dp[][305]){
+    if(left<0) return 0;
+    if(left==0) return 1;
+    if(idx>=n) return 0;
+    int &ret = dp[idx][left];
+    if(ret!=-1) return ret;
+    return ret = fn(idx,left-V[idx],n,V,dp)+fn(idx+1,left,n,V,dp);
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    	    int n,x;cin>>n;
+
+	    int V[n+4];
+	    for(int i=0;i<n;++i) cin>>V[i];
+	    cin>>x;
+	    sort(V,V+n);
+	    int dp[n+1][305];
+	    for(int i=0;i<=n;++i)
+	    for(int j=0;j<=x;++j)
+	    dp[i][j] = -1;
+	    
+	    cout<<fn(0,x,n,V,dp)<<"\n";
+	
+	}
+	return 0;
+}
