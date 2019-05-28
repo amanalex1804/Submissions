@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1],dp[n+1]; bool flag = false;
+	    for(int i=1;i<=n;++i) {
+	        cin>>A[i],dp[i]=INT_MAX;
+	    }
+	    dp[1] = 0;
+	    for(int i=1;i<=n;++i){
+	        for(int j=1;j<=A[i];++j){
+	            if(i+j<=n) dp[i+j] = min(dp[i+j],dp[i]+1);
+	        }
+	    }
+        
+        if(dp[n]<0 or dp[n]>=INT_MAX) dp[n] = -1;
+        cout<<dp[n]<<"\n";
+	
+	}
+	return 0;
+}
