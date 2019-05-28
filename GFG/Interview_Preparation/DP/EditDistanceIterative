@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fn(int i,int j,int l1,int l2,string a,string b,int dp[][102]){
+    if(i>=l1) return (l2-j);
+    if(j>=l2) return (l1-i);
+    int &ret = dp[i][j];
+    if(ret!=-1) return ret;
+    int x=INT_MAX ;
+    if(a[i]==b[j]) x = fn(i+1,j+1,l1,l2,a,b,dp);
+    x = min(x,1+min(fn(i+1,j,l1,l2,a,b,dp),fn(i,j+1,l1,l2,a,b,dp)));
+    return ret =x;
+    
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	 int l1,l2;cin>>l1>>l2;
+	 string a,b;cin>>a>>b;
+	 int dp[l1+3][l2+3];
+	 int diff =max(l1,l2)-min(l1,l2);
+	 for(int i=0;i<=l1;++i){
+	 for(int j=0;j<=l2;++j){
+	 if(!i) dp[i][j] = j;
+	 if(!j) dp[i][j] = i;}}
+	 
+	 for(int i=1;i<=l1;++i){
+	     for(int j=1;j<=l2;++j){
+	         if(a[i-1]==b[j-1]) dp[i][j] = dp[i-1][j-1];
+	         else dp[i][j] = 1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
+	     }
+	 }
+	 cout<<dp[l1][l2]<<"\n";
+	}
+	return 0;
+}
