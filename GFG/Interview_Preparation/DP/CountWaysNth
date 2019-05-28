@@ -1,0 +1,50 @@
+using namespace std;
+#define mod 1000000007
+#define ll long int 
+
+ll dp[100005];
+
+ll add(ll x,ll y){
+     ll z = (x%mod)+(y%mod);
+     if(z>=mod) z-=mod;
+     return z;
+}
+
+ll mul(ll x,ll y){
+    ll z = (x%mod)*(y%mod);
+    if(z>=mod) z%=mod;
+    return z;
+}
+
+ll fn(int n,ll dp[]){
+   if(!n) return 0;
+   if(n==1 or n==2) return (dp[n]=1);
+   if(dp[n]) return dp[n];
+   
+   int k = ((n&1)?(n+1)/2:n/2);
+   
+   if(n&1){
+       dp[n] = add(mul(fn(k,dp),fn(k,dp)),mul(fn(k-1,dp),fn(k-1,dp)));
+   }else{
+       dp[n] = mul(fn(k,dp),add(fn(k,dp),mul(2,fn(k-1,dp))));
+   }
+   return dp[n];
+   
+}
+
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    
+         
+	    cout<<fn(n+1,dp)<<"\n";
+	    
+	}
+	return 0;
+}
