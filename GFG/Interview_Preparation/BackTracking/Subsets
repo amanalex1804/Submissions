@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    
+	    int n;cin>>n;
+	    int A[n];
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    sort(A,A+n);
+	    set<string>v;
+	    ll sub = (1<<n);
+	    for(int i=0;i<sub;++i){
+	        
+	        string s="";
+	        for(int j=0;j<n;++j){
+	            if((1LL<<j)&i) s+=(char)(A[j]+'0');
+	        }
+	        v.insert(s);
+	    }
+	    
+	    for(auto it=v.begin();it!=v.end();++it){
+	        string s = *it;
+	        cout<<"(";
+	        for(int i=0;i<(int)s.size()-1;++i) cout<<s[i]<<" ";
+	        if((int)s.size()) cout<<s[(int)s.size()-1];
+	        cout<<")";
+	    }
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
