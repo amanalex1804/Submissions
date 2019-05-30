@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+float fn(float k,int n,int m){
+   float glass[((n*(n+1))/2)+20];
+   memset(glass,0,sizeof(glass));
+   int idx = 0;
+   glass[idx] = k;
+   
+   for(int row = 1;row<=n;++row){
+       for(int col=1;col<=row;++idx,++col){
+           
+           k = glass[idx];
+           glass[idx] = (k>=1.0f)?1.0:k;
+           
+           k = (k>=1.0f)?(k-1.0f):0.0;
+           glass[idx+row]+= (1.0)*(k/2.0);
+           
+           glass[idx+row+1]+= (1.0)*(k/2.0);
+       }
+   }
+   
+   return glass[((n*(n-1))/2)+(m-1)];
+   
+}
+
+int main()
+ {
+    //ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    float k;int n,m;cin>>k>>n>>m;
+	    printf("%0.6f\n",fn(k,n,m));
+	
+	}
+	return 0;
+}
