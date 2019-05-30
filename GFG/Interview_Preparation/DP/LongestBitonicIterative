@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1],inc[n+2],dec[n+2];A[0] = 0;
+	    for(int i=1;i<=n;++i) {cin>>A[i];inc[i] =1 ;dec[i] =1;}
+	    
+	    for(int i=2;i<=n;++i){
+	        for(int j=i-1;j>=1;--j){
+	            if(A[i]>A[j]) inc[i] = max(inc[i],inc[j]+1);
+	        }
+	    }
+	    
+	    for(int i=n-1;i>=1;--i){
+	        for(int j =i+1;j<=n;++j){
+	            if(A[i]>A[j]) dec[i] = max(dec[i],dec[j]+1);
+	        }
+	    }
+	    
+	    int ans = 0;
+	    for(int i=1;i<=n;++i) ans = max(ans,inc[i]+dec[i]-1);
+	    cout<<ans<<"\n";
+	    
+	}
+	return 0;
+}
