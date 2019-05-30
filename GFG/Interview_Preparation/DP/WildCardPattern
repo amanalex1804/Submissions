@@ -1,0 +1,33 @@
+int fn(int i,int j,int l1,int l2,string p,string s){
+    if(i>=l1 and j>=l2) return 1;
+    if(i>=l1 or j>=l2) {
+        int flag = 1;
+        for(int k=i;k<l1 and flag;++k) if(p[k]!='*') flag = 0;
+        if(i>=l1) flag = 0;
+        return flag;
+    }
+    int x = 0;
+    if(p[i]=='?') x|= fn(i+1,j+1,l1,l2,p,s);
+    else if(p[i]=='*'){
+        x|=fn(i,j+1,l1,l2,p,s);
+        x|=fn(i+1,j,l1,l2,p,s);
+    }
+    else{
+        if(p[i]!=s[j]) x = 0;
+        else x|=fn(i+1,j+1,l1,l2,p,s);
+    }
+    
+    return x;
+    
+    
+}
+int wildCard(string pattern,string str)
+{
+    int l1 = (int)pattern.size();
+    int l2 = (int)str.size();
+    
+    
+    return fn(0,0,l1,l2,pattern,str);
+    
+    
+}
