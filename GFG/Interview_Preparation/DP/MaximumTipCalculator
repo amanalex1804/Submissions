@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fn(int idx,int x,int y,int A[],int B[],int n,int dp[][106][106]){
+    if(idx>=n) return 0;
+    int &ret = dp[idx][x][y];
+    if(ret!=-1) return ret;
+    
+    int p = 0 , q = 0;
+    if(x>0) p = fn(idx+1,x-1,y,A,B,n,dp)+A[idx];
+    if(y>0) q = fn(idx+1,x,y-1,A,B,n,dp)+B[idx];
+    return ret = max(p,q);
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n,x,y;
+	  cin>>n>>x>>y;
+	  int A[n],B[n];
+	  for(int i=0;i<n;++i) cin>>A[i];
+	  for(int j=0;j<n;++j) cin>>B[j];
+	  
+	  int dp[n+2][106][106];
+	  for(int i=0;i<=n+1;++i)
+	  for(int j=0;j<=x+1;++j)
+	  for(int k=0;k<=y+1;++k)
+	  dp[i][j][k] = -1;
+	  
+	  cout<<fn(0,x,y,A,B,n,dp)<<"\n";
+	}
+	return 0;
+}
