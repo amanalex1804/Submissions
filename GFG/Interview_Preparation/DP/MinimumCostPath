@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1][n+1],dp[n+1][n+1];
+	    for(int i=1;i<=n;++i)
+	    for(int j=1;j<=n;++j)
+	    cin>>A[i][j],dp[i][j] = INT_MAX;
+	    
+	    dp[1][1] = A[1][1];
+	    priority_queue<pair<int,pair<int,int> > > q;
+	    q.push({(-1)*A[1][1],{1,1}});
+	    while(!q.empty()){
+	        int pt = (-1)*q.top().first;
+	        int x = q.top().second.first;
+	        int y = q.top().second.second;
+	        if(x==n and y==n) break;
+	        q.pop();
+	        for(int i=0;i<4;++i){
+	            int x1 = x+dx[i];
+	            int y1 = y+dy[i];
+	            if(1<=x1 and x1<=n and 1<=y1 and y1<=n){
+	                if(pt+A[x1][y1]<dp[x1][y1]){
+	                    dp[x1][y1] = pt+A[x1][y1];
+	                    q.push({(-1)*dp[x1][y1],{x1,y1}});
+	                }
+	            }
+	        }
+	    }
+	    
+	  cout<<dp[n][n]<<"\n";
+	}
+	return 0;
+}
