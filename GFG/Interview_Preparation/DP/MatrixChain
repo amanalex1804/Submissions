@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+void printParenthesis(int i, int j, int n, 
+                      int *bracket, char &name) 
+{ 
+    // If only one matrix left in current segment 
+    if (i == j) 
+    { 
+        cout << name++; 
+        return; 
+    } 
+  
+    cout << "("; 
+  
+    // Recursively put brackets around subexpression 
+    // from i to bracket[i][j]. 
+    // Note that "*((bracket+i*n)+j)" is similar to 
+    // bracket[i][j] 
+    printParenthesis(i, *((bracket+i*n)+j), n, 
+                     bracket, name); 
+  
+    // Recursively put brackets around subexpression 
+    // from bracket[i][j] + 1 to j. 
+    printParenthesis(*((bracket+i*n)+j) + 1, j, 
+                     n, bracket, name); 
+    cout << ")"; 
+} 
+void MatOrder(int A[],int n){
+    
+    int M[n][n],B[n][n];
+    for(int i=1;i<n;++i) M[i][i]=0;
+    
+    for(int L=2;L<n;++L){
+        for(int i=1;i<n-L+1;++i){
+            int j = i+L-1;
+            M[i][j] = INT_MAX;
+            for(int k = i;k<=j-1;++k){
+                int q = M[i][k]+M[k+1][j]+A[i-1]*A[k]*A[j];
+                if(q<M[i][j]){
+                    M[i][j]  = q;
+                    B[i][j]  = k;
+                }
+            }
+        }
+    }
+    char name = 'A';
+    cout<<M[1][n-1];
+     //printParenthesis(1, n-1, n, (int *)B, name);
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  int A[n+1];
+	  for(int i=0;i<n;++i) cin>>A[i];
+	  MatOrder(A,n);
+	  cout<<"\n"; 
+	}
+	return 0;
+}
