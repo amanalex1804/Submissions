@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mm(XX,a) memset(XX,a,sizeof(XX))
+#define mem(dp,a) memset(dp,a,sizeof dp)
+
+struct trie{
+    bool leaf;
+    trie* child[27];
+};
+
+trie* create(){
+    trie* temp = new trie();
+    temp->leaf = false;
+    mem(temp->child,NULL);
+    return temp;
+}
+
+trie* insert(trie* root,string s){
+    for(int i=0;i<(int)s.size();++i){
+        int x = (int)(s[i]-'a');
+        
+        if(root->child[x] == NULL)
+            root->child[x] = create();
+        root = root->child[x];    
+    }
+    root->leaf = true;
+}
+
+bool search(trie* root,string s){
+    
+    for(int i=0;i<(int)s.size();++i){
+        int x = (int)(s[i]-'a');
+        
+        if(root->child[x]==NULL) return false;
+        root = root->child[x];
+    }
+    if(root->leaf) return true;
+    return false;
+    
+}
+trie* root;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  string s;
+	  root = create();
+	  for(int i=0;i<n;++i){
+	      cin>>s;
+	      insert(root,s);
+	  }
+	  cin>>s;
+	  cout<<search(root,s)<<"\n";
+	  
+	  
+	}
+	return 0;
+}
