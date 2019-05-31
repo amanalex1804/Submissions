@@ -1,0 +1,189 @@
+{
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include<iostream> 
+#define ARRAY_SIZE(a) sizeof(a)/sizeof(a[0])
+#define MAX 10^19
+// Alphabet size (# of symbols)
+ 
+#define ALPHABET_SIZE (26)
+#define INDEX(c) ((int)c - (int)'a')
+ 
+#define FREE(p) \
+    free(p);    \
+    p = NULL;
+using namespace std;
+ 
+// forward declration
+typedef struct trie_node trie_node_t;
+ 
+// trie node
+struct trie_node
+{
+    int value; // non zero if leaf
+    trie_node_t *children[ALPHABET_SIZE];
+};
+ 
+// trie ADT
+typedef struct trie trie_t;
+ 
+struct trie
+{
+    trie_node_t *root;
+    int count;
+};
+ void deleteKey(trie_t *pTrie, char key[]);
+trie_node_t *getNode(void)
+{
+    trie_node_t *pNode = NULL;
+ 
+    pNode = (trie_node_t *)malloc(sizeof(trie_node_t));
+ 
+    if( pNode )
+    {
+        int i;
+ 
+        pNode->value   = 0;
+ 
+        for(i = 0; i < ALPHABET_SIZE; i++)
+        {
+            pNode->children[i] = NULL;
+        }
+    }
+ 
+    return pNode;
+}
+ 
+void initialize(trie_t *pTrie)
+{
+    pTrie->root = getNode();
+    pTrie->count = 0;
+}
+ 
+void insert(trie_t *pTrie, char key[])
+{
+    int level;
+    int length = strlen(key);
+    int index;
+    trie_node_t *pCrawl;
+ 
+    pTrie->count++;
+    pCrawl = pTrie->root;
+ 
+    for( level = 0; level < length; level++ )
+    {
+        index = INDEX(key[level]);
+ 
+        if( pCrawl->children[index] )
+        {
+            // Skip current node
+            pCrawl = pCrawl->children[index];
+        }
+        else
+        {
+            // Add new node
+            pCrawl->children[index] = getNode();
+            pCrawl = pCrawl->children[index];
+        }
+    }
+ 
+    // mark last node as leaf (non zero)
+    pCrawl->value = pTrie->count;
+}
+ 
+int ifExsist(trie_t *pTrie, char key[])
+{
+    int level;
+    int length = strlen(key);
+    int index;
+    trie_node_t *pCrawl;
+ 
+    pCrawl = pTrie->root;
+ 
+    for( level = 0; level < length; level++ )
+    {
+        index = INDEX(key[level]);
+ 
+        if( !pCrawl->children[index] )
+        {
+            return 0;
+        }
+ 
+        pCrawl = pCrawl->children[index];
+    }
+ 
+    return (0 != pCrawl && pCrawl->value);
+}
+int main()
+{
+    int t;
+	cin>>t;
+	while(t--){
+    // Input keys (use only 'a' through 'z' and lower case)
+	int n;
+	cin>>n;
+	char keys[MAX][MAX];
+	for(int i=0;i<n;i++){
+		fflush(stdin);
+		cin>>keys[i];}
+    trie_t trie;
+ 
+    initialize(&trie);
+ 
+    for(int i = 0; i < ARRAY_SIZE(keys); i++)
+    {
+        insert(&trie, keys[i]);
+    }
+	char abc[MAX];
+	fflush(stdin);
+	cin>>abc;
+    deleteKey(&trie, abc);
+	if(ifExsist(&trie, abc)==false)
+    cout<<"1";
+	else
+		cout<<"0";
+	cout<<endl;
+	}
+    return 0;
+}
+}
+/*This is a function problem.You only need to complete the function given below*/
+/*Complete the function below
+Node is as follows:
+struct trie_node
+{
+    int value; // non zero if leaf
+    trie_node_t *children[ALPHABET_SIZE];
+};*/
+bool isEmpty(trie_t * root) 
+{ 
+    for (int i = 0; i < ALPHABET_SIZE; i++) 
+        if (root->children[i]) 
+            return false; 
+    return true; 
+}
+
+void deleteKey(trie_t *pTrie, char key[],int depth=0)
+{
+  //add code here.
+  if(!pTrie) return;
+  if(depth == (int)strlen(key)){
+      if(*pTrie->value) pTrie->value = 0;
+      if(isEmpty(pTrie)){
+          delete(pTrie);
+          pTrie = NULL;
+      }
+      return ;
+  }
+  int index = key[depth] - 'a';
+  pTrie->children[index] = deleteKey(pTrie->children[index],key,depth+1);
+  
+  if(isEmpty(pTrie) and pTrie->value==0){
+      delete(pTrie);
+      pTrie = NULL;
+  }
+  return;
+  
+  
+}
