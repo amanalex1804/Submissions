@@ -1,0 +1,17 @@
+int atoi(string str)
+{
+    //Your code here
+    int ret =0,i=0;
+    if(str[0]=='-') i=1;
+    for(;i<(int)str.size();++i){
+        int x = (int)(str[i]-'0');
+        if(0<=x and x<=9){
+            
+        ret*=10;
+        ret+=(int)(str[i]-'0');
+        }
+        else return -1;
+    }
+    if(str[0]=='-') ret*=-1;
+    return ret;
+}
