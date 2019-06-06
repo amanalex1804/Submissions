@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+      int A[n+1];
+      queue<int>q;
+      for(int i=1;i<=n;++i) q.push(i);
+      int cnt = 1;
+      while(!q.empty()){
+          int sz = cnt;
+          while(sz--){
+              q.push(q.front());
+              q.pop();
+          }
+          A[q.front()] = cnt;
+          q.pop();
+          ++cnt;
+      }
+      for(int i=1;i<=n;++i) cout<<A[i]<<" ";
+      cout<<"\n";
+	}
+	return 0;
+}
