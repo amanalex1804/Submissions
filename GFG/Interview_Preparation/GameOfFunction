@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+	long long int A[802];
+	A[0] = 1;
+	for(int i=1;i<=800;++i){
+	    A[i] = A[i-1]-(i-1);
+	}
+
+	while(t--){
+	    int n;cin>>n;
+	    cout<<A[n]<<"\n";
+	}
+	return 0;
+}
