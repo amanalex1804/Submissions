@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 20
+int ans = 0;
+void dfs(int s,int d,bool vis[],vector<vector<int> >&gr){
+    vis[s] = true;
+    if(s==d) ++ans;
+    else{
+        for(int i=0;i<(int)gr[s].size();++i){
+        int ver = gr[s][i];
+        if(!vis[ver]) dfs(ver,d,vis,gr);
+     }
+        
+    }
+    
+    vis[s] = false;
+    
+}
+
+ int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+	    int n,e,s,d;
+	    cin>>n>>e;
+	    ans = 0;
+	    vector<vector<int> >gr(N);
+	    bool vis[N];
+	    memset(vis,false,sizeof(vis));
+	    for(int i=0,x,y;i<e;++i){
+	        cin>>x>>y;
+	        gr[x].push_back(y);
+	    }
+	    cin>>s>>d;
+	    dfs(s,d,vis,gr);
+	    cout<<ans<<"\n";
+	}
+	return 0;
+}
