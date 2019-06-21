@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,m;cin>>n>>m;
+	    int A[n+1][n+1];
+	    memset(A,0,sizeof(A));
+	    vector<vector<pair<int,int> > >gr(n+2);
+	    for(int i=0,x,y,z;i<m;++i){
+	        cin>>x>>y>>z;
+	        gr[x].push_back({y,z});
+	        A[x][y] = z;
+	    }
+	    int dis[n+1],cnt[n+1];
+	    for(int i=0;i<=n;++i) dis[i] = INT_MAX,cnt[i]=0;
+	    
+	    dis[0]=0;cnt[0] = 1;
+	    priority_queue<pair<int,int > >q;
+	    q.push({0,0});
+	    bool flag = true;
+	    while(!q.empty()){
+	        pair<int,int>temp = q.top(); q.pop();
+	        int val = (-1)*temp.first;
+	        int x = temp.second;
+	        if(cnt[x]>n) {
+	            flag = false;
+	            break;
+	        }
+	        for(int i=0;i<(int)gr[x].size();++i){
+	            int ver = gr[x][i].first;
+	            int v = gr[x][i].second;
+	            if(dis[x]+v<dis[ver]){
+	                dis[ver] = dis[x]+v;
+	                cnt[ver]++;
+	                q.push({((-1)*dis[ver]),ver});
+	            }
+	        }
+	    }
+	    
+	    cout<<1-flag<<"\n";
+	    
+	
+	}
+	return 0;
+}
