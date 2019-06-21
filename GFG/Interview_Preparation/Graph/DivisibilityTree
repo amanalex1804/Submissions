@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define inf INT_MIN
+
+int dfs(int src,int par,int sub[],vector<vector<int> >&gr){
+    sub[src] = 1;
+    for(int i=0;i<(int)gr[src].size();++i){
+        int ver = gr[src][i];
+        if(ver==par) continue;
+        
+        sub[src]+=dfs(ver,src,sub,gr);
+    }
+    return sub[src];
+}
+
+void fn(int src,int par,int cnt,int sub[],vector<vector<int> >&gr,int &ans){
+    if((int)gr[src].size()==1) return ;
+    else{
+        for(int i=0;i<(int)gr[src].size();++i){
+            int ver = gr[src][i];
+            if(ver == par) continue;
+            
+            if(sub[ver]&1) fn(ver,src,cnt+1,sub,gr,ans);
+            else {
+                    ++ans;
+                    fn(ver,src,0,sub,gr,ans);
+            }
+            
+          
+        }
+    }
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    
+	    int n,m;cin>>n>>m;
+	    vector<vector<int> > gr(n+2);
+	    for(int i=0,x,y;i<m;++i){
+	        cin>>x>>y;
+	        gr[x].push_back(y);
+	        gr[y].push_back(x);
+	     }
+	     int sub[n+2];
+	     for(int i=0;i<=n+1;++i) sub[i] = 0;
+	     int x = dfs(1,0,sub,gr);
+	   //  for(int i=1;i<=n;++i) cout<<i<<" --> "<<sub[i]<<endl;
+	     int ans = 0;
+	     fn(1,0,0,sub,gr,ans);
+	     cout<<ans<<"\n";
+	     
+	     
+	
+	}
+	return 0;
+}
