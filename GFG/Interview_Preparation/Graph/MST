@@ -1,0 +1,34 @@
+*/
+typedef pair<int,int>  pi;
+int parent(int x,int par[]){
+    while(par[x]!=x and par[x]!=par[par[x]]) par[x]!=par[par[x]];
+    return par[x];
+}
+
+int spanningTree(int V, int e, vector<pair<int, int>> adj[])
+{
+    
+    // Your code here
+    
+    int ret = 0;
+    int par[V+1];bool vis[V+1];
+    for(int i=0;i<=V;++i) par[i] = i,vis[i]=0;
+    
+    priority_queue<pi>q;
+    
+    q.push({0,1});
+    int ans = 0;
+    while(!q.empty()){
+        pi temp = q.top(); q.pop();
+        if(vis[temp.second]) continue;
+        vis[temp.second] = 1;
+        ans+=temp.first;
+       // cout<<"ok "<<temp.first<<" "<<temp.second<<" "<<ans<<"\n";
+        for(int i=0;i<(int)adj[temp.second].size();++i){
+            if(!vis[adj[temp.second][i].first]) q.push({adj[temp.second][i].second,adj[temp.second][i].first});
+        }
+    }
+    return ans;
+    
+   
+}
