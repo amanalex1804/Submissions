@@ -1,0 +1,30 @@
+int findAreaUtil(int n, int m, int g[SIZE][SIZE], bool vis[SIZE][SIZE]){
+    
+    int dx[] = {0,0,1,-1,1,-1,-1,1};
+    int dy[] = {1,-1,0,0,1,-1,1,-1};
+    
+    queue<pair<int,int> >q;
+    int ans = 0,cnt=0;
+    for(int i=0;i<n;++i){
+        for(int j=0;j<m;++j){
+            if(vis[i][j] or !g[i][j]) continue;
+            q.push({i,j});
+            cnt = 0;
+            //cout<<" ok \n";
+            while(!q.empty()){
+                pair<int,int>temp = q.front(); q.pop();
+                if(vis[temp.first][temp.second]) continue;
+                //cout<<temp.first<<" "<<temp.second<<"\n";
+                vis[temp.first][temp.second] = true;
+                ++cnt;
+                for(int k=0;k<8;++k){
+                    int x = temp.first+dx[k];
+                    int y = temp.second+dy[k];
+                    if(0<=x and x<n and 0<=y and y<m and g[x][y]==1) q.push({x,y});
+                }
+            }
+            ans = max(ans,cnt);
+        }
+    }
+    return ans;
+}
