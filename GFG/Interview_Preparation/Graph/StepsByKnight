@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[] = {2,-2,2,-2,1,-1,-1,1};
+int dy[] = {1,1,-1,-1,2,2,-2,-2};
+typedef pair<int,pair<int,int> > pi;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    bool vis[n+1][n+1];
+	    memset(vis,false,sizeof(vis));
+	    int x1,y1,p,q;
+	    cin>>x1>>y1>>p>>q;
+	    queue<pi>Q;
+	    bool flag =false;
+	    Q.push({0,{x1,y1}});
+	    while(!Q.empty()){
+	        pi temp = Q.front(); Q.pop();
+	        int x = temp.second.first;
+	        int y = temp.second.second;
+	        if(x==p and y==q){
+	            flag =true;
+	            cout<<temp.first<<"\n";
+	            break;
+	        }
+	        if(vis[x][y]) continue;
+	        vis[x][y] = true;
+	        for(int i=0;i<8;++i){
+	            int xx = x+dx[i];
+	            int yy = y+dy[i];
+	            if(1<=xx and xx<=n and 1<=yy and yy<=n) Q.push({temp.first+1,{xx,yy}});
+	        }
+	    }
+	    if(!flag) cout<<1<<"\n";
+	    
+	
+	}
+	return 0;
+}
