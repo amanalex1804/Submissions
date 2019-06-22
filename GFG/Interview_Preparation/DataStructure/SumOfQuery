@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+void upd(int idx,int sum,int bit[],int n){
+    while(idx<=n){
+        bit[idx]+=sum;
+        idx+=(idx&(-idx));
+    }
+}
+int qry(int idx,int bit[]){
+    int ret=0;
+    while(idx>0){
+        ret+=bit[idx];
+        idx-=(idx&(-idx));
+    }
+    return ret;
+}
+
+// bit stores 1..idx
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int bit[n+2],A[n+2];
+	    memset(bit,0,sizeof(bit));
+	    for(int i=1;i<=n;++i) cin>>A[i],upd(i,A[i],bit,n);
+	    int q,x,y;cin>>q;
+	    while(q--){
+	        cin>>x>>y;
+	        cout<<(qry(y,bit)-qry(x-1,bit))<<" ";
+	    }
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
