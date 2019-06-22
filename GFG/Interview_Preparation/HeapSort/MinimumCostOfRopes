@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+ll minCost(int arr[], int n) 
+{ 
+    // Create a priority queue ( http:// www.cplusplus.com/reference/queue/priority_queue/ ) 
+    // By default 'less' is used which is for decreasing order 
+    // and 'greater' is used for increasing order 
+    priority_queue<ll, vector<ll>, greater<ll> > pq(arr, arr + n); 
+  
+    // Initialize result 
+    ll res = 0; 
+  
+    // While size of priority queue is more than 1 
+    while (pq.size() > 1) { 
+        // Extract shortest two ropes from pq 
+        ll first = pq.top(); 
+        pq.pop(); 
+        ll second = pq.top(); 
+        pq.pop(); 
+  
+        // Connect the ropes: update result and 
+        // insert the new rope to pq 
+        res += first + second; 
+        pq.push(first + second); 
+    } 
+  
+    return res; 
+} 
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1];
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    cout<<minCost(A,n)<<"\n";
+	
+	}
+	return 0;
+}
