@@ -1,0 +1,24 @@
+void printExtremeNodes(Node* root)
+{
+    // Your code here
+    Node* temp;
+    deque<Node*>q;
+    int lv = 0;
+    if(root) q.push_back(root);
+    while(!q.empty()){
+        
+        if(lv&1){
+            cout<<q.front()->data<<" ";
+        }else{
+            cout<<q.back()->data<<" ";
+        }
+        int sz = (int)q.size();
+        while(sz--){
+            temp = q.front(); q.pop_front();
+            if(temp->left) q.push_back(temp->left);
+            if(temp->right) q.push_back(temp->right);
+        }
+        ++lv;
+    }
+    
+}
