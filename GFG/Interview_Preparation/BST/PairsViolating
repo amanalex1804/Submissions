@@ -1,0 +1,36 @@
+struct Node{
+    int data;
+    Node *left,*right;
+    Node(int d){
+        data=d;
+        left=right=NULL;
+    }
+}; */
+/*You are required to complete below method */
+int ind;int A[100005];
+
+void inorder(Node *root){
+    if(!root) return;
+    inorder(root->left);
+    A[ind++]=root->data;
+    inorder(root->right);
+}
+
+int pairsViolatingBST(Node *root,int n){
+          /*Your code here */
+          ind = 0;
+          inorder(root);
+          int ans = 0;
+          
+          for(int i=0;i<ind;++i){
+              for(int j=i-1;j>=0;--j){
+                  if(A[j]>A[i]) ++ans;
+              }
+          }
+          return ans;
+          
+          
+          
+          
+          
+}
