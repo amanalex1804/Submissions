@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    stack<int>st;
+	    for(int i=0,x;i<n;++i){
+	        cin>>x;
+	        while(!st.empty() and st.top()>=x) st.pop();
+	        if(st.empty()) cout<<-1<<" ";
+	        else cout<<st.top()<<" ";
+	        st.push(x);
+	    }
+	cout<<"\n";
+	}
+	return 0;
+}
