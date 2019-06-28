@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  int n;cin>>n;
+	  string s;cin>>s;
+	  
+	  int dp[n][n]; bool P[n][n];
+	  memset(dp,0,sizeof(dp));
+	  memset(P,false,sizeof(P));
+	  for(int i=0;i<n;++i) P[i][i]=true;
+	  
+	  for(int i=0;i<n-1;++i) if(s[i]==s[i+1]) P[i][i+1]=true,dp[i][i+1]=1;
+	  
+	  for(int gap=2;gap<n;++gap){
+	      for(int i=0;i<n-gap;++i){
+	          int j=i+gap;
+	          if(s[i]==s[j] and P[i+1][j-1]) P[i][j]=true;
+	          
+	          dp[i][j] = dp[i+1][j]+dp[i][j-1]-dp[i+1][j-1];
+	          if(P[i][j]) dp[i][j]+=1;
+	          
+	      }
+	  }
+	  cout<<dp[0][n-1]<<"\n";
+	  
+	}
+	return 0;
+}
