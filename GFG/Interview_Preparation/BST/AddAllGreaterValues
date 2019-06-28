@@ -1,0 +1,22 @@
+/*This is a function problem.You only need to complete the function given below*/
+/* BST Node structure  used in the program
+ struct Node
+ {
+     int data;
+     Node* left, *right;
+}; */
+/*  modifies the root of the bst */
+void pOrder(Node *root,int &sum){
+    if(!root) return ;
+    pOrder(root->right,sum);
+    sum+=root->data;
+    root->data = sum;
+    pOrder(root->left,sum);
+}
+void modify(Node **root)
+{
+// Your code here
+int sum =0;
+pOrder(*root,sum);
+
+}
