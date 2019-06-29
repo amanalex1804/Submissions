@@ -1,0 +1,12 @@
+int fn(Node *root){
+    if(!root) return 0;
+    int x = fn(root->left)+fn(root->right);
+    int z = root->data;
+    if(root->left) z+= fn(root->left->left)+fn(root->left->right);
+    if(root->right) z+=fn(root->right->left)+fn(root->right->right);
+    return max(z,x);
+}
+int getMaxSum(Node *root) 
+{ 
+    return fn(root);
+}
