@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int conv(char c){
+    return (c-'a');
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    int l =(int)s.size();
+	    int vis[27];
+	    memset(vis,0,sizeof(vis));
+	    int i=0,j=0,ans=0;
+	    while(i<l and j<l){
+	        while(j<l and vis[conv(s[j])]==0) {vis[conv(s[j])]=(++j);}
+	        ans= max(ans,j-i);
+	        while(i<vis[conv(s[j])]){
+	            vis[conv(s[i])]=0;
+	            ++i;
+	        }
+	    }
+	   cout<<ans<<"\n";
+	}
+	return 0;
+}
