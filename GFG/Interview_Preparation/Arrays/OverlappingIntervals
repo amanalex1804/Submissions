@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool cmp(pair<int,int>&p1,pair<int,int>&p2){
+    if(p1.first==p2.first) return (p1.second<p2.second);
+    return (p1.first<p2.first);
+    
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    pair<int,int>p[n+2];
+	    for(int i=0,x,y;i<n;++i){
+	        cin>>p[i].first>>p[i].second;
+	    }
+	    sort(p,p+n,cmp);
+	    vector<pair<int,int> >v;
+	    
+	    for(int i=0;i<n;++i){
+	        bool flag = false;
+	        for(int j=0;j<(int)v.size();++j){
+	           if(p[i].first>v[j].second) continue;
+	           v[j].second = max(v[j].second,p[i].second);
+	           flag =true;
+	           break;
+	        }
+	        if(!flag) v.push_back(p[i]);
+	    }
+	    for(int i=0;i<(int)v.size();++i) cout<<v[i].first<<" "<<v[i].second<<" ";cout<<"\n";
+	
+	}
+	return 0;
+}
