@@ -1,0 +1,55 @@
+
+/*you are required to
+complete this function */
+#include<bits/stdc++.h>
+bool isSubtree(Node* T1, Node* T2) {
+    // Your code here
+    // return 1 if T2 is subtree of T1 else 0
+    if(!T1 or !T2) return false;
+    queue<Node*>q;
+    map<int,pair<int,int> > M;
+    q.push(T2);
+    M[T2->data]={-1,-1};
+    while(!q.empty()){
+        Node* temp = q.front(); q.pop();
+        if(temp->left) {
+            q.push(temp->left);
+            M[temp->left->data]={temp->data,0};
+        }
+        if(temp->right){
+            q.push(temp->right);
+            M[temp->right->data]={temp->data,1};
+        }
+    }
+     int sz = M.size();
+    
+     stack<pair<Node*,pair<int,int> > >Q;
+     Q.push({T1,{-1,-1}});
+     bool found = false;
+    while(!Q.empty()){
+        pair<Node *,pair<int,int> >temp = Q.top(); Q.pop();
+        pair<int,int> par = temp.second;
+        Node* tree = temp.first;
+        if(M.find(tree->data)==M.end()){
+            if(found) return false;
+        }else{
+            found = true;
+            int parr = M[tree->data].first;
+            if(parr!=par.first and parr!=-1) return false;
+            int dir = M[tree->data].second;
+            if(dir!=par.second and dir!=-1) return false;
+            --sz;
+        }
+        if(tree->left){
+            pair<Node*,pair<int,int> > pq = {tree->left,{tree->data,0}};
+            Q.push(pq);
+        }
+        if(tree->right){
+             pair<Node*,pair<int,int> > pq = {tree->right,{tree->data,1}};
+            Q.push(pq);
+        }
+    }
+    if(sz>0) return false;
+    return true;
+    
+}
