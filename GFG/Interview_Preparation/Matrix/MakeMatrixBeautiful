@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n][n],R[n],C[n];
+	    bool vis[n][n];
+	    for(int i=0;i<n;++i)
+	    for(int j=0;j<n;++j)
+	    cin>>A[i][j],vis[i][j]=false;
+	    int mx = 0;
+	    for(int i=0;i<n;++i){
+	        int x =0,y=0;
+	        for(int j=0;j<n;++j){
+	             x+=A[i][j];
+	             y+=A[j][i];
+	        }
+	        R[i]=x;
+	        C[i]=y;
+	        mx = max(mx,max(x,y));
+	    }
+	    int ans = 0;
+	    for(int i=0;i<n;++i){
+	        for(int j=0;j<n;++j){
+	            if(R[i]==mx or C[j]==mx) continue;
+	            int x = 0;
+	            if(R[i]<C[j]) x = mx-C[j];
+	            else x= mx-R[i];
+	            A[i][j]+=x;
+	            R[i]+=x;
+	            C[j]+=x;
+	            ans+=x; 
+	            
+	        }
+	    }
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
