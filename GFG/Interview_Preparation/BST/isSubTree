@@ -1,0 +1,9 @@
+bool isSubtree(Node* T1, Node* T2) {
+    if(!T1 and !T2) return true;
+    if(!T1 or !T2) return false;
+    if(T1->data==T2->data){
+        return (isSubtree(T1->left,T2->left)&(isSubtree(T1->right,T2->right)));
+    }
+    else { return (isSubtree(T1->left,T2)||(isSubtree(T1->right,T2)));}
+    
+}
