@@ -1,0 +1,19 @@
+Node* fn(int pre[],int size,int &i,int child){
+    Node *root = newNode(pre[i]);
+    ++i;
+    if(child>0){
+        root->left = fn(pre,size,i,(child-1)/2);
+        root->right = fn(pre,size,i,(child-1)/2);
+    }
+    return root;
+}
+
+Node* constructBinaryTree(int pre[], int preMirror[], int size)
+{int i;
+if(size==0)
+return NULL;
+i = 0; 
+int child = (size-1)/2;
+return fn(pre,size,i,child);
+    
+}
