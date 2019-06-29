@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dx[]={0,1,0,-1};
+int dy[]={1,0,-1,0};
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,m;
+	    cin>>n>>m;
+	    int A[n][m];bool vis[n][m];
+	    for(int i=0;i<n;++i){
+	        for(int j=0;j<m;++j){
+	            cin>>A[i][j];
+	            vis[i][j] = false;
+	        }
+	    }
+	    int turn = 0;
+	    vector<int>v;
+	    queue<pair<int,int> >q;
+	    q.push({0,0});
+	    int cnt = (n*m)-1;
+	    if(cnt==0) v.push_back(A[0][0]);
+	    while(!q.empty() and cnt>0){
+	        pair<int,int>cr = q.front();q.pop();
+	        
+	        int x = cr.first+dx[turn];
+	        int y = cr.second+dy[turn];
+	        //cout<<x<<" "<<y<<" "<<cnt<<endl;
+	        if(vis[x][y] or x>=n or y>=m or x<0 or y<0){
+	            turn=(turn+1)%4;
+	            q.push(cr);
+	            continue;
+	        }
+	        vis[cr.first][cr.second]=true;
+	        v.push_back(A[cr.first][cr.second]);
+	        --cnt;
+	        if(cnt==0) v.push_back(A[x][y]);
+	        q.push({x,y});
+	    }
+	    for(int i=(int)v.size()-1;i>=0;--i) cout<<v[i]<<" ";cout<<"\n";
+	
+	}
+	return 0;
+}
