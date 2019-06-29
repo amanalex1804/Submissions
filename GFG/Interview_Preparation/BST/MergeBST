@@ -1,0 +1,38 @@
+struct Node {
+    int data;
+    Node* right;
+    Node* left;
+    
+    Node(int x){
+        data = x;
+        right = NULL;
+        left = NULL;
+    }
+};*/
+/*You are required to complete below method */
+vector<int>v1,v2;
+void inOrder(Node *root,int typ){
+    if(!root) return;
+    inOrder(root->left,typ);
+    if(!typ) v1.push_back(root->data);
+    else v2.push_back(root->data);
+    inOrder(root->right,typ);
+}
+void merge(Node *root1, Node *root2)
+{
+   //Your code here
+   v1.clear(); v2.clear();
+   inOrder(root1,0);
+   inOrder(root2,1);
+   int i=0,j=0;
+   while(i<(int)v1.size() and j<(int)v2.size()){
+       if(v1[i]<v2[j]) {cout<<v1[i]<<" ";++i;}
+       else {cout<<v2[j]<<" ";++j;}
+   }
+   while(i<(int)v1.size()){
+       cout<<v1[i++]<<" ";
+   }
+   while(j<(int)v2.size()){
+       cout<<v2[j++]<<" ";
+   }
+}
