@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,k;cin>>n>>k;
+	    
+	    string temp="";
+	    int po=1;
+	    for(int i=1;i<=k;++i){
+	        po*=n;
+	        temp+=to_string(po);
+	    }
+	    sort(temp.begin(),temp.end());
+	    int i=0;
+	    while(temp[i]=='0') ++i;
+	    for(;i<(int)temp.size();++i) cout<<temp[i];
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
