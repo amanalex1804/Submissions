@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+struct Node *newNode(int x){
+    Node *temp = new Node;
+    temp->data = x;
+    temp->left=temp->right=NULL;
+    return temp;
+}
+
+int ind=0;
+
+struct Node *fn(int st,int en,int pre[],unordered_map<int,int>&M){
+    
+    if(st>en) return NULL;
+    //int cur = pre[ind++];
+    struct Node *root = newNode(pre[ind++]);
+    if(st==en) return root;
+    int mid = M[pre[ind-1]];
+    root->left = fn(st,mid-1,pre,M);
+    root->right = fn(mid+1,en,pre,M);
+    
+    return root;
+}
+
+void post(struct Node *root){
+    if(!root) return ;
+    post(root->left);
+    post(root->right);
+    cout<<root->data<<" ";
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    ind =0;
+	    int n;cin>>n;
+	    unordered_map<int,int>M;
+	    int pre[n],in[n];
+	    for(int i=0;i<n;++i) cin>>pre[i],in[i]=pre[i];
+	    sort(in,in+n);
+	    for(int i=0;i<n;++i) M[in[i]]=i;
+	    
+	    struct Node *root=fn(0,n-1,pre,M);
+	    post(root);
+	    cout<<"\n";
+	    
+	    
+	
+	}
+	return 0;
+}
