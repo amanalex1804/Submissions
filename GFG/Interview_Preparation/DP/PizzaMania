@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+int x,y,z,xp,yp,zp;
+int fn(int left,int dp[]){
+    if(left<=0) return 0;
+    int &ret = dp[left];
+    if(ret!=-1) return ret;
+    return ret= min(fn(left-x,dp)+xp,min(fn(left-y,dp)+yp,fn(left-z,dp)+zp));
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int l;
+	    cin>>l>>x>>y>>z>>xp>>yp>>zp;
+	    int dp[l+1];
+	    for(int i=0;i<=l;++i) dp[i]=-1;
+	    cout<<fn(l,dp)<<"\n";
+	
+	}
+	return 0;
+}
