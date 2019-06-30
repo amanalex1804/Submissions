@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+int conv(char c){
+    return (int)(c-'a');
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    int l = (int)s.size();
+	    int dis = 0;
+	    int A[28];
+	    memset(A,0,sizeof(A));
+	    for(int i=0;i<l;++i){
+	        int ch = (int)(s[i]-'a');
+	        if(!A[ch]) ++dis;
+	        ++A[ch];
+	    }
+	    memset(A,0,sizeof(A));
+	   // cout<<dis<<"\n";
+	    int i=0,j=0,ans=INT_MAX,cnt=0,x;
+	    while(i<l and j<l){
+	        while(j<l and cnt<dis){
+	            if(!A[conv(s[j])]) ++cnt;
+	            ++A[conv(s[j])];
+	            ++j;
+	        }
+	        if(cnt==dis) ans = min(ans,j-i);
+	        while(i<l and i<=j and cnt>=dis){
+	            --A[conv(s[i])];
+	            if(!A[conv(s[i])]) --cnt;
+	            ++i;
+	            if(cnt==dis) ans = min(ans,j-i);
+	            
+	        }
+	      //  break;
+	    }
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
