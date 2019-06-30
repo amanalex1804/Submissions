@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n;double A[105];
+double fix(double x){
+    double ans=0;
+    for(int i=0;i<n;++i){
+        ans+=(1/(x-A[i]));
+    }
+    return ans;
+    
+}
+double fn1(double l,double r){
+    double mid;
+    while(l<r){
+        mid = l+(r-l)*0.5;
+        double val = fix(mid);
+        if(abs(val)<0.0000000000001) return mid;
+        if(val>0) l=mid;
+        else r = mid;
+    }
+    return l;
+}
+
+int main()
+ {
+   // ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    cin>>n;
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    for(int i=0;i<n-1;++i){
+	        printf("%0.2lf ",fn1(A[i],A[i+1]));
+	    }
+	    cout<<"\n";
+	
+	}
+	return 0;
+}
