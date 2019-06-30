@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    string s;cin>>s;
+	    int k;cin>>k;
+	    if(n%k) {cout<<0<<"\n";continue;}
+	    unordered_map<string,int>M;
+	    string temp="";
+	    for(int i=0;i<n;++i){
+	        if(i%k==0){
+	            M[temp]+=1;
+	            temp="";
+	        }
+	        temp+=s[i];
+	    }
+	    M[temp]+=1;
+	    //cout<<M.size()<<endl;
+	    if((int)M.size()>3) cout<<0;
+	    else cout<<1;
+	    cout<<"\n";
+	    
+	
+	}
+	return 0;
+}
