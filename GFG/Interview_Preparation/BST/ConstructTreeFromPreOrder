@@ -1,0 +1,19 @@
+struct Node *fn(int n,int &i,int pre[],char preLN[]){
+    if(i>=n) return NULL;
+    Node *root = newNode(pre[i]);
+    if(preLN[i]=='L') return root;
+    else{
+              ++i;
+            if(i<n) root->left = fn(n,i,pre,preLN);
+             ++i;
+             if(i<n) root->right = fn(n,i,pre,preLN);
+             return root;
+        
+    }
+}
+struct Node *constructTree(int n, int pre[], char preLN[])
+{
+    // Code here
+    int i=0;
+    return fn(n,i,pre,preLN);
+}
