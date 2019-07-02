@@ -1,0 +1,10 @@
+long long countWays(int m){
+    // your code here
+    long long dp[m+1];
+    dp[1]=1; dp[2]=2;
+    for(int i=3;i<=m;++i){
+        dp[i]=dp[i-1];
+        if(i%2==0) dp[i]+=1;
+    }
+    return dp[m];
+}
