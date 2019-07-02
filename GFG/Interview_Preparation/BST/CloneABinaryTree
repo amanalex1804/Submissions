@@ -1,0 +1,21 @@
+   Node* helper(Node* tree, map<Node*,Node*>&mp){
+if(!tree)
+return NULL;
+if(mp.find(tree)!=mp.end())
+return tree;
+else{
+Node* root= new Node;
+root->data = tree->data;
+mp[tree] = root;
+root->left = helper(tree->left,mp);
+root->right = helper(tree->right,mp);
+root->random = helper(tree->random,mp);
+return root;
+}
+}
+Node* cloneTree(Node* tree)
+{
+   //Your code here
+   map<Node*,Node*> mp;
+return helper(tree,mp);
+}
