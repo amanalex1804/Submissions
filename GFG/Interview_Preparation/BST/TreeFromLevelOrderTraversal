@@ -1,0 +1,41 @@
+// You are required to complete this function
+Node* constructBst(int arr[], int n)
+{
+    
+    // Code here
+    if(n==0) return NULL;
+    int A[n+1];
+    for(int i=0;i<n;++i) A[i]=arr[i];
+    sort(A,A+n);
+    Node *root = new Node(arr[0]);
+    int i=1;
+    queue<pair<Node*,pair<pair<int,int>,pair<int,int> > > > q;
+    int ind = lower_bound(A,A+n,arr[0])-A;
+    q.push({root,{{0,ind-1},{ind+1,n-1}}});
+    while(!q.empty()){
+        Node *temp = q.front().first;
+        pair<int,int>l = q.front().second.first;
+        pair<int,int>r = q.front().second.second;
+        Node *lef=NULL,*rig=NULL;
+        q.pop();
+        if(i<n and l.first<=l.second){
+            ind = lower_bound(A+l.first,A+l.second+1,arr[i])-A;
+            if(ind<=l.second and ind>=l.first){
+                lef = new Node(arr[i++]);
+                temp->left= lef;
+                q.push({lef,{{l.first,ind-1},{ind+1,l.second}}});
+            }
+        }
+        if(i<n and r.first<=r.second){
+            ind = lower_bound(A+r.first,A+r.second+1,arr[i])-A;
+            if(ind<=r.second and ind>=r.first){
+                rig = new Node(arr[i++]);
+                temp->right = rig;
+                q.push({rig,{{r.first,ind-1},{ind+1,r.second}}});
+            }
+        }
+        
+    }
+    return root;
+	
+}
