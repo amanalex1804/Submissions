@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    priority_queue<pair<int,int> > q;
+	    int n,x;cin>>n;
+	    for(int i=0;i<n;++i){
+	        cin>>x;
+	        q.push({x,i});
+	    }
+	    int A[n];int sz = n-1;
+	    while(!q.empty()){
+	        A[q.top().second]=sz;
+	        --sz;
+	        q.pop();
+	    }
+	    for(int i=0;i<n;++i) cout<<A[i]<<" ";cout<<"\n";
+	}
+	return 0;
+}
