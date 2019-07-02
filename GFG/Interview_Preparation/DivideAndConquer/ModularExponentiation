@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long 
+ll fn(ll x,ll n,ll mod){
+    ll r =1;
+    while(n){
+        if(n&1) r = ((r%mod)*(x%mod))%mod;
+        x = ((x%mod)*(x%mod))%mod;
+        n/=2;
+    }
+    return r;
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    ll x,n,mod;
+	    cin>>x>>n>>mod;
+	    cout<<fn(x,n,mod)<<"\n";
+	
+	}
+	return 0;
+}
