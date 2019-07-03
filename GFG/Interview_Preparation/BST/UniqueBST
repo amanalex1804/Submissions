@@ -1,0 +1,22 @@
+
+// Functiuon to return number of trees
+int numTrees(int n) {
+    // Your code here
+    long long int den = 1,nu=1,ans=1;
+    int temp = 2*n;
+    while(temp>n){
+        den*=temp;
+        temp--;
+    }
+    temp = n;
+    while(temp>0){
+        nu*=temp;
+        temp--;
+    }
+    den = den/nu;
+    
+    den/=(n+1);
+    return den;
+    
+    
+}
