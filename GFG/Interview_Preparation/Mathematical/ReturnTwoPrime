@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 10001
+bool p[sz];
+vector<int>v;
+void pre(){
+    for(int i=4;i<sz;i+=2) p[i]=true;
+    for(int i=3;(long long int)i*i<=sz;i+=2){
+        if(!p[i]) for(int j=i*i;j<sz;j+=(2*i)) p[j]=true;
+    }
+    for(int i=3;i<sz;++i) 
+    if(!p[i]) v.push_back(i);
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+    pre();
+	while(t--){
+	    int n;cin>>n;
+	    for(int i=0;i<(int)v.size();++i){
+	        int x = n-v[i];
+	        if(!p[x]){
+	            cout<<v[i]<<" "<<x<<"\n";
+	            break;
+	        }
+	    }
+	
+	}
+	return 0;
+}
