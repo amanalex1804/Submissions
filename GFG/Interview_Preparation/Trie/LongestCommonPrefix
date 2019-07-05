@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mm(XX,AA) memset(XX,AA,sizeof(XX)
+struct trie{
+    int cnt ;
+    trie *child[27];
+};
+
+trie *create(){
+    trie *temp = new trie();
+    temp->cnt = 0;
+    memset(temp->child,NULL,sizeof(temp->child));
+    return temp;
+}
+
+void ins(trie *root,string s){
+    for(int i=0;i<(int)s.size();++i){
+        int x = (int)(s[i]-'a');
+        if(root->child[x]==NULL) root->child[x]=create();
+        root=root->child[x];
+        root->cnt+=1;
+    }
+}
+
+void fn(trie *root,int n,int &ans){
+    int ind = -1;
+    for(int i=0;i<26;++i){
+        if(root->child[i]!=NULL and root->child[i]->cnt==n){
+            ind = i;
+        }
+    }
+    if(ind!=-1){
+        ++ans;
+        fn(root->child[ind],n,ans);
+    }
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	
+	    struct trie*root = create();
+	    string s;
+	    for(int i=0;i<n;++i){
+	        cin>>s;
+	        ins(root,s);
+	    }
+	    int ans = 0;
+	    fn(root,n,ans);
+	   // cout<<ans<<endl;
+	   for(int i=0;i<ans;++i) cout<<s[i];
+	   if(!ans) cout<<-1;
+	   cout<<"\n";
+	}
+	return 0;
+}
