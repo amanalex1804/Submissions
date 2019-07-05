@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    int l = (int)s.size();
+	    int sz = l/2;
+	    if(l&1) ++sz;
+	    unordered_map<char,int>M;
+	    for(int i=0;i<l;++i) M[s[i]]++;
+	    bool flag = true;
+	    for(auto it=M.begin();it!=M.end() and flag;++it){
+	        pair<char,int>temp = *it;
+	        if(temp.second>sz) flag =false;
+	        
+	    }
+	    cout<<flag<<"\n";
+	
+	}
+	return 0;
+}
