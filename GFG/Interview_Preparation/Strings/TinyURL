@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	    long long int n,tm;cin>>n;tm=n;
+	    string ans="";
+	    while(n>0){
+	        ans+=s[(n%62)];
+	        n/=62;
+	    }
+	   for(int i=(int)ans.size()-1;i>=0;--i) cout<<ans[i];cout<<"\n";cout<<tm<<"\n";
+	}
+	return 0;
+}
