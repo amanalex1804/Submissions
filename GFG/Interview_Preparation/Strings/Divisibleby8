@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long 
+#define sz 200005
+#define mm(XX) memset(XX,0,sizeof(XX))
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s,p;cin>>s;
+	    p= s;
+	    bool flag = false;
+	    if(stoi(s)%8==0){
+	        cout<<"Yes\n";
+	        flag = true;
+	    }else{
+	        if(flag) continue;
+	        next_permutation(s.begin(),s.end());
+	        while(s!=p){
+	            if(stoi(s)%8==0){
+	                cout<<"Yes\n";
+	                flag = true;
+	                break;
+	            }
+	            next_permutation(s.begin(),s.end());
+	        }
+	    }
+	    if(!flag) cout<<"No\n";
+	}
+	return 0;
+}
