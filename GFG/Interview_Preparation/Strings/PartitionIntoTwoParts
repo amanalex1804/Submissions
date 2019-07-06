@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	   string s;int n,m,l;cin>>s>>n>>m;
+	   l = (int)s.size();
+	   string fi="",sc;
+	   bool flag = false;
+	   for(int i=0;i<l;++i){
+	       fi+=s[i];
+	       sc = s.substr(i+1,l-i-1);
+	       if((int)sc.size()>0){
+	           if(stoi(fi)%n==0 and stoi(sc)%m==0){
+	               flag = true;
+	               cout<<fi<<" "<<sc<<"\n";
+	               break;
+	           }
+	       }
+	   }
+	   
+	   if(!flag) cout<<-1<<"\n";
+	}
+	return 0;
+}
