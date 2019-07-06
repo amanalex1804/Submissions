@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<string>v;
+void fn(int idx,int c1,int c0,int n,string s){
+    if(c1<c0) return;
+    if(idx==n){
+        if(c1>=c0) v.push_back(s);
+        return;
+    }
+    fn(idx+1,c1+1,c0,n,s+"1");
+    if(idx>0) fn(idx+1,c1,c0+1,n,s+"0");
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    v.clear();
+	    fn(0,0,0,n,"");
+	    for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";cout<<"\n";
+	}
+	return 0;
+}
