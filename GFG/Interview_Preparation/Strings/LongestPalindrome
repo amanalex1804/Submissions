@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+string conv(string s){
+    string ret ="$";
+    s+="@";
+    for(int i=0;i<(int)s.size();++i) {ret+="#";ret+=s[i];}
+    return ret;
+}
+
+string fn(string q){
+    string s = conv(q);
+    int l= (int)s.size();
+    int P[l+2];
+    memset(P,0,sizeof(P));
+    int c=0,r=0; // current center right limit
+    for(int i=1;i<l;++i){
+        int mirr = 2*c-i;  // c-(i-c) // find the corresponding letter in the palidrome subString
+        if(i>r) P[i]=min(i-r,P[mirr]);
+            //So  which means that palindrome with center i
+            //can't go beyond the original palindrome, so apply the Mirror Property directly.
+        
+           // expanding around center i
+        while(s[i+P[i]+1]==s[i-P[i]-1]) P[i]++;
+        
+        // Update c,r in case if the palindrome centered at i expands past r,
+        if(i+P[i]>r){
+            c = i;
+            r = i+P[i];  // next center = i
+        }
+        
+    }
+    
+    int mx =0 ,center = 0;
+    for(int i=0;i<l;++i){
+        if(P[i]>mx){
+            mx = P[i];
+            center = i;
+        }
+    }
+    
+    return q.substr((center-1-mx)/2,mx);
+    
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    cout<<fn(s)<<"\n";
+	}
+	return 0;
+}
