@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool fn(string a,string b){
+    if(a.find(b)!=string::npos) return true;
+    return false;
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    string s;cin>>s;
+	    vector<vector<int> >dp(n+1,vector<int>(n+1,0));
+	    int ind = -1,l=0;
+	    for(int i=1;i<=n;++i){
+	        for(int j=i+1;j<=n;++j){
+	            if(s[i-1]==s[j-1]) dp[i][j]=dp[i-1][j-1]+1;
+	            if(dp[i][j]>l){
+	                l=dp[i][j];
+	                ind = j;
+	            }
+	       }
+	    }
+	    cout<<ind<<endl;
+	    if(ind==-1) cout<<ind<<"\n";
+	    else cout<<s.substr(ind-l,l)<<"\n";
+	}
+	return 0;
+}
