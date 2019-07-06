@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    string s;cin>>s;
+	    bool flag = false;
+	    char ch;int ind = -1;
+	    for(int i=(int)s.size()-1;i>=0 and !flag;--i){
+	        ch = '@';ind =-1;
+	        for(int j=i+1;j<(int)s.size();++j){
+	            if(s[j]>s[i]) {
+	                if(ch=='@' or s[j]<ch){
+	                    ch = s[j];
+	                    ind = j;
+	                }
+	            }
+	        }
+	        if(ind!=-1){
+	            swap(s[i],s[ind]);
+	            flag = true;
+	            break;
+	        }
+	    }
+	    
+	    if(flag) cout<<s<<"\n";
+	    else cout<<-1<<"\n";
+	
+	}
+	return 0;
+}
