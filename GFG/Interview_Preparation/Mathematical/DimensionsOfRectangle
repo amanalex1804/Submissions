@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int a;cin>>a;
+	    int sq = sqrt(a);
+	    int ans = 0;
+	    for(int i=1;i<=sq;++i){
+	        if(a%i==0){
+	            
+	                int x = i;
+	                int y = a/i;
+	                if(x%2==0 and y%2==0){
+	                    if(x==y) ++ans;
+	                }else ++ans;
+	            
+	        }
+	    }
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
