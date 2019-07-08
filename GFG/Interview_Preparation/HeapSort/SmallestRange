@@ -1,0 +1,37 @@
+// you are required to complete this function 
+// function should print the required range
+void findSmallestRange(int arr[][N], int n, int k)
+{
+    int v[k+1];
+    for(int i=0;i<=k;++i) v[i]=0;
+    int start = 0, end = 0, dif = INT_MAX;
+    while(1)
+    {
+        int min = INT_MAX, max = INT_MIN, min_index, max_index;
+        for(int i = 0; i < k; i++)
+        {
+            if(arr[i][v[i]] < min)
+            {
+                min_index = i;
+                min = arr[i][v[i]];
+            }
+            if(arr[i][v[i]] > max)
+            {
+                max_index = i;
+                max = arr[i][v[i]];
+            }
+        }
+       // cout<<" ij "<<min<<" "<<max<<" "<<max-min<<" "<<dif<<endl;
+        if(max - min < dif)
+        {
+            dif = max-min;
+            start = min;
+            end = max;
+        }
+        v[min_index]++;
+        if(v[min_index] == n)
+        break;
+    }
+    cout<<start<<" "<<end<<endl;
+    
+}
