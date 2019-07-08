@@ -1,0 +1,62 @@
+int par(int i){
+     return (i-1)/2;
+} 
+
+void ins(int val,int A[],int &sz){
+    A[sz++]=val;
+    int i=sz-1;
+    while(i!=0 and A[par(i)]>A[i]){
+        swap(A[par(i)],A[i]);
+        i = par(i);
+    }
+}
+
+void heapify(int A[],int i,int n){
+    int l = 2*i+1;
+    int r = 2*i+2;
+    int smallest = i;
+    if(l<n and A[smallest]>A[l]) smallest = l;
+    if(r<n and A[smallest]>A[r]) smallest = r;
+    if(smallest!=i){
+        swap(A[smallest],A[i]);
+        heapify(A,smallest,n);
+    }
+}
+ 
+Node * mergeKLists(Node *arr[], int N)
+{
+       // Your code here
+       
+       int A[10005],sz=0;
+       
+       for(int i=0;i<N;++i){
+           Node *cur = arr[i];
+           while(cur){
+               ins(cur->data,A,sz);
+               //cout<<cur->data<<" ";
+               cur = cur->next;
+           }
+         //  cout<<" \nwoo" <<sz<<endl;
+       }
+       
+       for(int i=sz/2;i>=0;--i) heapify(A,i,sz);
+       
+       Node *head=NULL,*tail=NULL;
+       int n=sz-1;
+       //cout<<" ok "<<sz<<endl;
+       for(int i=0;i<sz;++i){
+           int x = A[0];
+           swap(A[0],A[sz-i-1]);
+           heapify(A,0,sz-i-1);
+           Node *temp = newNode(x);
+           if(!head) {
+               head = temp;
+               tail = temp;
+           }else{
+               tail->next = temp;
+               tail = temp;
+           }
+       }
+       return head;
+       
+}
