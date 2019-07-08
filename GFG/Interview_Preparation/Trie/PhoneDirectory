@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string>v;
+struct trie{
+    int leaf;
+    trie *child[27];
+};
+
+trie *create(){
+    trie *temp = new trie;
+    temp->leaf = 0;
+    for(int i=0;i<=26;++i) temp->child[i]=NULL;
+    return temp;
+}
+void ins(trie *root,string s){
+    for(int i=0;i<(int)s.size();++i){
+        int x =(int)(s[i]-'a');
+        if(root->child[x]==NULL) root->child[x]=create();
+        root=root->child[x];
+    }
+    root->leaf+=1;
+}
+
+void fn(trie *root,int idx,string s,string r){
+    if(idx<(int)s.size()){
+        int x =(int)(s[idx]-'a');
+        if(root->child[x]){
+            fn(root->child[x],idx+1,s,r+s[idx]);
+        }
+    }else if(idx>=(int)s.size()){
+        int l = root->leaf;
+        if(l>0) v.push_back(r);
+        for(int i=0;i<=25;++i){
+            if(root->child[i]) fn(root->child[i],idx,s,r+(char)(i+'a'));
+        }
+    }
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    string ret,s;
+	    unordered_map<string,vector<int> >M;
+	    trie *root = create();
+	    for(int i=0;i<n;++i){
+	        cin>>s;
+	        ins(root,s);
+	        M[s].push_back(i);
+	    }
+	    cin>>s;
+	    ret ="";
+	    for(int i=0;i<(int)s.size();++i){
+	        ret+=s[i];
+	        v.clear();
+	        fn(root,0,ret,"");
+	        int l = (int)v.size();
+	    
+	        sort(v.begin(),v.end());
+	        for(int j=0;j<(int)v.size();++j) cout<<v[j]<<" ";
+	        
+	        if((int)v.size()==0) cout<<0<<" ";
+	        cout<<"\n";
+	    }
+	
+	}
+	return 0;
+}
