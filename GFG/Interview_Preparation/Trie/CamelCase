@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string>v;
+
+bool comp(pair<string,string>&p1,pair<string,string>&p2){
+    if(p1.first!=p2.first) return p1.first<p2.first;
+    return p1.second>=p2.second;
+}
+
+struct trie{
+    int  leaf;
+    trie *child[53];
+};
+trie *create(){
+    trie *temp = new trie;
+    temp->leaf = 0;
+    memset(temp->child,NULL,sizeof(temp->child));
+    return temp;
+}
+
+void ins(string s,trie *root){
+    bool flag = false;
+    for(int i=0;i<(int)s.size();++i){
+        flag = false;
+        int x;
+        if(isupper(s[i])) x = (int)(s[i]-'A')+26;
+        else x = (int)(s[i]-'a');
+        
+        if(!root->child[x]) root->child[x] = create();
+        root=root->child[x];
+    }
+    root->leaf+=1;
+}
+
+void fn(trie *root,int idx,string pat,string s){
+    if(idx<(int)pat.size()){
+        int x = (int)(pat[idx]-'A')+26;
+        if(root->child[x]) fn(root->child[x],idx+1,pat,s+pat[idx]);
+        else{
+            for(int i=0;i<=25;++i){
+                if(root->child[i]) {
+                    char ch = (char)(i+'a');
+                    fn(root->child[i],idx,pat,s+ch);
+                }
+            }
+        }
+    }else if(idx>=(int)pat.size()){
+        int y = root->leaf;
+        while(y--){
+            v.push_back(s);
+        }
+        for(int i=0;i<=52;++i){
+            if(root->child[i]){
+                char ch;
+                if(i<=25) ch=(char)(i+'a');
+                else ch = (char)(i-26+'A');
+                fn(root->child[i],idx+1,pat,s+ch);
+            }
+        }
+ 
+    }
+}
+string CC(string s){
+    string ret ="";
+    for(int i=0;i<(int)s.size();++i){
+        if(isupper(s[i])) ret+=s[i];
+    }
+    return ret;
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    v.clear();
+	    int n;cin>>n;
+	    string s,ret;
+	    trie *root = create();
+	     map<string,vector<string> >M,N;
+	    for(int i=0;i<n;++i){
+	        cin>>s;
+	        ins(s,root);
+	        N[CC(s)].push_back(s);
+	    }
+	    cin>>s;
+	    fn(root,0,s,"");
+	    int l =(int)v.size();
+	    for(int i=0;i<l;++i){
+	        M[CC(v[i])].push_back(v[i]);
+	    }
+	    for(auto it=M.begin();it!=M.end();++it){
+	        pair<string,vector<string> >temp = *it;
+	        vector<string>tt = N[temp.first];
+	        for(int i=0;i<(int)tt.size();++i) cout<<tt[i]<<" ";
+	    }
+        
+	    if((int)v.size()==0) cout<<"No match found";
+	    cout<<"\n";
+	    
+	
+	}
+	return 0;
+}
