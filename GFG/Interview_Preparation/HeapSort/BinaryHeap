@@ -53,7 +53,8 @@ MinHeap::MinHeap(int cap)
     harr = new int[cap]; 
 } 
   
-// Inserts a new key 'k' 
+// Inserts a new key 'k'  
+// INSERT IS BOTTOM UP
 void MinHeap::insertKey(int k) 
 { 
     if (heap_size == capacity) 
@@ -88,6 +89,7 @@ void MinHeap::decreaseKey(int i, int new_val)
 } 
   
 // Method to remove minimum element (or root) from min heap 
+?? TOP DOWN
 int MinHeap::extractMin() 
 { 
     if (heap_size <= 0) 
