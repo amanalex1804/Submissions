@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define ll long long
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	  ll ans =1;
+	  int n;cin>>n;
+	  vector<int>v;
+	  for(int i=0,x;i<n;++i){
+	      cin>>x;
+	      v.push_back(x);
+	  }
+	  sort(v.begin(),v.end());
+	  for(int i=0,x;i<n;++i){
+	      x = v[i];
+	      x-=i;
+	      x = max(x,1);
+	      ans = ((ans%mod)*(x%mod))%mod;
+	  }
+	  cout<<ans<<"\n";
+	}
+	return 0;
+}
