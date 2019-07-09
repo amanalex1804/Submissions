@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+ll fn(ll temp){
+    ll r1 = 0;
+      while(temp>0){
+	        r1+=(temp%10);
+	        temp/=10;
+	    }
+	    return r1;
+}
+
+int main()
+ {
+   // ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    ll n;cin>>n;
+	
+	    ll temp=n,r1=0,r2=0;
+	    while(temp>0){
+	        r1+=(temp%10);
+	        temp/=10;
+	    }
+	  //  cout<<r1<<endl;
+	    ll x;
+	    temp = n;
+	    ll i=2;
+	    while((ll)i*i<=(ll)temp){
+	        if(temp%i==0){
+	            while(temp%i==0){
+	              //  cout<<i<<endl;
+	                r2+=fn(i);
+	                temp/=i;
+	            }
+	        }
+	        ++i;
+	    }
+	    
+	    if(temp!=1 and temp!=n) r2+=fn(temp);
+	   // cout<<r1<<" "<<r2<<endl;
+	    if(r1==r2) cout<<1<<"\n";
+	    else cout<<0<<"\n";
+	
+	}
+	return 0;
+}
