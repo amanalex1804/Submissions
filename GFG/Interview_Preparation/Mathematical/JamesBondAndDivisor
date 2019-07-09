@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+int d[sz];
+void pre(){
+    
+    for(int i=1;i<sz;++i){
+        for(int j=i;j<sz;j+=i) d[j]+=1;
+    }
+    for(int i=2;i<sz;++i) d[i]+=d[i-1];
+    
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    
+    pre();
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    cout<<d[n]<<"\n";
+	
+	}
+	return 0;
+}
