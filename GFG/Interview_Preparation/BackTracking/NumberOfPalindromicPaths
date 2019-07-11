@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define SZ 11
+int dx1[]={0,1};
+int dy1[]={1,0};
+int dx2[]={-1,0};
+int dy2[]={0,-1};
+
+bool ispalin(string s){
+    int l = (int)s.size();
+    for(int i=0;i<l/2;++i){
+        if(s[i]!=s[l-i-1]) return false;
+    }
+    return true;
+}
+void fn(int x1,int y1,int n,int m,int &ans,string s,char A[][SZ],bool vis[][SZ]){
+    
+    if(x1==n and y1==m){
+        if(ispalin(s)) ++ans;
+        return;
+    }
+     int ret = 0;
+     vis[x1][y1]=true;
+     for(int i=0;i<2;++i){
+         int x = x1+dx1[i];
+         int y = y1+dy1[i];
+         if(1<=x and x<=n and 1<=y and y<=m and !vis[x][y]) fn(x,y,n,m,ans,s+A[x][y],A,vis);
+     }
+    vis[x1][y1] = false;
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,m;cin>>n>>m;
+	    char A[n+1][SZ]; bool vis[n+1][SZ];
+	    for(int i=1;i<=n;++i)
+	    for(int j=1;j<=m;++j)
+	    cin>>A[i][j],vis[i][j]=false;
+	    int ans = 0;
+	    string s ="";
+	    s+=A[1][1];
+	    fn(1,1,n,m,ans,s,A,vis);
+	    cout<<ans<<"\n";
+	    
+	    
+	
+	}
+	return 0;
+}
