@@ -1,0 +1,35 @@
+void diagonalPrint(Node *root)
+{
+   // your code here
+   
+   queue<Node*>p,q;
+   // p stores current
+   p.push(root);
+   while(!p.empty() or !q.empty()){
+            while(!p.empty()){
+               Node *temp = p.front(); p.pop();
+               cout<<temp->data<<" ";
+               if(temp->left) q.push(temp->left);
+               
+               while(temp->right){
+                   temp = temp->right;
+                   cout<<temp->data<<" ";
+                   if(temp->left) q.push(temp->left);
+               }
+               
+            }
+            
+            while(!q.empty()){
+                Node *temp = q.front(); q.pop();
+                cout<<temp->data<<" ";
+                if(temp->left) p.push(temp->left);
+                 while(temp->right){
+                   temp = temp->right;
+                   cout<<temp->data<<" ";
+                   if(temp->left) p.push(temp->left);
+               }
+            }
+       
+   }
+
+}
