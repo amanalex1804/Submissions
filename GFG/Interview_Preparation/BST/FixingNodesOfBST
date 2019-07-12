@@ -1,0 +1,32 @@
+void fn(Node *root,int l,int r,Node *&L,Node *&R){
+    
+    if(!root) return;
+   // if(L!=NULL and R!=NULL) return;
+    
+    if(root->data<=r and l<=root->data){
+        fn(root->left,l,root->data-1,L,R);
+        fn(root->right,root->data+1,r,L,R);
+    }else{
+        if(L==NULL) L = root;
+        else if(R==NULL) R = root;
+        return;
+    } 
+}
+void inO(Node *root){
+    if(!root) return ;
+    inO(root->left);
+    cout<<root->data<<" ";
+    inO(root->right);
+}
+struct Node *correctBST( struct Node* root )
+{
+    // add code here.
+    Node *l=NULL;
+    Node *r=NULL;
+    fn(root,INT_MIN,INT_MAX,l,r);
+  
+     swap(l->data,r->data);
+   // inO(root);
+    return root;
+   
+}
