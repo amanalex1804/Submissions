@@ -1,0 +1,27 @@
+void fn(node *root,int &ind,map<int,int>&A){
+    if(!root) return;
+    fn(root->left,ind,A);
+    A[root->val]++;
+    fn(root->right,ind,A);
+}
+
+bool isPairPresent(struct node *root, int target)
+{
+//add code here.
+map<int,int>M;
+int ind=0;
+fn(root,ind,M);
+
+for(auto it = M.begin();it!=M.end();++it){
+    //cout<<" ok ";
+    pair<int,int>temp = *it;
+    int x = target-temp.first;
+   // cout<<temp.first<<" "<<temp.second<<endl;
+   // if(x<0) return false;
+    if(M.find(x)==M.end()) continue;
+    if(x==temp.first and M[x]>1) return true;
+    else if(x!=temp.first and M[x]>0) return true;
+}
+return false;
+
+}
