@@ -1,0 +1,25 @@
+/*You are required to complete below method*/
+Node* deleteAllOccurances(Node *head,int x)
+{
+    //Your code here
+    Node *prev = NULL;
+    Node *cur = head;
+    Node *root =NULL,*tail = NULL;
+    Node *temp;
+    while(cur){
+        if(cur->data!=x){
+            temp = new Node;
+            temp->data = cur->data;
+            if(!tail){
+                root = temp;
+                tail = temp;
+            }else{
+                tail->next = temp;
+                tail = temp;
+            }
+        }
+        
+        cur = cur->next;
+    }
+    return root;
+}
