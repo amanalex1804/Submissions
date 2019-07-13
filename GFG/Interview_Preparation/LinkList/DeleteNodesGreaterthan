@@ -1,0 +1,20 @@
+/*
+The structure of linked list is the following
+struct Node
+{
+int data;
+Node* next;
+};
+*/
+Node *compute(Node *root)
+{
+// your code goes 
+if(root==NULL)return NULL;
+Node *a=compute(root->next);
+if(a!=NULL && a->data>root->data)
+{
+    *root=*(root->next);
+    return a;
+}
+return root;
+}
