@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int bit[10005];
+
+void upd(int idx,int n){
+    while(idx<=n){
+        bit[idx]+=1;
+        idx+=(idx&(-idx));
+    }
+}
+int qry(int idx){
+    int ret = 0;
+    while(idx>0){
+        ret+=bit[idx];
+        idx-=(idx&(-idx));
+    }
+    return ret;
+}
+
+void pre(int n){
+    for(int i=0;i<=n+1;++i) bit[i]=0;
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    vector<int>A;
+	    //int M[5001];
+	   // memset(M,0,sizeof(M));
+	    vector<pair<int,int> > v;
+	    for(int i=0,x;i<n;++i) {
+	        cin>>x;
+	            A.push_back(x);
+	            v.push_back({x,i});
+	        
+	        
+	    }
+	    sort(v.begin(),v.end());
+	    int B[n+1];
+	    n = (int)A.size();
+	    int ind = 1;
+	    for(int i=0;i<n;++i){
+	        int x = v[i].first;
+	        while(i<n and x==v[i].first){
+	            B[v[i].second]=ind;
+	            ++i;
+	        }
+	        if(i>=n) break;
+	        --i;
+	        ++ind;
+	        
+	    }
+	    pre(n);
+	    int P[n+1],N[n+1];
+	    for(int i=n-1;i>=0;--i){
+	        N[i]=(qry(n)-qry(B[i]));
+	        upd(B[i],n);
+	    }
+	  // for(int i=0;i<n;++i) cout<<N[i]<<" ";cout<<endl;
+	    pre(n);
+	    
+	    for(int i=0;i<n;++i){
+	        P[i] = qry(B[i]-1);
+	        upd(B[i],n);
+	    }
+	  // for(int i=0;i<n;++i) cout<<P[i]<<" ";cout<<endl;
+	    
+	    long long ans = 0;
+	   // unordered_map<int,int>M;
+	    for(int i=0;i<n;++i){
+	        ans+=(P[i]*N[i]);
+	    }
+	    cout<<ans<<"\n";
+	    
+	    
+	
+	}
+	return 0;
+}
