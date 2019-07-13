@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool fn(int src,vector<vector<int> > &gr1,vector<vector<int> > &gr2){
+    
+    if((int)gr1[src].size()!=(int)gr2[src].size()) return false;
+    int l = (int)gr1[src].size();
+    bool flag = true;
+    for(int i=0;i<l;++i){
+        if(gr1[src][i]!=gr2[src][l-i-1]){
+            flag = false;
+            break;
+        }
+    }
+    if(!flag) return false;
+    bool ret = true;
+    for(int i=0;i<l;++i){
+        ret=(ret&(fn(gr1[src][i],gr1,gr2)));
+    }
+    return ret;
+}
+
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n,e;cin>>n>>e;
+	    vector<vector<int> > gr1(n+1),gr2(n+1);
+	    for(int i=0,x,y;i<e;++i){
+	        cin>>x>>y;
+	        gr1[x].push_back(y);
+	    }
+	    for(int i=0,x,y;i<e;++i){
+	        cin>>x>>y;
+	        gr2[x].push_back(y);
+	    }
+	    cout<<fn(1,gr1,gr2)<<"\n";
+	    
+	
+	}
+	return 0;
+}
