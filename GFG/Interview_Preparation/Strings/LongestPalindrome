@@ -14,7 +14,7 @@ string fn(string q){
     int P[l+2];
     memset(P,0,sizeof(P));
     int c=0,r=0; // current center right limit
-    for(int i=1;i<l;++i){
+    for(int i=1;i<l-1;++i){   //see this
         int mirr = 2*c-i;  // c-(i-c) // find the corresponding letter in the palidrome subString
         if(i>r) P[i]=min(i-r,P[mirr]);
             //So  which means that palindrome with center i
