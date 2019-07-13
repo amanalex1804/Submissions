@@ -1,0 +1,17 @@
+Node* helper(Node* tree, unordered_map<Node*,Node*>&mp){
+    if(!tree) return NULL;
+    if(mp.find(tree)!=mp.end()) return tree;
+    else{
+        Node *root = new Node(tree->data);
+        mp[tree]=root;
+        root->next =  helper(tree->next,mp);
+        root->arb = helper(tree->arb,mp);
+        return root;
+    }
+}
+
+Node *copyList(Node *head) {
+    // Your code here
+     unordered_map<Node*,Node*> mp;
+     return helper(head,mp);
+}
