@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int n;ll M[25][25];
+int vis[25];
+ll ans = LLONG_MAX;
+void fn(int src,int cnt,ll cost){
+    if(cnt==n and M[src][0]){
+        ans=min(M[src][0]+cost,ans);
+        return;
+    }
+    for(int i=0;i<n;++i){
+        if(!vis[i] and M[src][i]){
+                vis[i]=1;
+                fn(i,cnt+1,cost+M[src][i]);
+                vis[i]=0;
+        }
+    }
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    
+	    
+	    cin>>n;
+	    ans = LLONG_MAX;
+	    
+	    for(int i=0;i<n;++i) vis[i]=0;
+	    for(int i=0;i<n;++i)
+	    for(int j=0;j<n;++j)
+	    cin>>M[i][j];
+	    vis[0]=1;
+	    fn(0,1,0);
+	    cout<<ans<<"\n";
+	
+	}
+	return 0;
+}
