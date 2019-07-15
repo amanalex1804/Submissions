@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+//vector<string>v;
+map<string,int>v;
+void fn(int sum,int idx,string s,int n,bool vis[],int A[]){
+    if(sum<0) return;
+    if(idx>=n){
+        if(sum==0){
+            sort(s.begin(),s.end());
+            v[s]=1;
+        }
+        return;
+    }
+     // cout<<" oky "<<idx<<" "<<s<<endl;
+       fn(sum,idx+1,s,n,vis,A);
+        if(sum>=A[idx]){
+            s = s+to_string(A[idx]);
+            fn(sum-A[idx],idx+1,s,n,vis,A);
+        }
+    
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+   // cout<<to_string(5)<<endl;
+	int t;
+	cin>>t;
+
+	while(t--){
+	    v.clear();
+	    int n,k;cin>>n;
+	    int A[n+1];bool vis[n+1];
+	    for(int i=0;i<n;++i) cin>>A[i],vis[i]=0;
+	    cin>>k;
+	    string s="";
+	    fn(k,0,s,n,vis,A);
+	   // for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+	   bool flag = false;
+	   for(auto it=v.begin();it!=v.end();++it){
+	       flag = true;
+	       pair<string,int>temp=*it;
+	       cout<<"(";
+	       for(int i=0;i<(int)temp.first.size()-1;++i) cout<<temp.first[i]<<" ";
+	       cout<<temp.first.back()<<")";
+	   }
+	   if(!flag) cout<<"Empty";
+	   cout<<"\n";
+	   
+	
+	}
+	return 0;
+}
