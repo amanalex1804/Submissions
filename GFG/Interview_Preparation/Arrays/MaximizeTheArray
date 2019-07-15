@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n],B[n],C[n];
+	    priority_queue<int>q;
+	    unordered_map<int,int>M;
+	    for(int i=0;i<n;++i) {
+	        cin>>A[i];
+	        if(!M[A[i]]) q.push(A[i]);
+	        M[A[i]]=1;
+	    }
+	    for(int i=0;i<n;++i){
+	        cin>>B[i];
+	        if(!M[B[i]]) q.push(B[i]);
+	        M[B[i]]=1;
+	    }
+	    M.clear();
+	    int sz = n,ind=0;
+	    while(sz--){
+	        M[q.top()]=1;
+	        q.pop();
+	    }
+	    for(int i=0;i<n;++i){
+	        if(M[B[i]]) {
+	            C[ind++]=B[i];
+	            M[B[i]]=0;
+	        }
+	    }
+	    for(int i=0;i<n;++i){
+	        if(M[A[i]]){
+	            C[ind++]=A[i];
+	            M[A[i]]=0;
+	        }
+	    }
+	    for(int i=0;i<n;++i) cout<<C[i]<<" ";cout<<"\n";
+	
+	}
+	return 0;
+}
