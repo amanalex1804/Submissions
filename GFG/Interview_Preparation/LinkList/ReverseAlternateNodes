@@ -1,0 +1,28 @@
+void rearrange(struct node *odd)
+{
+    node *root = NULL;
+    int cnt = 0;
+    node *cur = odd;
+    node *prev = NULL;
+    
+    while(cur){
+        
+        if(cnt&1){
+            node *temp = new node;
+            temp->data = cur->data;
+            if(root==NULL) root = temp;
+            else {
+                temp->next = root;
+                root = temp;
+            }
+            prev->next=cur->next;
+        }
+        else prev = cur;
+        
+        cur = cur->next;
+        ++cnt;
+    }
+    prev->next = root;
+    
+    
+}
