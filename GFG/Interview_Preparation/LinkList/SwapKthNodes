@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+Node *swapkthnode(Node* head, int num, int K)
+{
+    // Your Code here
+    if(K>num or (2*K==num+1)) return head;
+    
+    Node *x=head,*x_p = NULL;
+    for(int i=1;i<K;++i){
+        x_p=x;
+        x = x->next;
+    }
+    Node *y=head,*y_p=NULL;
+    for(int i=1;i<num-K+1;++i){
+        y_p=y;
+        y = y->next;
+    }
+    if(x_p) x_p->next=y;
+    if(y_p) y_p->next=x;
+    swap(*x,*y);
+    if(K==1) head = y;
+    if(K==num) head = x;
+    return head;
+    
+}
