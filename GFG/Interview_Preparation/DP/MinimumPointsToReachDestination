@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<pair<int,int>,int> pi;
+int dx[]={0,1};
+int dy[]={1,0};
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	   int n,m;cin>>n>>m;
+	   int A[n+1][m+1],dp[n+1][m+1],C[n+1][m+1];
+	   for(int i=0;i<n;++i)
+	   for(int j=0;j<m;++j)
+	   cin>>A[i][j],dp[i][j]=INT_MIN,C[i][j]=INT_MIN;
+	   
+	   queue<pi>q;
+	   q.push({{0,0},A[0][0]});
+	   dp[0][0]=A[0][0];
+	   C[0][0]=A[0][0];
+	   while(!q.empty()){
+	       int x = q.front().first.first;
+	       int y = q.front().first.second;
+	       int c = q.front().second;
+	       q.pop();
+	       for(int i=0;i<2;++i){
+	           int x1 = x+dx[i];
+	           int y1 = y+dy[i];
+	           if(0<=x1 and x1<n and 0<=y1 and y1<m){
+	               int cost = c+A[x1][y1];
+	               int mn = min(dp[x][y],cost);
+	               if(dp[x1][y1]<mn){
+	                   dp[x1][y1]=mn;
+	                   C[x1][y1] = cost;
+	                   q.push({{x1,y1},cost});
+	               }
+	               if(dp[x1][y1]==mn and C[x1][y1]<cost){
+	                   C[x1][y1] = cost;
+	                   q.push({{x1,y1},cost});
+	               }
+	               
+	           }
+	       }
+	   }
+	   int ans = dp[n-1][m-1];
+	   if(ans>=0) ans = 1;
+	   else ans = ((-1)*ans)+1;
+	   cout<<ans<<"\n";
+	   
+	}
+	return 0;
+}
