@@ -1,0 +1,22 @@
+
+void verticalOrder(Node *root)
+{  
+    map<int,vector<int> > M;
+    queue<pair<Node*,int> > q;
+    q.push({root,0});
+    
+    while(!q.empty()){
+        Node *temp = q.front().first;
+        int val = q.front().second;
+        M[val].push_back(temp->data);
+        q.pop();
+        if(temp->left) q.push({temp->left,val-1});
+        if(temp->right) q.push({temp->right,val+1});
+    }
+    for(auto it = M.begin();it!=M.end();++it){
+        pair<int,vector<int> > temp = *it;
+        for(int i=0;i<(int)temp.second.size();++i){
+            cout<<temp.second[i]<<" ";
+        }
+    }
+}
