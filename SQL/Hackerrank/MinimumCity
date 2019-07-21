@@ -1,0 +1,4 @@
+
+select MIN(city),LENGTH(MIN(CITY)) from station where lENGTH(city) = (select MIN(LENGTH(CITY)) from station) ;
+                                                                                 
+select MAX(city),LENGTH(MAX(CITY)) from station where lENGTH(city) = (select MAX(LENGTH(CITY)) from station) ;
