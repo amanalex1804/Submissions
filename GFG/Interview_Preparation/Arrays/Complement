@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    string s;cin>>s;
+	    int A[n+1],l=-1,r=-1,ans=99999;
+	    for(int i=0;i<n;++i) {
+	        if(s[i]=='1') A[i]=-1;
+	        else A[i]=1,ans=-1;
+	    }
+	    if(ans==99999){
+	        cout<<-1<<"\n";
+	        continue;
+	    }
+	    int sum = 0;
+	    l = 0;ans = INT_MIN;
+	    int l1 = 0;
+	    for(int i=0;i<n;++i){
+	        sum+=A[i];
+	        if(sum>ans){
+	            ans = sum;
+	            r = i;
+	            l = l1;
+	        }
+	        if(sum<0){
+	            l1 = i+1;
+	            sum = 0;
+	        }
+	    }
+	    cout<<l+1<<" "<<r+1<<"\n";
+	
+	}
+	return 0;
+}
