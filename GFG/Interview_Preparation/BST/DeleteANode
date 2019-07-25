@@ -1,0 +1,33 @@
+
+Node *getMin(Node *root){
+    Node *cur = root;
+    while(cur and cur->left){
+        cur = cur->left;
+    }
+    return cur;
+}
+Node *deleteNode(Node *root,  int x)
+{
+    if(!root) return NULL;
+    if(root->data<x) root->right = deleteNode(root->right,x);
+    else if(root->data>x) root->left = deleteNode(root->left,x);
+    else{
+        if(!root->left){
+            Node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if(!root->right){
+            Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        
+        Node *temp = getMin(root->right);
+        root->data = temp->data;
+       // swap(root->data,temp->data);
+        root->right = deleteNode(root->right,temp->data);
+    }
+    return root;
+   
+}
