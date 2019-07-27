@@ -1,0 +1,20 @@
+int fn(Node *r2,int x){
+    if(!r2) return 0;
+    if(x==r2->data) return 1;
+    if(r2->data<x) return fn(r2->right,x);
+    if(x<r2->data) return fn(r2->left,x);
+}
+int countPairs(Node* root1, Node* root2, int x)
+{
+    int ans = 0;
+    queue<Node *>q;
+    q.push(root1);
+    while(!q.empty()){
+        Node *temp = q.front(); q.pop();
+        ans+=fn(root2,x-temp->data);
+        if(temp->left) q.push(temp->left);
+        if(temp->right) q.push(temp->right);
+    }
+    return ans;
+    
+}
