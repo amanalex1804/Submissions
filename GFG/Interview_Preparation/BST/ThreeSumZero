@@ -1,0 +1,26 @@
+void in(node *root,int A[],int &ind){
+    if(!root) return;
+    in(root->left,A,ind);
+    A[ind++]=root->key;
+    in(root->right,A,ind);
+    
+}
+bool isTripletPresent(node *root)
+{
+    int A[200],ind=0;
+    in(root,A,ind);
+    
+    for(int i=0;i<ind;++i){
+        for(int j=i+1;j<ind;++j){
+            int sum = (-1)*(A[i]+A[j]);
+            int idx = lower_bound(A,A+ind,sum)-A;
+            if(idx<ind and idx!=i and idx!=j and A[idx]==sum){
+               // cout<<A[idx]<<" "<<A[i]<<" "<<A[j]<<"\n";
+                return true;
+            }
+            
+        }
+    }
+    return false;
+    
+}
