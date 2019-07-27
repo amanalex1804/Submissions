@@ -1,0 +1,50 @@
+using namespace std;
+struct Node{
+    int data;
+    Node *left,*right;
+};
+
+Node *newNode(int x){
+    Node *temp = new Node;
+    temp->data = x;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+Node *fn(Node *root,int l,int r,int A[]){
+    
+    if(l>r){
+        return NULL;
+    }
+    int mid = l+((r-l)/2);
+    root = newNode(A[mid]);
+    root->left = fn(root->left,l,mid-1,A);
+    root->right = fn(root->right,mid+1,r,A);
+    return root;
+}
+void pre(Node *root){
+    if(!root) return;
+    cout<<root->data<<" ";
+    pre(root->left);
+    pre(root->right);
+}
+int main()
+ {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+
+	while(t--){
+	    int n;cin>>n;
+	    int A[n+1];
+	    for(int i=0;i<n;++i) cin>>A[i];
+	    Node *root=NULL;
+	    root = fn(root,0,n-1,A);
+	    pre(root);
+	    cout<<"\n";
+	    
+	    
+	
+	}
+	return 0;
+}
