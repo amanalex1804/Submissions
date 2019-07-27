@@ -1,0 +1,35 @@
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+/*Your code here*/
+void in(Node *root,int pre[],int &ind){
+    if(!root) return ;
+    in(root->left,pre,ind);
+    pre[ind++]=root->data;
+    in(root->right,pre,ind);
+}
+void fn(Node *root,int pre[],int &ind,int sz){
+    if(!root or ind>=sz) return;
+    fn(root->left,pre,ind,sz);
+    root->data=pre[ind++];
+    fn(root->right,pre,ind,sz);
+    
+}
+Node *binaryTreeToBST (Node *root)
+{
+//Your code here
+int pre[100];
+int ind = 0;
+in(root,pre,ind);
+
+sort(pre,pre+ind);
+//cout<<"ok "<<ind<<endl;
+int i = 0;
+fn(root,pre,i,ind);
+return root;
+
+
+}
