@@ -1,0 +1,50 @@
+
+struct INFO{
+    int sz=0;
+    int mn = INT_MAX;
+    int mx = INT_MIN;
+    int ans = 0;
+    bool bst = false;
+};
+
+INFO fn(Node *root){
+    if(!root) {
+        INFO temp;
+        temp.sz = 0;
+        temp.ans = 0;
+        temp.bst = true;
+        return temp;
+    }
+    if(!root->left and !root->right){
+          INFO temp;
+        temp.sz = 1;
+        temp.mn = root->data;
+        temp.mx = root->data;
+        temp.ans = 1;
+        temp.bst = true;
+        return temp;
+    } 
+    INFO l = fn(root->left);
+    INFO r = fn(root->right);
+    INFO ret;
+   // cout<<ret.mn<<endl;
+    ret.sz = l.sz+r.sz+1;
+    if(l.bst and r.bst and l.mx<=root->data and root->data<=r.mn){
+        ret.mn = min(root->data,min(l.mn,r.mn));
+        ret.mx = max(root->data,max(l.mx,r.mx));
+        ret.ans = ret.sz;
+        ret.bst = true;
+        return ret;
+    }
+    ret.ans = max(l.ans,r.ans);
+    ret.bst = false;
+    return ret;
+}
+
+int largestBst(Node *root)
+{
+  if(!root) return 0;
+ INFO x = fn(root);
+
+ return x.ans;
+}
