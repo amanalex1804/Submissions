@@ -1,0 +1,9 @@
+void printNearNodes(Node *root, int l, int h)
+{
+  // your code goes here   
+  if(!root) return ;
+  printNearNodes(root->left,l,h);
+  if(l<=root->data and root->data<=h) cout<<root->data<<" ";
+  printNearNodes(root->right,l,h);
+  
+}
