@@ -1,0 +1,14 @@
+void in(Node *root,int &k){
+    if(!root) return;
+    in(root->right,k);
+    --k;
+    if(k==0) cout<<root->key<<"\n";
+    in(root->left,k);
+}
+
+void kthLargest(Node *root, int k)
+{
+    //Your code here
+    int temp = k;
+    in(root,temp);
+}
