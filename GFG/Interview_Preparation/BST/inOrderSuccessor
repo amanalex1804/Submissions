@@ -1,0 +1,17 @@
+void in(Node *root,Node *x,int &ans){
+    if(!root) return;
+     in(root->left,x,ans);
+     if(root->data>x->data) ans = min(ans,root->data);
+     in(root->right,x,ans);
+}
+
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    //Your code here
+    int ans = INT_MAX;
+    in(root,x,ans);
+    Node *ret = NULL;
+    if(ans!=INT_MAX) {ret = new Node; ret->data = ans;}
+    return ret;
+    
+}
