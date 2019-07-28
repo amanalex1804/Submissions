@@ -1,0 +1,22 @@
+
+Node *merge(Node *a,Node *b){
+    if(!a) return b;
+    if(!b) return a;
+    Node *r;
+    if(a->data<b->data){
+        r = a;
+        r->bottom =merge(a->bottom,b);
+    }
+    else{
+        r = b;
+        r->bottom = merge(a,b->bottom);
+    }
+    return r;
+}
+    
+Node *flatten(Node *root)
+{
+    if(!root or !root->next) return root;
+    merge(root,flatten(root->next));
+    
+}
