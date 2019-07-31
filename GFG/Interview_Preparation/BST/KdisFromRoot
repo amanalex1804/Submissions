@@ -1,0 +1,12 @@
+void printKdistance(Node *root, int k)
+{
+  // Your code here
+  if(!root) return;
+  if(!k) {
+      cout<<root->data<<" ";
+      return;
+  }
+  printKdistance(root->left,k-1);
+  printKdistance(root->right,k-1);
+  
+}
