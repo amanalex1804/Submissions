@@ -1,0 +1,52 @@
+#include<iostream>
+#define mod 1000000007
+#define ll long long 
+
+using namespace std;
+
+ll ex(ll x,ll n,ll m){
+    ll r = 1;
+    while(n){
+        if(n&1) r = ((r%m)*(x%m))%m;
+        x = ((x%m)*(x%m))%m;
+        n/=2;
+    }
+    return r;
+}
+
+ll mul(ll x,ll y){
+    ll z = ((x%mod)*(y%mod))%mod;
+    return z;
+}
+
+ll add(ll x,ll y){
+    ll z = ((x%mod)+(y%mod))%mod;
+    return z;
+}
+
+int main(){
+    int t;cin>>t;
+    ll den = ex(6,mod-2,mod);
+    while(t--){
+        ll n;cin>>n;
+        ll mx =0;
+        //cout<<(2*den)%mod<<endl;
+        ll temp = n;
+        n = n-1;
+        mx = (n%mod);
+        mx = ((mx%mod)*((n+1)%mod))%mod;
+        //cout<<mx<<endl;
+        ll tt = ((2*n)%mod+1)%mod;
+        //cout<<tt<<endl;
+        mx = ((mx%mod)*(tt%mod))%mod;
+        //cout<<(den*12)%mod;
+        mx = ((mx%mod)*(den%mod))%mod;
+        
+        ll x = temp/2;
+        ll mn = mul(ex(x,2),temp);
+        cout<<mn<<" "<<mx<<"\n";
+    }
+    
+    
+    return 0;
+}
