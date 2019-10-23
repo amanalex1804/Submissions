@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main(){
+	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int t;cin>>t;
+	while(t--){
+		
+		ll n;cin>>n;
+		ll temp = n;
+		int ind = INT_MAX,cnt=0;
+		vector<int>v;
+		bool flag = true;
+		while(temp>0){
+			int x = (temp%3);
+			if(x==2) ind = cnt;
+			v.push_back(x);
+			//cout<<x<<" ";
+			temp/=3;
+			++cnt;
+		}
+		
+		ll ans = 0,p=1;
+		int sz = (int)v.size();
+		
+		if(ind==INT_MAX){
+			cout<<n<<"\n";
+			continue;
+		}
+	     
+	    for(int i=0;i<=ind;++i) p*=3;
+	    int f = 0;
+		for(int i=ind+1;i<sz;++i){
+			if(v[i]==0 and f==0){
+			//	cout<<" k "<<p<<endl;
+				ans+=p;
+				f = 1;
+			}
+			if(v[i]==1 and f==1) ans+=p;//,cout<<" k "<<p<<endl;;
+			p*=3;
+		}	
+		
+		if(!f) ans = p;
+			
+			cout<<ans<<"\n";
+			
+	
+		
+		
+		
+	}
+	
+	
+	return 0;
+}
