@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+ios_base::sync_with_stdio(false);
+ cin.tie(NULL);
+ 
+ int n; cin>>n;
+ int A[n+1],cnt[n+1];
+ for(int i=1;i<=n;++i) cin>>A[i],cnt[i]=0;
+ 
+ for(int i=1;i<=n;++i) cnt[A[i]]=1;
+ 
+ deque<int>nm,nd;
+ 
+ for(int i=1;i<=n;++i){
+ 	if(!A[i]) nd.push_back(i);
+ 	if(!cnt[i]){
+ 		if(!A[i]) nm.push_front(i);
+ 		else nm.push_back(i);
+	 }
+ }
+ 
+ while(!nd.empty()){
+ 	int ndf = nd.front(); nd.pop_front();
+ 	int nmf = nm.front(); nm.pop_front();
+ 	if(ndf!=nmf) A[ndf]=nmf;
+ 	else{
+ 		nd.push_front(ndf);
+ 		nm.push_back(nmf);
+	 }
+ }
+ 
+ for(int i=1;i<=n;++i) cout<<A[i]<<" ";
+
+
+
+
+return 0;
+}
