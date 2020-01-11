@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+
+ll f[200005],b[200005],A[200005];
+int n;
+
+ll fn(ll x){
+	int ind = lower_bound(A+1,A+n+1,x)-(A);
+//	cout<<" index "<<ind<<endl;
+	
+	ll dis = (ind-1)*(x-A[ind-1])+f[ind-1];
+//	dis = dis*(ind-1);
+	ll diq = (n-ind+1)*(A[ind]-x)+b[ind];
+
+//	cout<<dis<<" "<<diq<<endl;
+	
+	if(ind>n) return dis;
+	if(ind==1) return diq;
+	
+	return (dis+diq); 
+}
+
+int main()
+{
+
+ //ios_base::sync_with_stdio(false);
+ //cin.tie(NULL);
+ 
+ ld sum = 0;
+ map<ll,bool>M;
+ int k; cin>>n>>k;
+ for(int i=1;i<=n;++i) cin>>A[i],sum+=A[i],M[A[i]]=true;
+ sort(A+1,A+n+1);
+ sum/=n;
+ 
+ ll l = floor(sum);
+ ll r = ceil(sum);
+ 
+ 
+ for(int i=2;i<=n;++i) f[i] = f[i-1]+(i-1)*(A[i]-A[i-1]);
+ 
+ for(int i=n-1;i>=1;--i) b[i] = b[i+1]+(n-i)*abs(A[i+1]-A[i]);
+ 
+ ll ans = 0;
+ vector<ll>v;
+ 
+ while(k--){
+ 	cout<<l<<" "<<r<<"\n";
+ 	
+ 	while(1){
+ 		if(M[l]==false) break;
+ 		--l;
+	 }
+	 while(1){
+	 	if(M[r]==false) break;
+	 	++r;
+	 }
+	 
+	 ll x = fn(l);
+	 ll y = fn(r);
+	 if(x<y) {
+	 	v.push_back(l);
+	 	ans+=x;
+	 	M[l] = true;
+	 	--l;
+	 }else{
+	 	v.push_back(r);
+	 	ans+=y;
+	 	M[r] = true;
+	 	++r;
+	 }
+	 
+ }
+ 
+ cout<<ans<<"\n";
+ for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+ cout<<"\n";
+
+return 0;
+}
