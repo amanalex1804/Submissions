@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+
+ll A[200005];
+int n;
+
+ll fn(ll x){
+	int ind = lower_bound(A+1,A+n+1,x)-(A);	
+	if(ind>n) return (x-A[n]);
+	if(ind==1) return (A[1]-x);
+	
+	return (ll)min(x-A[ind-1],A[ind]-x); 
+}
+
+int main(){
+	// ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int k;cin>>n>>k;
+	queue<ll>q;
+	vector<ll>v;
+	ll ans = 0;
+	map<ll,bool>M;
+	for(int i=1;i<=n;++i) {
+		cin>>A[i],M[A[i]]=true;
+		if(M[A[i]-1]==false) q.push(A[i]-1);
+		if(M[A[i]+1]==false) q.push(A[i]+1);
+	}
+	sort(A+1,A+n+1);
+	while(k>0){
+		int x = q.front(); q.pop();
+		if(M[x]==false){
+			M[x] = true;
+			v.push_back(x);
+			ans+=fn(x);
+			--k;
+			if(M[x-1]==false) q.push(x-1);
+			if(M[x+1]==false) q.push(x+1);
+		}
+	}
+	
+	cout<<ans<<"\n";
+	for(int i=0;i<(int)v.size();++i) cout<<v[i]<<" ";
+	
+	
+	return 0;
+}
