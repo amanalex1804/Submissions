@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define MX 200005
+
+int main(){
+	// ios_base::sync_with_stdio(false); cin.tie(NULL);
+	
+	int n;cin>>n;
+	int A[n+2];
+	bool mn[MX+2],mx[MX];
+	memset(mn,false,sizeof(mn));
+	memset(mx,false,sizeof(mx));
+	
+	
+	for(int i=0;i<n;++i) cin>>A[i],mn[A[i]]=true;
+	
+	for(int i=1;i<MX-1;){
+		if(mn[i]){
+			if(mn[i+1]){
+				mn[i]=false;
+				mn[i+2]=false;
+				i+=3;
+			}else if(mn[i+2]) mn[i+2]=false,i+=3;
+			else ++i;
+			continue;
+		}
+		++i;
+	}
+	int a = 0;
+	for(int i=1;i<MX;++i)
+	if(mn[i]) ++a;
+	sort(A,A+n);
+	for(int i=0;i<n;++i){
+		int x = A[i];
+		if(!mx[x-1]) mx[x-1] = true;
+		else if(!mx[x]) mx[x] = true;
+		else if(!mx[x+1]) mx[x+1]=true; 
+	}
+	int b=0;
+	for(int i=0;i<MX;++i)
+	if(mx[i]) ++b;
+	cout<<a<<" "<<b;
+	
+	return 0;
+}
