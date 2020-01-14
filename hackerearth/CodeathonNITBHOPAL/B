@@ -1,0 +1,109 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define SZ 1005
+
+int seg[4*SZ],lazy[4*SZ];
+int A[1005][1005];
+
+void build(int node,int st,int en){
+	if(st==en){
+		seg[node] = A[st][st];
+		return;
+	}
+	int mid = (st+en)/2;
+	build(2*node,st,mid);
+	build(2*node+1,mid+1,en);
+	
+}
+void ps(int node,int st,int en){
+	cout<<"orig--->    "<<node<<" "<<st<<" "<<en<<" "<<seg[node]<<"\n";
+	if(st==en) return;
+	int mid = (st+en)/2;
+	ps(2*node,st,mid);
+	ps(2*node+1,mid+1,en);
+}
+void pl(int node,int st,int en){
+	cout<<"lazy--->    "<<node<<" "<<st<<" "<<en<<" "<<lazy[node]<<"\n";
+	if(st==en) return;
+	int mid = (st+en)/2;
+	pl(2*node,st,mid);
+	pl(2*node+1,mid+1,en);
+}
+void upd(int node,int st,int en,int l,int r,int c){
+    if(st>en or en<l or r<st) return;
+    if(lazy[node]){
+        seg[node]=(seg[node]^lazy[node]);
+        if(st!=en){
+        	lazy[2*node] = (lazy[2*node]^lazy[node]);
+        	lazy[2*node+1] = (lazy[2*node+1]^lazy[node]);
+		}
+		lazy[node] = 0;
+    }
+    if(l<=st and en<=r){
+        seg[node] = (seg[node]^c);
+        if(st!=en){
+        	lazy[2*node] = (lazy[2*node]^c);
+        	lazy[2*node+1] = (lazy[2*node+1]^c);
+		}
+        return;
+    }
+    int mid = (st+en)/2;
+    upd(2*node,st,mid,l,r,c);
+    upd(2*node+1,mid+1,en,l,r,c);
+}
+
+int qry(int node,int st,int en,int l,int r){
+    if(st>en or en<l or r<st) return 0;
+    if(lazy[node]){
+        seg[node]=(seg[node]^lazy[node]);
+        if(st!=en){
+        	lazy[2*node] = (lazy[2*node]^lazy[node]);
+        	lazy[2*node+1] = (lazy[2*node+1]^lazy[node]);
+		}
+		lazy[node] = 0;
+    }
+    if(l<=st and en<=r) return seg[node];
+    int mid = (st+en)/2;
+    return (qry(2*node,st,mid,l,r)+qry(2*node+1,mid+1,en,l,r));
+}
+
+int main(){
+   ios_base::sync_with_stdio(false); cin.tie(NULL);
+    
+    int n;cin>>n;
+    
+    for(int i=1;i<=n;++i)
+    for(int j=1;j<=n;++j)
+    cin>>A[i][j];
+    
+    build(1,1,n);
+  //  ps(1,1,n);
+    //	cout<<"---\n\n";
+    //	pl(1,1,n);
+    int q;cin>>q;
+    while(q--){
+    	int x,a,b,c;
+    	cin>>x>>a>>b>>c;
+    	upd(1,1,n,a,b,c);
+    //	ps(1,1,n);
+    //	cout<<"---\n\n";
+    //	pl(1,1,n);
+	}
+//	cout<<" \n\nwhy\n\n";
+	int ans = 0;
+	for(int i=1;i<=n;++i) {
+		
+	ans+=qry(1,1,n,i,i);
+//	cout<<i<<" "<<qry(1,1,n,i,i)<<"\n\n";
+//	ps(1,1,n);
+  //  	cout<<"---\n\n";
+    //	pl(1,1,n);
+	
+	
+}
+	cout<<ans;
+    
+    
+    return 0;
+}
