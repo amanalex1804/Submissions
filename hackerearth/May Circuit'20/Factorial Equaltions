@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define mod 10
+int fact[5];
+
+void exp(ll x,int n){
+    ll r = 1;
+    while(n>0){
+        if(n&1) r = (r*x)%mod;
+        x = (x*x)%mod;
+        n/=2;
+    }
+    cout<<r;
+}
+int main(){
+    
+    ll x,n;cin>>x>>n;
+    if(n>4 or n==0) {cout<<1; return 0;}
+    fact[1] = 1;
+    for(int i=2;i<=4;++i) fact[i] = (fact[i-1]*i)%10;
+    exp(x,fact[n]);    
+    return 0;
+}
