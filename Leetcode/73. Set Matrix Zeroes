@@ -1,0 +1,34 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        String row = "";
+        for(int i=0;i<m;++i) row+="1";
+
+        String col = "";
+        for(int i=0;i<n;++i) col+="1";
+
+        StringBuilder r = new StringBuilder(row);
+        StringBuilder c = new StringBuilder(col);
+
+        for(int i=0;i<m;++i){
+            for(int j=0;j<n;++j){
+                if(matrix[i][j]==0){
+                    r.setCharAt(i,'0');
+                    c.setCharAt(j,'0');
+                }
+            }
+        }
+
+
+
+        for(int i=0;i<m;++i){
+            for(int j=0;j<n;++j){
+                if(r.charAt(i)=='0'||c.charAt(j)=='0') matrix[i][j]=0;
+            }
+        }
+
+        
+    }
+}
