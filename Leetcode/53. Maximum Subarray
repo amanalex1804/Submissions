@@ -1,0 +1,26 @@
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int mxx = -9999999, sum =0;
+
+        for(int i=0;i<nums.length;++i){
+            sum+=nums[i];
+            mxx=mx(sum,mxx);
+
+            if(sum<0){
+               sum = 0;
+            }
+    
+        }
+
+
+        return mxx;
+        
+    }
+
+    public int mx(int a, int b){
+        if(a<b) {
+            return b;
+        }
+        return a;
+    }
+}
