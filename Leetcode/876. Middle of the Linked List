@@ -19,14 +19,22 @@ public:
             curr = curr->next;
         }
 
-        int mid = (ceil)((sz+1)/2);
+        if(sz&1){
+            sz+=1;
+        }else{
+            sz+=2;
+        }
+        int mid = sz/2;
+
+
         sz=0; curr = head;
 
         while(curr!=NULL){
-            if(sz==mid){
+           
+            ++sz;
+             if(sz==mid){
                 return curr;
             }
-            ++sz;
             curr = curr->next;
         }
         return NULL;
