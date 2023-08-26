@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+
+      int tort = nums[0];
+      int hare = nums[nums[0]];
+
+      while(hare!=tort){
+          tort = nums[tort];
+          hare = nums[nums[hare]];
+      }
+
+     hare = 0;
+      while(hare!=tort){
+          hare = nums[hare];
+          tort = nums[tort];
+      }
+
+        return hare;
+        
+    }
+};
