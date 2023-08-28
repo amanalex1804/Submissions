@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+
+int LongestSubsetWithZeroSum(vector < int > arr) {
+
+  // Write your code here
+
+  int sz = (int)arr.size();
+  int prefix[sz];
+  prefix[0] = arr[0];
+  for(int i=1;i<sz;++i) prefix[i] = prefix[i-1]+arr[i];
+
+  for(int i=sz;i>=1;--i){
+    for(int j=i-1;j<sz;++j){
+      int val = prefix[j];
+      int left = j-i;
+      if(left<0){
+        if(val==0) return i;
+      }else{
+        val=prefix[j]-prefix[left];
+        if(val==0) return i;
+      }
+    }
+  }
+
+  return 0;
+
+
+}
