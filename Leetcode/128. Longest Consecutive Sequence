@@ -1,0 +1,33 @@
+class Solution {
+public:
+    long long int negMx = -9999999999;
+    int longestConsecutive(vector<int>& nums) {
+
+        set<int>s;
+        for(int i=0;i<nums.size();++i) s.insert(nums[i]);
+
+        int mx = 0, curr = INT_MIN, rn =0;
+
+        for(auto it= s.begin();it!=s.end();){
+            if(curr==INT_MIN){
+                curr = *it;
+                ++rn;
+                ++it;
+            }else{
+                if(*it==curr+1){
+                    rn++;
+                    curr++;
+                    ++it;
+                }else{
+                    curr = INT_MIN;
+                    rn = 0;
+                }
+            }
+            mx = max(mx, rn);
+        }
+
+            return mx;
+
+        
+    }
+};
