@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>>ret;
+
+    void fn(int idx, vector<int>&vec, vector<int>&nums){
+
+        if(idx>=(int)nums.size()){
+            sort(vec.begin(), vec.end());
+            if(find(ret.begin(), ret.end(), vec)==ret.end()){
+            ret.push_back(vec);
+
+            }
+            return;
+        }
+
+
+        vec.push_back(nums[idx]);
+        fn(idx+1, vec, nums);
+        vec.pop_back();
+
+        fn(idx+1, vec, nums);
+
+
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+
+        vector<int>tmp;
+        sort(nums.begin(), nums.end());
+        fn(0, tmp, nums);
+        return ret;
+        
+    }
+};
