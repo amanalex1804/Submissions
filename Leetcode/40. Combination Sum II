@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>>ret;
+
+
+    void fn(int idx, vector<int>&vec, vector<int>&A, int target){
+
+        if(target==0){
+            ret.push_back(vec);
+            return;
+        }
+
+        for(int i=idx;i<(int)A.size() and A[i]<=target;++i){
+            // logic to skip duplicate
+            if(i>idx and A[i]==A[i-1]) continue;
+
+            vec.push_back(A[i]);
+            fn(i+1, vec, A, target-A[i]);
+            vec.pop_back();
+        }
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+
+        vector<int>tmp;
+        sort(candidates.begin(), candidates.end());
+        fn(0, tmp, candidates, target);
+        return ret;
+
+        
+    }
+};
