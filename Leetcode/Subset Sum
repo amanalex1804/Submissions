@@ -1,0 +1,20 @@
+vector<int>ret;
+
+void fn(int idx, int sum, vector<int>&A){
+	if(idx>=(int)A.size()){
+		ret.push_back(sum);
+		return;
+	}
+
+	fn(idx+1,sum, A);
+	fn(idx+1,sum+A[idx], A);
+}
+
+
+vector<int> subsetSum(vector<int> &num){
+	// Write your code here.	
+
+	fn(0,0,num);
+	sort(ret.begin(), ret.end());
+	return ret;
+}
