@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>>ret;
+
+    void fn(int idx, int sum, vector<int>&vec, vector<int>&A, int target){
+        if(idx>=(int)A.size() or sum>target){
+            return;
+        }
+        if(sum==target){
+            if(find(ret.begin(), ret.end(), vec)==ret.end()){
+                ret.push_back(vec);
+            }
+            return;
+        }
+
+        vec.push_back(A[idx]);
+        fn(idx+1, sum+A[idx], vec, A, target);
+
+        fn(idx, sum+A[idx], vec, A, target);
+
+        vec.pop_back();
+        fn(idx+1, sum, vec, A, target);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int>tmp;
+        fn(0, 0, tmp, candidates, target);
+        return ret;
+        
+    }
+};
