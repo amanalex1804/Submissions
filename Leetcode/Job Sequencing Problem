@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+
+bool comp(const vector<int>&a, const vector<int>&b){
+    if(a[2]!=b[2]){
+        return a[2]>b[2];
+    } else{
+        a[1]>b[1];
+    }
+}
+
+vector<int> jobScheduling(vector<vector<int>> &jobs)
+{
+ sort(jobs.begin(), jobs.end(), comp);
+
+ int n = jobs.size();
+ unordered_map<int,int>M;
+ int profit = 0, job=0;
+
+ for(int i=0;i<n;++i){
+     int p = jobs[i][2];
+     int d = jobs[i][1];
+     while(d>0){
+        if(M[d]==0){
+          profit+=p;
+          ++job;
+          M[d] = 1;
+          break;  
+        }
+        --d;
+      }
+     }
+
+     vector<int>ret;
+     ret.push_back(job);
+     ret.push_back(profit);
+     return ret;
+}
