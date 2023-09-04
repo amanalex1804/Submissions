@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+vector<vector<string>>ret;
+
+    bool isPalin(string s){
+        int l = (int)s.size();
+        for(int i=0;i<l/2;++i){
+            if(s[i]!=s[l-1-i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void fn(int idx, vector<string>&vec, string s){
+        int l = (int)s.size();
+        if(idx>=l){
+            ret.push_back(vec);
+            return;
+        }
+
+        for(int i=idx;i<l;++i){
+            string tmp = s.substr(idx, i-idx+1);
+            if(isPalin(tmp)){
+                vec.push_back(tmp);
+                fn(i+1, vec, s);
+                vec.pop_back();
+            }
+        }
+        return;
+    }
+    vector<vector<string>> partition(string s) {
+        vector<string>tmp;
+        fn(0, tmp, s);
+        return ret;
+        
+    }
+};
