@@ -1,0 +1,53 @@
+#define ll long long
+
+ll exp(int m, int n){
+  ll ans = 1;
+  while(n>0 and ans>0){
+    ans = ans*m;
+    --n;
+  }
+  return ans;
+}
+
+int fn(int n, int m){
+
+   int low = 1, high = m, mid = 1;
+
+   while(high-low>1){
+     int mid = ((high-low)/2)+low;
+     ll val = exp(mid, n);
+  // cout<<low<<" "<<mid << " "<<high<<" "<<val<<endl;
+
+     if(val == m){
+       return mid;
+     }
+     if(val>m or val<=0){
+       high = mid-1;
+     }else{
+       low = mid+1;
+     }
+
+      //  cout<<"response-->"<<low<<" "<<mid << " "<<high<<" "<<val<<endl;
+
+   }
+
+   if(exp(high, n)==m) {
+     return high;
+   }
+   if (exp(mid, n) == m) {
+     return mid;
+   }
+   if (exp(low, n) == m) {
+     return low;
+   }
+
+   return -1;
+
+
+}
+
+
+int NthRoot(int n, int m) {
+  // Write your code here.
+  return fn(n,m);
+}
