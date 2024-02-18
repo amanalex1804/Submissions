@@ -1,0 +1,93 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+
+                vector<vector<int>>ans;
+
+        int row = intervals.size(), col = 2;
+
+        if(row==0){
+            ans.push_back(newInterval);
+            return ans;
+        }
+
+        int mx = max(intervals[row-1][1], newInterval[1]);
+        int A[mx+1]; int id =1;
+        for(int i=0;i<=mx;++i) A[i] = -1;
+
+        for(int i=0;i<row;++i){
+            int st = intervals[i][0], en = intervals[i][1];
+            for(int j=st;j<=en;++j){
+                A[j]=id;
+            }
+            ++id;
+        } 
+                for(int i=0;i<=mx;++i) cout<<A[i]<<" ";
+
+ cout<<" ----\n";
+
+         int st = A[newInterval[0]]; int en = A[newInterval[1]];
+
+
+      for(int i=newInterval[0];i<=newInterval[1];++i){
+                A[i] = id;
+            }
+       cout<<" dude   st "<<st<<" ffd  "<<en<<endl;
+
+        for(int i=newInterval[0];i>=0 and st!=-1;--i){
+            if(A[i]==st) {
+                A[i] = id;
+            }
+        }
+
+
+        for(int i=newInterval[1];i<=mx and en!=-1;++i){
+            if(A[i]==en) {
+                A[i] = id;
+            }
+        }
+
+        
+
+        for(int i=0;i<=mx;++i) cout<<A[i]<<" ";
+
+        
+        bool flag = false;
+        int left = -1, right = -1,curr =-1;
+        for(int i=0;i<=mx;++i){
+            if(A[i]!=-1){
+                if(flag){
+                    if(A[i]==A[i-1]){
+                        continue;
+                    } else{
+                        right = i-1;
+                        ans.push_back({left, right});
+                        left = i;
+                        right = -1;
+                        continue;
+                    }
+                } else{
+                    left = i;
+                    flag = true;
+                }
+            } else{
+                if(flag){
+                    right = i-1;
+                    ans.push_back({left, right});
+                    left = -1, right = -1;
+                    flag = false;
+                }
+            }
+        }
+
+        if(flag) {
+            right = mx;
+            ans.push_back({left, right});
+        }
+
+
+        return ans;
+     
+        
+    }
+};
