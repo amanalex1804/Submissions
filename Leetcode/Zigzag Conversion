@@ -1,0 +1,60 @@
+class Solution {
+public:
+    string convert(string s, int row) {
+
+        int big = row;
+        int small = (row-2)>=0?row-2:0;
+        int l =(int)s.size();
+        vector<string>bigV;
+        bool flag =true;
+        int i=0;
+
+        while(i<l){
+            if(flag){
+                 string sub = s.substr(i, big);
+                 int ll = (int)sub.size();
+                 for(int j=0;j<(big-ll);++j){
+                     sub = sub + ':';
+                 }
+                 i = i+big;
+                 bigV.push_back(sub);
+                 flag = false;
+                 continue;
+            } else {
+                string sub = s.substr(i, small);
+                sub = ':' + sub;
+                int ll = (int)sub.size();
+
+                for(int j=0;j<(big-ll);++j){
+                     sub = sub + ':';
+                 }
+                std::reverse(sub.begin(), sub.end());
+                 i = i+small;
+                 bigV.push_back(sub);
+                 flag = true;
+                 continue;
+            }
+        }
+
+       string temp = "";
+       for(int i=0;i<big;++i){
+           for(int j=0;j<(int)bigV.size();++j){
+               string dd = bigV[j];
+               if(dd[i]!=':'){
+                    temp = temp + dd[i];
+               }
+
+           }
+       }
+
+
+        return temp;
+
+
+
+
+        
+    }
+
+
+};
