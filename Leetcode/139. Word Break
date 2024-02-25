@@ -1,0 +1,36 @@
+class Solution {
+public:
+    unordered_map<string, bool>dict;
+
+    bool isBreak(int idx, int *dp, string s){
+        if(idx>=(int)s.size()){
+            return true;
+        }
+        if(dp[idx]!=-1){
+            return dp[idx]==1;
+        }
+
+
+        bool isPoss = false;
+        string curr = "";
+        for(int i=idx;i<(int)s.size();++i){
+             curr = curr + s[i];
+             if(dict[curr]){
+                 isPoss = isPoss | isBreak(i+1, dp, s);
+             }
+        }
+        dp[idx] = (isPoss==true);
+        return isPoss;
+    }
+
+    bool wordBreak(string s, vector<string>& wordDict) {
+        for(int i=0;i<(int)wordDict.size();++i) dict[wordDict[i]] = true;
+        int l = (int)s.size();
+        int dp[l+1];
+        for(int i=0;i<=l;++i) dp[i] = -1;
+
+        return isBreak(0, dp, s);
+
+
+    }
+};
