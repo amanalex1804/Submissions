@@ -1,0 +1,56 @@
+class Solution {
+public:
+    stack<int>ans;
+    bool isCycle = false;
+    void dfs(int src, vector<vector<int> >&graph, bool *vis, bool *ancestor){
+        vis[src] = true;
+        ancestor[src] = true;
+        for(int i=0;i<(int)graph[src].size();++i){
+            int node = graph[src][i];
+            if(!vis[node]){
+                dfs(node, graph, vis, ancestor);
+            } else {
+                if(ancestor[node]){
+                    isCycle = true;
+                    return;
+                }
+            }
+        }
+        ancestor[src] = false;
+        ans.push(src);
+        return;
+    }
+
+    vector<int> findOrder(int n, vector<vector<int>>& edges) {
+
+        vector<vector<int> >graph(n+1);
+        for(int i=0;i<(int)edges.size();++i){
+            vector<int>tmp = edges[i];
+            graph[tmp[1]].push_back(tmp[0]);
+        }
+
+        bool vis[n+1], ancestor[n+1];
+        for(int i=0;i<=n;++i){
+            vis[i] = false;
+            ancestor[i] = false;
+        }
+
+        for(int i=0;i<n;++i){
+            if(!vis[i]){
+                dfs(i, graph, vis, ancestor);
+            }
+        }
+
+        if(isCycle){
+            return {};
+        }
+
+        vector<int>ret;
+        while(!ans.empty()){
+            ret.push_back(ans.top());
+            ans.pop();
+        }
+        return ret;
+        
+    }
+};
