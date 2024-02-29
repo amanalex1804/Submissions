@@ -1,0 +1,26 @@
+
+# define ll long long int
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+
+        set<ll>s;
+        s.insert(1);
+        ll tmp = 1;
+        set<ll>::iterator it = s.begin();
+
+        while(n>0){
+            tmp = *it;
+            s.insert(tmp*2);
+            s.insert(tmp*3);
+            s.insert(tmp*5);
+            --n;
+            ++it;
+        }
+
+        return tmp;
+
+        
+    }
+};
