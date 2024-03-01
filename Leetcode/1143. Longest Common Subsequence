@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int fn(int i, int j, int **dp, string& s1, string& s2){
+
+        if(i>=(int)s1.size() or j>=(int)s2.size()){
+            return 0;
+        }
+
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+
+        int val1 = 0, val2 = 0, val3 = 0;
+        if(s1[i]==s2[j]){
+            val1 = 1 + fn(i+1, j+1, dp, s1, s2);
+        }
+
+        val2 = fn(i+1, j, dp, s1, s2);
+        val3 = fn(i, j+1, dp, s1, s2);
+        dp[i][j] = max(val1, max(val2, val3));
+        return dp[i][j];
+
+
+    }
+    int longestCommonSubsequence(string text1, string text2) {
+
+        int l1 = (int)text1.size();
+        int l2 = (int)text2.size();
+
+        // int **dp;
+	    // dp = new int *[n+1];
+	    // for(int i=0;i<=n+1;++i) dp[i] = new int[n+1];
+
+        int **dp= new int*[l1+1];
+
+        for(int i=0;i<=l1;++i) dp[i] = new int[l2+1];
+
+        for(int i=0;i<=l1;++i){
+            for(int j=0;j<=l2;++j) {
+                dp[i][j] = -1;
+            }
+        }
+ 
+
+
+        return fn(0, 0, dp, text1, text2);
+        
+    }
+};
