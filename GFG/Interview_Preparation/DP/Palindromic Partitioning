@@ -1,0 +1,80 @@
+//{ Driver Code Starts
+// Initial Template for c++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+public:
+    int MX = 505;
+    bool isPalin(int i, int j, string &s){
+        string tmp = s.substr(i, j-i+1);
+        int l = j-i+1;
+        for(int i=0;i<=l/2;++i){
+            if(tmp[i]!=tmp[l-i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
+    int fn(int idx, int last, int **dp, string& s){
+        if(idx>=(int)s.size()){
+            bool isPa = isPalin(last, idx-1, s);
+            if(isPa){
+                return 0;
+            }
+            return MX;
+        }
+        
+        if(dp[idx][last]!=-1){
+            return dp[idx][last];
+        }
+        int v2 = MX;
+        int v1 = fn(idx+1, last, dp, s); // do not cut and move on
+        if(isPalin(last, idx, s)){
+            v2 = 1 + fn(idx+1, idx+1, dp, s); //break and move on 
+        }
+        return dp[idx][last] = min(v1, v2);
+    }
+    int palindromicPartition(string str)
+    {
+        // code here
+        
+        int l =(int)str.size();
+        int **dp = new int*[l+1];
+        for(int i=0;i<=l;++i) dp[i] = new int[l+1];
+        
+        for(int i=0;i<l;++i)
+        for(int j=0;j<l;++j)
+        dp[i][j] = -1;
+        
+        string ss = "aba";
+     //   cout<<" BOOO "<<isPalin(0, , ss) << endl;
+        
+        
+        int ret = fn(0, 0, dp, str);
+        if(ret>=MX) {
+            return 0;
+        }
+        return ret;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string str;
+        cin>>str;
+        
+        Solution ob;
+        cout<<ob.palindromicPartition(str)<<"\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
