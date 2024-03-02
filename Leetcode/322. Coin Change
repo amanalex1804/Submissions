@@ -1,0 +1,47 @@
+class Solution {
+
+public:
+    int MX = 20005;
+    int fn(int idx, int val, int **dp, vector<int>&coins) {
+        if(val ==0){
+            return 0;
+        }
+        if(val<0){
+            return MX;
+        }
+
+        if(idx>=(int)coins.size()){
+            return MX;
+        }
+
+        if(dp[idx][val]!=-1){
+            return dp[idx][val];
+        }
+
+        int val1 = 1 + fn(idx, val-coins[idx], dp, coins); // stay and pick
+        int val2 = fn(idx+1, val, dp, coins); // do not pick and move on
+        int val3 = 1 + fn(idx+1, val-coins[idx], dp, coins); // pick and move on
+
+        dp[idx][val] = min(val1, min(val2, val3));
+        return dp[idx][val];
+
+    }
+
+    int coinChange(vector<int>& coins, int amount) {
+        int l = (int)coins.size();
+        int **dp = new int* [l+1];
+        for(int i=0;i<=l;++i) dp[i] = new int[amount+1];
+
+        for(int i=0;i<=l;++i){
+            for(int j=0;j<=amount;++j){
+                dp[i][j] = -1;
+            }
+        }
+
+        int ans = fn(0, amount, dp, coins);
+        if(ans>=MX or ans<0) {
+            return -1;
+        }    
+        return ans;
+    }
+};
