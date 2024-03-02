@@ -1,0 +1,122 @@
+class Solution {
+public:
+
+    struct Node {
+        Node* left;
+        Node* right;
+    };
+
+    Node* createNode() {
+        Node* tmp = new Node();
+        tmp->left = NULL;
+        tmp->right = NULL;
+        return tmp;
+    }
+
+    string getBin(int n) {
+        string ret = "";
+        while(n>0) {
+            int rem = n%2;
+            ret = (n%2) ? "1" + ret : "0" + ret;
+            n/=2;
+        }
+        return ret;
+    }
+
+    string appStr(string s, int l){
+        int sz = l - (int)s.size();
+        string ret = "";
+        for(int i=0;i<sz;++i) ret+="0";
+        return ret + s;
+    }
+
+    void ins(Node* root, string s) {
+
+        for(int i=0;i<(int)s.size();++i){
+            if(s[i]=='1') {
+                if(root->right==NULL) root->right = createNode();
+                root = root->right;
+            } else {
+                if(root->left==NULL) root->left = createNode();
+                root = root->left;            }
+        }
+    }
+
+    string getMx(Node* root, string s) {
+        string s_xr = "";
+        int l = (int)s.size();
+        for(int i=0;i<s.size();++i) s_xr = (s[i]=='1') ? s_xr + "0" : s_xr + "1";
+
+        string pr = "";
+        for(int i=0;i<(int)s.size();++i){
+           if(s_xr[i]=='1') {
+               if(root->right!=NULL) {
+                   pr+="1";
+                   root = root->right;
+               } else if(root->left!=NULL) {
+                   pr+="0";
+                   root = root->left;
+               }
+           } else {
+               if(root->left!=NULL) {
+                   pr+="1";
+                   root = root->left;
+               } else if(root->right!=NULL) {
+
+                   pr+="0";
+                   root = root->right;
+               }
+           }
+        }
+
+        return pr;
+    }
+
+    int getBinVal(string s) {
+        long long int pw = 1, val = 0;
+        for(int i=(int)s.size()-1;i>=0;--i) {
+            if(s[i]=='1'){
+                val = val + pw;
+            }
+            pw*=2;
+        }
+        return val;
+    }
+
+    int findMaximumXOR(vector<int>& nums) {
+        int l = (int)nums.size();
+        int mx = 0;
+        vector<string>bin;
+        for(int i=0;i<l;++i) {
+            string s = getBin(nums[i]);
+            mx = max(mx, (int)s.size());
+            bin.push_back(s);
+        }
+
+        for(int i=0;i<l;++i) {
+            bin[i] = appStr(bin[i], mx);
+        }
+
+        Node* root = createNode();
+
+        for(int i=0;i<l;++i){
+            ins(root, bin[i]);
+        }
+
+        vector<string>str;
+        string mxx ="";
+        for(int i=0;i<l;++i) {
+            mxx = max(mxx, getMx(root, bin[i])); 
+        //    str.push_back(getMx(root, bin[i]));
+        }
+
+        return getBinVal(mxx);
+
+
+        // int ans = 0;
+        // for(int i=0;i<l;++i) {
+        //     ans = max(ans, getBinVal(str[i]));
+        // }
+        // return ans;
+    }
+};
