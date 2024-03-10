@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> onesMinusZeros(vector<vector<int>>& grid) {
+
+        int row = grid.size();
+        int col = grid[0].size();
+
+        int sumDown[col+1], sumRight[row+1];
+
+        for(int j=0;j<col;++j){
+            int sum = 0;
+            for(int i=0;i<row;++i) {
+                sum+=grid[i][j];
+            }
+            sumDown[j] = sum;
+        }
+
+        for(int i=0;i<col;++i) {
+             cout<<sumDown[i]<<" ";
+        }
+
+        for(int i=0;i<row;++i) {
+            int sum = 0;
+            for(int j=0;j<col;++j){
+                sum+=grid[i][j];
+            }
+            sumRight[i] = sum;
+        }
+
+        cout<<endl;
+
+        for(int i=0;i<row;++i) {
+             cout<<sumRight[i]<<" ";
+        }
+
+        vector<vector<int> > ret(row, vector<int>(col));
+
+
+
+        for(int i=0;i<row;++i) {
+            for(int j=0;j<col; ++j){
+               ret[i][j] = sumDown[j] + sumRight[i] - (row-sumDown[j]) - (col - sumRight[i]);
+            }
+        }
+        return ret;
+        
+    }
+};
