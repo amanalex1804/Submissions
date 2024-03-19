@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string refactor(string s){
+        int l = (int)s.size();
+        int idxOfPlus = -1, idxOfAt = -1;
+        for(int i=0;i<l;++i) {
+            if(s[i]=='+' and idxOfPlus==-1){
+                idxOfPlus = i;
+            }
+            if(s[i]=='@') {
+                idxOfAt = i;
+                break;
+            }
+        } 
+        
+        string ans = s;
+        string dom = s.substr(idxOfAt, l-idxOfAt);
+        if(idxOfPlus!=-1){
+            ans = s.substr(0, idxOfPlus) + dom;
+        }
+        string ret = "";
+        bool isBefore = true;
+        for(int i=0;i<(int)ans.size();++i){
+            if(ans[i]=='@'){
+                isBefore = false;
+            }
+            
+            if(ans[i]=='.' and isBefore) {
+                continue;
+            }
+            
+            ret = ret + ans[i];
+        }
+        return ret;
+    }
+    int numUniqueEmails(vector<string>& emails) {
+        
+        int l = emails.size();
+        set<string>ans;
+        for(int i=0;i<l;++i) {
+            string s = emails[i];
+            ans.insert(refactor(s));
+        }
+        return ans.size();
+    }
+};
