@@ -1,0 +1,62 @@
+class Solution {
+public:
+    typedef pair<int,int> pp;
+    
+        int dx[4] = {1, -1, 0, 0};
+        int dy[4] = {0, 0, -1, 1};
+    
+    int row, col;  
+    
+    bool isInside(int x, int y) {
+        if(0<=x and x<row and 0<=y and y<col) {
+            return true;
+        }
+        return false;
+    }
+    
+    void bfs(int s1, int s2, vector<vector<char>>&graph) {
+        bool flag = true;
+        queue<pp>q;
+        q.push({s1,s2});
+        while(!q.empty() and flag) {
+            pp tmp = q.front(); q.pop();
+            graph[tmp.first][tmp.second] = '0';
+            for(int i=0;i<4;++i){
+                int x1 = tmp.first + dx[i];
+                int y1 = tmp.second + dy[i];
+                if(isInside(x1, y1) and graph[x1][y1]=='1') {
+                    q.push({x1, y1});
+                }
+            }
+        }
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        
+        row = grid.size();
+        col = grid[0].size();
+        vector<pp>v;
+        for(int i=0;i<row;++i) {
+            for(int j=0;j<col;++j) {
+                if(grid[i][j]=='1') {
+                    v.push_back({i,j});
+                }
+            }
+        }
+        
+        int ans = 0, idx=1;
+        for(int i=0;i<(int)v.size();++i) {
+            int x = v[i].first;
+            int y = v[i].second;
+            if(grid[x][y]=='1') {
+                    bfs(x,y,grid); 
+                ++ans;
+                }
+            
+        }
+        
+        
+        return ans;
+        
+    }
+};
