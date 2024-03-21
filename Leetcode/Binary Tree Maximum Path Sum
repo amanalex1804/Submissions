@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int CONS = -1005;
+    int ans = CONS;
+    int fn(TreeNode* root) {
+        if(!root) return -1005;
+        int left = fn(root->left);
+        int right = fn(root->right);
+        
+        int mx = CONS;
+        
+        mx = max(mx, max(root->val, max(left, right)));
+        
+        int leftR = root->val;
+        if(left!=CONS){
+            leftR+=left;
+        }
+        mx = max(mx, leftR);
+        
+        int rightR = root->val;
+        if(right!=CONS) {
+            rightR+=right;
+        }
+        mx = max(mx, rightR);
+        
+        if(left!=CONS and right!=CONS) {
+            mx = max(mx, left+root->val+right);
+        }
+        
+        ans = max(ans, mx);
+        
+        return max(max(leftR, rightR), root->val);
+        cout<<root->val<< " --lft-- "<<left<<" --rght-- "<<right<<" --leftR-- "<<leftR<<" --rightR-- "<<rightR<<" --mx-- "<<mx<<endl;
+        return mx;
+    }
+    int maxPathSum(TreeNode* root) {
+        int tm = fn(root);
+        return ans;
+    }
+};
