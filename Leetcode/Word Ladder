@@ -1,0 +1,88 @@
+class Solution {
+public:
+    int INF = 55555;
+    int loop =100;
+    int dis[5001];
+    void dfs(int src, int dest, int l, vector<vector<int>>&graph) {
+        int mn = INF;
+        multiset<pair<int,int> >s;
+        s.insert({0,src});
+        dis[src] = 0;
+        bool vis[l+1];
+        memset(vis, false, sizeof(vis));
+        
+        while(!s.empty()) {
+            pair<int,int>curr = *(s.begin());
+            s.erase(s.begin());
+            int ver = curr.second;
+            if(vis[ver]) continue;
+            vis[ver] = 1;
+            for(int i=0;i<(int)graph[ver].size();++i){
+                int node = graph[ver][i];
+                int val = curr.first + 1;
+                if(dis[node]>val) {
+                    dis[node] = val;
+                    s.insert({dis[node], node});
+                }
+            }
+        }
+        
+    }
+    
+    int diff(string &s1, string &s2){
+        int d = 0;
+        for(int i=0;i<(int)s1.size();++i){
+            if(s1[i]!=s2[i]) ++d;
+        }
+        return d;
+    }
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        
+        int l = (int)wordList.size();
+        vector<vector<int>> graph(l+1);
+        
+        for(int i=0;i<l;++i) {
+            string node = wordList[i];
+            for(int j=0;j<l;++j) {
+                if(i!=j and diff(node, wordList[j])==1) {
+                    graph[i].push_back(j);
+                }
+            }
+        }
+        
+        int dest = -1;
+        for(int i=0;i<l;++i) {
+            if(wordList[i]==endWord){
+                dest = i;
+                break;
+            }
+        }
+        
+        if(dest==-1) {
+            return 0;
+        }
+        
+        
+        
+        vector<int>q;
+        
+        for(int i=0;i<l;++i) {
+            if(diff(beginWord, wordList[i])<=1) {
+                q.push_back(i);
+            }
+        }
+        
+        int ans = INF;
+        for(int i=0;i<(int)q.size();++i) { 
+            cout<<"dude";
+            for(int j=0;j<=l;++j) dis[j]=INF;
+            dfs(q[i], dest, l, graph);
+            ans = min(ans, dis[dest]+1+diff(beginWord, wordList[q[i]]));
+          
+        }
+        if(ans==INF) ans = 0;
+        return ans;
+        
+        
+    }
+};
