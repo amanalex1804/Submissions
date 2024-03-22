@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool isPalin(int i, int j, string &s){
+        for(int k=i;k<=j/2;++k) {
+            if(s[k]!=s[j-k]){
+                return false;
+            }
+        }
+        return true;
+    }
+    string longestPalindrome(string s) {
+        
+        int l = (int)s.size();
+        int dp[l+1][l+1];
+        for(int i=0;i<=l;++i){
+            for(int j=0;j<=l;++j){
+                dp[i][j] = 0;
+            }
+        }
+        
+        for(int i=0;i<l;++i) dp[i][i] = 1;
+        
+        // length
+        int mx = 1; string ans = s.substr(0,1);
+        for(int k=2;k<=l;++k) {
+            for (int i=0;i<=l-k;++i) {
+                int low = i, high = i+k-1;
+                if(s[low]!=s[high]){
+                    dp[low][high] = 0;
+                } else {
+                    if(low+1<=high-1){
+                       dp[low][high] = dp[low+1][high-1];   
+                    } else {
+                        dp[low][high] = 1;
+                    }
+                }
+                // store max
+                if(dp[low][high]==1 and k>mx) {
+                    mx = k;
+                    ans = s.substr(low, k);
+                }
+            }
+        }
+        
+        return ans;
+        
+        
+        
+        
+    }
+};
