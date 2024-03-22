@@ -1,0 +1,73 @@
+class Solution {
+public:
+    
+    int fn(vector<int>&A) {
+        if(A.size()==1){
+            return A[0];
+        }
+        int cntN = 0;
+        int l = (int)A.size();
+        int prefix[l+1], suffix[l+1];
+        vector<int>negIdx;
+        for(int i=0;i<l;++i) {
+            if(A[i]<0){
+                negIdx.push_back(i);
+                ++cntN;
+            }
+            prefix[i] = A[i];
+            if(i>0){
+               prefix[i]*=prefix[i-1];   
+            } 
+        }
+        if(!(cntN&1)) {
+            return prefix[l-1];
+        }
+        
+        
+        suffix[l-1] = A[l-1];
+        for(int i=l-2;i>=0;--i) {
+            suffix[i] = suffix[i+1]*A[i];
+        }
+        
+        int mx = INT_MIN;
+        for(int i=0;i<(int)negIdx.size();++i) {
+            int idx = negIdx[i];
+            if(idx>0) {
+                mx = max(mx, prefix[idx-1]);
+            }
+            if(idx+1<l){
+                mx = max(mx, suffix[idx+1]);
+            }
+        }
+        
+        return mx;
+        
+        
+    }
+     
+    int maxProduct(vector<int>& nums) {
+        int l = (int)nums.size();
+        vector<int>sub[l+1];
+        
+        int ans = INT_MIN;
+        int idx = 0;
+        for(int i=0;i<l;++i) {
+            if(nums[i]==0) {
+                ans = 0;
+                ++idx;
+            } else {
+                 sub[idx].push_back(nums[i]);
+            }
+        }
+        
+        
+        for(int i=0;i<=idx;++i) {
+            if(sub[i].size()>0){
+             
+             ans = max(ans, fn(sub[i]));     
+            }  
+        }
+        
+        return ans;
+    }
+};
