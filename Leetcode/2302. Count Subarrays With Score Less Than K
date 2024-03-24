@@ -1,0 +1,18 @@
+class Solution {
+public:
+    typedef long long int ll;
+    long long countSubarrays(vector<int>& nums, long long k) {
+        ll sum = 0, ans = 0;
+        int i = 0, j=0, l = (int)nums.size();
+
+        while(i<l) {
+            while(j<l and ((sum+nums[j])*(j-i+1))<k){
+                sum+=nums[j++];
+            }
+            ans+=(j-i);
+            sum-=nums[i++];
+        }
+
+        return ans;
+    }
+};
