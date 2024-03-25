@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int l = (int)nums.size();
+        vector<int>ans;
+        if(l<=1) {
+            return ans;
+        }
+        for(int i=0;i<l;++i) {
+            int val = abs(nums[i]);
+            if(nums[val-1]<0) {
+                ans.push_back(val);
+            }
+            nums[val-1] = -1*nums[val-1];
+        }
+
+        return ans;
+        
+      
+        
+    }
+};
