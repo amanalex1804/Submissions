@@ -1,0 +1,36 @@
+class Solution {
+public:
+    typedef long long int ll;
+    
+    ll getSum(int n) {
+        ll ans = 0;
+        if(n&1) {
+            ans = (n+1)/2;
+            ans = ans*n;
+        } else {
+            ans = n/2;
+            ans = ans*(n+1);
+        }
+        return ans;
+    }
+    long long countAlternatingSubarrays(vector<int>& A) {
+        ll ans = 0;
+        int curr = 0, l = (int)A.size();
+        for(int i=0;i<l;++i) {
+            if(i==0){
+                ++curr;
+                continue;
+            }
+            if(A[i]==A[i-1]) {
+                ans+= (ll)(getSum(curr));
+                curr = 1;
+            } else {
+                ++curr;
+            }
+        }
+        ans+= (ll)getSum(curr);
+        return ans;
+        
+        
+    }
+};
