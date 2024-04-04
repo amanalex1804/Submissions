@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxBottlesDrunk(int full, int exc) {
+        
+        int emp = 0, ans = 0;
+        while(1) {
+            cout<<full<<" "<<emp<<" "<<exc<<" "<<ans<<endl;
+            ans+= full;
+            emp+= full;
+                        full = 0;
+
+            if(emp>=exc) {
+                emp-=exc;
+                full++;
+                exc++;
+            } else {
+                break;
+            }
+        }
+        return ans;
+        
+    }
+};
