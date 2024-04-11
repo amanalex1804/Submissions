@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int l;
+    int fn(int idx, int taken, vector<int>&nums, int **dp) {
+        if(idx>=l) {
+            return 0;
+        }
+
+        if(l-1==idx and taken==1) {
+            return 0;
+        }
+
+        if(dp[idx][taken]!=-1) {
+            return dp[idx][taken];
+        }
+
+
+        int val1 = 0, val2 = 0;
+        if(!idx) {
+            val1 = fn(idx+1, 0, nums, dp); // did mo pick 
+            val2 = fn(idx+2, 1, nums, dp) + nums[idx]; //picked
+        } else {
+            val1 = fn(idx+1, taken, nums, dp); // do not pick
+            val2 = fn(idx+2, taken, nums, dp) + nums[idx]; // pick the element 
+
+        }
+
+       // cout<<idx<< " "<< val1<< " "<<val2<<endl;
+     
+        return dp[idx][taken] = max(val1, val2);
+    }
+    int rob(vector<int>& nums) {
+      l = nums.size();  
+      int **dp = new int* [l+5];
+      for(int i=0;i<=l;++i) dp[i] = new int[2];
+
+      for(int i=0;i<l;++i)
+      for(int j=0;j<2;++j)
+      dp[i][j] = -1;
+
+      return fn(0, 0, nums, dp);
+
+
+    }
+};
