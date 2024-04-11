@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int getDays(vector<int>&weights, int cap) {
+        int days = 0, curr = 0;
+        int i = 0, l = (int)weights.size();
+
+        while(i<l) {
+            curr = 0;  
+            if(curr+weights[i]>cap) {
+                days = INT_MAX;
+                break;
+            }
+            while(i<l and curr+weights[i]<=cap) {
+                curr+=weights[i];
+                ++i;
+            }
+            ++days;
+        
+        }
+        return days;
+
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+
+        int low = 1, high = 0;
+        for(int i=0;i<(int)weights.size();++i) high +=weights[i];
+
+       // cout<<getDays(weights, 5);
+
+        while(low<high) {
+            int mid = low + (high-low)/2;
+            //cout<<" mid "<<mid <<" days "<<getDays(weights, mid)<<" low "<<low<<" high "<<high<<endl;
+            if(getDays(weights, mid)<=days) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+};
