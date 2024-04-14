@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+
+        stack<int>st;
+        int l = nums.size();
+        int nextGreater[l+1];
+        for(int i=0;i<=l;++i) nextGreater[i] = -1;
+
+        for(int k=0;k<2;++k) 
+        {
+
+        
+        for(int i=0;i<nums.size();++i) {
+
+            while(!st.empty() and nums[st.top()]<nums[i]) {
+                int tp = st.top(); st.pop();
+                nextGreater[tp] = i;
+            }
+
+            st.push(i);
+
+        }
+        }
+
+        vector<int>ans;
+        for(int i=0;i<l;++i){
+            if(nextGreater[i]>=0) {
+                ans.push_back(nums[nextGreater[i]]);
+            } else {
+                ans.push_back(-1);
+            }
+        } 
+
+        return ans;
+        
+    }
+};
