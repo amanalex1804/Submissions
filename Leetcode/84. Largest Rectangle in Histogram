@@ -1,0 +1,89 @@
+class Solution {
+public:
+    vector<int> getNextSmaller(vector<int>&v) {
+        int l = v.size();
+        stack<int>st;
+        vector<int>ans;
+        for(int i=0;i<l;++i) ans.push_back(-1);
+
+        for(int i=0;i<l;++i) {
+
+            while(!st.empty() and v[st.top()]>v[i]) {
+                int val = st.top(); st.pop();
+                ans[val] = i;
+            }
+            st.push(i);
+        } 
+
+        return ans;
+    }
+
+     vector<int> getPrevSmaller(vector<int>&v) {
+        int l = v.size();
+        stack<int>st;
+        vector<int>ans;
+        for(int i=0;i<l;++i) ans.push_back(-1);
+
+        for(int i=0;i<l;++i) {
+
+            while(!st.empty() and v[st.top()]>=v[i]) {
+                int val = st.top(); st.pop();
+            }
+            if(!st.empty()) {
+                ans[i] = st.top();
+            }
+            st.push(i);
+        } 
+
+        return ans;
+    }
+    int largestRectangleArea(vector<int>& heights) {
+
+        vector<int>nextSmall = getNextSmaller(heights);
+        vector<int>prevSmall = getPrevSmaller(heights);
+
+        // for(int i=0;i<heights.size();++i) {
+        //     cout<<nextSmall[i]<<" ";
+        // }      
+        // cout<<endl;
+
+        // for(int i=0;i<heights.size();++i) {
+        //     cout<<prevSmall[i]<<" ";
+        // }      
+
+        // cout<<endl;
+
+
+
+        int ans = 0, l = heights.size();
+
+        for(int i=0;i<heights.size();++i) {
+
+            int curr = heights[i];
+
+            int rightSize = 0;
+
+            if(nextSmall[i]!=-1) {
+                rightSize = heights[i]*(nextSmall[i]-i-1);
+            } else {
+                rightSize = heights[i] * (l-1-i);
+            }    
+
+            int leftSize = 0;
+
+            if(prevSmall[i]!=-1) {
+                leftSize = heights[i] * (i-prevSmall[i]-1);
+            } else {
+                leftSize = heights[i] * i;
+            }
+
+            curr = curr + leftSize + rightSize;
+
+          // cout<<i<<" "<<heights[i]<<" "<<leftSize<<" "<<rightSize<<endl;
+            ans = max(ans, curr);
+
+        }
+
+        return ans;
+    }
+};
