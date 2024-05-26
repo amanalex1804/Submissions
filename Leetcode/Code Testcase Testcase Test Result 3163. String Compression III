@@ -1,0 +1,31 @@
+
+class Solution {
+public:
+    typedef long long int ll;
+    string compressedString(string word) {
+
+        string ans = "";
+        ll l = (int)word.size();
+        vector<int>freq;
+        vector<char>w;
+        for(ll i=0;i<l;) {
+
+            ll c = 1;
+
+            while(i+1<l and c<9 and word[i]==word[i+1]) {
+                ++c;
+                ++i;
+            }
+            freq.push_back(c);
+            w.push_back(word[i]);
+  
+           ++i;
+        }
+        for(int i=0;i<freq.size();++i) {
+            ans += to_string(freq[i]) + w[i];
+        }
+
+        return ans;
+        
+    }
+};
