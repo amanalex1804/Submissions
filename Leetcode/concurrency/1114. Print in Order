@@ -1,0 +1,43 @@
+class Foo {
+
+private :
+
+int chance = 1 ;
+condition_variable cv;
+mutex mtx;
+
+public:
+    Foo() {
+        chance = 1;
+    }
+
+    void first(function<void()> printFirst) {
+  
+        // printFirst() outputs "first". Do not change or remove this line.
+        printFirst();
+
+        chance = 2;
+        cv.notify_all();
+    }
+
+    void second(function<void()> printSecond) {
+         unique_lock<mutex> lock(mtx);
+        cv.wait(lock, [this]{return chance==2;});
+        
+        // printSecond() outputs "second". Do not change or remove this line.
+        printSecond();
+        chance = 3;
+        cv.notify_all();
+
+    }
+
+    void third(function<void()> printThird) {
+                unique_lock<mutex> lock(mtx);
+        cv.wait(lock, [this]{return chance==3;});
+        
+        // printThird() outputs "third". Do not change or remove this line.
+        printThird();
+              chance = 4;
+        cv.notify_all();
+    }
+};
