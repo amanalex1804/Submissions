@@ -1,0 +1,78 @@
+class FizzBuzz {
+private:
+    int n;
+    condition_variable cv;
+    mutex mtx;
+    atomic<int> cnt;
+
+public:
+    FizzBuzz(int n) {
+        this->n = n;
+        cnt = 1;
+    }
+
+    // printFizz() outputs "fizz".
+    void fizz(function<void()> printFizz) {
+        while(cnt<=n){
+            cout<<"fizz"<<cnt<<endl;
+            unique_lock<mutex>lock(mtx);
+            if(cnt%3==0  and cnt%5!=0  and cnt<=n){
+                printFizz();
+            cnt++;
+            }
+            
+            cout<<"fizzR"<<cnt<<endl;
+
+        }
+        
+    }
+
+    // printBuzz() outputs "buzz".
+    void buzz(function<void()> printBuzz) {
+         while(cnt<=n){
+             cout<<"buzz"<<cnt<<endl;
+            unique_lock<mutex>lock(mtx);
+          if(cnt%5==0 and cnt%3!=0 and cnt<=n){
+                printBuzz();
+            cnt++;
+            }
+       
+           cout<<"buzzR"<<cnt<<endl;
+
+        }
+        
+    }
+
+    // printFizzBuzz() outputs "fizzbuzz".
+	void fizzbuzz(function<void()> printFizzBuzz) {
+        while(cnt<=n){
+                         cout<<"fizzbuzz"<<cnt<<endl;
+
+            unique_lock<mutex>lock(mtx);
+              if(cnt%15==0 and cnt<=n){
+                printFizzBuzz();
+            cnt++;
+            }
+      
+                                     cout<<"fizzbuzzR"<<cnt<<endl;
+
+        }
+        
+    }
+
+    // printNumber(x) outputs "x", where x is an integer.
+    void number(function<void(int)> printNumber) {
+         while(cnt<=n) {
+            unique_lock<mutex>lock(mtx);
+                                     cout<<"printNumber"<<cnt<<endl;
+
+          if(cnt%5!=0 and cnt%3!=0 and cnt<=n){
+                printNumber(cnt);
+            cnt++;
+            }                         
+
+
+        }
+        
+    }
+};
