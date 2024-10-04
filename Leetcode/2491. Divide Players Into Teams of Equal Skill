@@ -1,0 +1,33 @@
+class Solution {
+    public long dividePlayers(int[] skill) {
+
+        Arrays.sort(skill);
+
+        int l = skill.length;
+
+        if(l==1) {
+            return -1;
+        }
+
+        int i=0, j = skill.length-1;
+
+        long pdt = 0;
+        int val = skill[i]+skill[j], ans =-1;
+
+        while(i<j) {
+            int sum = skill[i] + skill[j];
+          //  System.out.println(sum + " "+ skill[i]+ " " + skill[j] + " "+ val);
+            if(sum==val) {
+                pdt+= (long)(skill[i]*skill[j]);
+            } else{
+                return -1;
+            }
+            ++i;
+            --j;
+        }
+
+
+        return pdt;
+        
+    }
+}
