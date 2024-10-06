@@ -1,0 +1,63 @@
+class Solution {
+    public boolean areSentencesSimilar(String sentence1, String sentence2) {
+
+        // // sentence 1 represent the longer string
+        // if(sentence1.length()<sentence2.length()) {
+        //     String tmp = sentence1;
+        //     sentence1 = sentence2;
+        //     sentence2 = tmp;
+        // }
+
+        String[] words1 = sentence1.split("\\s+");
+        String[] words2 = sentence2.split("\\s+");
+
+        if(words1.length<words2.length) {
+            String [] tmp = words1;
+            words1 = words2;
+            words2 = tmp;
+        }
+
+           int l1 = words1.length;
+        int l2 = words2.length;
+
+        int i1=0, j1= l1-1; 
+        int i2=0, j2=l2-1; //smaller 
+        boolean flag = false;
+        while(i2<j2 && i1<j1) {
+            flag = false;
+            //     System.out.println(i1+" "+words1[i1] + " "+j1 + " "+ words1[j1]);
+            //  System.out.println(i2+" "+words2[i2] + " "+j2 + " "+ words2[j2]);
+
+            if(words1[i1].equals(words2[i2])) {
+                ++i1;
+                ++i2;
+                flag = true;
+            }
+
+          if(words1[j1].equals(words2[j2])) {
+                --j1;
+                --j2;
+                flag = true;
+            }
+
+            if(!flag) {
+                return false;
+            }
+        }
+
+    
+        // System.out.println(i1+ " "+j1 + " ");
+        //      System.out.println(i2+" "+j2 + " ");
+        
+
+        if(i2==j2 && i2>=0 && i2<l2 && !words2[i2].equals(words1[i1]) && !words2[i2].equals(words1[j1])){
+            return false;
+        }
+        return true;
+
+
+
+
+        
+    }
+}
