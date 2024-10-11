@@ -1,0 +1,97 @@
+class Friend {
+    public int arrival;
+    public int leave;
+    public int id;
+
+    public Friend(int arrival, int leave, int id) {
+        this.arrival = arrival;
+        this.leave = leave;
+        this.id = id;
+    }
+} 
+
+class Order {
+    public int departure;
+    public int chair;
+
+    public Order(int departure, int chair) {
+        this.departure = departure;
+        this.chair = chair;
+    }
+}
+class Solution {
+    
+    public int smallestChair(int[][] times, int targetFriend) {
+
+        int l = times.length;
+        List<Friend> listOfFriends = new ArrayList<>();
+        for(int i=0;i<l;++i){
+            int arr = times[i][0];
+            int leave = times[i][1];
+            Friend frnd = new Friend(arr, leave, i);
+            listOfFriends.add(frnd);
+        }
+
+        Collections.sort(listOfFriends, (f1, f2) -> {
+    
+                int arrComp =  Integer.compare(f1.arrival, f2.arrival);
+                if(arrComp==0){
+                    return Integer.compare(f1.leave, f2.leave);
+                }
+                return arrComp;
+        });
+
+
+
+        PriorityQueue<Order> pq = new PriorityQueue<>((f1, f2) -> {
+             int arrComp =  Integer.compare(f1.departure, f2.departure);
+                if(arrComp==0){
+                    return Integer.compare(f1.chair, f2.chair);
+                }
+                return arrComp;
+        });
+
+        PriorityQueue<Integer> chairOrder = new PriorityQueue<>();
+        for(int i=0;i<=l+2;++i) {
+            chairOrder.add(i);
+        }
+
+        int chair_cnt = 0;
+        for(Friend fn : listOfFriends) {
+
+            int arrival = fn.arrival;
+            // int curr_chair = chair_cnt;
+            // boolean flag = false;
+
+            while(!pq.isEmpty() && arrival>=pq.peek().departure) {
+                             //   System.out.println(" entered + "+pq.peek().departure);
+
+                chairOrder.add(pq.poll().chair);             
+
+                // curr_chair = pq.poll().chair;
+                // flag = true;
+            }
+
+            // if(flag==false) {
+            //   //  System.out.println("Not entered");
+            //     curr_chair = chair_cnt;
+            //     ++chair_cnt;
+            // }
+
+        //    System.out.println(fn.id + " "+ fn.arrival+" "+fn.leave+ " "+curr_chair);
+
+           int curr_chair = chairOrder.poll();
+
+            pq.add(new Order(fn.leave, curr_chair));
+            if(fn.id==targetFriend) {
+                return curr_chair;
+            }
+
+          
+        }  
+
+        return 0;
+
+        
+    }
+}
