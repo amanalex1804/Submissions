@@ -1,0 +1,132 @@
+class SlidingWindow {
+     public HashSet<Integer> window = new HashSet<>();
+     public HashMap<Integer, Integer> idxFreq = new HashMap<>();
+
+     public SlidingWindow () {
+
+     }
+     
+
+    public void add (List<Integer> idxJ) {
+
+        for(Integer dd: idxJ) {
+                window.add(dd);
+                idxFreq.put(dd, idxFreq.getOrDefault(dd, 0)+1);
+            }
+
+    } 
+
+      public void remove (List<Integer> idxI) {
+
+        for(Integer dd: idxI) {
+            int freq = idxFreq.get(dd);
+            --freq;
+            if(freq==0) {
+                window.remove(dd);
+            }
+            idxFreq.put(dd, freq);
+        }
+    } 
+
+    public boolean isValid(int l) {
+
+        if(window.size()==l){
+            return true;
+        }
+        return false;
+
+    }
+
+
+
+}
+
+class Solution {
+    public int[] smallestRange(List<List<Integer>> nums) {
+
+        int l = nums.size();
+        HashMap<Integer, List<Integer> > index = new HashMap<>();
+
+        TreeSet<Integer> distinct = new TreeSet<>();
+
+        for(int i=0;i<l;++i) {
+            List<Integer> curr = nums.get(i);
+            for(Integer j: curr) {
+                insertToMap(index, j, i+1);
+                distinct.add(j);
+            }
+        }
+
+        List<Integer> disList = new ArrayList<>();
+        for(int dis : distinct) {
+            disList.add(dis);
+        }
+
+        return slidingWindow(index, disList, l);
+
+    
+
+    }
+
+    public void insertToMap(HashMap<Integer, List<Integer> > index, int key, int val) {
+
+        if(!index.containsKey(key)) {
+            index.put(key, new ArrayList<>());
+        }
+        index.get(key).add(val);
+    }
+
+
+    public int[] slidingWindow(HashMap<Integer, List<Integer> > idx, List<Integer> nums, int wL) {
+       
+
+        int i=0,l=-1, r =-1, mxLen = 999999;
+        SlidingWindow algo = new SlidingWindow();
+
+        // for(Integer ii: nums) {
+        //     System.out.println(ii + " " + idx.get(ii) + " "+wL);
+        // }
+
+
+        for(int j=0;j<nums.size();++j) {
+
+             List<Integer> idxJ = idx.get(nums.get(j));
+            algo.add(idxJ);  
+            
+            if(algo.isValid(wL)) {
+              //  System.out.println(" Voilaa " + i + " "+j);
+                //  if(j-i<mxLen) {
+                //     l = nums.get(i);
+                //     r = nums.get(j);
+                //     mxLen = j-i;
+                // }
+
+                while(i<=j && algo.isValid( wL)) {
+                    List<Integer> idxI = idx.get(nums.get(i));
+                    algo.remove(idxI);
+                // System.out.println(" 2nd Voilaa " + i + " "+j);
+
+                if(nums.get(j)-nums.get(i)<mxLen) {
+                    l = nums.get(i);
+                    r = nums.get(j);
+                    mxLen = r-l;
+                }
+                    ++i;
+                }
+
+
+            }
+
+           
+        }
+
+        int[] ans = new int[2];
+        ans[0] = l;
+        ans[1] = r;
+        return ans;
+    }
+
+
+
+
+}
