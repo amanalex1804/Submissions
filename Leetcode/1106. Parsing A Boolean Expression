@@ -1,0 +1,100 @@
+class DS {
+
+    Stack<Character> stack;
+
+    public DS() {
+        stack = new Stack<>();
+    }
+
+    public void add(char c) {
+        stack.add(c);
+    }
+
+
+
+
+
+}
+
+class Solution {
+
+
+    public boolean parseBoolExpr(String str) {
+
+        Stack<Character> stack = new Stack<>();
+
+        for(int i=0;i<str.length(); ++i) {
+            if(str.charAt(i)==',' || str.charAt(i)=='"') {
+                continue;
+            }
+
+            if(str.charAt(i)!=')') {
+                stack.add(str.charAt(i));
+                continue;
+            }
+
+            List<Character> tmp = new ArrayList<>();
+            
+          //  System.out.println("What is "+ str.charAt(i) + " --" + stack.size());
+            while(!stack.isEmpty()) {
+            
+                char ccc = stack.pop();
+                       //     System.out.println("Dude is "+ ccc);
+
+                if(ccc=='('){
+                    break;
+                }            
+
+
+                 tmp.add(ccc);
+            }
+
+             char fin = getFinal(tmp, stack.pop());
+             stack.add(fin);
+        } 
+
+        if(stack.pop()=='t') {
+            return true;
+        }
+
+        return false;
+        
+    }
+
+    public Character getFinal(List<Character> tmpC, char operator) {
+
+        if(tmpC.size()<=0) {
+            return null;
+        }
+
+        List<Boolean> tmp = new ArrayList<>();
+        for(char c: tmpC) {
+            if(c=='t'){
+                tmp.add(true);
+            } else {
+                tmp.add(false);
+            }
+        }
+
+        
+        Boolean fin = tmp.get(0);
+
+        if(operator=='!') {
+            fin = !fin;
+        }
+
+        for(int i=1;i<tmp.size();++i) {
+            if(operator=='&') {
+                fin = fin & tmp.get(i);
+            } else {
+                fin = fin | tmp.get(i);
+            }
+        }
+
+        if(fin==true) {
+            return 't';
+        } else {
+            return 'f';
+        }
+    }
+}
